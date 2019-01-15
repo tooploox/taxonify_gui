@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>DataModel.qml</file>
+    </qresource>
+    <qresource prefix="/sample">
+        <file>sample_images/5.jpeg</file>
+        <file>sample_images/10.jpeg</file>
+        <file>sample_images/3.jpeg</file>
+        <file>sample_images/4.jpeg</file>
+        <file>sample_images/16.jpeg</file>
+        <file>sample_images/15.jpeg</file>
+        <file>sample_images/11.jpeg</file>
+        <file>sample_images/13.jpeg</file>
+        <file>sample_images/12.jpeg</file>
+        <file>sample_images/8.jpeg</file>
+        <file>sample_images/2.jpeg</file>
+        <file>sample_images/1.jpeg</file>
+        <file>sample_images/9.jpeg</file>
+        <file>sample_images/7.jpeg</file>
+        <file>sample_images/0.jpeg</file>
+        <file>sample_images/6.jpeg</file>
+        <file>sample_images/14.jpeg</file>
+    </qresource>
+</RCC>
