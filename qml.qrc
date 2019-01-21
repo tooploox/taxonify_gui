@@ -3,6 +3,12 @@
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>DataModel.qml</file>
+        <file>FilteringPane.qml</file>
+        <file>AnnotationPane.qml</file>
+        <file>ImageView.qml</file>
+        <file>SortingControls.qml</file>
+        <file>TaxonomyFilter.qml</file>
+        <file>ImageViewAndControls.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
