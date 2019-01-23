@@ -29,3 +29,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 OTHER_FILES = README.md
+
+HEADERS += \
+    components/RequestError.h \
+    components/AquascopeComponentsGlobal.h
+
+DISTFILES += \
+    components/qml/requests.js
