@@ -3,11 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 Rectangle {
-
     border.color: 'lightgray'
-
-    Layout.preferredWidth: 300
-    Layout.fillHeight: true
 
     ScrollView {
 
@@ -80,13 +76,13 @@ Rectangle {
                 Layout.fillWidth: true
 
                 label: CheckBox {
-                    id: checkBox2
+                    id: taxonomyCkbx
                     checked: true
-                    text: qsTr("Taxonometry")
+                    text: qsTr("Taxonomy")
                 }
 
                 TaxonomyFilter {
-                    enabled: checkBox2.checked
+                    enabled: taxonomyCkbx.checked
                 }
             }
 
@@ -95,14 +91,14 @@ Rectangle {
                 Layout.fillWidth: true
 
                 label: CheckBox {
-                    id: checkBox
+                    id: livenessCkbx
                     checked: true
                     text: qsTr("Liveness")
                 }
 
                 ColumnLayout {
                     anchors.fill: parent
-                    enabled: checkBox.checked
+                    enabled: livenessCkbx.checked
                     CheckBox { text: qsTr("Alive") }
                     CheckBox { text: qsTr("Dead") }
                     CheckBox { text: qsTr("Not specified") }
