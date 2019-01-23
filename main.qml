@@ -15,14 +15,20 @@ ApplicationWindow {
     RowLayout {
         anchors.fill: parent
 
-        FilteringPane {}
+        FilteringPane {
+            Layout.preferredWidth: 300
+            Layout.fillHeight: true
+        }
 
         ImageViewAndControls {
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
 
-        AnnotationPane {}
+        AnnotationPane {
+            Layout.preferredWidth: 300
+            Layout.fillHeight: true
+        }
     }
 }
 

@@ -1,17 +1,12 @@
 import QtQuick 2.12
 
 GridView {
-    id: grid
-
-    cellWidth: 100 + tileSizeSlider.value * 150
-    cellHeight: 100 + tileSizeSlider.value * 150
-
     model: itemsModel
 
     delegate: Item {
 
-        width: grid.cellWidth
-        height: grid.cellWidth
+        width: cellWidth
+        height: cellWidth
 
         Rectangle {
 

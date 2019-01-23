@@ -7,9 +7,10 @@ ColumnLayout {
     SortingControls {}
 
     ImageView {
-        id: grid
-
         clip: true
+
+        cellWidth: 100 + tileSizeSlider.value * 150
+        cellHeight: 100 + tileSizeSlider.value * 150
 
         Layout.fillWidth: true
         Layout.fillHeight: true
