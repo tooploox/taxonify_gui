@@ -1,5 +1,4 @@
 import QtQuick 2.7
-import Application 1.0
 
 // This component enables performing requests for external data in QML-style.
 QtObject {

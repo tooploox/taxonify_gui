@@ -35,4 +35,4 @@ HEADERS += \
     components/AquascopeComponentsGlobal.h
 
 DISTFILES += \
-    components/qml/requests.js
+    components/requests.js
