@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC>
+    <qresource prefix="/">
+        <file>DataAccess.qml</file>
+        <file>Request.qml</file>
+        <file>requests.js</file>
+    </qresource>
+</RCC>

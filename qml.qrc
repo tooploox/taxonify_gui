@@ -9,9 +9,6 @@
         <file>SortingControls.qml</file>
         <file>TaxonomyFilter.qml</file>
         <file>ImageViewAndControls.qml</file>
-        <file>components/Requests.qml</file>
-        <file>components/DataAccess.qml</file>
-        <file>components/requests.js</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>

@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
-import "components/requests.js" as Req
+import "qrc:/requests.js" as Req
 
 import Application 1.0 as App
 
@@ -34,6 +34,15 @@ ApplicationWindow {
             Layout.preferredWidth: 300
             Layout.fillHeight: true
         }
+    }
+
+    DataAccess {
+        id: dataAccess
+
+//         Component.onCompleted: {
+//            const serverAddress = App.Configuration.serverAddress()
+//            server = new Req.Server(serverAddress)
+//        }
     }
 }
 

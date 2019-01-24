@@ -82,7 +82,6 @@ function parseResponse(parameters, readyRequest) {
         message = 'Network error.'
     } else {
         try {
-            console.log("Normal execution")
             json = JSON.parse(text)
             if(json.message)
                 message = json.message

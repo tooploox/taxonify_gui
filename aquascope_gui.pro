@@ -15,7 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+    components/components_qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -33,6 +34,3 @@ OTHER_FILES = README.md
 HEADERS += \
     components/RequestError.h \
     components/AquascopeComponentsGlobal.h
-
-DISTFILES += \
-    components/requests.js
