@@ -3,9 +3,7 @@ import QtQuick.Layouts 1.12
 
 GroupBox {
     id: gb
-    property bool fillWidth: true
     property bool checkBoxChecked: true
-    Layout.fillWidth: fillWidth
 
     label: CheckBox {
         id: livenessCkbx
