@@ -29,7 +29,7 @@ Rectangle {
             }
         }
 
-        LivenessGroupBox  {}
+        LivenessFilter { }
 
         Item {
             Layout.fillWidth: true
