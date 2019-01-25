@@ -10,6 +10,7 @@
         <file>TaxonomyFilter.qml</file>
         <file>ImageViewAndControls.qml</file>
         <file>LivenessFilter.qml</file>
+        <file>taxonomy_hierarchy.txt</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
