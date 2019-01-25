@@ -13,7 +13,7 @@ ColumnLayout {
     Repeater {
         id: rptr
         model: 0
-        property int specifiedTill: 0
+        property int specifiedTill: 0 // index of last item with enabled options
 
         ComboBox {
             editable: false
@@ -47,14 +47,12 @@ ColumnLayout {
         }
     }
 
-    Component.onCompleted: {
-        var rawFile = new XMLHttpRequest();
-        rawFile.open("GET", "file:///home/stafik/proto-aquascope/taxonomy_hierarchy.txt", false);
-        rawFile.onreadystatechange = function ()
-        {
-            nodes[0] = JSON.parse(rawFile.responseText);
+    Connections {
+        target: taxonomyModel
+
+        onTreeLoaded: {
+            nodes[0] = taxonomyModel.tree
+            rptr.model = taxonomyDepth
         }
-        rawFile.send(null);
-        rptr.model = taxonomyDepth
     }
 }
