@@ -9,6 +9,7 @@
         <file>SortingControls.qml</file>
         <file>TaxonomyFilter.qml</file>
         <file>ImageViewAndControls.qml</file>
+        <file>LivenessGroupBox.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
