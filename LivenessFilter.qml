@@ -3,11 +3,11 @@ import QtQuick.Layouts 1.12
 
 GroupBox {
     id: gb
-    property bool checkBoxChecked: true
+    property alias checkBoxChecked: livenessCkbx.checked
 
     label: CheckBox {
         id: livenessCkbx
-        checked: gb.checkBoxChecked
+        checked: true
         text: qsTr("Liveness")
     }
 
