@@ -86,7 +86,9 @@ Rectangle {
                 }
             }
 
-            LivenessFilter {}
+            LivenessFilter {
+                Layout.fillWidth: true
+            }
 
             Item {
                 Layout.fillWidth: true
