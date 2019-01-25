@@ -4,12 +4,12 @@ import QtQuick.Layouts 1.12
 GroupBox {
     id: gb
     property bool fillWidth: true
-    property bool checked: true
+    property bool checkBoxChecked: true
     Layout.fillWidth: fillWidth
 
     label: CheckBox {
         id: livenessCkbx
-        checked: gb.checked
+        checked: gb.checkBoxChecked
         text: qsTr("Liveness")
     }
 
