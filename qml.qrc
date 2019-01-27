@@ -30,4 +30,8 @@
         <file>sample_images/6.jpeg</file>
         <file>sample_images/14.jpeg</file>
     </qresource>
+    <qresource prefix="/network">
+        <file>Request.qml</file>
+        <file>requests.js</file>
+    </qresource>
 </RCC>
