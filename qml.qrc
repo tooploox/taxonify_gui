@@ -33,5 +33,6 @@
     <qresource prefix="/network">
         <file>Request.qml</file>
         <file>requests.js</file>
+        <file>DataAccess.qml</file>
     </qresource>
 </RCC>
