@@ -34,19 +34,19 @@ QtObject {
 
             onTriggered: {
                 if(internal.refresh_token) {
-                    internal.refresh(internal.refresh_token)
+                    internal.refresh()
                 }
             }
         }
 
-        function refresh(refresh_token) {
+        function refresh() {
             var req = {
                 handler: '/user/refresh',
                 method: 'POST',
                 headers: [internal.refresh_token_header]
             }
             return server.send(req, function(res) {
-                if(res.body !== null) {
+                if(res.status >= 200 && res.status < 300 && res.body !== null) {
                     internal.access_token = res.body.access_token
                 }
             })
@@ -70,7 +70,7 @@ QtObject {
         })
     }
 
-    function openUpload(projectId, cb) {
+    function openUpload(cb) {
         var req = {
             handler: '/upload/create',
             method: 'POST',
