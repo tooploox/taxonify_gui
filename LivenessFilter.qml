@@ -23,7 +23,7 @@ GroupBox {
             model: [qsTr("Alive"), qsTr("Dead"), qsTr("Not specified")]
 
             delegate: Loader {
-                sourceComponent: isAnnotationMode ? checkBox : radioBtn
+                sourceComponent: isAnnotationMode ?  radioBtn : checkBox
 
                 Component {
                     id: checkBox
