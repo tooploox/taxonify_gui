@@ -2,7 +2,13 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
-RowLayout {
+
+FocusScope {
+    id: root
+
+    height: dateTimeRow.height
+    width: dateTimeRow.width
+
     property color dateTextColor: "black"
     property alias description: labelText.text
 
@@ -12,21 +18,26 @@ RowLayout {
                                     locale, textInput.text, "yyyy-MM-dd")
     readonly property bool empty: (textInput.text === '--')
 
-    Text {
-        id: labelText
+    RowLayout {
+        id: dateTimeRow
 
-        color: enabled ? "black" : "grey"
-        Layout.preferredWidth: 80
-    }
+        Text {
+            id: labelText
 
-    TextInput {
-        id: textInput
+            color: enabled ? "black" : "grey"
+            Layout.preferredWidth: 80
+        }
 
-        color: enabled ? parent.dateTextColor : "gray"
-        inputMask: "9999-99-99;_"
+        TextInput {
+            id: textInput
+            color: enabled ? root.dateTextColor : "gray"
+            inputMask: "9999-99-99;_"
 
-        ToolTip.visible: activeFocus
-        ToolTip.delay: 200
-        ToolTip.text: qsTr("yyyy-mm-dd")
+            ToolTip.visible: activeFocus
+            ToolTip.delay: 200
+            ToolTip.text: qsTr("yyyy-mm-dd")
+
+            focus: true
+        }
     }
 }

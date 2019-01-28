@@ -5,12 +5,14 @@ Column {
                          (startDateField.empty && endDateField.valid) ||
                          (startDateField.valid && endDateField.valid &&
                           (endDateField.date - startDateField.date >= 0))
+
     DateTextField {
         id: startDateField
 
         description: qsTr("Start date:")
         enabled: parent.enabled
         dateTextColor: (parent.valid || empty) ? 'black' : 'red'
+        KeyNavigation.tab: endDateField
     }
 
     DateTextField {
@@ -19,5 +21,6 @@ Column {
         description: qsTr("End date:")
         enabled: parent.enabled
         dateTextColor: (parent.valid || empty) ? 'black' : 'red'
+        KeyNavigation.tab: startDateField
     }
 }
