@@ -16,27 +16,26 @@ ColumnLayout {
         property int specifiedTill: 0 // index of last item with enabled options
 
         ComboBox {
-            editable: false
             Layout.fillWidth: true
             model: getModel()
             property bool completed: false
 
             function getModel() {
                 return index > rptr.specifiedTill ?
-                            [root.notSpecifiedStr] :
-                            [root.notSpecifiedStr].concat(Object.keys(nodes[index]))
+                            [notSpecifiedStr] :
+                            [notSpecifiedStr, ...Object.keys(nodes[index])]
             }
 
             function update() {
                 model = getModel()
-                if (model[currentIndex] !== root.notSpecifiedStr)
-                    nodes[index+1] = nodes[index][model[currentIndex]]
-                if (completed && index+1 < taxonomyDepth)
-                    rptr.itemAt(index+1).update()
+                if (model[currentIndex] !== notSpecifiedStr)
+                    nodes[index + 1] = nodes[index][model[currentIndex]]
+                if (completed && index + 1 < taxonomyDepth)
+                    rptr.itemAt(index + 1).update()
             }
 
             onCurrentIndexChanged: {
-                if (model[currentIndex] === root.notSpecifiedStr) {
+                if (model[currentIndex] === notSpecifiedStr) {
                     rptr.specifiedTill = Math.min(rptr.specifiedTill, index)
                 } else if (rptr.specifiedTill === index) {
                     rptr.specifiedTill++
