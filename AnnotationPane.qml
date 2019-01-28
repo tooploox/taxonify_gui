@@ -31,6 +31,7 @@ Rectangle {
 
         LivenessFilter {
             Layout.fillWidth: true
+            isAnnotationMode: true
         }
 
         Item {
