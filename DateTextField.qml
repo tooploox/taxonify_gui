@@ -19,14 +19,18 @@ RowLayout {
         Layout.preferredWidth: 80
     }
 
-    TextInput {
+    TextField {
         id: textInput
 
         color: enabled ? parent.dateTextColor : "gray"
         inputMask: "9999-99-99;_"
 
-        ToolTip.visible: activeFocus
+        horizontalAlignment: TextInput.AlignHCenter
+
+        ToolTip.visible: cursorVisible
         ToolTip.delay: 200
         ToolTip.text: qsTr("yyyy-mm-dd")
+        ToolTip.toolTip.x: textInput.width + 2
+        ToolTip.toolTip.y: (textInput.height - ToolTip.toolTip.height) / 2
     }
 }
