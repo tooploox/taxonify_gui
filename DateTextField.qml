@@ -6,8 +6,8 @@ import QtQuick.Layouts 1.12
 FocusScope {
     id: root
 
-    height: dateTimeRow.height
-    width: dateTimeRow.width
+    height: dateInputRow.height
+    width: dateInputRow.width
 
     property color dateTextColor: "black"
     property alias description: labelText.text
@@ -19,7 +19,7 @@ FocusScope {
     readonly property bool empty: (textInput.text === '--')
 
     RowLayout {
-        id: dateTimeRow
+        id: dateInputRow
 
         Text {
             id: labelText

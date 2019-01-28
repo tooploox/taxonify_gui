@@ -45,6 +45,8 @@ Rectangle {
                     }
 
                 }
+
+
             }
 
             GroupBox {
@@ -55,11 +57,15 @@ Rectangle {
                     id: dateCkbx
                     checked: true
                     text: qsTr("Date")
+                    KeyNavigation.tab: dateCkbx.checked ?
+                                           dateFilter : taxonomyCkbx
                 }
 
                 DateFilter {
+                    id: dateFilter
                     anchors.fill: parent
                     enabled: dateCkbx.checked
+                    onTabNavigateTo: taxonomyCkbx
                 }
             }
 

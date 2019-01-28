@@ -1,26 +1,42 @@
 import QtQuick 2.0
 
-Column {
-    property bool valid: (startDateField.valid && endDateField.empty) ||
-                         (startDateField.empty && endDateField.valid) ||
-                         (startDateField.valid && endDateField.valid &&
-                          (endDateField.date - startDateField.date >= 0))
+FocusScope {
+    id: root
 
-    DateTextField {
-        id: startDateField
+    height: dateColumn.height
+    width: dateColumn.width
+    implicitWidth: dateColumn.implicitWidth
+    implicitHeight: dateColumn.implicitHeight
 
-        description: qsTr("Start date:")
-        enabled: parent.enabled
-        dateTextColor: (parent.valid || empty) ? 'black' : 'red'
-        KeyNavigation.tab: endDateField
-    }
+    property alias valid: dateColumn.valid
+    property alias onTabNavigateTo: dateColumn.onTabNavigateTo
 
-    DateTextField {
-        id: endDateField
+    Column {
+        id: dateColumn
 
-        description: qsTr("End date:")
-        enabled: parent.enabled
-        dateTextColor: (parent.valid || empty) ? 'black' : 'red'
-        KeyNavigation.tab: startDateField
+        property bool valid: (startDateField.valid && endDateField.empty) ||
+                             (startDateField.empty && endDateField.valid) ||
+                             (startDateField.valid && endDateField.valid &&
+                              (endDateField.date - startDateField.date >= 0))
+        property var onTabNavigateTo: null
+
+        DateTextField {
+            id: startDateField
+
+            focus: true
+            description: qsTr("Start date:")
+            enabled: parent.enabled
+            dateTextColor: (parent.valid || empty) ? 'black' : 'red'
+            KeyNavigation.tab: endDateField
+        }
+
+        DateTextField {
+            id: endDateField
+
+            description: qsTr("End date:")
+            enabled: parent.enabled
+            dateTextColor: (parent.valid || empty) ? 'black' : 'red'
+            KeyNavigation.tab: onTabNavigateTo
+        }
     }
 }
