@@ -85,11 +85,9 @@
                     "Desmidiales": {
                         "Desmidiaceae": {
                             "Cosmarium": {
-                                "null": {}
+                                "snull": {}
                             },
-                            "Staurastrum": {
-                                "null": {}
-                            }
+                            "Staurastrum": {}
                         }
                     }
                 },
@@ -152,15 +150,6 @@
                         "Nostocaceae": {
                             "Anabaena": {
                                 "sp": {}
-                            }
-                        }
-                    }
-                },
-                "null": {
-                    "null": {
-                        "null": {
-                            "null": {
-                                "null": {}
                             }
                         }
                     }
