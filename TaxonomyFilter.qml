@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import "network/requests.js" as Requests
 
 ColumnLayout {
     id: root
@@ -47,19 +48,10 @@ ColumnLayout {
     }
 
     Component.onCompleted: {
-        const path = "qrc:/taxonomy_hierarchy.json"
-        const request = new XMLHttpRequest
-        request.open('GET', path, false)
-        request.send(null)
-
-        if (request.status === 200) {
-            try {
-                nodes[0] = JSON.parse(request.responseText)
-                rptr.model = taxonomyDepth
-            } catch(e) {
-                console.warn('Error when reading json file ', path)
-                console.log(e)
-            }
+        let tree = Requests.readJsonFromLocalFileSync("qrc:/taxonomy_hierarchy.json")
+        if (tree) {
+            nodes[0] = tree
+            rptr.model = taxonomyDepth
         }
     }
 }
