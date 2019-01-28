@@ -12,10 +12,6 @@ ApplicationWindow {
         id: itemsModel
     }
 
-    TaxonomyModel {
-        id: taxonomyModel
-    }
-
     RowLayout {
         anchors.fill: parent
 

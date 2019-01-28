@@ -46,12 +46,20 @@ ColumnLayout {
         }
     }
 
-    Connections {
-        target: taxonomyModel
+    Component.onCompleted: {
+        const path = "qrc:/taxonomy_hierarchy.json"
+        const request = new XMLHttpRequest
+        request.open('GET', path, false)
+        request.send(null)
 
-        onTreeLoaded: {
-            nodes[0] = taxonomyModel.tree
-            rptr.model = taxonomyDepth
+        if (request.status === 200) {
+            try {
+                nodes[0] = JSON.parse(request.responseText)
+                rptr.model = taxonomyDepth
+            } catch(e) {
+                console.warn('Error when reading json file ', path)
+                console.log(e)
+            }
         }
     }
 }

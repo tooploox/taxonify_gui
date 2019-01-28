@@ -11,7 +11,6 @@
         <file>ImageViewAndControls.qml</file>
         <file>LivenessFilter.qml</file>
         <file>taxonomy_hierarchy.json</file>
-        <file>TaxonomyModel.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
