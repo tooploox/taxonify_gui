@@ -28,7 +28,7 @@ QtObject {
     signal called
 
     // invoked when request is successfully processed
-    // res - request object
+    // res - response object
     // details - object with details of response, see requests.js parseResponse
     signal success(var res, var details)
 
