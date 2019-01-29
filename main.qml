@@ -23,9 +23,17 @@ ApplicationWindow {
         ImageViewAndControls {
             Layout.fillWidth: true
             Layout.fillHeight: true
+
+            filter: ((criteria) => {
+                 return (item) => {
+                     return criteria.dead === item.dead
+                 }
+
+            })(annotationPane.criteria)
         }
 
         AnnotationPane {
+            id: annotationPane
             Layout.preferredWidth: 300
             Layout.fillHeight: true
         }

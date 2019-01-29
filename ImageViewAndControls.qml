@@ -3,10 +3,12 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 ColumnLayout {
-
     SortingControls {}
 
+    property alias filter: imageView.filter
+
     ImageView {
+        id: imageView
         clip: true
 
         cellWidth: 100 + tileSizeSlider.value * 150
