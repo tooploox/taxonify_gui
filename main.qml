@@ -12,8 +12,8 @@ ApplicationWindow {
     height: 480 * 1.5
     title: qsTr("Aquascope Data Browser")
     property string defaultServerAddress: 'http://localhost'
-    property string defaultUsername: 'aquascopeuser'
-    property string defaultPassword: 'faea8436'
+    property string defaultUsername: 'aq_user'
+    property string defaultPassword: 'hardpass'
 
     function getServerAddress() {
         var applicationArgs = Qt.application.arguments
@@ -78,7 +78,7 @@ ApplicationWindow {
         return defaultPassword
     }
 
-    ListModel { id: itemsModel }
+
 
     RowLayout {
         anchors.fill: parent
@@ -103,6 +103,10 @@ ApplicationWindow {
                  }
 
             })(annotationPane.criteria)
+
+            model: ListModel {
+                id: itemsModel
+            }
         }
 
         AnnotationPane {

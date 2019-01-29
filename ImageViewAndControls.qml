@@ -7,9 +7,11 @@ ColumnLayout {
     SortingControls {}
 
     property alias filter: imageView.filter
+    property alias model: imageView.model
 
     ImageView {
         id: imageView
+
         clip: true
 
         cellWidth: 100 + tileSizeSlider.value * 150
