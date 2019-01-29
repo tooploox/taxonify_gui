@@ -28,9 +28,9 @@ ApplicationWindow {
                  return (item) => {
                      for (let c in criteria) {
                          if (item[c] !== criteria[c])
-                            return true
+                            return false
                      }
-                     return false
+                     return true
                  }
 
             })(annotationPane.criteria)
