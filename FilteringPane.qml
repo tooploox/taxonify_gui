@@ -2,8 +2,29 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
+import "qrc:/network"
+
 Rectangle {
     border.color: 'lightgray'
+
+    property var dataAccess
+
+    Request {
+        id: applyFiltersReq
+        handler: dataAccess.applyFilters
+
+        onSuccess: {
+            console.log("hurray")
+        }
+
+        onError: {
+            console.log(details.message)
+        }
+
+        onFinished: {
+            console.log("finished")
+        }
+    }
 
     ScrollView {
 
@@ -100,6 +121,10 @@ Rectangle {
                 text: 'Apply filters'
 
                 Layout.alignment: Qt.AlignCenter
+
+                onClicked: {
+
+                }
             }
         }
     }   

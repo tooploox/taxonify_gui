@@ -1,6 +1,10 @@
 import QtQuick 2.12
 
+import "qrc:/network"
+
 GridView {
+    property var dataAccess
+
     model: itemsModel
 
     delegate: Item {
