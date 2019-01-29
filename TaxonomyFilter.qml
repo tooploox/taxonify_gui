@@ -11,6 +11,8 @@ ColumnLayout {
     property var nodes: new Array(taxonomyDepth)
     property string notSpecifiedStr: "Not specified"
 
+    property alias container: rptr
+
     Repeater {
         id: rptr
         model: 0
@@ -20,6 +22,7 @@ ColumnLayout {
             Layout.fillWidth: true
             model: getModel()
             property bool completed: false
+            readonly property string value: model[currentIndex]
 
             function getModel() {
                 return index > rptr.specifiedTill ?
@@ -44,7 +47,9 @@ ColumnLayout {
                 update()
                 completed = true
             }
+
         }
+
     }
 
     Component.onCompleted: {

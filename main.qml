@@ -92,15 +92,11 @@ ApplicationWindow {
         ImageViewAndControls {
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            dataAccess: root.dataAccess
         }
 
         AnnotationPane {
             Layout.preferredWidth: 300
             Layout.fillHeight: true
-
-            dataAccess: root.dataAccess
         }
     }
 
@@ -127,7 +123,6 @@ ApplicationWindow {
         handler: dataAccess.filterItems
 
         onSuccess: {
-            console.log('we are here')
             itemsModel.clear()
             for (let item of res['items']) {
                 const modelItem = {
@@ -167,7 +162,7 @@ ApplicationWindow {
         }
 
         onError: {
-            console.log('error in retrieving data items'+ details.text)
+            console.log('error in retrieving data items. Error: '+ details.text)
         }
     }
 

@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 RowLayout {
+    id: root
     property color dateTextColor: "black"
     property alias description: labelText.text
 
@@ -11,12 +12,15 @@ RowLayout {
     readonly property var date: Date.fromLocaleString(
                                     locale, textInput.text, "yyyy-MM-dd")
     readonly property bool empty: (textInput.text === '--')
+    property string isostring: ''
+    property int deltaMilliseconds: 0
 
     Text {
         id: labelText
 
         color: enabled ? "black" : "grey"
         Layout.preferredWidth: 80
+
     }
 
     TextField {
@@ -32,5 +36,13 @@ RowLayout {
         ToolTip.text: qsTr("yyyy-mm-dd")
         ToolTip.toolTip.x: textInput.width + 2
         ToolTip.toolTip.y: (textInput.height - ToolTip.toolTip.height) / 2
+
+        onEditingFinished: {
+            if (valid) {
+                date.setUTCMilliseconds(deltaMilliseconds)
+                //date.setMilliseconds(deltaMilliseconds)
+                isostring = date.toISOString()
+            }
+        }
     }
 }

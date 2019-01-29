@@ -4,18 +4,23 @@ import QtQuick.Layouts 1.12
 
 ColumnLayout {
     property bool isAnnotationMode: false
-
+    property alias container: rptr
     ButtonGroup { id: radioGroup }
 
     Repeater {
-        model: [qsTr("Alive"), qsTr("Dead"), qsTr("Not specified")]
+        id: rptr
+        model: isAnnotationMode ?
+                   [qsTr("Alive"), qsTr("Dead"), qsTr("Not specified")] :
+                   [qsTr("Alive"), qsTr("Dead")]
 
         delegate: Loader {
             sourceComponent: isAnnotationMode ?  radioBtn : checkBox
-
             Component {
                 id: checkBox
-                CheckBox { text: model.modelData }
+                CheckBox {
+                    id: cb
+                    text: model.modelData
+                }
             }
 
             Component {
