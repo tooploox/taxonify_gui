@@ -7,9 +7,11 @@ ColumnLayout {
     property string value: ''
 
     property var criteria: {
-        return {
-            dead: value === 'Dead'
-        }
+        if (value === "Dead")
+            return { dead: true }
+        else if (value === "Alive")
+            return { dead: false }
+        return { dead: null }
     }
 
     ButtonGroup {
