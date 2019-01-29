@@ -6,9 +6,8 @@ Rectangle {
     border.color: 'lightgray'
 
     property var criteria: {
-        return {
-            dead: livenessfltr.value === 'Dead'
-        }
+        return taxonomyRbtn.checked ? taxonomyfltr.filter : livenessfltr.filter
+
     }
 
     ColumnLayout {
@@ -33,6 +32,7 @@ Rectangle {
             }
 
             TaxonomyFilter {
+                id: taxonomyfltr
                 enabled: taxonomyRbtn.checked
             }
         }
