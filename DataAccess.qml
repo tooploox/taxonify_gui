@@ -80,13 +80,12 @@ QtObject {
         return server.send(req, cb)
     }
 
-    function updateItems(selected_items, update_dict, cb) {
-        /* TODO */
+    function updateItems(updateList, cb) {
         var req = {
             handler: '/items',
             method: 'POST',
             headers: [internal.access_token_header],
-            params: Req.encodeQuery(selected_items)
+            params: updateList
         }
         return server.send(req,cb)
     }
