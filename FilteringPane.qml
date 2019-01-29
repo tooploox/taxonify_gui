@@ -75,8 +75,19 @@ Rectangle {
                 }
             }
 
-            LivenessFilter {
+            GroupBox {
                 Layout.fillWidth: true
+
+                label: CheckBox {
+                    id: livenessCkbx
+                    checked: true
+                    text: qsTr("Liveness")
+                }
+
+                LivenessFilter {
+                    enabled: livenessCkbx.checked
+                    isAnnotationMode: false
+                }
             }
 
             Item {
