@@ -12,6 +12,8 @@ ApplicationWindow {
     height: 480 * 1.5
     title: qsTr("Aquascope Data Browser")
     property string defaultServerAddress: 'http://localhost'
+    property string defaultUsername: 'username'
+    property string defaultPassword: 'password'
 
     function getServerAddress() {
         var applicationArgs = Qt.application.arguments
@@ -36,6 +38,44 @@ ApplicationWindow {
         }
 
         return defaultServerAddress
+    }
+
+    function getUsername() {
+        if(settingsPath) {
+            console.log('settings path:', settingsPath)
+
+            var settingsObj = Req.readJsonFromLocalFileSync(settingsPath)
+
+            if (settingsObj && settingsObj.username) {
+                return settingsObj.username
+            } else {
+                console.log('No "username" field found in settings')
+            }
+
+        } else {
+            console.log('Settings not found. Using default username.')
+        }
+
+        return defaultUsername
+    }
+
+    function getPassword() {
+        if(settingsPath) {
+            console.log('settings path:', settingsPath)
+
+            var settingsObj = Req.readJsonFromLocalFileSync(settingsPath)
+
+            if (settingsObj && settingsObj.password) {
+                return settingsObj.password
+            } else {
+                console.log('No "password" field found in settings')
+            }
+
+        } else {
+            console.log('Settings not found. Using default password.')
+        }
+
+        return defaultPassword
     }
 
     ListModel { id: itemsModel }
@@ -147,8 +187,9 @@ ApplicationWindow {
     Component.onCompleted: {
         var serverAddress = getServerAddress()
         dataAccess.server = new Req.Server(serverAddress)
-
-        loginReq.call('aquascopeuser','faea8436')
+        var username = getUsername()
+        var password = getPassword()
+        loginReq.call(username, password)
     }
 }
 
