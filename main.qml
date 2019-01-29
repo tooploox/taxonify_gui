@@ -99,7 +99,7 @@ ApplicationWindow {
             filter: ((criteria) => {
                  return (item) => {
                      for (let c in criteria) {
-                         if (item[c] !== criteria[c])
+                         if (item.metadata[c] !== criteria[c])
                             return false
                      }
                      return true
@@ -147,34 +147,36 @@ ApplicationWindow {
                 const modelItem = {
                     image: res['urls'][item['_id']],
                     selected: false,
-                    _id: item['_id'],
-                    filename: item['filename'],
-                    extension: item['extension'],
-                    group_id: item['group_id'],
-                    empire: item['empire'],
-                    kingdom: item['kingdom'],
-                    phylum: item['phylum'],
-                    class: item['class'],
-                    order: item['order'],
-                    family: item['family'],
-                    genus: item['genus'],
-                    species: item['species'],
-                    dividing: item['dividing'],
-                    dead: item['dead'],
-                    with_epiphytes: item['with_epiphytes'],
-                    broken: item['broken'],
-                    colony: item['colony'],
-                    eating: item['eating'],
-                    multiple_species: item['multiple_species'],
-                    cropped: item['cropped'],
-                    male: item['male'],
-                    female: item['female'],
-                    juvenile: item['juvenile'],
-                    adult: item['adult'],
-                    with_eggs: item['with_eggs'],
-                    acquisition_time: item['acquisition_time'],
-                    image_width: item['image_width'],
-                    image_height: item['image_height']
+                    metadata: {
+                        _id: item['_id'],
+                        filename: item['filename'],
+                        extension: item['extension'],
+                        group_id: item['group_id'],
+                        empire: item['empire'],
+                        kingdom: item['kingdom'],
+                        phylum: item['phylum'],
+                        class: item['class'],
+                        order: item['order'],
+                        family: item['family'],
+                        genus: item['genus'],
+                        species: item['species'],
+                        dividing: item['dividing'],
+                        dead: item['dead'],
+                        with_epiphytes: item['with_epiphytes'],
+                        broken: item['broken'],
+                        colony: item['colony'],
+                        eating: item['eating'],
+                        multiple_species: item['multiple_species'],
+                        cropped: item['cropped'],
+                        male: item['male'],
+                        female: item['female'],
+                        juvenile: item['juvenile'],
+                        adult: item['adult'],
+                        with_eggs: item['with_eggs'],
+                        acquisition_time: item['acquisition_time'],
+                        image_width: item['image_width'],
+                        image_height: item['image_height']
+                    }
                 }
                 itemsModel.append(modelItem)
             }
