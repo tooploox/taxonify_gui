@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.12
 import "network/requests.js" as Requests
 
 ColumnLayout {
-    id: root
     anchors.fill: parent
 
     property int taxonomyDepth: 8
@@ -23,8 +22,9 @@ ColumnLayout {
 
     Repeater {
         id: rptr
+
         model: 0
-        property int specifiedTill: 0 // index of last item with enabled options
+        property int specifiedTill: 0 // index of first item with "Not specified"
 
         ComboBox {
             Layout.fillWidth: true
