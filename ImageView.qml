@@ -2,8 +2,6 @@ import QtQuick 2.12
 
 GridView {
 
-    model: itemsModel
-
     property var filter: function(item) {
         return false
     }
