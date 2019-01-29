@@ -4,7 +4,6 @@ import QtQuick.Layouts 1.12
 
 Rectangle {
     border.color: 'lightgray'
-    property var dataAccess
 
     property var criteria: {
         return taxonomyRbtn.checked ? taxonomyfltr.criteria : livenessfltr.criteria

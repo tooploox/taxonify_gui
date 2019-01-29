@@ -2,8 +2,6 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
-import "qrc:/network"
-
 Rectangle {
     border.color: 'lightgray'
 
@@ -58,6 +56,7 @@ Rectangle {
                 }
 
                 DateFilter {
+                    id: dateFilter
                     anchors.fill: parent
                     enabled: dateCkbx.checked
                 }
@@ -74,6 +73,7 @@ Rectangle {
                 }
 
                 TaxonomyFilter {
+                    id: taxonomyFilter
                     enabled: taxonomyCkbx.checked
                 }
             }
@@ -88,6 +88,7 @@ Rectangle {
                 }
 
                 LivenessFilter {
+                    id: livenessFilter
                     enabled: livenessCkbx.checked
                     isAnnotationMode: false
                 }
@@ -107,12 +108,58 @@ Rectangle {
                 onClicked: {
                     var filter = {}
                     if (checkBox1.checked) {
-                        filter.filename = fileNameField.text
+                        if (fileNameField.text.length>0) {
+                            filter.filename = fileNameField.text
+                        }
                     }
-                    /*
-                    if (checkBox0.checked) {
-                        filter.
-                    }*/
+                    if (dateCkbx.checked && dateFilter.valid) {
+                        if (!dateFilter.start.empty) {
+                            console.log(dateFilter.start.isostring)
+                            filter.acquisition_time_start = dateFilter.start.isostring
+                        }
+                        if (!dateFilter.end.empty) {
+                            console.log(dateFilter.end.isostring)
+                            filter.acquisition_time_end = dateFilter.end.isostring
+                        }
+                    }
+                    if (taxonomyCkbx.checked) {
+                        if (taxonomyFilter.container.itemAt(0).value !== taxonomyFilter.notSpecifiedStr) {
+                            filter.empire = taxonomyFilter.container.itemAt(0).value
+                        }
+                        if (taxonomyFilter.container.itemAt(1).value !== taxonomyFilter.notSpecifiedStr) {
+                            filter.kingdom = taxonomyFilter.container.itemAt(1).value
+                        }
+                        if (taxonomyFilter.container.itemAt(2).value !== taxonomyFilter.notSpecifiedStr) {
+                            filter.phylum = taxonomyFilter.container.itemAt(2).value
+                        }
+                        if (taxonomyFilter.container.itemAt(3).value !== taxonomyFilter.notSpecifiedStr) {
+                            filter.class = taxonomyFilter.container.itemAt(3).value
+                        }
+                        if (taxonomyFilter.container.itemAt(4).value !== taxonomyFilter.notSpecifiedStr) {
+                            filter.order = taxonomyFilter.container.itemAt(4).value
+                        }
+                        if (taxonomyFilter.container.itemAt(5).value !== taxonomyFilter.notSpecifiedStr) {
+                            filter.family = taxonomyFilter.container.itemAt(5).value
+                        }
+                        if (taxonomyFilter.container.itemAt(6).value !== taxonomyFilter.notSpecifiedStr) {
+                            filter.genus = taxonomyFilter.container.itemAt(6).value
+                        }
+                        if (taxonomyFilter.container.itemAt(7).value !== taxonomyFilter.notSpecifiedStr) {
+                            filter.species = taxonomyFilter.container.itemAt(7).value
+                        }
+                    }
+                    if (livenessCkbx.checked) {
+                        var livenessChecked = []
+                        if (livenessFilter.container.itemAt(0).item.checked) {
+                            livenessChecked.push("false") //dead false
+                        }
+                        if (livenessFilter.container.itemAt(1).item.checked) {
+                            livenessChecked.push("true") //dead true
+                        }
+                        if (livenessChecked.length > 0) {
+                            filter.dead = livenessChecked
+                        }
+                    }
 
                     filterItemsReq.call(filter)
                 }
