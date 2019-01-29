@@ -14,7 +14,7 @@ ColumnLayout {
     property var criteria: {
         let crtr = {}
         for (let i = 0; i < rptr.specifiedTill; i++)
-            crtr[taxonomyNames[i]] = rptr.itemAt(i).getValue()
+            crtr[taxonomyNames[i]] = rptr.itemAt(i).getValue().toLowerCase()
         for (let i = rptr.specifiedTill; i < taxonomyDepth; i++)
             crtr[taxonomyNames[i]] = null
         return crtr
