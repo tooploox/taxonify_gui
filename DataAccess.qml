@@ -77,34 +77,17 @@ QtObject {
             headers: [internal.access_token_header],
             params: filter_condition
         }
-       /*
-        return server.send(req, function(res) {
-            if(res.status >= 200 && res.status <= 202) {
-                var body = {
-                    '_id': res.body.id,
-                    'blobParams': {
-                        'host': 'https://' + res.body.account
-                                + '.blob.core.windows.net',
-                        'container': res.body.container,
-                        'sas': res.body.sas_token
-                    }
-                }
-
-                res.body = body
-            }
-
-            cb(res)
-        })
-        */
+        return server.send(req, cb)
     }
 
     function updateItems(selected_items, update_dict, cb) {
+        /* TODO */
         var req = {
             handler: '/items',
             method: 'POST',
             headers: [internal.access_token_header],
-            params: Req.encodeQuery(params)
+            params: Req.encodeQuery(selected_items)
         }
-        /* TODO */
+        return server.send(req,cb)
     }
 }
