@@ -11,7 +11,7 @@ ApplicationWindow {
     width: 640 * 2
     height: 480 * 1.5
     title: qsTr("Aquascope Data Browser")
-    property string defaultServerAddress: 'http://localhost:8000'
+    property string defaultServerAddress: 'http://localhost'
 
     function getServerAddress() {
         var applicationArgs = Qt.application.arguments
@@ -79,9 +79,76 @@ ApplicationWindow {
 
     property var dataAccess: DataAccess {}
 
+    Request {
+        id: loginReq
+
+        handler: dataAccess.login
+
+        onSuccess: {
+            console.log('login succeeded')
+            dataAccessReq.call('')
+        }
+
+        onError: {
+            console.log('Login failed')
+        }
+    }
+
+    Request {
+        id: dataAccessReq
+
+        handler: dataAccess.filterItems
+
+        onSuccess: {
+            console.log('we are here')
+            itemsModel.clear()
+            for (let item of res['items']) {
+                const modelItem = {
+                    image: res['urls'][item['_id']],
+                    selected: false,
+                    _id: item['_id'],
+                    filename: item['filename'],
+                    extension: item['extension'],
+                    group_id: item['group_id'],
+                    empire: item['empire'],
+                    kingdom: item['kingdom'],
+                    phylum: item['phylum'],
+                    class: item['class'],
+                    order: item['order'],
+                    family: item['family'],
+                    genus: item['genus'],
+                    species: item['species'],
+                    dividing: item['dividing'],
+                    dead: item['dead'],
+                    with_epiphytes: item['with_epiphytes'],
+                    broken: item['broken'],
+                    colony: item['colony'],
+                    eating: item['eating'],
+                    multiple_species: item['multiple_species'],
+                    cropped: item['cropped'],
+                    male: item['male'],
+                    female: item['female'],
+                    juvenile: item['juvenile'],
+                    adult: item['adult'],
+                    with_eggs: item['with_eggs'],
+                    acquisition_time: item['acquisition_time'],
+                    image_width: item['image_width'],
+                    image_height: item['image_height']
+                }
+                itemsModel.append(modelItem)
+            }
+        }
+
+        onError: {
+            console.log('error in retrieving data items'+ details.text)
+        }
+    }
+
     Component.onCompleted: {
         var serverAddress = getServerAddress()
         dataAccess.server = new Req.Server(serverAddress)
+
+        loginReq.call('aquascopeuser','faea8436')
     }
 }
 
