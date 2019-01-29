@@ -5,6 +5,12 @@ import QtQuick.Layouts 1.12
 Rectangle {
     border.color: 'lightgray'
 
+    property var criteria: {
+        return {
+            dead: livenessfltr.value === 'Dead'
+        }
+    }
+
     ColumnLayout {
         width: parent.width
 
@@ -12,7 +18,7 @@ Rectangle {
 
         Label {
             Layout.fillWidth: true
-            text: "Annotation"
+            text: qsTr("Annotation")
             font.pixelSize: 25
             horizontalAlignment: Text.AlignHCenter
         }
@@ -42,6 +48,7 @@ Rectangle {
             }
 
             LivenessFilter {
+                id: livenessfltr
                 enabled: livenessRbtn.checked
                 isAnnotationMode: true
             }

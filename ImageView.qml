@@ -3,23 +3,35 @@ import QtQuick 2.12
 GridView {
     model: itemsModel
 
-    delegate: Item {
+    property var filter: function(item) {
+        return false
+    }
 
+    delegate: Item {
         width: cellWidth
         height: cellWidth
 
+
         Rectangle {
-
             id: rect
-
             anchors.centerIn: parent
             width: parent.width - 10
             height: parent.height - 10
 
-            state: model.selected ? 'selected' : 'basic'
-
             states: [
                 State {
+                    when: filter(model)
+                    name: "grayout"
+                    PropertyChanges {
+                        target: rect
+
+                        border.color: 'darkgray'
+                        border.width: 4
+                        color: 'lightblue'
+                    }
+                },
+                State {
+                    when: !model.selected
                     name: "basic"
                     PropertyChanges {
                         target: rect
@@ -30,6 +42,7 @@ GridView {
                     }
                 },
                 State {
+                    when: model.selected
                     name: "selected"
                     PropertyChanges {
                         target: rect
