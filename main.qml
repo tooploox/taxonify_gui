@@ -12,8 +12,8 @@ ApplicationWindow {
     height: 480 * 1.5
     title: qsTr("Aquascope Data Browser")
     property string defaultServerAddress: 'http://localhost'
-    property string defaultUsername: 'username'
-    property string defaultPassword: 'password'
+    property string defaultUsername: 'aquascopeuser'
+    property string defaultPassword: 'faea8436'
 
     function getServerAddress() {
         var applicationArgs = Qt.application.arguments
@@ -87,7 +87,6 @@ ApplicationWindow {
             Layout.preferredWidth: 300
             Layout.fillHeight: true
 
-            dataAccess: root.dataAccess
         }
 
         ImageViewAndControls {
@@ -126,7 +125,7 @@ ApplicationWindow {
 
         onSuccess: {
             console.log('login succeeded')
-            dataAccessReq.call('')
+            filterItemsReq.call({})
         }
 
         onError: {
@@ -135,7 +134,7 @@ ApplicationWindow {
     }
 
     Request {
-        id: dataAccessReq
+        id: filterItemsReq
 
         handler: dataAccess.filterItems
 
