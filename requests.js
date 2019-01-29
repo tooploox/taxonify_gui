@@ -1,7 +1,24 @@
 .pragma library
 
 function encodeQuery(obj) {
-    return encodeURIComponent(JSON.stringify(obj))
+
+     var result = ""
+
+     try {
+    var keys = Object.keys(obj)
+    } catch (e) {
+        console.log(e)
+    }
+    keys.forEach(function (key, idx) {
+
+         var val = obj[key]
+         if(result.length !== 0)
+            result += '&'
+
+         result += key + '=' + encodeURI(val.toString())
+    })
+
+     return result
 }
 
 // This method sends requests appending parameters appropriately to given

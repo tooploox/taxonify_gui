@@ -7,25 +7,6 @@ import "qrc:/network"
 Rectangle {
     border.color: 'lightgray'
 
-    property var dataAccess
-
-    Request {
-        id: applyFiltersReq
-        handler: dataAccess.applyFilters
-
-        onSuccess: {
-            console.log("hurray")
-        }
-
-        onError: {
-            console.log(details.message)
-        }
-
-        onFinished: {
-            console.log("finished")
-        }
-    }
-
     ScrollView {
 
         anchors.fill: parent
@@ -58,6 +39,7 @@ Rectangle {
                     anchors.fill: parent
 
                     TextField {
+                        id: fileNameField
                         enabled: checkBox1.checked
                         placeholderText: 'File name regex'
                     }
@@ -123,7 +105,16 @@ Rectangle {
                 Layout.alignment: Qt.AlignCenter
 
                 onClicked: {
+                    var filter = {}
+                    if (checkBox1.checked) {
+                        filter.filename = fileNameField.text
+                    }
+                    /*
+                    if (checkBox0.checked) {
+                        filter.
+                    }*/
 
+                    filterItemsReq.call(filter)
                 }
             }
         }
