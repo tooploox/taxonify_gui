@@ -1,6 +1,6 @@
 import QtQuick 2.12
 
-import "qrc:/networking/requests.js" as Req
+import "qrc:/network/requests.js" as Req
 
 // Sample data access object, should be replaced with requests aligned with
 // aquascope backend specification
@@ -70,13 +70,14 @@ QtObject {
         })
     }
 
-    function openUpload(cb) {
+    function filterItems(filter_condition, cb) {
         var req = {
-            handler: '/upload/create',
-            method: 'POST',
-            headers: [internal.access_token_header]
+            handler: '/items',
+            method: 'GET',
+            headers: [internal.access_token_header],
+            params: filter_condition
         }
-
+       /*
         return server.send(req, function(res) {
             if(res.status >= 200 && res.status <= 202) {
                 var body = {
@@ -94,5 +95,16 @@ QtObject {
 
             cb(res)
         })
+        */
+    }
+
+    function updateItems(selected_items, update_dict, cb) {
+        var req = {
+            handler: '/items',
+            method: 'POST',
+            headers: [internal.access_token_header],
+            params: Req.encodeQuery(params)
+        }
+        /* TODO */
     }
 }
