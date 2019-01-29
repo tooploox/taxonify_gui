@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>DataModel.qml</file>
         <file>FilteringPane.qml</file>
         <file>AnnotationPane.qml</file>
         <file>ImageView.qml</file>
@@ -34,8 +33,8 @@
         <file>sample_images/14.jpeg</file>
     </qresource>
     <qresource prefix="/network">
+        <file>DataAccess.qml</file>
         <file>Request.qml</file>
         <file>requests.js</file>
-        <file>DataAccess.qml</file>
     </qresource>
 </RCC>
