@@ -1,5 +1,4 @@
 import QtQuick 2.12
-import QtGraphicalEffects 1.12
 
 GridView {
     model: itemsModel
@@ -43,7 +42,7 @@ GridView {
 
                         border.color: 'darkblue'
                         border.width: 2
-                        color: 'gainsboro'
+                        color: 'lightgray'
                     }
                 },
                 State {

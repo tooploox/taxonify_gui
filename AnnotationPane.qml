@@ -7,7 +7,6 @@ Rectangle {
 
     property var criteria: {
         return taxonomyRbtn.checked ? taxonomyfltr.filter : livenessfltr.filter
-
     }
 
     ColumnLayout {
