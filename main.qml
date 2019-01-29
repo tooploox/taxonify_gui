@@ -78,14 +78,17 @@ ApplicationWindow {
         return defaultPassword
     }
 
-
-
     RowLayout {
         anchors.fill: parent
 
         FilteringPane {
             Layout.preferredWidth: 300
             Layout.fillHeight: true
+
+            onAppliedClicked: {
+
+                filterItemsReq.call(filter)
+            }
 
         }
 

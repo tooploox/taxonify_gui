@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.12
 Rectangle {
     border.color: 'lightgray'
 
+    signal appliedClicked(var filter)
+
     ScrollView {
 
         anchors.fill: parent
@@ -161,7 +163,7 @@ Rectangle {
                         }
                     }
 
-                    filterItemsReq.call(filter)
+                    appliedClicked(filter)
                 }
             }
         }
