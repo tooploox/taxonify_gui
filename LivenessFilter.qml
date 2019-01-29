@@ -2,40 +2,27 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
-GroupBox {
-    id: gb
-    property alias checkBoxChecked: livenessCkbx.checked
+ColumnLayout {
     property bool isAnnotationMode: false
 
-    label: CheckBox {
-        id: livenessCkbx
-        checked: true
-        text: qsTr("Liveness")
-    }
+    ButtonGroup { id: radioGroup }
 
-    ColumnLayout {
-        anchors.fill: parent
-        enabled: livenessCkbx.checked
+    Repeater {
+        model: [qsTr("Alive"), qsTr("Dead"), qsTr("Not specified")]
 
-        ButtonGroup { id: radioGroup }
+        delegate: Loader {
+            sourceComponent: isAnnotationMode ?  radioBtn : checkBox
 
-        Repeater {
-            model: [qsTr("Alive"), qsTr("Dead"), qsTr("Not specified")]
+            Component {
+                id: checkBox
+                CheckBox { text: model.modelData }
+            }
 
-            delegate: Loader {
-                sourceComponent: isAnnotationMode ?  radioBtn : checkBox
-
-                Component {
-                    id: checkBox
-                    CheckBox { text: model.modelData }
-                }
-
-                Component {
-                    id: radioBtn
-                    RadioButton {
-                        text: model.modelData;
-                        ButtonGroup.group: radioGroup
-                    }
+            Component {
+                id: radioBtn
+                RadioButton {
+                    text: model.modelData;
+                    ButtonGroup.group: radioGroup
                 }
             }
         }

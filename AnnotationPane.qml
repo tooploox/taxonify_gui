@@ -8,6 +8,8 @@ Rectangle {
     ColumnLayout {
         width: parent.width
 
+        ButtonGroup { id: radioGroup }
+
         Label {
             Layout.fillWidth: true
             text: "Annotation"
@@ -18,20 +20,31 @@ Rectangle {
         GroupBox {
             Layout.fillWidth: true
 
-            label: CheckBox {
-                id: taxonomyCkbx
-                checked: true
+            label: RadioButton {
+                id: taxonomyRbtn
                 text: qsTr("Taxonomy")
+                ButtonGroup.group: radioGroup
             }
 
             TaxonomyFilter {
-                enabled: taxonomyCkbx.checked
+                enabled: taxonomyRbtn.checked
             }
         }
 
-        LivenessFilter {
+        GroupBox {
             Layout.fillWidth: true
-            isAnnotationMode: true
+
+            label: RadioButton {
+                id: livenessRbtn
+                checked: true
+                text: qsTr("Liveness")
+                ButtonGroup.group: radioGroup
+            }
+
+            LivenessFilter {
+                enabled: livenessRbtn.checked
+                isAnnotationMode: true
+            }
         }
 
         Item {
