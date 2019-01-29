@@ -20,6 +20,8 @@ ColumnLayout {
         return crtr
     }
 
+    property alias container: rptr
+
     Repeater {
         id: rptr
 
@@ -30,6 +32,7 @@ ColumnLayout {
             Layout.fillWidth: true
             model: getModel()
             property bool completed: false
+            readonly property string value: model[currentIndex]
 
             function getValue() {
                 return model[currentIndex]
@@ -58,7 +61,9 @@ ColumnLayout {
                 update()
                 completed = true
             }
+
         }
+
     }
 
     Component.onCompleted: {

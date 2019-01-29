@@ -12,10 +12,20 @@ function encodeQuery(obj) {
     keys.forEach(function (key, idx) {
 
          var val = obj[key]
-         if(result.length !== 0)
-            result += '&'
 
-         result += key + '=' + encodeURI(val.toString())
+         if(Array.isArray(val)) {
+           val.forEach(function (value, id_val) {
+             if(result.length !== 0)
+               result += '&'
+             result += key + '=' + encodeURI(value.toString())
+           })
+         } else {
+
+           if(result.length !== 0)
+             result += '&'
+
+           result += key + '=' + encodeURI(val.toString())
+         }
     })
 
      return result
