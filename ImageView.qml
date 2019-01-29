@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtGraphicalEffects 1.12
 
 GridView {
     model: itemsModel
@@ -8,12 +9,15 @@ GridView {
     }
 
     delegate: Item {
+
         width: cellWidth
         height: cellWidth
 
 
         Rectangle {
+
             id: rect
+
             anchors.centerIn: parent
             width: parent.width - 10
             height: parent.height - 10
@@ -55,6 +59,7 @@ GridView {
             ]
 
             Image {
+                id: img
                 width: parent.width - 10
                 height: parent.height - 10
 
@@ -64,6 +69,23 @@ GridView {
 
                 source: image
                 clip: true
+
+                Loader {
+                    anchors.fill: parent
+
+                    sourceComponent: rect.state === "grayout" ? grayout : null
+
+                    Component {
+                        id: grayout
+
+                        Colorize {
+                            source: img
+                            hue: 0.0
+                            saturation: 0.0
+                            lightness: 0.0
+                        }
+                    }
+                }
             }
 
             MouseArea {
