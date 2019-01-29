@@ -3,15 +3,20 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 ColumnLayout {
-    id: root
     property bool isAnnotationMode: false
     property string value: ''
+
+    property var filter: {
+        return {
+            dead: value === 'Dead'
+        }
+    }
 
     ButtonGroup {
         id: radioGroup
 
         onCheckedButtonChanged: {
-            root.value = checkedButton.text
+            value = checkedButton.text
         }
     }
 

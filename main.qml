@@ -26,7 +26,11 @@ ApplicationWindow {
 
             filter: ((criteria) => {
                  return (item) => {
-                     return criteria.dead === item.dead
+                     for (let c in criteria) {
+                         if (item[c] !== criteria[c])
+                            return true
+                     }
+                     return false
                  }
 
             })(annotationPane.criteria)

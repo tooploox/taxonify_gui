@@ -28,10 +28,11 @@ GridView {
                     name: "grayout"
                     PropertyChanges {
                         target: rect
-
                         border.color: 'darkgray'
-                        border.width: 4
-                        color: 'lightblue'
+                    }
+                    PropertyChanges {
+                        target: img
+                        opacity: 0.4
                     }
                 },
                 State {
@@ -42,7 +43,7 @@ GridView {
 
                         border.color: 'darkblue'
                         border.width: 2
-                        color: 'lightgray'
+                        color: 'gainsboro'
                     }
                 },
                 State {
@@ -69,23 +70,6 @@ GridView {
 
                 source: image
                 clip: true
-
-                Loader {
-                    anchors.fill: parent
-
-                    sourceComponent: rect.state === "grayout" ? grayout : null
-
-                    Component {
-                        id: grayout
-
-                        Colorize {
-                            source: img
-                            hue: 0.0
-                            saturation: 0.0
-                            lightness: 0.0
-                        }
-                    }
-                }
             }
 
             MouseArea {

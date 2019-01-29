@@ -10,6 +10,16 @@ ColumnLayout {
     property int taxonomyDepth: 8
     property var nodes: new Array(taxonomyDepth)
     property string notSpecifiedStr: "Not specified"
+    property var taxonomyNames: ['empire', 'kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']
+
+    property string value: ''
+
+    property var filter: {
+        let fltr = {}
+        for (let i = 0; i < rptr.specifiedTill; i++)
+            fltr[taxonomyNames[i]] = rptr.itemAt(i).getValue()
+        return fltr
+    }
 
     Repeater {
         id: rptr
@@ -20,6 +30,10 @@ ColumnLayout {
             Layout.fillWidth: true
             model: getModel()
             property bool completed: false
+
+            function getValue() {
+                return model[currentIndex]
+            }
 
             function getModel() {
                 return index > rptr.specifiedTill ?
