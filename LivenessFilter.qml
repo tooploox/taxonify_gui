@@ -6,7 +6,7 @@ ColumnLayout {
     property bool isAnnotationMode: false
     property string value: ''
 
-    property var filter: {
+    property var criteria: {
         return {
             dead: value === 'Dead'
         }

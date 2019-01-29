@@ -11,13 +11,11 @@ ColumnLayout {
     property string notSpecifiedStr: "Not specified"
     property var taxonomyNames: ['empire', 'kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']
 
-    property string value: ''
-
-    property var filter: {
-        let fltr = {}
+    property var criteria: {
+        let crtr = {}
         for (let i = 0; i < rptr.specifiedTill; i++)
-            fltr[taxonomyNames[i]] = rptr.itemAt(i).getValue()
-        return fltr
+            crtr[taxonomyNames[i]] = rptr.itemAt(i).getValue()
+        return crtr
     }
 
     Repeater {
