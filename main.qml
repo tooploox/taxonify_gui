@@ -127,7 +127,6 @@ ApplicationWindow {
 
         onSuccess: {
             console.log('login succeeded')
-            // let's assume for now that sas is valid for whole session (check this)
             sas.call('processed')
         }
 
