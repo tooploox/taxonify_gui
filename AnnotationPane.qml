@@ -9,6 +9,8 @@ Rectangle {
         return taxonomyRbtn.checked ? taxonomyfltr.criteria : livenessfltr.criteria
     }
 
+    signal applyClicked()
+
     ColumnLayout {
         width: parent.width
 
@@ -63,6 +65,8 @@ Rectangle {
             text: 'Apply to selected images'
 
             Layout.alignment: Qt.AlignCenter
+
+            onClicked: applyClicked()
         }
     }
 }
