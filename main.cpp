@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     QVariant settingsPath;
 
     if(QFile(configPath).exists()) {
-        settingsPath = "file:///" + configPath;
+        settingsPath = "file://" + configPath;
     } else {
         settingsPath = QVariant(QVariant::String);
     }
