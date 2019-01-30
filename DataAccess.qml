@@ -70,6 +70,16 @@ QtObject {
         })
     }
 
+    function getSas(destination, cb) {
+        var req = {
+            handler: '/sas',
+            method: 'GET',
+            headers: [internal.access_token_header],
+            params: {'destination': destination}
+        }
+        return server.send(req, cb)
+    }
+
     function filterItems(filter_condition, cb) {
         var req = {
             handler: '/items',

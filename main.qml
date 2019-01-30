@@ -11,67 +11,27 @@ ApplicationWindow {
     width: 640 * 2
     height: 480 * 1.5
     title: qsTr("Aquascope Data Browser")
-    property string defaultServerAddress: 'http://localhost'
-    property string defaultUsername: 'aq_user'
-    property string defaultPassword: 'hardpass'
 
     property var currentFilter: {}
+    property var defaultSettings: {'host': 'http://localhost', 'username': 'aq_user', 'password' : 'hardpass'}
 
-    function getServerAddress() {
-        var applicationArgs = Qt.application.arguments
-
-        if(applicationArgs.length === 2) {
-            return applicationArgs[1]
-        }
-
+    function getSettingVariable(key) {
         if(settingsPath) {
             var settingsObj = Req.readJsonFromLocalFileSync(settingsPath)
-
-            if (settingsObj && settingsObj.host) {
-                return settingsObj.host
+            if (settingsObj && settingsObj[key]) {
+                return settingsObj[key]
             } else {
-                console.log('No "host" field found in settings')
+                console.log('No "'+key+'" field found in settings')
             }
-
         } else {
             console.log('Settings not found. Using default server address.')
         }
-
-        return defaultServerAddress
-    }
-
-    function getUsername() {
-        if(settingsPath) {
-            var settingsObj = Req.readJsonFromLocalFileSync(settingsPath)
-
-            if (settingsObj && settingsObj.username) {
-                return settingsObj.username
-            } else {
-                console.log('No "username" field found in settings')
-            }
-
+        if (defaultSettings[key]) {
+            return defaultSettings[key]
         } else {
-            console.log('Settings not found. Using default username.')
+            console.log('key '+key+' not found in dafaults array. Returning null')
+            return null
         }
-
-        return defaultUsername
-    }
-
-    function getPassword() {
-        if(settingsPath) {
-            var settingsObj = Req.readJsonFromLocalFileSync(settingsPath)
-
-            if (settingsObj && settingsObj.password) {
-                return settingsObj.password
-            } else {
-                console.log('No "password" field found in settings')
-            }
-
-        } else {
-            console.log('Settings not found. Using default password.')
-        }
-
-        return defaultPassword
     }
 
     RowLayout {
@@ -85,7 +45,7 @@ ApplicationWindow {
 
             onAppliedClicked: {
                 currentFilter = filter
-                filterItemsReq.call(filter)
+                filterItems.call(filter)
             }
 
         }
@@ -159,13 +119,13 @@ ApplicationWindow {
     property var dataAccess: DataAccess {}
 
     Request {
-        id: loginReq
+        id: login
 
         handler: dataAccess.login
 
         onSuccess: {
             console.log('login succeeded')
-            filterItemsReq.call({})
+            filterItems.call({}) // to populate view
         }
 
         onError: {
@@ -174,7 +134,7 @@ ApplicationWindow {
     }
 
     Request {
-        id: filterItemsReq
+        id: filterItems
 
         handler: dataAccess.filterItems
 
@@ -184,36 +144,7 @@ ApplicationWindow {
                 const modelItem = {
                     image: res['urls'][item['_id']],
                     selected: false,
-                    metadata: {
-                        _id: item['_id'],
-                        filename: item['filename'],
-                        extension: item['extension'],
-                        group_id: item['group_id'],
-                        empire: item['empire'],
-                        kingdom: item['kingdom'],
-                        phylum: item['phylum'],
-                        class: item['class'],
-                        order: item['order'],
-                        family: item['family'],
-                        genus: item['genus'],
-                        species: item['species'],
-                        dividing: item['dividing'],
-                        dead: item['dead'],
-                        with_epiphytes: item['with_epiphytes'],
-                        broken: item['broken'],
-                        colony: item['colony'],
-                        eating: item['eating'],
-                        multiple_species: item['multiple_species'],
-                        cropped: item['cropped'],
-                        male: item['male'],
-                        female: item['female'],
-                        juvenile: item['juvenile'],
-                        adult: item['adult'],
-                        with_eggs: item['with_eggs'],
-                        acquisition_time: item['acquisition_time'],
-                        image_width: item['image_width'],
-                        image_height: item['image_height']
-                    }
+                    metadata: item
                 }
                 itemsModel.append(modelItem)
             }
@@ -229,7 +160,7 @@ ApplicationWindow {
 
         handler: dataAccess.updateItems
 
-        onSuccess: filterItemsReq.call(currentFilter)
+        onSuccess: filterItems.call(currentFilter)
 
         onError: {
             // TODO
@@ -239,11 +170,11 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        var serverAddress = getServerAddress()
+        var serverAddress = getSettingVariable('host')
         dataAccess.server = new Req.Server(serverAddress)
-        var username = getUsername()
-        var password = getPassword()
-        loginReq.call(username, password)
+        var username = getSettingVariable('username')
+        var password = getSettingVariable('password')
+        login.call(username, password)
     }
 }
 
