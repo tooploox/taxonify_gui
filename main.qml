@@ -15,6 +15,7 @@ ApplicationWindow {
     property var currentFilter: {}
     property var defaultSettings: {'host': 'http://localhost', 'username': 'aq_user', 'password' : 'hardpass'}
     property string currentSas: ''
+    property bool viewPopulated: false
 
     function getSettingVariable(key) {
         if(settingsPath) {
@@ -143,11 +144,23 @@ ApplicationWindow {
         onSuccess: {
             console.log('sas generated')
             currentSas = res['token']
-            filterItems.call({}) // to populate view
+            if (!viewPopulated) {
+                filterItems.call({}) // to populate view just once
+            }
         }
 
         onError: {
             console.log('sas failed. Details: ' + details)
+        }
+    }
+
+    Timer {
+        interval: 1000 * 60 * 30 // 30 min
+        running: true
+        repeat: true
+
+        onTriggered: {
+            sas.call('processed')
         }
     }
 
@@ -171,6 +184,7 @@ ApplicationWindow {
                 }
                 itemsModel.append(modelItem)
             }
+            viewPopulated = true
         }
 
         onError: {
