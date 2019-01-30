@@ -146,10 +146,13 @@ Rectangle {
                     if (livenessCkbx.checked) {
                         var livenessChecked = []
                         if (livenessFilter.container.itemAt(0).item.checked) {
-                            livenessChecked.push("false") //dead false
+                            livenessChecked.push("false") // dead false
                         }
                         if (livenessFilter.container.itemAt(1).item.checked) {
-                            livenessChecked.push("true") //dead true
+                            livenessChecked.push("true") // dead true
+                        }
+                        if (livenessFilter.container.itemAt(2).item.checked) {
+                            livenessChecked.push("") // not specified
                         }
                         if (livenessChecked.length > 0) {
                             filter.dead = livenessChecked
