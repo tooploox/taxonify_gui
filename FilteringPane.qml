@@ -115,7 +115,6 @@ Rectangle {
                 text: 'Apply filters'
 
                 Layout.alignment: Qt.AlignCenter
-                enabled: filterButtons.checkState !== Qt.Unchecked
 
                 onClicked: {
                     var filter = {}
