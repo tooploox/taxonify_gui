@@ -93,6 +93,9 @@ ApplicationWindow {
         }
 
         ImageViewAndControls {
+
+            id: imageViewAndControls
+
             Layout.fillWidth: true
             Layout.fillHeight: true
 
@@ -116,6 +119,39 @@ ApplicationWindow {
             id: annotationPane
             Layout.preferredWidth: 300
             Layout.fillHeight: true
+
+            onApplyClicked: {
+
+                const model = imageViewAndControls.model
+
+                let toUpdate = []
+
+                function makeCopy(obj) {
+                    return JSON.parse(JSON.stringify(obj))
+                }
+
+                for(let i = 0; i < model.count; i++) {
+
+                    const item = model.get(i)
+
+                    if(!imageViewAndControls.filter(item) && item.selected) {
+
+                        const current = makeCopy(item.metadata)
+                        const update = Object.assign(makeCopy(item.metadata),
+                                                     criteria)
+
+                        const updateItem = {
+                            current: current,
+                            update: update
+                        }
+
+                        toUpdate.push(updateItem)
+                    }
+                }
+
+                updateItems.call(toUpdate)
+
+            }
         }
     }
 
@@ -184,6 +220,21 @@ ApplicationWindow {
 
         onError: {
             console.log('error in retrieving data items. Error: '+ details.text)
+        }
+    }
+
+    Request {
+        id: updateItems
+
+        handler: dataAccess.updateItems
+
+        onSuccess: {
+            console.log(JSON.stringify(res, null, "  "))
+        }
+
+        onError: {
+            console.log("FAIL!")
+            console.log(JSON.stringify(details, null, "  "))
         }
     }
 
