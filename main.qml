@@ -14,6 +14,7 @@ ApplicationWindow {
 
     property var currentFilter: {}
     property var defaultSettings: {'host': 'http://localhost', 'username': 'aq_user', 'password' : 'hardpass'}
+    property string currentSas: ''
 
     function getSettingVariable(key) {
         if(settingsPath) {
@@ -58,15 +59,15 @@ ApplicationWindow {
             Layout.fillHeight: true
 
             filter: ((criteria) => {
-                 return (item) => {
-                     for (let c in criteria) {
-                         if (item.metadata[c] !== criteria[c])
-                            return false
-                     }
-                     return true
-                 }
+                         return (item) => {
+                             for (let c in criteria) {
+                                 if (item.metadata[c] !== criteria[c])
+                                 return false
+                             }
+                             return true
+                         }
 
-            })(annotationPane.criteria)
+                     })(annotationPane.criteria)
 
             model: ListModel {
                 id: itemsModel
@@ -125,11 +126,28 @@ ApplicationWindow {
 
         onSuccess: {
             console.log('login succeeded')
+            // let's assume for now that sas is valid for whole session (check this)
+            sas.call('processed')
+        }
+
+        onError: {
+            console.log('Login failed. Details: ' + details)
+        }
+    }
+
+    Request {
+        id: sas
+
+        handler: dataAccess.sas
+
+        onSuccess: {
+            console.log('sas generated')
+            currentSas = res['token']
             filterItems.call({}) // to populate view
         }
 
         onError: {
-            console.log('Login failed')
+            console.log('sas failed. Details: ' + details)
         }
     }
 
@@ -140,9 +158,14 @@ ApplicationWindow {
 
         onSuccess: {
             itemsModel.clear()
+            var getParams = ''
+            if (currentSas.length > 0) {
+                getParams = '?' + currentSas
+            }
+
             for (let item of res['items']) {
                 const modelItem = {
-                    image: res['urls'][item['_id']],
+                    image: res['urls'][item['_id']] + getParams,
                     selected: false,
                     metadata: item
                 }
