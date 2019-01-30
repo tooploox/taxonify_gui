@@ -70,7 +70,7 @@ QtObject {
         })
     }
 
-    function getSas(destination, cb) {
+    function sas(destination, cb) {
         var req = {
             handler: '/sas',
             method: 'GET',
