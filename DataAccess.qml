@@ -75,7 +75,7 @@ QtObject {
             handler: '/sas',
             method: 'GET',
             headers: [internal.access_token_header],
-            params: {'destination': destination}
+            params: { destination: destination }
         }
         return server.send(req, cb)
     }
