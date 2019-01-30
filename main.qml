@@ -12,8 +12,13 @@ ApplicationWindow {
     height: 480 * 1.5
     title: qsTr("Aquascope Data Browser")
 
+    readonly property var defaultSettings: ({
+        host: 'http://localhost',
+        username: 'aq_user',
+        password : 'hardpass'
+    })
+
     property var currentFilter: {}
-    property var defaultSettings: {'host': 'http://localhost', 'username': 'aq_user', 'password' : 'hardpass'}
     property string currentSas: ''
     property bool viewPopulated: false
 
