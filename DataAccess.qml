@@ -24,7 +24,7 @@ QtObject {
         }
 
         onRefresh_tokenChanged: {
-             refresh_token_header = ['Authorization', 'Bearer ' + refresh_token]
+            refresh_token_header = ['Authorization', 'Bearer ' + refresh_token]
         }
 
         property Timer refreshTimer: Timer {
@@ -80,12 +80,12 @@ QtObject {
         return server.send(req, cb)
     }
 
-    function filterItems(filter_condition, cb) {
+    function filterItems(filter, cb) {
         var req = {
             handler: '/items',
             method: 'GET',
             headers: [internal.access_token_header],
-            params: filter_condition
+            params: filter
         }
         return server.send(req, cb)
     }

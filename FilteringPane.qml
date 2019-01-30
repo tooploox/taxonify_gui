@@ -101,7 +101,7 @@ Rectangle {
                 LivenessFilter {
                     id: livenessFilter
                     enabled: livenessCkbx.checked
-                    isAnnotationMode: false
+                    annotationMode: false
                 }
             }
 

@@ -22,6 +22,5 @@ ColumnLayout {
         description: qsTr("End date:")
         enabled: parent.enabled
         dateTextColor: (parent.valid || empty) ? 'black' : 'red'
-
     }
 }

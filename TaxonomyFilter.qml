@@ -6,10 +6,15 @@ import "network/requests.js" as Requests
 ColumnLayout {
     anchors.fill: parent
 
+    readonly property string notSpecifiedStr: "Not specified"
+
+    readonly property var taxonomyNames: [
+        'empire', 'kingdom', 'phylum', 'class', 'order', 'family', 'genus',
+        'species'
+    ]
+
     property int taxonomyDepth: 8
     property var nodes: new Array(taxonomyDepth)
-    property string notSpecifiedStr: "Not specified"
-    property var taxonomyNames: ['empire', 'kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']
 
     property var criteria: {
         let crtr = {}
@@ -89,7 +94,6 @@ ColumnLayout {
                 }
             }
         }
-
     }
 
     Component.onCompleted: {
