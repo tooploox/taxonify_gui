@@ -24,6 +24,11 @@ Rectangle {
                 horizontalAlignment: Text.AlignHCenter
             }
 
+            ButtonGroup {
+                id: filterButtons
+                exclusive: false
+            }
+
             GroupBox {
 
                 Layout.fillWidth: true
@@ -32,6 +37,7 @@ Rectangle {
                     id: checkBox1
                     checked: false
                     text: qsTr("File name")
+                    ButtonGroup.group: filterButtons
                 }
 
                 Column {
@@ -55,6 +61,7 @@ Rectangle {
                     id: dateCkbx
                     checked: false
                     text: qsTr("Date")
+                    ButtonGroup.group: filterButtons
                 }
 
                 DateFilter {
@@ -72,6 +79,7 @@ Rectangle {
                     id: taxonomyCkbx
                     checked: false
                     text: qsTr("Taxonomy")
+                    ButtonGroup.group: filterButtons
                 }
 
                 TaxonomyFilter {
@@ -87,6 +95,7 @@ Rectangle {
                     id: livenessCkbx
                     checked: false
                     text: qsTr("Liveness")
+                    ButtonGroup.group: filterButtons
                 }
 
                 LivenessFilter {
@@ -106,6 +115,7 @@ Rectangle {
                 text: 'Apply filters'
 
                 Layout.alignment: Qt.AlignCenter
+                enabled: filterButtons.checkState !== Qt.Unchecked
 
                 onClicked: {
                     var filter = {}
@@ -151,5 +161,5 @@ Rectangle {
                 }
             }
         }
-    }   
+    }
 }
