@@ -2,33 +2,33 @@
 
 function encodeQuery(obj) {
 
-     var result = ""
+    var result = ""
 
-     try {
-    var keys = Object.keys(obj)
+    try {
+        var keys = Object.keys(obj)
     } catch (e) {
         console.log(e)
     }
     keys.forEach(function (key, idx) {
 
-         var val = obj[key]
+        var val = obj[key]
 
-         if(Array.isArray(val)) {
-           val.forEach(function (value, id_val) {
-             if(result.length !== 0)
-               result += '&'
-             result += key + '=' + encodeURI(value.toString())
-           })
-         } else {
+        if(Array.isArray(val)) {
+            val.forEach(function (value, id_val) {
+                if(result.length !== 0)
+                    result += '&'
+                result += key + '=' + encodeURI(value.toString())
+            })
+        } else {
 
-           if(result.length !== 0)
-             result += '&'
+            if(result.length !== 0)
+                result += '&'
 
-           result += key + '=' + encodeURI(val.toString())
-         }
+            result += key + '=' + encodeURI(val.toString())
+        }
     })
 
-     return result
+    return result
 }
 
 // This method sends requests appending parameters appropriately to given
@@ -60,13 +60,13 @@ function sendRequest(address, parameters, method, headers, cb) {
     }
 
     headers.forEach((header) => {
-        request.setRequestHeader(header[0], header[1])
-    })
+                        request.setRequestHeader(header[0], header[1])
+                    })
 
     request.onreadystatechange = () => {
 
         if (request.readyState !== XMLHttpRequest.DONE)
-            return
+        return
 
         cb(request)
     }
@@ -146,8 +146,8 @@ function rawGenericHttpRequest(method, address, parametersOrCb, cb) {
     }
 
     return sendRequest(address, params, method, [], (readyRequest) => {
-        cb(parseResponse(params, readyRequest))
-    })
+                           cb(parseResponse(params, readyRequest))
+                       })
 }
 
 function rawGet(address, parametersOrCb, cb) {
@@ -239,8 +239,8 @@ class Server {
         const address = this.baseAddress + handler
 
         return sendRequest(address, params, method, headers, (readyRequest) => {
-            const parsedResponse = parseResponse(params, readyRequest)
-            cb(parsedResponse)
-        })
+                               const parsedResponse = parseResponse(params, readyRequest)
+                               cb(parsedResponse)
+                           })
     }
 }

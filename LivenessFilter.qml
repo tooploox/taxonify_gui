@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 ColumnLayout {
-    property bool isAnnotationMode: false
+    property bool annotationMode: false
     property alias container: rptr
     property string value: ''
 
@@ -28,7 +28,7 @@ ColumnLayout {
         model: [qsTr("Alive"), qsTr("Dead"), qsTr("Not specified")]
 
         delegate: Loader {
-            sourceComponent: isAnnotationMode ?  radioBtn : checkBox
+            sourceComponent: annotationMode ?  radioBtn : checkBox
             Component {
                 id: checkBox
                 CheckBox {

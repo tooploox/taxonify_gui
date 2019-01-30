@@ -6,10 +6,11 @@ import "qrc:/network"
 import "qrc:/network/requests.js" as Req
 
 ApplicationWindow {
-    id: root
     visible: true
+
     width: 640 * 2
     height: 480 * 1.5
+
     title: qsTr("Aquascope Data Browser")
 
     readonly property var defaultSettings: ({
@@ -49,8 +50,6 @@ ApplicationWindow {
         anchors.fill: parent
 
         FilteringPane {
-            id: filteringPane
-
             Layout.preferredWidth: 300
             Layout.fillHeight: true
 
@@ -134,14 +133,8 @@ ApplicationWindow {
 
         handler: dataAccess.login
 
-        onSuccess: {
-            console.log('login succeeded')
-            sas.call('processed')
-        }
-
-        onError: {
-            console.log('Login failed. Details: ' + details)
-        }
+        onSuccess: sas.call('processed')
+        onError: console.log('Login failed. Details: ' + details)
     }
 
     Request {

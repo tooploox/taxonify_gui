@@ -46,7 +46,7 @@ ColumnLayout {
             }
 
             Label {
-                text: "Number of images loaded: " + imageView.model.count
+                text: "Number of images loaded: " + model.count
             }
         }
     }

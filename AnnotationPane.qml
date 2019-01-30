@@ -65,7 +65,7 @@ Rectangle {
                 LivenessFilter {
                     id: livenessfltr
                     enabled: livenessRbtn.checked
-                    isAnnotationMode: true
+                    annotationMode: true
                 }
             }
 
