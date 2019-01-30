@@ -25,9 +25,7 @@ ColumnLayout {
 
     Repeater {
         id: rptr
-        model: isAnnotationMode ?
-                   [qsTr("Alive"), qsTr("Dead"), qsTr("Not specified")] :
-                   [qsTr("Alive"), qsTr("Dead")]
+        model: [qsTr("Alive"), qsTr("Dead"), qsTr("Not specified")]
 
         delegate: Loader {
             sourceComponent: isAnnotationMode ?  radioBtn : checkBox
