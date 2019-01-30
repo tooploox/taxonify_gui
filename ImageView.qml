@@ -32,6 +32,11 @@ GridView {
                         target: img
                         opacity: 0.4
                     }
+
+                    PropertyChanges {
+                        target: rect
+                        border.color: 'darkblue'
+                    }
                 },
                 State {
                     when: !model.selected
