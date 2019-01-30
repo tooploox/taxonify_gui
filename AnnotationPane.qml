@@ -5,9 +5,8 @@ import QtQuick.Layouts 1.12
 Rectangle {
     border.color: 'lightgray'
 
-    property var criteria: {
-        return taxonomyRbtn.checked ? taxonomyfltr.criteria : livenessfltr.criteria
-    }
+    property var criteria: taxonomyRbtn.checked ? taxonomyfltr.criteria
+                                                : livenessfltr.criteria
 
     signal applyClicked()
 
