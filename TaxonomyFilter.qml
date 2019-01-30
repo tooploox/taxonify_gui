@@ -27,41 +27,64 @@ ColumnLayout {
 
         model: 0
         property int specifiedTill: 0 // index of first item with "Not specified"
-
-        ComboBox {
-            Layout.fillWidth: true
-            model: getModel()
-            property bool completed: false
-            readonly property string value: model[currentIndex]
-
+        RowLayout {
+            property alias value: combobox.value
+            property alias checked: checkbox.checked
             function getValue() {
-                return model[currentIndex]
-            }
-
-            function getModel() {
-                return index > rptr.specifiedTill ?
-                            [notSpecifiedStr] :
-                            [notSpecifiedStr, ...Object.keys(nodes[index])]
+                return combobox.getValue()
             }
 
             function update() {
-                model = getModel()
-                if (model[currentIndex] !== notSpecifiedStr)
-                    nodes[index + 1] = nodes[index][model[currentIndex]]
-                if (completed && index + 1 < taxonomyDepth)
-                    rptr.itemAt(index + 1).update()
+                combobox.update()
             }
 
-            onCurrentIndexChanged: {
-                if (model[currentIndex] === notSpecifiedStr) {
-                    rptr.specifiedTill = Math.min(rptr.specifiedTill, index)
-                } else if (rptr.specifiedTill === index) {
-                    rptr.specifiedTill++
+            CheckBox {
+                id: checkbox
+                checked: false
+            }
+
+            ComboBox {
+                id: combobox
+                Layout.fillWidth: true
+                model: getModel()
+                property bool completed: false
+                readonly property string value: model[currentIndex]
+
+                function getValue() {
+                    return model[currentIndex]
                 }
-                update()
-                completed = true
-            }
 
+                function getModel() {
+                    return index > rptr.specifiedTill ?
+                                [notSpecifiedStr] :
+                                [notSpecifiedStr, ...Object.keys(nodes[index])]
+                }
+
+                function update() {
+                    model = getModel()
+                    if (model[currentIndex] !== notSpecifiedStr)
+                    {
+                        nodes[index + 1] = nodes[index][model[currentIndex]]
+                        checkbox.checked = true
+                        checkbox.enabled = false
+                    } else {
+                        checkbox.enabled = true
+                    }
+
+                    if (completed && index + 1 < taxonomyDepth)
+                        rptr.itemAt(index + 1).update()
+                }
+
+                onCurrentIndexChanged: {
+                    if (model[currentIndex] === notSpecifiedStr) {
+                        rptr.specifiedTill = Math.min(rptr.specifiedTill, index)
+                    } else if (rptr.specifiedTill === index) {
+                        rptr.specifiedTill++
+                    }
+                    update()
+                    completed = true
+                }
+            }
         }
 
     }
