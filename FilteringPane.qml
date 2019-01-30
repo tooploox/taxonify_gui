@@ -124,30 +124,14 @@ Rectangle {
                             filter.acquisition_time_end = dateFilter.end.isostring
                         }
                     }
-                    if (taxonomyCkbx.checked) {
-                        if (taxonomyFilter.container.itemAt(0).value !== taxonomyFilter.notSpecifiedStr) {
-                            filter.empire = taxonomyFilter.container.itemAt(0).value
-                        }
-                        if (taxonomyFilter.container.itemAt(1).value !== taxonomyFilter.notSpecifiedStr) {
-                            filter.kingdom = taxonomyFilter.container.itemAt(1).value
-                        }
-                        if (taxonomyFilter.container.itemAt(2).value !== taxonomyFilter.notSpecifiedStr) {
-                            filter.phylum = taxonomyFilter.container.itemAt(2).value
-                        }
-                        if (taxonomyFilter.container.itemAt(3).value !== taxonomyFilter.notSpecifiedStr) {
-                            filter.class = taxonomyFilter.container.itemAt(3).value
-                        }
-                        if (taxonomyFilter.container.itemAt(4).value !== taxonomyFilter.notSpecifiedStr) {
-                            filter.order = taxonomyFilter.container.itemAt(4).value
-                        }
-                        if (taxonomyFilter.container.itemAt(5).value !== taxonomyFilter.notSpecifiedStr) {
-                            filter.family = taxonomyFilter.container.itemAt(5).value
-                        }
-                        if (taxonomyFilter.container.itemAt(6).value !== taxonomyFilter.notSpecifiedStr) {
-                            filter.genus = taxonomyFilter.container.itemAt(6).value
-                        }
-                        if (taxonomyFilter.container.itemAt(7).value !== taxonomyFilter.notSpecifiedStr) {
-                            filter.species = taxonomyFilter.container.itemAt(7).value
+                    for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
+                        if(taxonomyFilter.container.itemAt(i).checked) {
+                            var key = taxonomyFilter.taxonomyNames[i]
+                            var value = taxonomyFilter.container.itemAt(i).value
+                            if (value === taxonomyFilter.notSpecifiedStr) {
+                                value = ''
+                            }
+                            filter[key] = value
                         }
                     }
                     if (livenessCkbx.checked) {
