@@ -15,6 +15,8 @@ ApplicationWindow {
     property string defaultUsername: 'aq_user'
     property string defaultPassword: 'hardpass'
 
+    property var currentFilter: {}
+
     function getServerAddress() {
         var applicationArgs = Qt.application.arguments
 
@@ -82,11 +84,13 @@ ApplicationWindow {
         anchors.fill: parent
 
         FilteringPane {
+            id: filteringPane
+
             Layout.preferredWidth: 300
             Layout.fillHeight: true
 
             onAppliedClicked: {
-
+                currentFilter = filter
                 filterItemsReq.call(filter)
             }
 
@@ -124,7 +128,7 @@ ApplicationWindow {
 
                 const model = imageViewAndControls.model
 
-                let toUpdate = []
+                const toUpdate = []
 
                 function makeCopy(obj) {
                     return JSON.parse(JSON.stringify(obj))
@@ -147,6 +151,9 @@ ApplicationWindow {
 
                         toUpdate.push(updateItem)
                     }
+
+                    // remove selection
+                    item.selected = false
                 }
 
                 updateItems.call(toUpdate)
@@ -228,11 +235,10 @@ ApplicationWindow {
 
         handler: dataAccess.updateItems
 
-        onSuccess: {
-            console.log(JSON.stringify(res, null, "  "))
-        }
+        onSuccess: filterItemsReq.call(currentFilter)
 
         onError: {
+            // TODO
             console.log("FAIL!")
             console.log(JSON.stringify(details, null, "  "))
         }
