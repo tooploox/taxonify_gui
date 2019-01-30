@@ -108,6 +108,7 @@ function parseResponse(parameters, readyRequest) {
     if(status === 0 && text === "") { // loading from fs gives status 0
         message = 'Network error.'
     } else {
+        //TODO: cleanup needed
         //TODO: Fix Server side bug and remove below if. Preserve else content.
         if (text === "null\n") {
             console.warn('Server responseText: "null\n", '
@@ -116,7 +117,7 @@ function parseResponse(parameters, readyRequest) {
         }
 
         try {
-            console.log("Normal execution")
+            //console.log("Normal execution")
             json = JSON.parse(text)
             if(json.message)
                 message = json.message
