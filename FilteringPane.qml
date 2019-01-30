@@ -133,14 +133,16 @@ Rectangle {
                             filter.acquisition_time_end = dateFilter.end.isostring
                         }
                     }
-                    for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
-                        if(taxonomyFilter.container.itemAt(i).checked) {
-                            var key = taxonomyFilter.taxonomyNames[i]
-                            var value = taxonomyFilter.container.itemAt(i).value
-                            if (value === taxonomyFilter.notSpecifiedStr) {
-                                value = ''
+                    if (taxonomyCkbx.checked) {
+                        for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
+                            if(taxonomyFilter.container.itemAt(i).checked) {
+                                var key = taxonomyFilter.taxonomyNames[i]
+                                var value = taxonomyFilter.container.itemAt(i).value
+                                if (value === taxonomyFilter.notSpecifiedStr) {
+                                    value = ''
+                                }
+                                filter[key] = value
                             }
-                            filter[key] = value
                         }
                     }
                     if (livenessCkbx.checked) {
