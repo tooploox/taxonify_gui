@@ -11,62 +11,68 @@ Rectangle {
 
     signal applyClicked()
 
-    ColumnLayout {
-        width: parent.width
+    ScrollView {
 
-        ButtonGroup { id: radioGroup }
+        anchors.fill: parent
+        contentWidth: width
 
-        Label {
-            Layout.fillWidth: true
-            text: qsTr("Annotation")
-            font.pixelSize: 25
-            horizontalAlignment: Text.AlignHCenter
-        }
+        ColumnLayout {
+            width: parent.width
 
-        GroupBox {
-            Layout.fillWidth: true
+            ButtonGroup { id: radioGroup }
 
-            label: RadioButton {
-                id: taxonomyRbtn
-                text: qsTr("Taxonomy")
-                ButtonGroup.group: radioGroup
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Annotation")
+                font.pixelSize: 25
+                horizontalAlignment: Text.AlignHCenter
             }
 
-            TaxonomyFilter {
-                id: taxonomyfltr
-                enabled: taxonomyRbtn.checked
+            GroupBox {
+                Layout.fillWidth: true
+
+                label: RadioButton {
+                    id: taxonomyRbtn
+                    text: qsTr("Taxonomy")
+                    ButtonGroup.group: radioGroup
+                }
+
+                TaxonomyFilter {
+                    id: taxonomyfltr
+                    enabled: taxonomyRbtn.checked
+                }
             }
-        }
 
-        GroupBox {
-            Layout.fillWidth: true
+            GroupBox {
+                Layout.fillWidth: true
 
-            label: RadioButton {
-                id: livenessRbtn
-                checked: true
-                text: qsTr("Liveness")
-                ButtonGroup.group: radioGroup
+                label: RadioButton {
+                    id: livenessRbtn
+                    checked: true
+                    text: qsTr("Liveness")
+                    ButtonGroup.group: radioGroup
+                }
+
+                LivenessFilter {
+                    id: livenessfltr
+                    enabled: livenessRbtn.checked
+                    isAnnotationMode: true
+                }
             }
 
-            LivenessFilter {
-                id: livenessfltr
-                enabled: livenessRbtn.checked
-                isAnnotationMode: true
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
             }
-        }
-
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
 
 
-        Button {
-            text: 'Apply to selected images'
+            Button {
+                text: 'Apply to selected images'
 
-            Layout.alignment: Qt.AlignCenter
+                Layout.alignment: Qt.AlignCenter
 
-            onClicked: applyClicked()
+                onClicked: applyClicked()
+            }
         }
     }
 }
