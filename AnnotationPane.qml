@@ -32,6 +32,7 @@ Rectangle {
 
                 label: RadioButton {
                     id: taxonomyRbtn
+                    checked: false
                     text: qsTr("Taxonomy")
                     ButtonGroup.group: radioGroup
                 }
@@ -47,7 +48,7 @@ Rectangle {
 
                 label: RadioButton {
                     id: livenessRbtn
-                    checked: true
+                    checked: false
                     text: qsTr("Liveness")
                     ButtonGroup.group: radioGroup
                 }
@@ -67,7 +68,7 @@ Rectangle {
 
             Button {
                 text: 'Apply to selected images'
-
+                enabled: radioGroup.checkState !== Qt.Unchecked
                 Layout.alignment: Qt.AlignCenter
 
                 onClicked: applyClicked()
