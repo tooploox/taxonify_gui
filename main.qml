@@ -25,8 +25,6 @@ ApplicationWindow {
         }
 
         if(settingsPath) {
-            console.log('settings path:', settingsPath)
-
             var settingsObj = Req.readJsonFromLocalFileSync(settingsPath)
 
             if (settingsObj && settingsObj.host) {
@@ -44,8 +42,6 @@ ApplicationWindow {
 
     function getUsername() {
         if(settingsPath) {
-            console.log('settings path:', settingsPath)
-
             var settingsObj = Req.readJsonFromLocalFileSync(settingsPath)
 
             if (settingsObj && settingsObj.username) {
@@ -63,8 +59,6 @@ ApplicationWindow {
 
     function getPassword() {
         if(settingsPath) {
-            console.log('settings path:', settingsPath)
-
             var settingsObj = Req.readJsonFromLocalFileSync(settingsPath)
 
             if (settingsObj && settingsObj.password) {
