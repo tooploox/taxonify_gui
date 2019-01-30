@@ -20,6 +20,8 @@ ColumnLayout {
         return crtr
     }
 
+    property bool annotationMode: false
+
     property alias container: rptr
 
     Repeater {
@@ -40,7 +42,8 @@ ColumnLayout {
 
             CheckBox {
                 id: checkbox
-                checked: false
+                visible: !annotationMode
+                checked: annotationMode
             }
 
             ComboBox {
