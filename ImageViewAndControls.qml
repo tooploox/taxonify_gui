@@ -29,6 +29,7 @@ ColumnLayout {
         RowLayout {
             anchors.fill: parent
             anchors.leftMargin: 10
+            anchors.rightMargin: 10
 
             Label {
                 text: "Tile size:"
@@ -40,6 +41,10 @@ ColumnLayout {
 
             Item {
                 Layout.fillWidth: true
+            }
+
+            Label {
+                text: "Number of images loaded: " + imageView.model.count
             }
         }
     }
