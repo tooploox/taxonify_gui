@@ -40,7 +40,6 @@ RowLayout {
         onEditingFinished: {
             if (valid) {
                 date.setUTCMilliseconds(deltaMilliseconds)
-                //date.setMilliseconds(deltaMilliseconds)
                 isostring = date.toISOString()
             }
         }
