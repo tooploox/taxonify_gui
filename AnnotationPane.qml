@@ -47,6 +47,7 @@ Rectangle {
 
                 TaxonomyFilter {
                     id: taxonomyfltr
+                    annotationMode: true
                     enabled: taxonomyRbtn.checked
                 }
             }
