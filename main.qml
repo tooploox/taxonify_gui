@@ -111,9 +111,9 @@ ApplicationWindow {
                     // remove selection
                     item.selected = false
                 }
-
-                updateItems.call(toUpdate)
-
+                if (toUpdate.length > 0) {
+                    updateItems.call(toUpdate)
+                }
             }
         }
     }
