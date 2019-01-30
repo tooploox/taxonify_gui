@@ -18,25 +18,29 @@ ApplicationWindow {
         password : 'hardpass'
     })
 
+    readonly property var settingsFromFile:
+        settingsPath ? Req.readJsonFromLocalFileSync(settingsPath) : null
+
     property var currentFilter: {}
     property string currentSas: ''
     property bool viewPopulated: false
 
     function getSettingVariable(key) {
-        if(settingsPath) {
-            var settingsObj = Req.readJsonFromLocalFileSync(settingsPath)
-            if (settingsObj && settingsObj[key]) {
-                return settingsObj[key]
+        if(settingsFromFile) {
+            if (settingsFromFile && settingsFromFile[key]) {
+                return settingsFromFile[key]
             } else {
-                console.log('No "'+key+'" field found in settings')
+                console.log('No"' + key + '" field found in settings.')
             }
         } else {
-            console.log('Settings not found. Using default server address.')
+            console.log('Settings file not found. Using default value for', key)
         }
+
         if (defaultSettings[key]) {
             return defaultSettings[key]
         } else {
-            console.log('key '+key+' not found in dafaults array. Returning null')
+            console.log('key ' + key
+                        + ' not found in dafaults array. Returning null')
             return null
         }
     }
