@@ -36,6 +36,7 @@ ColumnLayout {
                 CheckBox {
                     id: cb
                     text: model.modelData
+                    checked: true
                 }
             }
 
@@ -44,6 +45,7 @@ ColumnLayout {
                 RadioButton {
                     text: model.modelData;
                     ButtonGroup.group: radioGroup
+                    checked: true
                 }
             }
         }
