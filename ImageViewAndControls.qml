@@ -4,7 +4,9 @@ import QtQuick.Layouts 1.12
 
 ColumnLayout {
 
-    SortingControls {}
+    SortingControls {
+        enabled: false
+    }
 
     property alias filter: imageView.filter
     property alias model: imageView.model
