@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtQuick.Controls 2.12
 
 GridView {
 
@@ -6,11 +7,12 @@ GridView {
         return false
     }
 
+    ScrollBar.vertical: ScrollBar {}
+
     delegate: Item {
 
         width: cellWidth
         height: cellWidth
-
 
         Rectangle {
 
@@ -24,15 +26,11 @@ GridView {
                 State {
                     when: filter(model)
                     name: "grayout"
-                    PropertyChanges {
-                        target: rect
-                        border.color: 'darkgray'
-                    }
+
                     PropertyChanges {
                         target: img
                         opacity: 0.4
                     }
-
                     PropertyChanges {
                         target: rect
                         border.color: 'darkblue'
