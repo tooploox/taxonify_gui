@@ -150,8 +150,7 @@ ApplicationWindow {
         handler: dataAccess.sas
 
         onSuccess: {
-            console.log('sas generated')
-            currentSas = res['token']
+            currentSas = res.token
             if (!viewPopulated) {
                 filterItems.call({}) // to populate view just once
             }
@@ -179,14 +178,12 @@ ApplicationWindow {
 
         onSuccess: {
             itemsModel.clear()
-            var getParams = ''
-            if (currentSas.length > 0) {
-                getParams = '?' + currentSas
-            }
 
-            for (let item of res['items']) {
+            const params = currentSas.length > 0 ? '?' + currentSas : ''
+
+            for (let item of res.items) {
                 const modelItem = {
-                    image: res['urls'][item['_id']] + getParams,
+                    image: res.urls[item._id] + params,
                     selected: false,
                     metadata: item
                 }
@@ -209,16 +206,16 @@ ApplicationWindow {
 
         onError: {
             // TODO
-            console.log("FAIL!")
+            console.log("Updating annotations failed!")
             console.log(JSON.stringify(details, null, "  "))
         }
     }
 
     Component.onCompleted: {
-        var serverAddress = getSettingVariable('host')
+        const serverAddress = getSettingVariable('host')
         dataAccess.server = new Req.Server(serverAddress)
-        var username = getSettingVariable('username')
-        var password = getSettingVariable('password')
+        const username = getSettingVariable('username')
+        const password = getSettingVariable('password')
         login.call(username, password)
     }
 }
