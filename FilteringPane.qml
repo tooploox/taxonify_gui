@@ -30,7 +30,7 @@ Rectangle {
 
                 label: CheckBox {
                     id: checkBox1
-                    checked: true
+                    checked: false
                     text: qsTr("File name")
                 }
 
@@ -53,7 +53,7 @@ Rectangle {
 
                 label: CheckBox {
                     id: dateCkbx
-                    checked: true
+                    checked: false
                     text: qsTr("Date")
                 }
 
@@ -70,7 +70,7 @@ Rectangle {
 
                 label: CheckBox {
                     id: taxonomyCkbx
-                    checked: true
+                    checked: false
                     text: qsTr("Taxonomy")
                 }
 
@@ -85,7 +85,7 @@ Rectangle {
 
                 label: CheckBox {
                     id: livenessCkbx
-                    checked: true
+                    checked: false
                     text: qsTr("Liveness")
                 }
 
