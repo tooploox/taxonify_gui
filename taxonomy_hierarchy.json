@@ -84,9 +84,7 @@
                 "Conjugatophyceae": {
                     "Desmidiales": {
                         "Desmidiaceae": {
-                            "Cosmarium": {
-                                "snull": {}
-                            },
+                            "Cosmarium": {},
                             "Staurastrum": {}
                         }
                     }
