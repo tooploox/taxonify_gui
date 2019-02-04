@@ -10,6 +10,8 @@
         <file>DateFilter.qml</file>
         <file>LivenessFilter.qml</file>
         <file>taxonomy_hierarchy.json</file>
+        <file>settings.json</file>
+        <file>DataModel.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
@@ -34,5 +36,6 @@
         <file>DataAccess.qml</file>
         <file>Request.qml</file>
         <file>requests.js</file>
+        <file>settings.json</file>
     </qresource>
 </RCC>

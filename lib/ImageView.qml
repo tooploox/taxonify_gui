@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 
-GridView {
+ListView {
 
     property var filter: function(item) {
         return false
@@ -9,75 +9,77 @@ GridView {
 
     ScrollBar.vertical: ScrollBar {}
 
-    delegate: Item {
+    delegate: Rectangle {
+            id: rowRect
+            height: 0
+            width: parent.width
+            color: 'black'
 
-        width: cellWidth
-        height: cellWidth
+            ListView {
+                anchors.fill: parent
+                orientation: Qt.Horizontal
 
-        Rectangle {
+                model: sub
 
-            id: rect
+                delegate: Rectangle {
+                    id: rect
 
-            anchors.centerIn: parent
-            width: parent.width - 10
-            height: parent.height - 10
+                    width: img.width
+                    height: img.height
 
-            states: [
-                State {
-                    when: filter(model)
-                    name: "grayout"
+                    states: [
+                        State {
+                            when: filter(model)
+                            name: "grayout"
 
-                    PropertyChanges {
-                        target: img
-                        opacity: 0.4
+                            PropertyChanges {
+                                target: img
+                                opacity: 0.4
+                            }
+                            PropertyChanges {
+                                target: rect
+                                border.color: 'darkblue'
+                            }
+                        },
+                        State {
+                            when: !model.selected
+                            name: "basic"
+                            PropertyChanges {
+                                target: rect
+
+                                border.color: 'darkblue'
+                                border.width: 2
+                                color: 'lightgray'
+                            }
+                        },
+                        State {
+                            when: model.selected
+                            name: "selected"
+                            PropertyChanges {
+                                target: rect
+
+                                border.color: 'red'
+                                border.width: 4
+                                color: 'lightblue'
+                            }
+                        }
+                    ]
+
+                    Image {
+                        id: img
+                        source: image
+
+                        Component.onCompleted: {
+                            rowRect.height = Math.max(rowRect.height, sourceSize.height)
+                        }
                     }
-                    PropertyChanges {
-                        target: rect
-                        border.color: 'darkblue'
-                    }
-                },
-                State {
-                    when: !model.selected
-                    name: "basic"
-                    PropertyChanges {
-                        target: rect
 
-                        border.color: 'darkblue'
-                        border.width: 2
-                        color: 'lightgray'
-                    }
-                },
-                State {
-                    when: model.selected
-                    name: "selected"
-                    PropertyChanges {
-                        target: rect
+                    MouseArea {
+                        anchors.fill: parent
 
-                        border.color: 'red'
-                        border.width: 4
-                        color: 'lightblue'
+                        onClicked: model.selected = !model.selected
                     }
                 }
-            ]
-
-            Image {
-                id: img
-                width: parent.width - 10
-                height: parent.height - 10
-
-                fillMode: Image.PreserveAspectFit
-
-                anchors.centerIn: parent
-
-                source: image
-                clip: true
-            }
-
-            MouseArea {
-                anchors.fill: parent
-
-                onClicked: model.selected = !model.selected
-            }
-        }
+         }
     }
 }
