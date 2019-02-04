@@ -21,6 +21,7 @@ ApplicationWindow {
 
     readonly property var settingsFromFile:
         settingsPath ? Req.readJsonFromLocalFileSync(settingsPath) : null
+
     property var currentFilter: {}
     property string currentSas: ''
     property bool viewPopulated: false
@@ -67,17 +68,17 @@ ApplicationWindow {
             Layout.fillHeight: true
 
             filter: ((criteria) => {
-                 return (item) => {
-                     for (let c in criteria) {
-                         if (item.metadata[c] !== criteria[c])
-                         return false
-                     }
-                     return true
-                 }
+                         return (item) => {
+                             for (let c in criteria) {
+                                 if (item.metadata[c] !== criteria[c])
+                                 return false
+                             }
+                             return true
+                         }
 
-             })(annotationPane.criteria)
+                     })(annotationPane.criteria)
 
-            model: DataModel {
+            model: ListModel {
                 id: itemsModel
             }
         }
@@ -133,7 +134,7 @@ ApplicationWindow {
         handler: dataAccess.login
 
         onSuccess: sas.call('processed')
-        onError: console.log('Login failed. Details: ' + JSON.stringify(details))
+        onError: console.log('Login failed. Details: ' + details)
     }
 
     Request {
@@ -169,7 +170,6 @@ ApplicationWindow {
         handler: dataAccess.filterItems
 
         onSuccess: {
-            return
             itemsModel.clear()
 
             const params = currentSas.length > 0 ? '?' + currentSas : ''
@@ -183,6 +183,7 @@ ApplicationWindow {
                 itemsModel.append(modelItem)
             }
             viewPopulated = true
+            imageViewAndControls.update()
         }
 
         onError: {

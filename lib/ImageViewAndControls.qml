@@ -10,14 +10,10 @@ ColumnLayout {
 
     property alias filter: imageView.filter
     property alias model: imageView.model
+    property alias update: imageView.update
 
     ImageView {
         id: imageView
-
-        clip: true
-
-        //cellWidth: 100 + tileSizeSlider.value * 150
-        //cellHeight: 100 + tileSizeSlider.value * 150
 
         Layout.fillWidth: true
         Layout.fillHeight: true

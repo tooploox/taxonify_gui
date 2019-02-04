@@ -2,6 +2,9 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 
 ListView {
+    id: root
+    property alias images: root.model
+    property alias update: listModel.update
 
     property var filter: function(item) {
         return false
@@ -9,7 +12,39 @@ ListView {
 
     ScrollBar.vertical: ScrollBar {}
 
-    delegate: Rectangle {
+    ListView {
+        id: listView
+        anchors.fill: parent
+
+        model: 0
+
+        ListModel {
+            id: listModel
+
+            property real maxWidth: root.width
+
+            property var update: function () {
+                clear()
+                var row = []
+
+                for(var i = 0, sumWidth=0; i < images.count; i++) {
+                    var imageWidth = images.get(i).metadata.image_width
+                    if(sumWidth + imageWidth > maxWidth) {
+                        append({sub: row})
+                        sumWidth = 0
+                        row = []
+                    }
+                    sumWidth += imageWidth
+                    row.push({idx: i})
+                }
+                if(row.length > 0) {
+                    append({sub: row})
+                }
+                listView.model = listModel
+            }
+        }
+
+        delegate: Rectangle {
             id: rowRect
             height: 0
             width: parent.width
@@ -27,9 +62,11 @@ ListView {
                     width: img.width
                     height: img.height
 
+                    property var item: images.get(modelData)
+
                     states: [
                         State {
-                            when: filter(model)
+                            when: filter(item)
                             name: "grayout"
 
                             PropertyChanges {
@@ -42,8 +79,9 @@ ListView {
                             }
                         },
                         State {
-                            when: !model.selected
+                            when: !item.selected
                             name: "basic"
+
                             PropertyChanges {
                                 target: rect
 
@@ -53,7 +91,7 @@ ListView {
                             }
                         },
                         State {
-                            when: model.selected
+                            when: item.selected
                             name: "selected"
                             PropertyChanges {
                                 target: rect
@@ -67,19 +105,25 @@ ListView {
 
                     Image {
                         id: img
-                        source: image
+                        source: item.image
 
                         Component.onCompleted: {
-                            rowRect.height = Math.max(rowRect.height, sourceSize.height)
+                            const imgHeight = item.metadata.image_height
+                            rowRect.height = Math.max(rowRect.height, imgHeight)
                         }
                     }
 
                     MouseArea {
                         anchors.fill: parent
 
-                        onClicked: model.selected = !model.selected
+                        onClicked: {
+                            item.selected = !item.selected
+                            item = images.get(modelData)
+                        }
                     }
                 }
          }
+    }
+
     }
 }
