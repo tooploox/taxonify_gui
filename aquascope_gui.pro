@@ -6,7 +6,3 @@ app.depends = lib
 test_gui.depends = lib
 
 OTHER_FILES = README.md
-
-DISTFILES += \
-    settings.json \
-    settings.json
