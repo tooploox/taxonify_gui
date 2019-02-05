@@ -29,7 +29,14 @@ void Uploader::upload(QString path) {
         return;
     }
 
-    reply = nam->put(QNetworkRequest(address), file);
+    QNetworkRequest request(address);
+
+    if(!token.isEmpty()) {
+        request.setRawHeader(QByteArray("Authorization"),
+                             ("Bearer " + token).toUtf8());
+    }
+
+    reply = nam->put(request, file);
     reply->setParent(this);
 
     connect(reply, &QNetworkReply::finished,

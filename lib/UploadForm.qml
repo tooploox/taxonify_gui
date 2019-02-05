@@ -14,6 +14,11 @@ Item {
     property alias address: uploader.address
 
     /**
+      * JWT token which will be send in Authorization header if not empty
+      */
+    property alias token: uploader.token
+
+    /**
       * Signal emitted when file is choosen but upload is not started yet.
       * It may be used for example to set address containing filename in the
       * url.
