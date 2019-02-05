@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>qtquickcontrols2.conf</file>
         <file>FilteringPane.qml</file>
         <file>AnnotationPane.qml</file>
         <file>ImageView.qml</file>

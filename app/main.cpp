@@ -3,6 +3,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include <Uploader.h>
+
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -20,6 +22,9 @@ int main(int argc, char *argv[])
     } else {
         settingsPath = QVariant(QVariant::String);
     }
+
+    // Dummy instance to enforce proper linking
+    Uploader();
 
     engine.rootContext()->setContextProperty("settingsPath", settingsPath);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
