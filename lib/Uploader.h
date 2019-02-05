@@ -5,10 +5,23 @@
 
 #include "AquascopeLibGlobal.h"
 
-class AQUASCOPE_LIB_EXPORT Uploader
+class QNetworkAccessManager;
+class QNetworkReply;
+
+class AQUASCOPE_LIB_EXPORT Uploader : public QObject
 {
+    Q_OBJECT
+
 public:
-    Uploader();
+    explicit Uploader(QObject *parent = 0);
+    ~Uploader();
+
+    Q_INVOKABLE void upload(QString path);
+    Q_INVOKABLE void abort();
+
+private:
+    QNetworkAccessManager* nam;
+    QNetworkReply* reply;
 };
 
 #endif // UPLOADER_H

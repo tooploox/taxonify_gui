@@ -1,3 +1,4 @@
 TEMPLATE = subdirs
 
-SUBDIRS +=  ExampleTest
+SUBDIRS +=  ExampleTest \
+            UploadTest
