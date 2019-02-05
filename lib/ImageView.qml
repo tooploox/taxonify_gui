@@ -6,6 +6,8 @@ ListView {
     property alias images: root.model
     property alias update: listModel.update
 
+    property real borderWidth: 5
+
     property var filter: function(item) {
         return false
     }
@@ -28,7 +30,7 @@ ListView {
                 var row = []
 
                 for(var i = 0, sumWidth=0; i < images.count; i++) {
-                    var imageWidth = images.get(i).metadata.image_width
+                    var imageWidth = images.get(i).metadata.image_width+3*borderWidth
                     if(sumWidth + imageWidth > maxWidth) {
                         append({sub: row})
                         sumWidth = 0
@@ -48,7 +50,7 @@ ListView {
             id: rowRect
             height: 0
             width: parent.width
-            color: 'black'
+            //color: 'black'
 
             ListView {
                 anchors.fill: parent
@@ -56,74 +58,79 @@ ListView {
 
                 model: sub
 
-                delegate: Rectangle {
-                    id: rect
-
-                    width: img.width
-                    height: img.height
+                delegate: Item {
+                    width: img.width+3*borderWidth
+                    height: img.height+3*borderWidth
 
                     property var item: images.get(modelData)
 
-                    states: [
-                        State {
-                            when: filter(item)
-                            name: "grayout"
+                    Rectangle {
+                        id: rect
 
-                            PropertyChanges {
-                                target: img
-                                opacity: 0.4
+                        anchors.centerIn: parent
+                        width: parent.width-borderWidth
+                        height: parent.height-borderWidth
+                        states: [
+                            State {
+                                when: filter(item)
+                                name: "grayout"
+
+                                PropertyChanges {
+                                    target: img
+                                    opacity: 0.4
+                                }
+                                PropertyChanges {
+                                    target: rect
+                                    border.color: 'darkblue'
+                                }
+                            },
+                            State {
+                                when: !item.selected
+                                name: "basic"
+
+                                PropertyChanges {
+                                    target: rect
+
+                                    border.color: 'darkblue'
+                                    border.width: borderWidth/2
+                                    color: 'lightgray'
+                                }
+                            },
+                            State {
+                                when: item.selected
+                                name: "selected"
+                                PropertyChanges {
+                                    target: rect
+
+                                    border.color: 'red'
+                                    border.width: borderWidth
+                                    color: 'lightblue'
+                                }
                             }
-                            PropertyChanges {
-                                target: rect
-                                border.color: 'darkblue'
-                            }
-                        },
-                        State {
-                            when: !item.selected
-                            name: "basic"
+                        ]
 
-                            PropertyChanges {
-                                target: rect
+                        Image {
+                            id: img
+                            source: item.image
+                            anchors.centerIn: parent
 
-                                border.color: 'darkblue'
-                                border.width: 2
-                                color: 'lightgray'
-                            }
-                        },
-                        State {
-                            when: item.selected
-                            name: "selected"
-                            PropertyChanges {
-                                target: rect
-
-                                border.color: 'red'
-                                border.width: 4
-                                color: 'lightblue'
+                            Component.onCompleted: {
+                                const imgHeight = item.metadata.image_height
+                                rowRect.height = Math.max(rowRect.height, imgHeight+3*borderWidth)
                             }
                         }
-                    ]
 
-                    Image {
-                        id: img
-                        source: item.image
+                        MouseArea {
+                            anchors.fill: parent
 
-                        Component.onCompleted: {
-                            const imgHeight = item.metadata.image_height
-                            rowRect.height = Math.max(rowRect.height, imgHeight)
-                        }
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-
-                        onClicked: {
-                            item.selected = !item.selected
-                            item = images.get(modelData)
+                            onClicked: {
+                                item.selected = !item.selected
+                                item = images.get(modelData)
+                            }
                         }
                     }
                 }
-         }
-    }
-
+            }
+        }
     }
 }
