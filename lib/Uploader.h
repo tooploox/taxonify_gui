@@ -1,5 +1,4 @@
-#ifndef UPLOADER_H
-#define UPLOADER_H
+#pragma once
 
 #include <QObject>
 
@@ -11,17 +10,22 @@ class QNetworkReply;
 class AQUASCOPE_LIB_EXPORT Uploader : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString address MEMBER address NOTIFY addressChanged)
 
 public:
-    explicit Uploader(QObject *parent = 0);
-    ~Uploader();
+    explicit Uploader(QObject *parent = nullptr);
 
     Q_INVOKABLE void upload(QString path);
     Q_INVOKABLE void abort();
 
-private:
-    QNetworkAccessManager* nam;
-    QNetworkReply* reply;
-};
+signals:
+    void addressChanged();
+    void success(QString replyData);
+    void error(int status, QString errorString);
+    void progressChanged(qint64 bytesSent, qint64 bytesTotal);
 
-#endif // UPLOADER_H
+private:
+    QString address;
+    QNetworkAccessManager* nam;
+    QNetworkReply* reply = nullptr;
+};

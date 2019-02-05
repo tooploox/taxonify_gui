@@ -5,40 +5,54 @@
 #include <QNetworkReply>
 
 Uploader::Uploader(QObject *parent)
-    : QObject(parent)
+    : QObject(parent), nam(new QNetworkAccessManager(this))
 {
-    nam = new QNetworkAccessManager(this);
-}
-
-Uploader::~Uploader() {
-
 }
 
 void Uploader::upload(QString path) {
 
-    QString url = "https://httpbin.org/put";
+    if(address.isEmpty()) {
+        emit error(0, "Remote address is not set.");
+        return;
+    }
 
-    QFile* file = new QFile("/home/mcieslak/Downloads/thumb.jpg");
-    qDebug() << file->open(QIODevice::ReadOnly);
+    if(reply) {
+        emit error(0, "Upload is already in progress.");
+        return;
+    }
 
-    qDebug() << "sending put req";
+    QFile* file = new QFile(path);
+    bool openResult = file->open(QIODevice::ReadOnly);
 
-    reply = nam->put(QNetworkRequest(url), file);
+    if(!openResult) {
+        emit error(0, "Cannot open file: " + path + ".");
+        return;
+    }
+
+    reply = nam->put(QNetworkRequest(address), file);
+    reply->setParent(this);
 
     connect(reply, &QNetworkReply::finished,
             [this]() {
 
-        qDebug() << "finished!";
+        if(reply->error()) {
+            int status = reply->attribute(
+                        QNetworkRequest::HttpStatusCodeAttribute).toInt();
+            emit error(status, reply->errorString());
+        } else {
+            emit success(reply->readAll());
+        }
 
-        qDebug() << reply->readAll();
-
+        reply->deleteLater();
+        reply = nullptr;
     });
 
-    qDebug() << "connected!";
-
+    connect(reply, &QNetworkReply::uploadProgress, this,
+            &Uploader::progressChanged);
 }
 
-
 void Uploader::abort() {
-
+    if(reply) {
+        reply->abort();
+    }
 }

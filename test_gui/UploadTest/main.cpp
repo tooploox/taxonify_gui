@@ -10,9 +10,6 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    // Dummy instance to enforce proper linking
-    Uploader();
-
     qmlRegisterType<Uploader>("com.microscopeit", 1, 0, "Uploader");
 
     engine.load(QUrl(QStringLiteral("qrc:/test/Main.qml")));
