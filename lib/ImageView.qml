@@ -4,9 +4,7 @@ import QtQuick.Controls 2.12
 Item {
     id: root
 
-    property var model
-
-    property alias images: root.model
+    property var images
     property alias update: listModel.update
 
     property real borderWidth: 5
