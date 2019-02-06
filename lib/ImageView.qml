@@ -2,7 +2,8 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 
 Item {
-    property var images
+    id: root
+
     property real borderWidth: 5
     property real sizeScale: 1
 
@@ -10,20 +11,35 @@ Item {
         return false
     }
 
+    readonly property ListModel model: ListModel {}
+
     clip: true
+
+    function setData(data) {
+
+        listModel.clear()
+        listView.forceLayout()
+
+        model.clear()
+
+        for (let item of data) {
+            model.append(item)
+        }
+
+        update()
+    }
 
     function update() {
 
-        listView.model = []
         listModel.clear()
 
         let row = []
         let sumWidth = 0
         let maxHeight = 0
 
-        for(let i = 0; i < images.count; i++) {
+        for(let i = 0; i < model.count; i++) {
 
-            const metadata = images.get(i).metadata
+            const metadata = root.model.get(i).metadata
             const imageWidth = metadata.image_width * sizeScale
                     + 3 * borderWidth
             const imageHeight = metadata.image_height
@@ -43,8 +59,6 @@ Item {
         if(row.length > 0) {
             listModel.append({ sub: row, maxHeight: maxHeight })
         }
-
-        listView.model = listModel
     }
 
     onWidthChanged: timer.restart()
@@ -53,7 +67,7 @@ Item {
     Timer {
         id: timer
         interval: 500
-        onTriggered: update(imageView.width)
+        onTriggered: root.update()
     }
 
     ListView {
@@ -84,7 +98,7 @@ Item {
                     width: img.width + 3 * borderWidth
                     height: img.height + 3 * borderWidth
 
-                    property var item: images.get(modelData)
+                    property var item: root.model.get(modelData)
 
                     Rectangle {
                         id: rect
@@ -145,7 +159,7 @@ Item {
 
                             onClicked: {
                                 item.selected = !item.selected
-                                item = images.get(modelData)
+                                item = root.model.get(modelData)
                             }
                         }
                     }

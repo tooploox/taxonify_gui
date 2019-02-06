@@ -77,10 +77,6 @@ ApplicationWindow {
                          }
 
                      })(annotationPane.criteria)
-
-            images: ListModel {
-                id: itemsModel
-            }
         }
 
         AnnotationPane {
@@ -90,7 +86,7 @@ ApplicationWindow {
 
             onApplyClicked: {
 
-                const model = imageViewAndControls.images
+                const model = imageViewAndControls.imageView.model
 
                 const toUpdate = []
 
@@ -170,9 +166,9 @@ ApplicationWindow {
         handler: dataAccess.filterItems
 
         onSuccess: {
-            itemsModel.clear()
-
             const params = currentSas.length > 0 ? '?' + currentSas : ''
+
+            let data = []
 
             for (let item of res.items) {
                 const modelItem = {
@@ -180,10 +176,11 @@ ApplicationWindow {
                     selected: false,
                     metadata: item
                 }
-                itemsModel.append(modelItem)
+                data.push(modelItem)
             }
+
             viewPopulated = true
-            imageViewAndControls.update()
+            imageViewAndControls.imageView.setData(data)
         }
 
         onError: {

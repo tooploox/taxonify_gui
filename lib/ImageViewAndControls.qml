@@ -4,12 +4,12 @@ import QtQuick.Layouts 1.12
 
 ColumnLayout {
 
+    property alias filter: imageView.filter
+    readonly property ImageView imageView: imageView
+
     SortingControls {
         enabled: false
     }
-
-    property alias filter: imageView.filter
-    property alias images: imageView.images
 
     ImageView {
         id: imageView
@@ -47,7 +47,7 @@ ColumnLayout {
             }
 
             Label {
-                text: "Number of images loaded: " + images.count
+                text: "Number of images loaded: " + imageView.model.count
             }
         }
     }
