@@ -5,12 +5,43 @@ Item {
     id: root
 
     property var images
-    property alias update: listModel.update
-
     property real borderWidth: 5
     property real sizeScale: 1
-
     property var filter: (item) => false
+
+    property var update: function () {
+
+        listModel.clear()
+
+        let row = []
+        let sumWidth = 0
+        let maxHeight = 0
+
+        for(let i = 0; i < images.count; i++) {
+
+            const metadata = images.get(i).metadata
+            const imageWidth = metadata.image_width * sizeScale
+                    + 3 * borderWidth
+            const imageHeight = metadata.image_height
+
+            if(sumWidth + imageWidth > width) {
+                listModel.append({ sub: row, maxHeight: maxHeight })
+                sumWidth = 0
+                maxHeight = 0
+                row = []
+            }
+
+            sumWidth += imageWidth
+            maxHeight = Math.max(maxHeight, imageHeight)
+            row.push({ idx: i })
+        }
+
+        if(row.length > 0) {
+            listModel.append({ sub: row, maxHeight: maxHeight })
+        }
+
+        listView.model = listModel
+    }
 
     clip: true
 
@@ -22,41 +53,6 @@ Item {
 
         ListModel {
             id: listModel
-
-            property real maxWidth: root.width
-
-            property var update: function () {
-                clear()
-
-                let row = []
-                let sumWidth = 0
-                let maxHeight = 0
-
-                for(let i = 0; i < images.count; i++) {
-
-                    const metadata = images.get(i).metadata
-                    const imageWidth = metadata.image_width * sizeScale
-                            + 3 * borderWidth
-                    const imageHeight = metadata.image_height
-
-                    if(sumWidth + imageWidth > maxWidth) {
-                        append({ sub: row, maxHeight: maxHeight })
-                        sumWidth = 0
-                        maxHeight = 0
-                        row = []
-                    }
-
-                    sumWidth += imageWidth
-                    maxHeight = Math.max(maxHeight, imageHeight)
-                    row.push({ idx: i })
-                }
-
-                if(row.length > 0) {
-                    append({ sub: row, maxHeight: maxHeight })
-                }
-
-                listView.model = listModel
-            }
         }
 
         delegate: Rectangle {
