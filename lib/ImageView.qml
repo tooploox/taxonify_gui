@@ -1,8 +1,11 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 
-ListView {
+Item {
     id: root
+
+    property var model
+
     property alias images: root.model
     property alias update: listModel.update
 
@@ -13,13 +16,15 @@ ListView {
         return false
     }
 
-    ScrollBar.vertical: ScrollBar {}
+    clip: true
+
+
 
     ListView {
         id: listView
         anchors.fill: parent
 
-        model: 0
+        ScrollBar.vertical: ScrollBar {}
 
         ListModel {
             id: listModel
@@ -61,6 +66,8 @@ ListView {
                 clip: true
 
                 model: sub
+
+                ScrollBar.horizontal: ScrollBar {}
 
                 delegate: Item {
                     width: img.width + 3 * borderWidth
