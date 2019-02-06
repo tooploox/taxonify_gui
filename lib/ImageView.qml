@@ -29,24 +29,32 @@ Item {
 
             property var update: function () {
                 clear()
-                let row = []
 
-                for(let i = 0, sumWidth = 0; i < images.count; i++) {
-                    const imageWidth = images.get(i).metadata.image_width
-                            * sizeScale + 3 * borderWidth
+                let row = []
+                let sumWidth = 0
+                let maxHeight = 0
+
+                for(let i = 0; i < images.count; i++) {
+
+                    const metadata = images.get(i).metadata
+                    const imageWidth = metadata.image_width * sizeScale
+                            + 3 * borderWidth
+                    const imageHeight = metadata.image_height
 
                     if(sumWidth + imageWidth > maxWidth) {
-                        append({ sub: row })
+                        append({ sub: row, maxHeight: maxHeight })
                         sumWidth = 0
+                        maxHeight = 0
                         row = []
                     }
 
                     sumWidth += imageWidth
+                    maxHeight = Math.max(maxHeight, imageHeight)
                     row.push({ idx: i })
                 }
 
                 if(row.length > 0) {
-                    append({sub: row})
+                    append({ sub: row, maxHeight: maxHeight })
                 }
 
                 listView.model = listModel
@@ -55,11 +63,8 @@ Item {
 
         delegate: Rectangle {
             id: rowRect
-            height: absoluteHeight * sizeScale + 3 * borderWidth
+            height: maxHeight * sizeScale + 3 * borderWidth
             width: parent.width
-            //color: 'black'
-
-            property real absoluteHeight: 0
 
             ListView {
                 anchors.fill: parent
@@ -128,10 +133,6 @@ Item {
 
                             height: item.metadata.image_height * sizeScale
                             width: item.metadata.image_width * sizeScale
-
-                            Component.onCompleted: {
-                                rowRect.absoluteHeight = Math.max(rowRect.absoluteHeight, item.metadata.image_height)
-                            }
                         }
 
                         MouseArea {
