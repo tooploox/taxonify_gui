@@ -12,13 +12,9 @@ Item {
     property real borderWidth: 5
     property real sizeScale: 1
 
-    property var filter: function(item) {
-        return false
-    }
+    property var filter: (item) => false
 
     clip: true
-
-
 
     ListView {
         id: listView
@@ -33,21 +29,26 @@ Item {
 
             property var update: function () {
                 clear()
-                var row = []
+                let row = []
 
-                for(var i = 0, sumWidth=0; i < images.count; i++) {
-                    var imageWidth = images.get(i).metadata.image_width * sizeScale + 3 * borderWidth
+                for(let i = 0, sumWidth = 0; i < images.count; i++) {
+                    const imageWidth = images.get(i).metadata.image_width
+                            * sizeScale + 3 * borderWidth
+
                     if(sumWidth + imageWidth > maxWidth) {
-                        append({sub: row})
+                        append({ sub: row })
                         sumWidth = 0
                         row = []
                     }
+
                     sumWidth += imageWidth
-                    row.push({idx: i})
+                    row.push({ idx: i })
                 }
+
                 if(row.length > 0) {
                     append({sub: row})
                 }
+
                 listView.model = listModel
             }
         }
