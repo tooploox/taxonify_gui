@@ -58,6 +58,7 @@ ListView {
             ListView {
                 anchors.fill: parent
                 orientation: Qt.Horizontal
+                clip: true
 
                 model: sub
 
