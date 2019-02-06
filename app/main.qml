@@ -90,7 +90,7 @@ ApplicationWindow {
 
             onApplyClicked: {
 
-                const model = imageViewAndControls.model
+                const model = imageViewAndControls.images
 
                 const toUpdate = []
 
