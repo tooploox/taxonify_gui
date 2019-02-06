@@ -17,6 +17,14 @@ ColumnLayout {
 
         Layout.fillWidth: true
         Layout.fillHeight: true
+
+        onWidthChanged: timer.restart()
+
+        Timer {
+            id: timer
+            interval: 500
+            onTriggered: update(imageView.width)
+        }
     }
 
     Rectangle {
