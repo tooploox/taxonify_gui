@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtQuick.Controls 1.4 as QTQC1_4
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
@@ -18,7 +19,10 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
 
+        sizeScale: tileSizeSlider.value
+
         onWidthChanged: timer.restart()
+        onSizeScaleChanged: timer.restart()
 
         Timer {
             id: timer
@@ -41,8 +45,12 @@ ColumnLayout {
                 text: "Tile size:"
             }
 
-            Slider {
+            QTQC1_4.Slider {
                 id: tileSizeSlider
+
+                minimumValue: 0.25
+                maximumValue: 2.0
+                value: 1.0
             }
 
             Item {

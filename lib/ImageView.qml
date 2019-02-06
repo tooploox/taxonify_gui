@@ -7,6 +7,7 @@ ListView {
     property alias update: listModel.update
 
     property real borderWidth: 5
+    property real sizeScale: 1
 
     property var filter: function(item) {
         return false
@@ -30,7 +31,7 @@ ListView {
                 var row = []
 
                 for(var i = 0, sumWidth=0; i < images.count; i++) {
-                    var imageWidth = images.get(i).metadata.image_width+3*borderWidth
+                    var imageWidth = images.get(i).metadata.image_width * sizeScale + 3 * borderWidth
                     if(sumWidth + imageWidth > maxWidth) {
                         append({sub: row})
                         sumWidth = 0
@@ -48,9 +49,11 @@ ListView {
 
         delegate: Rectangle {
             id: rowRect
-            height: 0
+            height: absoluteHeight * sizeScale + 3 * borderWidth
             width: parent.width
             //color: 'black'
+
+            property real absoluteHeight: 0
 
             ListView {
                 anchors.fill: parent
@@ -59,8 +62,8 @@ ListView {
                 model: sub
 
                 delegate: Item {
-                    width: img.width+3*borderWidth
-                    height: img.height+3*borderWidth
+                    width: img.width + 3 * borderWidth
+                    height: img.height + 3 * borderWidth
 
                     property var item: images.get(modelData)
 
@@ -68,8 +71,8 @@ ListView {
                         id: rect
 
                         anchors.centerIn: parent
-                        width: parent.width-borderWidth
-                        height: parent.height-borderWidth
+                        width: parent.width - borderWidth
+                        height: parent.height - borderWidth
                         states: [
                             State {
                                 when: filter(item)
@@ -92,7 +95,7 @@ ListView {
                                     target: rect
 
                                     border.color: 'darkblue'
-                                    border.width: borderWidth/2
+                                    border.width: borderWidth / 2
                                     color: 'lightgray'
                                 }
                             },
@@ -114,9 +117,11 @@ ListView {
                             source: item.image
                             anchors.centerIn: parent
 
+                            height: item.metadata.image_height * sizeScale
+                            width: item.metadata.image_width * sizeScale
+
                             Component.onCompleted: {
-                                const imgHeight = item.metadata.image_height
-                                rowRect.height = Math.max(rowRect.height, imgHeight+3*borderWidth)
+                                rowRect.absoluteHeight = Math.max(rowRect.absoluteHeight, item.metadata.image_height)
                             }
                         }
 
