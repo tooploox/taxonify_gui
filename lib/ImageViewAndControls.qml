@@ -1,5 +1,4 @@
 import QtQuick 2.12
-import QtQuick.Controls 1.4 as QTQC1_4
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
@@ -45,11 +44,11 @@ ColumnLayout {
                 text: "Tile size:"
             }
 
-            QTQC1_4.Slider {
+            Slider {
                 id: tileSizeSlider
 
-                minimumValue: 0.25
-                maximumValue: 2.0
+                from: 0.25
+                to: 2.0
                 value: 1.0
             }
 
