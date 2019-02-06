@@ -10,7 +10,6 @@ ColumnLayout {
 
     property alias filter: imageView.filter
     property alias images: imageView.images
-    property alias update: imageView.update
 
     ImageView {
         id: imageView
@@ -19,15 +18,6 @@ ColumnLayout {
         Layout.fillHeight: true
 
         sizeScale: tileSizeSlider.value
-
-        onWidthChanged: timer.restart()
-        onSizeScaleChanged: timer.restart()
-
-        Timer {
-            id: timer
-            interval: 500
-            onTriggered: update(imageView.width)
-        }
     }
 
     Rectangle {

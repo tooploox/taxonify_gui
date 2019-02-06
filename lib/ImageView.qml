@@ -5,10 +5,16 @@ Item {
     property var images
     property real borderWidth: 5
     property real sizeScale: 1
-    property var filter: (item) => false
 
-    property var update: function () {
+    property var filter: function(item) {
+        return false
+    }
 
+    clip: true
+
+    function update() {
+
+        listView.model = []
         listModel.clear()
 
         let row = []
@@ -41,7 +47,14 @@ Item {
         listView.model = listModel
     }
 
-    clip: true
+    onWidthChanged: timer.restart()
+    onSizeScaleChanged: timer.restart()
+
+    Timer {
+        id: timer
+        interval: 500
+        onTriggered: update(imageView.width)
+    }
 
     ListView {
         id: listView
@@ -49,7 +62,7 @@ Item {
 
         ScrollBar.vertical: ScrollBar {}
 
-        ListModel {
+        model: ListModel {
             id: listModel
         }
 
