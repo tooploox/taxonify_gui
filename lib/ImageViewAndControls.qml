@@ -9,7 +9,7 @@ ColumnLayout {
     }
 
     property alias filter: imageView.filter
-    property alias model: imageView.model
+    property alias images: imageView.images
     property alias update: imageView.update
 
     ImageView {
@@ -57,7 +57,7 @@ ColumnLayout {
             }
 
             Label {
-                text: "Number of images loaded: " + model.count
+                text: "Number of images loaded: " + images.count
             }
         }
     }

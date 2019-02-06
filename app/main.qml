@@ -78,7 +78,7 @@ ApplicationWindow {
 
                      })(annotationPane.criteria)
 
-            model: ListModel {
+            images: ListModel {
                 id: itemsModel
             }
         }
