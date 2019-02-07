@@ -15,10 +15,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 HEADERS += \
-    Uploader.h
+    AquascopeLibGlobal.h \
+    Uploader.h \
 
 SOURCES += \
     Uploader.cpp
+
+DEFINES += AQUASCOPE_LIB_LIBRARY
 
 RESOURCES += qml.qrc
 
