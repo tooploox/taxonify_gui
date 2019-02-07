@@ -3,7 +3,9 @@
 
 #include <QObject>
 
-class Uploader
+#include "AquascopeLibGlobal.h"
+
+class AQUASCOPE_LIB_EXPORT Uploader
 {
 public:
     Uploader();
