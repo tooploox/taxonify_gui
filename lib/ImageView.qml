@@ -59,6 +59,8 @@ Item {
         if(row.length > 0) {
             listModel.append({ sub: row, maxHeight: maxHeight })
         }
+
+        listView.contentY = listView.lastY
     }
 
     onWidthChanged: timer.restart()
@@ -73,12 +75,14 @@ Item {
     ListView {
         id: listView
         anchors.fill: parent
-
+        property int lastY: 0
         ScrollBar.vertical: ScrollBar {}
 
         model: ListModel {
             id: listModel
         }
+
+        onMovementEnded: lastY=contentY
 
         delegate: Rectangle {
             id: rowRect
