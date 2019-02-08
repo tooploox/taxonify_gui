@@ -122,28 +122,47 @@ Rectangle {
             Layout.fillWidth: true
         }
 
+<<<<<<< HEAD
         Button {
             text: qsTr('Apply filters')
 
             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
             height: 40
+
             onClicked: {
                 var filter = {}
-                if (checkBox1.checked) {
-                    if (fileNameField.text.length>0) {
-                        filter.filename = fileNameField.text
-                    }
+
+                if (checkBox1.checked && fileNameField.text.length > 0) {
+                    filter.filename = fileNameField.text
+                    fileNameField.placeholderText = fileNameField.text
+                    fileNameField.font.bold = true
+                } else {
+                    fileNameField.placeholderText = 'File name regex'
+                    fileNameField.font.bold = false
+                    checkBox1.checked = false
+                    fileNameField.text = ""
                 }
+
+                let applyStart = false, applyEnd = false
                 if (dateCkbx.checked && dateFilter.valid) {
+                    dateCkbx.font.bold = true
                     if (!dateFilter.start.empty) {
+                        applyStart = true
                         console.log(dateFilter.start.isostring)
                         filter.acquisition_time_start = dateFilter.start.isostring
                     }
                     if (!dateFilter.end.empty) {
+                        applyEnd = true
                         console.log(dateFilter.end.isostring)
                         filter.acquisition_time_end = dateFilter.end.isostring
                     }
+                } else {
+                    dateCkbx.font.bold = true
+                    dateCkbx.checked = false
                 }
+                dateFilter.start.apply(!applyStart)
+                dateFilter.end.apply(!applyEnd)
+
                 if (taxonomyCkbx.checked) {
                     for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
                         if(taxonomyFilter.container.itemAt(i).checked) {
@@ -156,6 +175,8 @@ Rectangle {
                         }
                     }
                 }
+                livenessFilter.apply(livenessCkbx.checked)
+                livenessCkbx.font.bold = livenessCkbx.checked
                 if (livenessCkbx.checked) {
                     var livenessChecked = []
                     if (livenessFilter.container.itemAt(0).item.checked) {

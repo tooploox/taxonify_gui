@@ -10,9 +10,13 @@ RowLayout {
     readonly property bool valid: !isNaN(date)
     readonly property var date: Date.fromLocaleString(
                                     locale, textInput.text, "yyyy-MM-dd")
-    readonly property bool empty: (textInput.text === '--')
+    readonly property bool empty: (textInput.text === '--' || textInput.text === '')
     property string isostring: ''
     property int deltaMilliseconds: 0
+
+    function apply(discard) {
+        textInput.placeholderText = discard|| empty ? "____-__-__" : text
+    }
 
     Text {
         id: labelText
@@ -26,7 +30,8 @@ RowLayout {
         id: textInput
 
         color: enabled ? parent.dateTextColor : "gray"
-        inputMask: "9999-99-99;_"
+        placeholderText: "____-__-__"
+        inputMask: activeFocus || !empty ? "9999-99-99;_" : ""
 
         horizontalAlignment: TextInput.AlignHCenter
 

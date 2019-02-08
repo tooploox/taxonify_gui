@@ -50,6 +50,9 @@ ApplicationWindow {
         anchors.fill: parent
 
         FilteringPane {
+
+            id: filteringPane
+
             Layout.preferredWidth: 300
             Layout.fillHeight: true
 
