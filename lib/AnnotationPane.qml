@@ -17,71 +17,76 @@ Rectangle {
 
 
     signal applyClicked()
-
-    ScrollView {
-
+    ColumnLayout {
         anchors.fill: parent
-        contentWidth: width
+        width: parent.width
+        height: parent.height
+        Label {
+            id: annotationLabel
+            Layout.fillWidth: true
+            text: qsTr("Annotation")
+            font.pixelSize: 25
+            horizontalAlignment: Text.AlignHCenter
+        }
 
-        ColumnLayout {
-            width: parent.width
+        ScrollView {
+            Layout.fillWidth: true
+            anchors.fill: parent
+            anchors.topMargin: annotationLabel.height + 4
+            anchors.bottomMargin: annotationButton.height + 4
+            clip: true
+            contentWidth: width
 
-            ButtonGroup { id: radioGroup }
+            ColumnLayout {
+                width: parent.width
 
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Annotation")
-                font.pixelSize: 25
-                horizontalAlignment: Text.AlignHCenter
-            }
+                ButtonGroup { id: radioGroup }
 
-            GroupBox {
-                Layout.fillWidth: true
 
-                label: RadioButton {
-                    id: taxonomyRbtn
-                    checked: false
-                    text: qsTr("Taxonomy")
-                    ButtonGroup.group: radioGroup
+                GroupBox {
+                    Layout.fillWidth: true
+
+                    label: RadioButton {
+                        id: taxonomyRbtn
+                        checked: false
+                        text: qsTr("Taxonomy")
+                        ButtonGroup.group: radioGroup
+                    }
+
+                    TaxonomyFilter {
+                        id: taxonomyfltr
+                        annotationMode: true
+                        enabled: taxonomyRbtn.checked
+                    }
                 }
 
-                TaxonomyFilter {
-                    id: taxonomyfltr
-                    annotationMode: true
-                    enabled: taxonomyRbtn.checked
+                GroupBox {
+                    Layout.fillWidth: true
+
+                    label: RadioButton {
+                        id: livenessRbtn
+                        checked: false
+                        text: qsTr("Liveness")
+                        ButtonGroup.group: radioGroup
+                    }
+
+                    LivenessFilter {
+                        id: livenessfltr
+                        enabled: livenessRbtn.checked
+                        annotationMode: true
+                    }
                 }
             }
+        }
 
-            GroupBox {
-                Layout.fillWidth: true
-
-                label: RadioButton {
-                    id: livenessRbtn
-                    checked: false
-                    text: qsTr("Liveness")
-                    ButtonGroup.group: radioGroup
-                }
-
-                LivenessFilter {
-                    id: livenessfltr
-                    enabled: livenessRbtn.checked
-                    annotationMode: true
-                }
-            }
-
-            Item {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
-
-
-            Button {
-                text: 'Apply to selected images'
-                enabled: radioGroup.checkState !== Qt.Unchecked
-                Layout.alignment: Qt.AlignCenter
-
-                onClicked: applyClicked()
-            }
+        Button {
+            id: annotationButton
+            text: qsTr('Apply to selected images')
+            enabled: radioGroup.checkState !== Qt.Unchecked
+            Layout.alignment: Qt.AlignCenter
+            anchors.bottom: parent.bottom
+            height: 40
+            onClicked: applyClicked()
         }
     }
 }
