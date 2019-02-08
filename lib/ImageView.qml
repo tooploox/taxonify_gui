@@ -158,6 +158,9 @@ Item {
                             anchors.fill: parent
 
                             onClicked: {
+                                if (rect.state == "grayout")
+                                    return
+
                                 item.selected = !item.selected
                                 item = root.model.get(modelData)
                             }
