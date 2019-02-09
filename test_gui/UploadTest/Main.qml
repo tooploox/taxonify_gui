@@ -11,7 +11,7 @@ ApplicationWindow {
     height: 500
 
     UploadForm {
-        address: 'https://httpbin.org/put'
+        address: 'http://localhost/put'
         token: 'my-magic-token'
         anchors.fill: parent
 

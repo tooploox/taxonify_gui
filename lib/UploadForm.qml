@@ -35,8 +35,9 @@ Item {
         id: internal
 
         property string fileName
-        property string messageStr
-        property string errorStr
+        property string message
+        property string errorMessage
+        property int errorStatus
     }
 
     FileDialog {
@@ -54,8 +55,8 @@ Item {
             else
                 file = file.substring(7)
 
-            internal.messageStr = ''
-            internal.errorStr = ''
+            internal.message = ''
+            internal.errorMessage = ''
             internal.fileName = file
 
             uploader.upload(file)
@@ -66,10 +67,13 @@ Item {
         id: uploader
 
         onSuccess: {
-            internal.messageStr = 'Upload finished successfully!'
+            internal.message = 'Upload finished successfully!'
             root.success(replyData)
         }
-        onError: internal.errorStr = errorString
+        onError: {
+            internal.errorMessage = errorString
+            internal.errorStatus = status
+        }
         onProgressChanged: progress.value = bytesSent / bytesTotal
     }
 
@@ -78,15 +82,15 @@ Item {
 
         Button {
             text: 'Select File'
-            enabled: !internal.fileName || internal.messageStr
-                     || internal.errorStr
+            enabled: !internal.fileName || internal.message
+                     || internal.errorMessage
             onClicked: fileDialog.visible = true
         }
 
         Button {
             text: 'Abort'
-            enabled: internal.fileName && !internal.messageStr
-                     && !internal.errorStr
+            enabled: internal.fileName && !internal.message
+                     && !internal.errorMessage
             onClicked: uploader.abort()
         }
 
@@ -98,10 +102,10 @@ Item {
                 elide: Text.ElideLeft
 
                 text: {
-                    if(internal.errorStr) {
-                        return 'Error occured: ' + internal.errorStr;
-                    } else if(internal.messageStr) {
-                        return internal.messageStr
+                    if(internal.errorMessage) {
+                        return 'Error occured: ' + internal.errorMessage + '. Error status: ' + internal.errorStatus;
+                    } else if(internal.message) {
+                        return internal.message
                     } else if(internal.fileName) {
                         return 'Uploading file: ' + internal.fileName
                     } else {
