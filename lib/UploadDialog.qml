@@ -7,6 +7,10 @@ Dialog {
     readonly property alias uploadProgress : upload_form.uploadProgress
     id: root
 
+    signal success(string replyData)
+    signal error(string errorMsg)
+    signal uploadStarted()
+
     x: Math.floor((mainApp.width - width) / 2)
     y: Math.floor((mainApp.height - height) / 2)
 
@@ -24,5 +28,8 @@ Dialog {
         address: 'http://localhost/put' // TODO: Fix this address with proper one
         token: 'my-magic-token' // TODO: Fix this token with proper one
         anchors.fill: parent
+        onSuccess: root.success(replyData)
+        onError: root.error(errorMsg)
+        onUploadStarted: root.uploadStarted()
     }
 }

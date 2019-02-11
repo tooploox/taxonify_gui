@@ -7,6 +7,9 @@ import com.microscopeit 1.0
 ColumnLayout {
     UploadDialog {
        id: upload_dialog
+       onSuccess: uploadButton.background.color = 'lightgreen'
+       onError: uploadButton.background.color = 'lightcoral'
+       onUploadStarted: uploadButton.background.color = 'lightgray'
     }
 
     RowLayout{
@@ -21,7 +24,6 @@ ColumnLayout {
                     enabled: false
                 }
                 DelayButton {
-
                     id: uploadButton
                     text: 'Upload data'
                     delay: 0

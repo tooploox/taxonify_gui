@@ -33,6 +33,10 @@ Item {
       */
     signal success(string replyData)
 
+    signal error(string errorMsg)
+
+    signal uploadStarted()
+
     QtObject {
         id: internal
 
@@ -56,6 +60,7 @@ Item {
             internal.errorMessage = ''
             internal.fileName = file
 
+            root.uploadStarted()
             uploader.upload(file)
         }
     }
@@ -70,6 +75,7 @@ Item {
         onError: {
             internal.errorMessage = errorString
             internal.errorStatus = status
+            root.error(internal.errorMessage)
         }
         onProgressChanged: progress.value = bytesSent / bytesTotal
     }
