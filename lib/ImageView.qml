@@ -26,26 +26,32 @@ Item {
             model.append(item)
         }
 
-        update()
+        update(true)
     }
 
-    function update() {
-
+    function update(useLastY) {
+        listView.positionViewAtBeginning()
         listModel.clear()
+        listView.forceLayout()
 
         let row = []
         let sumWidth = 0
         let maxHeight = 0
-
+        let firstId = 0
+        let matchedRow = -1
         for(let i = 0; i < model.count; i++) {
 
+            if(i == listView.firstIdInTheFirstRow) {
+                matchedRow = listModel.count
+            }
             const metadata = root.model.get(i).metadata
             const imageWidth = metadata.image_width * sizeScale
                     + 3 * borderWidth
             const imageHeight = metadata.image_height
 
-            if(sumWidth + imageWidth > width) {
-                listModel.append({ sub: row, maxHeight: maxHeight })
+            if (sumWidth + imageWidth > width) {
+                listModel.append({ sub: row, maxHeight: maxHeight, firstIdx: firstId })
+                firstId = i
                 sumWidth = 0
                 maxHeight = 0
                 row = []
@@ -56,11 +62,18 @@ Item {
             row.push({ idx: i })
         }
 
-        if(row.length > 0) {
-            listModel.append({ sub: row, maxHeight: maxHeight })
+        if (row.length > 0) {
+            listModel.append({ sub: row, maxHeight: maxHeight, firstIdx: firstId })
         }
-
-        listView.contentY = listView.lastY
+        if (useLastY) {
+            listView.contentY = listView.lastY
+        } else {
+            if (matchedRow != -1) {
+                listView.positionViewAtIndex(matchedRow, ListView.Visible)
+            } else {
+                listView.contentY = 0
+            }
+        }
     }
 
     onWidthChanged: timer.restart()
@@ -69,20 +82,26 @@ Item {
     Timer {
         id: timer
         interval: 500
-        onTriggered: root.update()
+        onTriggered: root.update(false)
     }
 
     ListView {
         id: listView
         anchors.fill: parent
         property int lastY: 0
+        property int firstIdInTheFirstRow: -1
         ScrollBar.vertical: ScrollBar {}
 
         model: ListModel {
             id: listModel
         }
 
-        onMovementEnded: lastY=contentY
+        onMovementEnded: {
+            forceLayout()
+            firstIdInTheFirstRow = model.get(indexAt(10,contentY)).firstIdx
+            lastY = contentY
+        }
+
 
         delegate: Rectangle {
             id: rowRect
