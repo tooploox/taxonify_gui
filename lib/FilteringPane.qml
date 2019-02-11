@@ -6,22 +6,24 @@ Rectangle {
     border.color: 'lightgray'
 
     signal appliedClicked(var filter)
+
     ColumnLayout {
         anchors.fill: parent
         width: parent.width
         height: parent.height
+
         Label {
-            id: filteringLabel
             Layout.fillWidth: true
+            Layout.alignment: Qt.AlignCenter
             text: qsTr("Filtering")
             font.pixelSize: 25
             horizontalAlignment: Text.AlignHCenter
         }
-        ScrollView {
 
-            anchors.fill: parent
-            anchors.topMargin: filteringLabel.height + 4
-            anchors.bottomMargin: filteringButton.height + 4
+        ScrollView {
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignCenter
+            Layout.maximumHeight: parent.height - 100
             clip: true
             contentWidth: width
 
@@ -115,12 +117,15 @@ Rectangle {
             }
         }
 
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
+
         Button {
-            id: filteringButton
             text: qsTr('Apply filters')
 
-            Layout.alignment: Qt.AlignCenter
-            anchors.bottom: parent.bottom
+            Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
             height: 40
             onClicked: {
                 var filter = {}
