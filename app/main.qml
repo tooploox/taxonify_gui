@@ -7,6 +7,8 @@ import "qrc:/network/requests.js" as Req
 
 ApplicationWindow {
     visible: true
+    id: mainApp
+    property ApplicationWindow appWindow : mainApp
 
     width: 640 * 2
     height: 480 * 1.5

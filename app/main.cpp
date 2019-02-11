@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     }
 
     // Dummy instance to enforce proper linking
+    qmlRegisterType<Uploader>("com.microscopeit", 1, 0, "Uploader");
     Uploader();
 
     engine.rootContext()->setContextProperty("settingsPath", settingsPath);

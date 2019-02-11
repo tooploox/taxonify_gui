@@ -2,14 +2,37 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
-ColumnLayout {
+import com.microscopeit 1.0
 
+ColumnLayout {
+    UploadDialog {
+       id: upload_dialog
+    }
+
+    RowLayout{
+        Rectangle{
+            border.color: 'lightgray'
+            Layout.fillWidth: true
+            Layout.preferredHeight: 52
+            RowLayout{
+                anchors.fill: parent
+
+                SortingControls {
+                    enabled: false
+                }
+                Button {
+                    text: 'Upload data'
+
+                    Layout.alignment: Qt.AlignCenter
+                    Layout.rightMargin: 5
+
+                    onClicked: { upload_dialog.open() }
+                }
+            }
+        }
+    }
     property alias filter: imageView.filter
     readonly property ImageView imageView: imageView
-
-    SortingControls {
-        enabled: false
-    }
 
     ImageView {
         id: imageView

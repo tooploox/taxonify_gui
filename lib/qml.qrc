@@ -11,6 +11,7 @@
         <file>LivenessFilter.qml</file>
         <file>taxonomy_hierarchy.json</file>
         <file>UploadForm.qml</file>
+        <file>UploadDialog.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
