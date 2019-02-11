@@ -8,6 +8,8 @@ import com.microscopeit 1.0
 Item {
     id: root
 
+    readonly property alias uploadProgress : progress.value
+
     /**
       * Address on which put operation will be performed
       */

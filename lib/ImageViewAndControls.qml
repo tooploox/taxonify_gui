@@ -20,8 +20,12 @@ ColumnLayout {
                 SortingControls {
                     enabled: false
                 }
-                Button {
+                DelayButton {
+
+                    id: uploadButton
                     text: 'Upload data'
+                    delay: 0
+                    progress: upload_dialog.uploadProgress
 
                     Layout.alignment: Qt.AlignCenter
                     Layout.rightMargin: 5

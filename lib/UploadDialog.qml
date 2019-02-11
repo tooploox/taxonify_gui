@@ -4,7 +4,7 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
 Dialog {
-
+    readonly property alias uploadProgress : upload_form.uploadProgress
     id: root
 
     x: Math.floor((mainApp.width - width) / 2)
@@ -20,10 +20,9 @@ Dialog {
     parent: ApplicationWindow.overlay
 
     UploadForm{
+        id: upload_form
         address: 'http://localhost/put' // TODO: Fix this address with proper one
         token: 'my-magic-token' // TODO: Fix this token with proper one
         anchors.fill: parent
-
-        id: upload_form
     }
 }
