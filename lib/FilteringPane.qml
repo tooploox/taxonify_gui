@@ -122,7 +122,6 @@ Rectangle {
             Layout.fillWidth: true
         }
 
-<<<<<<< HEAD
         Button {
             text: qsTr('Apply filters')
 
@@ -157,7 +156,7 @@ Rectangle {
                         filter.acquisition_time_end = dateFilter.end.isostring
                     }
                 } else {
-                    dateCkbx.font.bold = true
+                    dateCkbx.font.bold = false
                     dateCkbx.checked = false
                 }
                 dateFilter.start.apply(!applyStart)
