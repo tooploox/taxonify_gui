@@ -1,12 +1,19 @@
 #include "Uploader.h"
 
 #include <QNetworkAccessManager>
+#include <QDir>
 #include <QFile>
 #include <QNetworkReply>
+#include <QUrl>
 
 Uploader::Uploader(QObject *parent)
     : QObject(parent), nam(new QNetworkAccessManager(this))
 {
+}
+
+QString Uploader::getPlatformFilePath(QString fileUrl) const{
+  QUrl url(fileUrl);
+  return QDir::toNativeSeparators(url.path());
 }
 
 void Uploader::upload(QString path) {

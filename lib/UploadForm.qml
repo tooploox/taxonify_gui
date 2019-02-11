@@ -47,13 +47,8 @@ Item {
 
         onAccepted: {
             let file = decodeURIComponent(fileDialog.fileUrl)
-
+            file = uploader.getPlatformFilePath(file)
             fileSelected(file)
-
-            if(Qt.platform.os === 'windows')
-                file = file.substring(8)
-            else
-                file = file.substring(7)
 
             internal.message = ''
             internal.errorMessage = ''
