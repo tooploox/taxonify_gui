@@ -36,7 +36,8 @@ void Uploader::upload(QString path) {
         return;
     }
 
-    QNetworkRequest request(address);
+    QFileInfo fileInfo(*file);
+    QNetworkRequest request(address + "/" + fileInfo.fileName());
 
     if(!token.isEmpty()) {
         request.setRawHeader(QByteArray("Authorization"),

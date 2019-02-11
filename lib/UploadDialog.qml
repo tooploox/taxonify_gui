@@ -25,7 +25,7 @@ Dialog {
 
     UploadForm{
         id: upload_form
-        address: 'http://localhost/put' // TODO: Fix this address with proper one
+        address: getSettingVariable('host')+'/upload' // TODO: Fix this address with proper one
         token: 'my-magic-token' // TODO: Fix this token with proper one
         anchors.fill: parent
         onSuccess: root.success(replyData)
