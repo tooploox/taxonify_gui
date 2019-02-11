@@ -15,15 +15,16 @@ Rectangle {
         return { dummyExclusive: true }
     }
 
-
     signal applyClicked()
+
     ColumnLayout {
         anchors.fill: parent
         width: parent.width
         height: parent.height
+
         Label {
-            id: annotationLabel
             Layout.fillWidth: true
+            Layout.alignment: Qt.AlignCenter
             text: qsTr("Annotation")
             font.pixelSize: 25
             horizontalAlignment: Text.AlignHCenter
@@ -31,9 +32,8 @@ Rectangle {
 
         ScrollView {
             Layout.fillWidth: true
-            anchors.fill: parent
-            anchors.topMargin: annotationLabel.height + 4
-            anchors.bottomMargin: annotationButton.height + 4
+            Layout.alignment: Qt.AlignCenter
+            Layout.maximumHeight: parent.height - 100
             clip: true
             contentWidth: width
 
@@ -79,13 +79,16 @@ Rectangle {
             }
         }
 
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
+
         Button {
-            id: annotationButton
             text: qsTr('Apply to selected images')
             enabled: radioGroup.checkState !== Qt.Unchecked
-            Layout.alignment: Qt.AlignCenter
-            anchors.bottom: parent.bottom
-            height: 40
+            Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
+
             onClicked: applyClicked()
         }
     }
