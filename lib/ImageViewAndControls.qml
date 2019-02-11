@@ -6,7 +6,7 @@ import com.microscopeit 1.0
 
 ColumnLayout {
     UploadDialog {
-       id: upload_dialog
+       id: uploadDialog
        onSuccess: uploadButton.background.color = 'lightgreen'
        onError: uploadButton.background.color = 'lightcoral'
        onUploadStarted: uploadButton.background.color = 'lightgray'
@@ -27,12 +27,12 @@ ColumnLayout {
                     id: uploadButton
                     text: 'Upload data'
                     delay: 0
-                    progress: upload_dialog.uploadProgress
+                    progress: uploadDialog.uploadProgress
 
                     Layout.alignment: Qt.AlignCenter
                     Layout.rightMargin: 5
 
-                    onClicked: { upload_dialog.open() }
+                    onClicked: { uploadDialog.open() }
                 }
             }
         }

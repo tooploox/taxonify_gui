@@ -4,7 +4,7 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
 Dialog {
-    readonly property alias uploadProgress : upload_form.uploadProgress
+    readonly property alias uploadProgress : uploadForm.uploadProgress
     id: root
 
     signal success(string replyData)
@@ -15,7 +15,7 @@ Dialog {
     y: Math.floor((mainApp.height - height) / 2)
 
     width: 600
-    height: 300
+    height: 250
 
     modal: true
     title: 'Upload data'
@@ -24,8 +24,8 @@ Dialog {
     parent: ApplicationWindow.overlay
 
     UploadForm{
-        id: upload_form
-        address: getSettingVariable('host')+'/upload' // TODO: Fix this address with proper one
+        id: uploadForm
+        address: getSettingVariable('host')+'/upload'
         token: 'my-magic-token' // TODO: Fix this token with proper one
         anchors.fill: parent
         onSuccess: root.success(replyData)
