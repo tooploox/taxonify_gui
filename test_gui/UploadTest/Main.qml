@@ -21,7 +21,6 @@ ApplicationWindow {
 
         onSuccess: {
             console.log('SUCCESS!')
-            console.log(replyData)
         }
     }
 }
