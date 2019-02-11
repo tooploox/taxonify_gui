@@ -46,6 +46,7 @@ void Uploader::upload(QString path) {
 
     reply = nam->put(request, file);
     reply->setParent(this);
+    file->setParent(reply);
 
     connect(reply, &QNetworkReply::finished,
             [this]() {
