@@ -8,6 +8,18 @@ Dialog {
 
     property string address;
     property alias token : uploadForm.token
+
+    readonly property ListModel uploadData: ListModel {}
+
+    function setData(data){
+       uploadData.clear()
+       for(let d of data){
+           uploadData.append({filename: d['filename'],
+                              up_state: d['state'],
+                              gen_date: d['generation_date']})
+       }
+    }
+
     readonly property alias uploadProgress : uploadForm.uploadProgress
 
     signal success(string replyData)
@@ -18,21 +30,89 @@ Dialog {
     y: Math.floor((parent.height - height) / 2)
 
     width: 600
-    height: 250
+    height: 300
 
     modal: true
     title: 'Upload data'
-    standardButtons: Dialog.Close
+    standardButtons: Dialog.Close | Dialog.Reset
 
     parent: ApplicationWindow.overlay
 
-    UploadForm{
-        id: uploadForm
-        anchors.fill: parent
-        address: root.address + '/upload'
-        token: dataAccess.internal.access_token
-        onSuccess: root.success(replyData)
-        onError: root.error(errorMsg)
-        onUploadStarted: root.uploadStarted()
+    onAboutToShow: {
+        let butt = standardButton(Dialog.Reset)
+        butt.text = "List"
+    }
+
+    onReset: {
+        uploadListDiag.open()
+    }
+
+    contentItem: Column{
+        UploadForm{
+            id: uploadForm
+            anchors.fill: parent
+            address: root.address + '/upload'
+            token: dataAccess.internal.access_token
+            onSuccess: root.success(replyData)
+            onError: root.error(errorMsg)
+            onUploadStarted: root.uploadStarted()
+        }
+    }
+
+    Dialog {
+        id: uploadListDiag
+
+        width: root.width
+        height: root.height
+
+        x: root.x
+        y: root.y
+
+        modal: true
+        title: 'Uploaded files: ' + uploadList.count
+        standardButtons: Dialog.Close
+
+        parent: ApplicationWindow.overlay
+
+        onAboutToShow: {
+            dataAccess.uploadList(function(resp) {
+                root.setData(resp.body)
+            })
+        }
+
+        ListView {
+            id: uploadList
+            anchors.fill: parent
+            model: root.uploadData
+
+            Layout.alignment: Qt.AlignCenter
+
+            delegate: Item{
+                width: uploadList.width - 5
+                height: 40
+                Rectangle{
+                    anchors.fill: parent
+                    anchors.topMargin: 1
+                    anchors.bottomMargin: 1
+                    id: butt
+                    Text {
+                        text: '<b>' + filename + ': </b>' + up_state + " | Date: " + gen_date
+                        anchors.centerIn: parent
+                    }
+                }
+
+                Rectangle {
+                    height: 1
+                    color: 'darkgray'
+                    anchors {
+                        left: butt.left
+                        right: butt.right
+                        top: butt.bottom
+                    }
+                }
+           }
+           // highlight:
+           // focus: false
+        }
     }
 }
