@@ -2,14 +2,47 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
+import com.microscopeit 1.0
+
 ColumnLayout {
+
+    property alias address : uploadDialog.address
+    property alias token : uploadDialog.token
+
+    UploadDialog {
+       id: uploadDialog
+       onSuccess: uploadButton.background.color = 'lightgreen'
+       onError: uploadButton.background.color = 'lightcoral'
+       onUploadStarted: uploadButton.background.color = 'lightgray'
+    }
+
+    Rectangle{
+        Layout.fillWidth: true
+        Layout.preferredHeight: 50
+        border.color: 'lightgray'
+        RowLayout{
+            anchors.fill: parent
+
+            SortingControls {
+                enabled: false
+            }
+            DelayButton {
+                id: uploadButton
+
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 5
+
+                text: 'Upload data'
+                delay: 0
+                progress: uploadDialog.uploadProgress
+
+                onClicked: uploadDialog.open()
+            }
+        }
+    }
 
     property alias filter: imageView.filter
     readonly property ImageView imageView: imageView
-
-    SortingControls {
-        enabled: false
-    }
 
     ImageView {
         id: imageView

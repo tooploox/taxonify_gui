@@ -33,10 +33,12 @@ void Uploader::upload(QString path) {
 
     if(!openResult) {
         emit error(0, "Cannot open file: " + path + ".");
+        delete file;
         return;
     }
 
-    QNetworkRequest request(address);
+    QFileInfo fileInfo(*file);
+    QNetworkRequest request(address + "/" + fileInfo.fileName());
 
     if(!token.isEmpty()) {
         request.setRawHeader(QByteArray("Authorization"),
@@ -45,6 +47,7 @@ void Uploader::upload(QString path) {
 
     reply = nam->put(request, file);
     reply->setParent(this);
+    file->setParent(reply);
 
     connect(reply, &QNetworkReply::finished,
             [this]() {

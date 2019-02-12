@@ -64,6 +64,9 @@ ApplicationWindow {
 
             id: imageViewAndControls
 
+            address: getSettingVariable('host')
+            token: dataAccess.internal.access_token
+
             Layout.fillWidth: true
             Layout.fillHeight: true
 
