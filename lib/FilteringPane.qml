@@ -134,12 +134,11 @@ Rectangle {
                 if (checkBox1.checked && fileNameField.text.length > 0) {
                     filter.filename = fileNameField.text
                     fileNameField.placeholderText = fileNameField.text
-                    fileNameField.font.bold = true
+                    checkBox1.font.bold = true
                 } else {
                     fileNameField.placeholderText = 'File name regex'
-                    fileNameField.font.bold = false
+                    checkBox1.font.bold = false
                     checkBox1.checked = false
-                    fileNameField.text = ""
                 }
 
                 let applyStart = false, applyEnd = false
@@ -164,9 +163,11 @@ Rectangle {
 
                 if (taxonomyCkbx.checked) {
                     for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
-                        if(taxonomyFilter.container.itemAt(i).checked) {
+                        var item = taxonomyFilter.container.itemAt(i)
+                        if(item.checked) {
+                            item.apply()
                             var key = taxonomyFilter.taxonomyNames[i]
-                            var value = taxonomyFilter.container.itemAt(i).value
+                            var value = item.value
                             if (value === taxonomyFilter.notSpecifiedStr) {
                                 value = ''
                             }
@@ -174,6 +175,9 @@ Rectangle {
                         }
                     }
                 }
+                taxonomyCkbx.font.bold = taxonomyCkbx.checked
+                taxonomyFilter.update()
+
                 livenessFilter.apply(livenessCkbx.checked)
                 livenessCkbx.font.bold = livenessCkbx.checked
                 if (livenessCkbx.checked) {

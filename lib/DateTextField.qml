@@ -15,7 +15,13 @@ RowLayout {
     property int deltaMilliseconds: 0
 
     function apply(discard) {
-        textInput.placeholderText = discard|| empty ? "____-__-__" : text
+        if (discard || empty) {
+            textInput.placeholderText = "____-__-__"
+            labelText.font.bold = false
+        } else {
+            textInput.placeholderText = text
+            labelText.font.bold = true
+        }
     }
 
     Text {

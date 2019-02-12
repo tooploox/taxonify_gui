@@ -15,6 +15,7 @@ ColumnLayout {
 
     property int taxonomyDepth: 8
     property var nodes: new Array(taxonomyDepth)
+    property var notSpecifiedLastApplied: new Array(taxonomyDepth)
 
     property var criteria: {
         let crtr = {}
@@ -28,6 +29,15 @@ ColumnLayout {
     property bool annotationMode: false
 
     property alias container: rptr
+
+    property int updateCounter: 0
+
+    function update() {
+        if (updateCounter == Number.MAX_SAFE_INTEGER)
+            updateCounter = 0
+        updateCounter += 1
+        container.itemAt(0).update()
+    }
 
     Repeater {
         id: rptr
@@ -45,6 +55,10 @@ ColumnLayout {
                 combobox.update()
             }
 
+            function apply() {
+                combobox.apply()
+            }
+
             CheckBox {
                 id: checkbox
                 visible: !annotationMode
@@ -57,6 +71,25 @@ ColumnLayout {
                 model: getModel()
                 property bool completed: false
                 readonly property string value: model[currentIndex]
+
+                property bool isEmpty: model.length == 1
+
+
+
+                function apply() {
+                    if (isEmpty) {
+                        notSpecifiedLastApplied[index] = updateCounter
+                    } else {
+                        Object.defineProperty(nodes[index], 'applied', {
+                                                  value: currentIndex,
+                                                  configurable: true
+                                              })
+                        Object.defineProperty(nodes[index], 'time', {
+                                                  value: updateCounter,
+                                                  configurable: true
+                                              })
+                    }
+                }
 
                 function getValue() {
                     return model[currentIndex]
@@ -81,6 +114,14 @@ ColumnLayout {
 
                     if (completed && index + 1 < taxonomyDepth)
                         rptr.itemAt(index + 1).update()
+
+                    if (isEmpty) {
+                        font.bold = notSpecifiedLastApplied[index] == (updateCounter - 1)
+                    } else {
+                        const sameIndexAsRecentlyApplied = nodes[index].applied === currentIndex
+                        const sameCheckboxUsedRecently = nodes[index].time == (updateCounter - 1)
+                        font.bold = sameIndexAsRecentlyApplied && sameCheckboxUsedRecently
+                    }
                 }
 
                 onCurrentIndexChanged: {
