@@ -10,6 +10,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("EAWAG");
+    app.setOrganizationDomain("Underwater microscopy");
+    app.setApplicationName("Aquascope annotation");
 
     QQmlApplicationEngine engine;
     auto applicationPath = QCoreApplication::applicationDirPath();
