@@ -27,7 +27,7 @@ Dialog {
     UploadForm{
         id: uploadForm
         address: getSettingVariable('host') + '/upload'
-        token: 'my-magic-token' // TODO: Fix this token with proper one
+        token: dataAccess.internal.access_token
         anchors.fill: parent
         onSuccess: root.success(replyData)
         onError: root.error(errorMsg)
