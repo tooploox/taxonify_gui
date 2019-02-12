@@ -50,6 +50,7 @@ Item {
         id: fileDialog
         title: "Please choose a file"
         folder: shortcuts.home
+        nameFilters: ["Data packages tar.bz2 (*.tar.bz2)", "All files (*)"]
 
         onAccepted: {
             let file = decodeURIComponent(fileDialog.fileUrl)
