@@ -33,6 +33,7 @@ void Uploader::upload(QString path) {
 
     if(!openResult) {
         emit error(0, "Cannot open file: " + path + ".");
+        delete file;
         return;
     }
 

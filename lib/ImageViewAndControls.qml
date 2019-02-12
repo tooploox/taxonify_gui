@@ -5,6 +5,10 @@ import QtQuick.Layouts 1.12
 import com.microscopeit 1.0
 
 ColumnLayout {
+
+    property alias address : uploadDialog.address
+    property alias token : uploadDialog.token
+
     UploadDialog {
        id: uploadDialog
        onSuccess: uploadButton.background.color = 'lightgreen'
@@ -12,31 +16,31 @@ ColumnLayout {
        onUploadStarted: uploadButton.background.color = 'lightgray'
     }
 
-    RowLayout{
-        Rectangle{
-            border.color: 'lightgray'
-            Layout.fillWidth: true
-            Layout.preferredHeight: 52
-            RowLayout{
-                anchors.fill: parent
+    Rectangle{
+        Layout.fillWidth: true
+        Layout.preferredHeight: 50
+        border.color: 'lightgray'
+        RowLayout{
+            anchors.fill: parent
 
-                SortingControls {
-                    enabled: false
-                }
-                DelayButton {
-                    id: uploadButton
-                    text: 'Upload data'
-                    delay: 0
-                    progress: uploadDialog.uploadProgress
+            SortingControls {
+                enabled: false
+            }
+            DelayButton {
+                id: uploadButton
 
-                    Layout.alignment: Qt.AlignCenter
-                    Layout.rightMargin: 5
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 5
 
-                    onClicked: { uploadDialog.open() }
-                }
+                text: 'Upload data'
+                delay: 0
+                progress: uploadDialog.uploadProgress
+
+                onClicked: uploadDialog.open()
             }
         }
     }
+
     property alias filter: imageView.filter
     readonly property ImageView imageView: imageView
 

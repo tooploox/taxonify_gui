@@ -26,9 +26,7 @@ int main(int argc, char *argv[])
         settingsPath = QVariant(QVariant::String);
     }
 
-    // Dummy instance to enforce proper linking
     qmlRegisterType<Uploader>("com.microscopeit", 1, 0, "Uploader");
-    Uploader();
 
     engine.rootContext()->setContextProperty("settingsPath", settingsPath);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

@@ -7,8 +7,6 @@ import "qrc:/network/requests.js" as Req
 
 ApplicationWindow {
     visible: true
-    id: mainApp
-    property ApplicationWindow appWindow : mainApp
 
     width: 640 * 2
     height: 480 * 1.5
@@ -65,6 +63,9 @@ ApplicationWindow {
         ImageViewAndControls {
 
             id: imageViewAndControls
+
+            address: getSettingVariable('host')
+            token: dataAccess.internal.access_token
 
             Layout.fillWidth: true
             Layout.fillHeight: true
