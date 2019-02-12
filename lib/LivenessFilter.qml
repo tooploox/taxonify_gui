@@ -24,8 +24,6 @@ ColumnLayout {
             if (item.checked)
                 applied.push(item.text)
             item.font.bold = checked && item.checked
-            if (!checked)
-                item.checked = false
         }
     }
 
