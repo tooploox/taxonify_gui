@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Controls.Material 2.12
 import "network/requests.js" as Requests
 
 ColumnLayout {
@@ -71,10 +72,28 @@ ColumnLayout {
                 model: getModel()
                 property bool completed: false
                 readonly property string value: model[currentIndex]
+                readonly property int notSpecifiedStrPosition: 0
 
                 property bool isEmpty: model.length == 1
 
+                property int appliedIndex: -1 // if nothing was applied then -1
 
+                function calculateAppliedIndex() {
+                    if (!isEmpty && nodes[index].time === (updateCounter - 1))
+                        return nodes[index].applied
+                    if (notSpecifiedLastApplied[index] === (updateCounter - 1))
+                            return notSpecifiedStrPosition
+                    return -1
+                }
+
+                delegate: MenuItem {
+                    width: parent.width
+                    text: combobox.textRole ? (Array.isArray(combobox.model) ? modelData[combobox.textRole] : model[combobox.textRole]) : modelData
+                    Material.foreground: combobox.currentIndex === index ? parent.Material.accent : parent.Material.foreground
+                    highlighted: combobox.highlightedIndex === index
+                    hoverEnabled: combobox.hoverEnabled
+                    font.bold: combobox.appliedIndex === index
+                }
 
                 function apply() {
                     if (isEmpty || model[currentIndex] === notSpecifiedStr) {
@@ -115,16 +134,8 @@ ColumnLayout {
                     if (completed && index + 1 < taxonomyDepth)
                         rptr.itemAt(index + 1).update()
 
-                    if (isEmpty) {
-                        font.bold = notSpecifiedLastApplied[index] == (updateCounter - 1)
-                    } else {
-                        const sameIndexAsRecentlyApplied = nodes[index].applied === currentIndex
-                        const sameCheckboxUsedRecently = nodes[index].time == (updateCounter - 1)
-                        const notSpecifiedChosen = model[currentIndex] === notSpecifiedStr
-                        const notSpecifiedApplied = notSpecifiedLastApplied[index] == (updateCounter - 1)
-                        font.bold = (sameIndexAsRecentlyApplied && sameCheckboxUsedRecently) ||
-                                    (notSpecifiedChosen && notSpecifiedApplied)
-                    }
+                    appliedIndex = calculateAppliedIndex()
+                    font.bold = currentIndex === appliedIndex
                 }
 
                 onCurrentIndexChanged: {
