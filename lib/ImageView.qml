@@ -30,10 +30,21 @@ Item {
     }
 
     function update(useLastY) {
+        console.log('0 lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
+
         listView.positionViewAtBeginning()
+
+        console.log('1 lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
+
+        console.log('2 lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
+
         listModel.clear()
+
+        console.log('3 lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
+
         listView.forceLayout()
 
+        console.log('4 lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
         let row = []
         let sumWidth = 0
         let maxHeight = 0
@@ -41,9 +52,6 @@ Item {
         let matchedRow = -1
         for(let i = 0; i < model.count; i++) {
 
-            if(i == listView.firstIdInTheFirstRow) {
-                matchedRow = listModel.count
-            }
             const metadata = root.model.get(i).metadata
             const imageWidth = metadata.image_width * sizeScale
                     + 3 * borderWidth
@@ -57,6 +65,10 @@ Item {
                 row = []
             }
 
+            if(i == listView.firstIdInTheFirstRow) {
+                matchedRow = listModel.count
+            }
+
             sumWidth += imageWidth
             maxHeight = Math.max(maxHeight, imageHeight)
             row.push({ idx: i })
@@ -65,15 +77,31 @@ Item {
         if (row.length > 0) {
             listModel.append({ sub: row, maxHeight: maxHeight, firstIdx: firstId })
         }
+        listView.forceLayout()
+
         if (useLastY) {
             listView.contentY = listView.lastY
+
+            console.log('U lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
         } else {
             if (matchedRow != -1) {
-                listView.positionViewAtIndex(matchedRow, ListView.Visible)
+                listView.positionViewAtIndex(matchedRow, ListView.Beginning)
+
+                console.log('M lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
             } else {
                 listView.contentY = 0
+
+                console.log('N lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
             }
+            console.log('E lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
         }
+        listView.forceLayout()
+
+        console.log('F lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
+
+        listView.lastY = listView.contentY
+
+        console.log('L lastY: ' + listView.lastY + ', contentY: ' + listView.contentY)
     }
 
     onWidthChanged: timer.restart()
@@ -97,9 +125,12 @@ Item {
         }
 
         onMovementEnded: {
-            forceLayout()
-            firstIdInTheFirstRow = model.get(indexAt(10,contentY)).firstIdx
+            console.log('B lastY: ' + lastY + ', contentY: ' + contentY)
+
+            firstIdInTheFirstRow = model.get(indexAt(10, contentY)).firstIdx
             lastY = contentY
+
+            console.log('A lastY: ' + lastY + ', contentY: ' + contentY)
         }
 
 
