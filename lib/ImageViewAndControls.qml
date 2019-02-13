@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
 
 import com.microscopeit 1.0
@@ -46,12 +47,10 @@ ColumnLayout {
                 text: 'Upload data'
                 delay: 0
                 progress: uploadDialog.uploadProgress
+                Material.background: Material.background
 
                 onClicked: {
-                    if(!uploadInProgress){
-                       uploadButton.background.color = 'lightgray'
-                    }
-
+                    if(!uploadInProgress) uploadButton.background.color = 'lightgray'
                     uploadDialog.open()
                 }
             }

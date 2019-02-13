@@ -9,17 +9,6 @@ Dialog {
     property string address;
     property alias token : uploadForm.token
 
-    readonly property ListModel uploadData: ListModel {}
-
-    function setData(data){
-       uploadData.clear()
-       for(let d of data){
-           uploadData.append({filename: d['filename'],
-                              up_state: d['state'],
-                              gen_date: d['generation_date']})
-       }
-    }
-
     readonly property alias uploadProgress : uploadForm.uploadProgress
 
     signal success(string replyData)
@@ -34,18 +23,8 @@ Dialog {
 
     modal: true
     title: 'Upload data'
-    standardButtons: Dialog.Close | Dialog.Reset
 
     parent: ApplicationWindow.overlay
-
-    onAboutToShow: {
-        let butt = standardButton(Dialog.Reset)
-        butt.text = "List"
-    }
-
-    onReset: {
-        uploadListDiag.open()
-    }
 
     contentItem: UploadForm{
         id: uploadForm
@@ -56,58 +35,66 @@ Dialog {
         onUploadStarted: root.uploadStarted()
     }
 
+    footer:   DialogButtonBox {
+        Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+
+        onReset: uploadListDiag.open()
+        onRejected: root.close()
+
+        Button {
+            text: qsTr("Upload List")
+            DialogButtonBox.buttonRole: DialogButtonBox.ResetRole
+            Material.primary: Material.Grey
+            Material.background: Material.background
+        }
+        Button {
+            text: qsTr("Close")
+            DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
+            Material.primary: Material.Grey
+            Material.background: Material.background
+        }
+    }
+
+    // Uploaded files list dialog
     Dialog {
         id: uploadListDiag
 
-        width: root.width
-        height: root.height
-
-        x: root.x
-        y: root.y
+        width: root.width; height: root.height
+        x: root.x; y: root.y
 
         modal: true
-        title: 'Uploaded files: ' + uploadList.count
-        standardButtons: Dialog.Close
+        title: 'Uploaded files: ' + uploadList.uploadData.count
 
         parent: ApplicationWindow.overlay
 
-        onAboutToShow: {
-            dataAccess.uploadList(function(resp) {
-                root.setData(resp.body)
-            })
-        }
-
-        ListView {
+        contentItem: UploadList {
             id: uploadList
-            anchors.fill: parent
-            model: root.uploadData
-
-            Layout.alignment: Qt.AlignCenter
-
-            delegate: Item{
-                width: uploadList.width - 5
-                height: 40
-                Rectangle{
-                    anchors.fill: parent
-                    anchors.topMargin: 1
-                    anchors.bottomMargin: 1
-                    id: content
-                    Text {
-                        text: '<b>' + filename + ': </b>' + up_state + " | Date: " + gen_date
-                        anchors.centerIn: parent
-                    }
-                }
-
-                Rectangle {
-                    height: 1
-                    color: 'darkgray'
-                    anchors {
-                        left: content.left
-                        right: content.right
-                        top: content.bottom
-                    }
-                }
-           }
         }
+
+        function loadUploadListData() {
+            dataAccess.uploadList(function(resp) { uploadList.setData(resp.body) })
+        }
+
+        footer: DialogButtonBox {
+            Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+
+            onReset: uploadListDiag.loadUploadListData()
+            onRejected: uploadListDiag.close()
+
+            Button {
+                text: qsTr("Refresh")
+                DialogButtonBox.buttonRole: DialogButtonBox.ResetRole
+                Material.primary: Material.Grey
+                Material.background: Material.background
+            }
+            Button {
+                text: qsTr("Close")
+                DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
+                Material.primary: Material.Grey
+                Material.background: Material.background
+            }
+        }
+
+        onAboutToShow: loadUploadListData()
     }
 }

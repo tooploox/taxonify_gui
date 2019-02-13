@@ -1,0 +1,68 @@
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Controls.Material 2.12
+import QtQuick.Layouts 1.12
+
+Item {
+    id: root
+    readonly property ListModel uploadData: ListModel {}
+
+    function setData(data){
+       uploadData.clear()
+       for(let d of data){
+           uploadData.append({filename: d['filename'],
+                              up_state: d['state'],
+                              gen_date: d['generation_date']})
+       }
+    }
+
+    ListView {
+        id: filesList
+        anchors.fill: parent
+        model: uploadData
+
+        ScrollBar.vertical: ScrollBar {}
+
+        Layout.alignment: Qt.AlignCenter
+
+        delegate: Item{
+            width: parent.width - 20
+            height: 60
+            Rectangle{
+                anchors.fill: parent
+                anchors.topMargin: 5
+                anchors.bottomMargin: 5
+                id: content
+                Column{
+                    anchors.fill: parent
+                    RowLayout{
+                        Layout.fillWidth: true
+                        width: parent.width
+                        Text {
+                            id: mainLine
+                            text: '<b>' + filename + '</b>'
+                        }
+                        Text {
+                            Layout.alignment: Qt.AlignRight
+                            text: up_state
+                        }
+                    }
+                    Text {
+                        font.pointSize: mainLine.font.pointSize - 2
+                        text: "    Date: " + gen_date
+                    }
+                }
+            }
+
+            Rectangle {
+                height: 1
+                color: 'darkgray'
+                anchors {
+                    left: content.left
+                    right: content.right
+                    top: content.bottom
+                }
+            }
+       }
+    }
+}
