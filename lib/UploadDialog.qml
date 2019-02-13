@@ -47,16 +47,13 @@ Dialog {
         uploadListDiag.open()
     }
 
-    contentItem: Column{
-        UploadForm{
-            id: uploadForm
-            anchors.fill: parent
-            address: root.address + '/upload'
-            token: dataAccess.internal.access_token
-            onSuccess: root.success(replyData)
-            onError: root.error(errorMsg)
-            onUploadStarted: root.uploadStarted()
-        }
+    contentItem: UploadForm{
+        id: uploadForm
+        address: root.address + '/upload'
+        token: dataAccess.internal.access_token
+        onSuccess: root.success(replyData)
+        onError: root.error(errorMsg)
+        onUploadStarted: root.uploadStarted()
     }
 
     Dialog {
@@ -94,7 +91,7 @@ Dialog {
                     anchors.fill: parent
                     anchors.topMargin: 1
                     anchors.bottomMargin: 1
-                    id: butt
+                    id: content
                     Text {
                         text: '<b>' + filename + ': </b>' + up_state + " | Date: " + gen_date
                         anchors.centerIn: parent
@@ -105,14 +102,12 @@ Dialog {
                     height: 1
                     color: 'darkgray'
                     anchors {
-                        left: butt.left
-                        right: butt.right
-                        top: butt.bottom
+                        left: content.left
+                        right: content.right
+                        top: content.bottom
                     }
                 }
            }
-           // highlight:
-           // focus: false
         }
     }
 }

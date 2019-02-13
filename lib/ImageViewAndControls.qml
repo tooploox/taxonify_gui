@@ -9,11 +9,22 @@ ColumnLayout {
     property alias address : uploadDialog.address
     property alias token : uploadDialog.token
 
+    property bool uploadInProgress: false
+
     UploadDialog {
        id: uploadDialog
-       onSuccess: uploadButton.background.color = 'lightgreen'
-       onError: uploadButton.background.color = 'lightcoral'
-       onUploadStarted: uploadButton.background.color = 'lightgray'
+       onSuccess: {
+           uploadButton.background.color = 'lightgreen'
+           uploadInProgress = false
+       }
+       onError: {
+           uploadButton.background.color = 'lightcoral'
+           uploadInProgress = false
+       }
+       onUploadStarted: {
+           uploadButton.background.color = 'lightgray'
+           uploadInProgress = true
+       }
     }
 
     Rectangle{
@@ -36,7 +47,13 @@ ColumnLayout {
                 delay: 0
                 progress: uploadDialog.uploadProgress
 
-                onClicked: uploadDialog.open()
+                onClicked: {
+                    if(!uploadInProgress){
+                       uploadButton.background.color = 'lightgray'
+                    }
+
+                    uploadDialog.open()
+                }
             }
         }
     }
