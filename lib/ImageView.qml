@@ -30,10 +30,10 @@ Item {
     }
 
     function update(useLastY) {
+        listView.forceLayout()
         listView.positionViewAtBeginning()
         listModel.clear()
         listView.forceLayout()
-
         let row = []
         let sumWidth = 0
         let maxHeight = 0
@@ -41,9 +41,6 @@ Item {
         let matchedRow = -1
         for(let i = 0; i < model.count; i++) {
 
-            if(i == listView.firstIdInTheFirstRow) {
-                matchedRow = listModel.count
-            }
             const metadata = root.model.get(i).metadata
             const imageWidth = metadata.image_width * sizeScale
                     + 3 * borderWidth
@@ -57,6 +54,10 @@ Item {
                 row = []
             }
 
+            if(i == listView.firstIdInTheFirstRow) {
+                matchedRow = listModel.count
+            }
+
             sumWidth += imageWidth
             maxHeight = Math.max(maxHeight, imageHeight)
             row.push({ idx: i })
@@ -65,15 +66,19 @@ Item {
         if (row.length > 0) {
             listModel.append({ sub: row, maxHeight: maxHeight, firstIdx: firstId })
         }
+        listView.forceLayout()
+
         if (useLastY) {
             listView.contentY = listView.lastY
         } else {
             if (matchedRow != -1) {
-                listView.positionViewAtIndex(matchedRow, ListView.Visible)
+                listView.positionViewAtIndex(matchedRow, ListView.Beginning)
             } else {
                 listView.contentY = 0
             }
         }
+        listView.forceLayout()
+        listView.lastY = listView.contentY
     }
 
     onWidthChanged: timer.restart()
@@ -97,8 +102,7 @@ Item {
         }
 
         onMovementEnded: {
-            forceLayout()
-            firstIdInTheFirstRow = model.get(indexAt(10,contentY)).firstIdx
+            firstIdInTheFirstRow = model.get(indexAt(10, contentY)).firstIdx
             lastY = contentY
         }
 
