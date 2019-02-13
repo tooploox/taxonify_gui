@@ -77,7 +77,7 @@ ColumnLayout {
 
 
                 function apply() {
-                    if (isEmpty) {
+                    if (isEmpty || model[currentIndex] === notSpecifiedStr) {
                         notSpecifiedLastApplied[index] = updateCounter
                     } else {
                         Object.defineProperty(nodes[index], 'applied', {
@@ -120,7 +120,10 @@ ColumnLayout {
                     } else {
                         const sameIndexAsRecentlyApplied = nodes[index].applied === currentIndex
                         const sameCheckboxUsedRecently = nodes[index].time == (updateCounter - 1)
-                        font.bold = sameIndexAsRecentlyApplied && sameCheckboxUsedRecently
+                        const notSpecifiedChosen = model[currentIndex] === notSpecifiedStr
+                        const notSpecifiedApplied = notSpecifiedLastApplied[index] == (updateCounter - 1)
+                        font.bold = (sameIndexAsRecentlyApplied && sameCheckboxUsedRecently) ||
+                                    (notSpecifiedChosen && notSpecifiedApplied)
                     }
                 }
 
