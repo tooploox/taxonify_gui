@@ -10,9 +10,10 @@ Item {
     function setData(data){
        uploadData.clear()
        for(let d of data){
+           let genDate = d['generation_date'].split('T')
            uploadData.append({filename: d['filename'],
                               up_state: d['state'],
-                              gen_date: d['generation_date']})
+                              gen_date: genDate[0] + "   " +genDate[1].split('+')[0]})
        }
     }
 
@@ -49,7 +50,7 @@ Item {
                     }
                     Text {
                         font.pointSize: mainLine.font.pointSize - 2
-                        text: "    Date: " + gen_date
+                        text: "    Date:   " + gen_date
                     }
                 }
             }

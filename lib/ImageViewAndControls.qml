@@ -47,7 +47,6 @@ ColumnLayout {
                 text: 'Upload data'
                 delay: 0
                 progress: uploadDialog.uploadProgress
-                Material.background: Material.background
 
                 onClicked: {
                     if(!uploadInProgress) uploadButton.background.color = 'lightgray'
