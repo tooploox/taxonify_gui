@@ -1,34 +1,232 @@
 {
-    "eukaryota": {
+    "Eukaryota": {
         "Animalia": {
+            "Arthropoda": {
+                "Branchiopoda": {
+                    "Diplostraca": {
+                        "Bosminidae": {
+                            "Bosmina": {
+                                "Sp": {}
+                            }
+                        },
+                        "Daphniidae": {
+                            "Daphnia": {
+                                "Cucullata": {},
+                                "Galeata": {},
+                                "Longispina": {},
+                                "Magna": {},
+                                "Pulex": {},
+                                "Sp": {}
+                            }
+                        },
+                        "Leptodoridae": {
+                            "Leptodora": {
+                                "Sp": {}
+                            }
+                        },
+                        "Sididae": {
+                            "Diaphanosoma": {
+                                "Brachyurum": {},
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Crustacea": {},
+                "Insecta": {
+                    "Diptera": {
+                        "Chaoboridae": {
+                            "Chaoborus": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Maxillopoda": {
+                    "Calanoida": {
+                        "Diaptomidae": {
+                            "Diaptomus": {
+                                "Sp": {}
+                            },
+                            "Eudiaptomus": {
+                                "Gracilis": {},
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Cyclopoida": {
+                        "Cyclopidae": {
+                            "Cyclops": {
+                                "Abyssorum": {},
+                                "Bohater": {},
+                                "Sp": {},
+                                "Strenuus": {},
+                                "Vicinus": {}
+                            },
+                            "Diacyclops": {
+                                "Sp": {}
+                            },
+                            "Macrocyclops": {
+                                "Sp": {}
+                            },
+                            "Megacyclops": {
+                                "Sp": {}
+                            },
+                            "Thermocyclops": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Ostracoda": {}
+            },
+            "Mollusca": {
+                "Bivalvia": {
+                    "Veneroida": {
+                        "Dreissenidae": {
+                            "Dreissena": {
+                                "Polymorpha": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "Nematoda": {},
             "Rotifera": {
                 "Eurotatoria": {
                     "Flosculariacea": {
                         "Conochilidae": {
                             "Conochilus": {
-                                "sp": {}
+                                "Sp": {}
+                            }
+                        },
+                        "Trochosphaeridae": {
+                            "Filinia": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Ploima": {
+                        "Asplanchnidae": {
+                            "Asplanchna": {
+                                "Sp": {}
+                            }
+                        },
+                        "Trichocercidae": {
+                            "Trichocerca": {
+                                "Sp": {}
                             }
                         }
                     }
                 },
                 "Monogononta": {
                     "Ploima": {
+                        "Brachionidae": {
+                            "Kellikottia": {
+                                "Sp": {}
+                            },
+                            "Keratella": {
+                                "Cochlearis": {},
+                                "Quadrata": {},
+                                "Sp": {}
+                            }
+                        },
                         "Gastropodidae": {
                             "Gastropus": {
-                                "sp": {}
+                                "Sp": {}
+                            }
+                        },
+                        "Synchaetidae": {
+                            "Polyarthra": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Ploimida": {
+                        "Gastropidae": {
+                            "Ascomorpha": {
+                                "Sp": {}
                             }
                         }
                     }
-                }
+                },
+                "Rotatoria": {}
             }
         },
         "Chromalveolata": {
             "Ciliophora": {
+                "Ciliatea": {
+                    "Rhabdophorina": {
+                        "Didiniidae": {
+                            "Didinium": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Hymenostomatida": {
+                    "Pleuronematina": {
+                        "Cyclidiidae": {
+                            "Cyclidium": {
+                                "Citrullus": {}
+                            }
+                        }
+                    }
+                },
+                "Litostomatea": {
+                    "Cyclotrichiida": {
+                        "Mesodiniidae": {
+                            "Askenasia": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Haptorida": {
+                        "Trachelophyllidae": {
+                            "Lagynophrya": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Oligohymenophorea": {
+                    "Sessilida": {
+                        "Epistylididae": {
+                            "Epistylis": {
+                                "Sp": {}
+                            }
+                        },
+                        "Vaginicolidae": {
+                            "Cothurnia": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
                 "Oligotrichea": {
                     "Choreotrichida": {
                         "Codonellidae": {
                             "Tintinnopsis": {
-                                "lacustris": {}
+                                "Sp": {}
+                            }
+                        },
+                        "Tintinnidiidae": {
+                            "Tintinnidium": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Halteriida": {
+                        "Halteriidae": {
+                            "Halteria": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Oligotrichida": {
+                        "Strombidiidae": {
+                            "Strombidium": {
+                                "Sp": {}
                             }
                         }
                     }
@@ -37,7 +235,21 @@
                     "Prostomatida": {
                         "Colepidae": {
                             "Coleps": {
-                                "sp": {}
+                                "Sp": {}
+                            }
+                        },
+                        "Urotrichidae": {
+                            "Urotricha": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Rhabdophorina": {
+                    "Pleuronematina": {
+                        "Cyclidiidae": {
+                            "Cyclidium": {
+                                "Sp": {}
                             }
                         }
                     }
@@ -46,11 +258,195 @@
         },
         "Chromista": {
             "Bacillariophyta": {
+                "Bacillariophyceae": {
+                    "Achnanthales": {
+                        "Achnanthaceae": {
+                            "Achnanthes": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Bacillariales": {
+                        "Bacillariaceae": {
+                            "Bacillaria": {
+                                "Sp": {}
+                            },
+                            "Nitzschia": {
+                                "Acicularis": {},
+                                "Paleacea": {},
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Centrales": {},
+                    "Cocconeidales": {
+                        "Achnanthidiaceae": {
+                            "Achnanthidium": {
+                                "Minutissimum": {}
+                            }
+                        },
+                        "Cocconeidaceae": {
+                            "Cocconeis": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Cymbellales": {
+                        "Cymbellaceae": {
+                            "Cymbella": {
+                                "Sp": {}
+                            }
+                        },
+                        "Gomphonemataceae": {
+                            "Gomphonema": {
+                                "Acuminatum": {},
+                                "Angustatum": {},
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Fragilariales": {
+                        "Fragilariaceae": {
+                            "Fragilaria": {
+                                "Acus": {},
+                                "Capucina": {},
+                                "Crotonensis": {},
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Melosirales": {
+                        "Melosiraceae": {
+                            "Melosira": {
+                                "Varians": {}
+                            }
+                        }
+                    },
+                    "Naviculales": {
+                        "Amphipleuraceae": {
+                            "Amphipleura": {
+                                "Sp": {}
+                            }
+                        },
+                        "Diploneidaceae": {
+                            "Diploneis": {
+                                "Sp": {}
+                            }
+                        },
+                        "Naviculaceae": {
+                            "Caloneis": {
+                                "Sp": {}
+                            },
+                            "Navicula": {
+                                "Sp": {}
+                            }
+                        },
+                        "Pinnulariaceae": {
+                            "Pinnularia": {
+                                "Sp": {}
+                            }
+                        },
+                        "Sellaphoraceae": {
+                            "Sellaphora": {
+                                "Bacillum": {}
+                            }
+                        },
+                        "Stauroneidaceae": {
+                            "Stauroneis": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Pennales": {},
+                    "Rhopalodiales": {
+                        "Rhopalodiaceae": {
+                            "Epithemia": {
+                                "Adnata": {},
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Surirellales": {
+                        "Surirellaceae": {
+                            "Cymatopleura": {
+                                "Sp": {}
+                            },
+                            "Surirella": {
+                                "Didyma": {},
+                                "Elegans": {},
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Thalassiophysales": {
+                        "Catenulaceae": {
+                            "Amphora": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Thalassiosirales": {
+                        "Stephanodiscaceae": {
+                            "Cyclotella": {
+                                "Meneghiniana": {}
+                            },
+                            "Stephanodiscus": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Coscinodiscophyceae": {
+                    "Aulacoseirales": {
+                        "Aulacoseiraceae": {
+                            "Aulacoseira": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
                 "Fragilariophyceae": {
                     "Licmophorales": {
                         "Ulnariaceae": {
+                            "Hannaea": {
+                                "Arcus": {}
+                            },
                             "Synedra": {
-                                "cyclopum": {}
+                                "Cyclopum": {},
+                                "Sp": {}
+                            },
+                            "Tabularia": {
+                                "Fasciculata": {}
+                            },
+                            "Ulnaria": {
+                                "Delicatissima_var_angustissima": {}
+                            }
+                        }
+                    },
+                    "Tabellariales": {
+                        "Tabellariaceae": {
+                            "Asterionella": {
+                                "Formosa": {},
+                                "Sp": {}
+                            },
+                            "Diatoma": {
+                                "Sp": {},
+                                "Tenuis": {},
+                                "Vulgaris": {}
+                            },
+                            "Tabellaria": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "Bigyra": {
+                "Bicosea": {
+                    "Bicosecida": {
+                        "Bicosoecaceae": {
+                            "Bicosoeca": {
+                                "Sp": {}
                             }
                         }
                     }
@@ -61,7 +457,41 @@
                     "Cryptomonadales": {
                         "Cryptomonadaceae": {
                             "Cryptomonas": {
-                                "sp": {}
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Pyrenomonadales": {
+                        "Chroomonadaceae": {
+                            "Chroomonas": {
+                                "Sp": {}
+                            }
+                        },
+                        "Pyrenomonadaceae": {
+                            "Rhodomonas": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "Haptophyta": {
+                "Haptophyceae": {
+                    "Prymnesiales": {
+                        "Chrysochromulinaceae": {
+                            "Chrysochromulina": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "Katablepharidophyta": {
+                "Katablepharidophyceae": {
+                    "Katablephariales": {
+                        "Katablepharidaceae": {
+                            "Katablepharis": {
+                                "Sp": {}
                             }
                         }
                     }
@@ -70,9 +500,78 @@
             "Ochrophyta": {
                 "Chrysophyceae": {
                     "Chromulinales": {
+                        "Chromulinaceae": {
+                            "Chromulina": {
+                                "Sp": {}
+                            },
+                            "Ochromonas": {
+                                "Sp": {}
+                            },
+                            "Uroglena": {
+                                "Sp": {}
+                            }
+                        },
+                        "Chrysocapsaceae": {
+                            "Chrysocapsa": {
+                                "Sp": {}
+                            }
+                        },
                         "Dinobryaceae": {
                             "Dinobryon": {
-                                "sp": {}
+                                "Bavaricum": {},
+                                "Divergens": {},
+                                "Sociale": {},
+                                "Sp": {}
+                            },
+                            "Kephyrion": {
+                                "Sp": {}
+                            }
+                        },
+                        "Paraphysomonadaceae": {
+                            "Chrysosphaerella": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Hibberdiales": {
+                        "Stylococcaceae": {
+                            "Bitrichia": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Synurophyceae": {
+                    "Ochromonadales": {
+                        "Ochromonadaceae": {
+                            "Erkenia": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Synurales": {
+                        "Mallomonadaceae": {
+                            "Mallomonas": {
+                                "Sp": {}
+                            },
+                            "Synura": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Xanthophyceae": {
+                    "Tribonematales": {
+                        "Tribonemataceae": {
+                            "Tribonema": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Vaucheriales": {
+                        "Vaucheriaceae": {
+                            "Vaucheria": {
+                                "Sp": {}
                             }
                         }
                     }
@@ -81,11 +580,52 @@
         },
         "Plantae": {
             "Charophyta": {
+                "Coleochaetophyceae": {
+                    "Coleochaetales": {
+                        "Coleochaetaceae": {
+                            "Coleochaete": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
                 "Conjugatophyceae": {
                     "Desmidiales": {
+                        "Closteriaceae": {
+                            "Closterium": {
+                                "Acutum": {},
+                                "Acutum_var_variabile": {},
+                                "Sp": {}
+                            }
+                        },
                         "Desmidiaceae": {
-                            "Cosmarium": {},
-                            "Staurastrum": {}
+                            "Cosmarium": {
+                                "Depressum_var_planctonicum": {},
+                                "Sp": {}
+                            },
+                            "Micrasterias": {
+                                "Sp": {}
+                            },
+                            "Staurastrum": {
+                                "Cingulum": {},
+                                "Sp": {}
+                            },
+                            "Xanthidium": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Zygnematales": {
+                        "Zygnemataceae": {
+                            "Mougeotia": {
+                                "Sp": {}
+                            },
+                            "Spirogyra": {
+                                "Sp": {}
+                            },
+                            "Zygnema": {
+                                "Sp": {}
+                            }
                         }
                     }
                 },
@@ -93,26 +633,252 @@
                     "Klebsormidiales": {
                         "Elakatotrichaceae": {
                             "Elakatothrix": {
-                                "sp": {}
+                                "Sp": {}
+                            }
+                        },
+                        "Klebsormidiaceae": {
+                            "Klebsormidium": {
+                                "Pseudostichococcus": {}
+                            }
+                        }
+                    }
+                },
+                "Mesostigmatophyceae": {
+                    "Chaetosphaeridiales": {
+                        "Chaetosphaeridiaceae": {
+                            "Chaetosphaeridium": {
+                                "Sp": {}
                             }
                         }
                     }
                 }
             },
             "Chlorophyta": {
+                "Chlorodendrophyceae": {
+                    "Chlorodendrales": {
+                        "Chlorodendraceae": {
+                            "Tetraselmis": {
+                                "Cordiformis": {},
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
                 "Chlorophyceae": {
+                    "Chlamydomonadales": {
+                        "Chlamydomonadaceae": {
+                            "Carteria": {
+                                "Sp": {}
+                            },
+                            "Chlamydomonas": {
+                                "Sp": {}
+                            }
+                        },
+                        "Haematococcaceae": {
+                            "Haematococcus": {
+                                "Pluvialis": {}
+                            }
+                        }
+                    },
+                    "Chlorococcales": {
+                        "Treubariaceae": {
+                            "Treubaria": {
+                                "Sp": {},
+                                "Triappendiculata": {}
+                            }
+                        }
+                    },
+                    "Oedogoniales": {
+                        "Oedogoniaceae": {
+                            "Bulbochaete": {
+                                "Sp": {}
+                            },
+                            "Oedogonium": {
+                                "Sp": {}
+                            }
+                        }
+                    },
                     "Sphaeropleales": {
+                        "Characiaceae": {
+                            "Schroederia": {
+                                "Sp": {}
+                            }
+                        },
+                        "Chariaceae": {
+                            "Ankyra": {
+                                "Ancora": {},
+                                "Judayi": {},
+                                "Sp": {}
+                            }
+                        },
                         "Hydrodictyaceae": {
                             "Pediastrum": {
-                                "sp": {}
+                                "Sp": {}
                             },
                             "Tetraedron": {
-                                "minimum": {}
+                                "Minimum": {},
+                                "Sp": {}
+                            },
+                            "Tetrapedia": {
+                                "Sp": {}
+                            }
+                        },
+                        "Neochloridaceae": {
+                            "Planktosphaeria": {
+                                "Sp": {}
+                            }
+                        },
+                        "Radiococcaceae": {
+                            "Eutetramorus": {
+                                "Sp": {}
                             }
                         },
                         "Scenedesmaceae": {
+                            "Acutodesmus": {
+                                "Acuminatus": {},
+                                "Obliquus": {}
+                            },
                             "Coelastrum": {
-                                "reticulatum": {}
+                                "Microporum": {},
+                                "Reticulatum": {},
+                                "Sp": {}
+                            },
+                            "Desmodesmus": {
+                                "Armatus": {}
+                            },
+                            "Scenedesmus": {
+                                "Sp": {}
+                            },
+                            "Tetrastrum": {
+                                "Sp": {}
+                            },
+                            "Willea": {
+                                "Apiculata": {},
+                                "Sp": {}
+                            }
+                        },
+                        "Selenastraceae": {
+                            "Ankistrodesmus": {
+                                "Gracilis": {}
+                            },
+                            "Kirchneriella": {
+                                "Sp": {}
+                            },
+                            "Monoraphidium": {
+                                "Circinale": {},
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Tetrasporales": {
+                        "Palmellopsidaceae": {
+                            "Asterococcus": {
+                                "Sp": {}
+                            },
+                            "Chlamydocapsa": {
+                                "Sp": {}
+                            }
+                        },
+                        "Sphaerocystidaceae": {
+                            "Sphaerocystis": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Volvocales": {
+                        "Goniaceae": {
+                            "Gonium": {
+                                "Sp": {}
+                            }
+                        },
+                        "Phacotaceae": {
+                            "Phacotus": {
+                                "Lenticularis": {},
+                                "Sp": {}
+                            }
+                        },
+                        "Volvocaceae": {
+                            "Eudorina": {
+                                "Sp": {}
+                            },
+                            "Pandorina": {
+                                "Sp": {}
+                            },
+                            "Volvox": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Trebouxiophyceae": {
+                    "Chlorellales": {
+                        "Chlorellaceae": {
+                            "Chlorella": {
+                                "Sp": {}
+                            },
+                            "Dictyosphaerium": {
+                                "Sp": {}
+                            }
+                        },
+                        "Oocystaceae": {
+                            "Crucigeniella": {
+                                "Sp": {}
+                            },
+                            "Lagerheimia": {
+                                "Sp": {}
+                            },
+                            "Nephrocytium": {
+                                "Sp": {},
+                                "Varium": {}
+                            },
+                            "Oocystis": {
+                                "Marssonii": {},
+                                "Sp": {}
+                            },
+                            "Rayssiella": {
+                                "Sp": {}
+                            },
+                            "Tetrachlorella": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Incertae_sedis": {
+                        "Incertae_sedis": {
+                            "Crucigenia": {
+                                "Sp": {},
+                                "Tetrapedia": {}
+                            }
+                        }
+                    },
+                    "Prasiolales": {
+                        "Prasiolaceae": {
+                            "Prasiola": {
+                                "Fluviatilis": {}
+                            }
+                        }
+                    },
+                    "Trebouxiales": {
+                        "Botryococcaceae": {
+                            "Botryococcus": {
+                                "Braunii": {},
+                                "Sp": {}
+                            }
+                        }
+                    }
+                },
+                "Ulvophyceae": {
+                    "Ulotrichales": {
+                        "Ulotrichaceae": {
+                            "Ulothrix": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Ulvales": {
+                        "Ulvaceae": {
+                            "Enteromorpha": {
+                                "Sp": {}
                             }
                         }
                     }
@@ -120,34 +886,283 @@
             }
         },
         "Protozoa": {
+            "Amoebozoa": {
+                "Tubulinea": {
+                    "Tubulinida": {
+                        "Amoebidae": {
+                            "Amoeba": {}
+                        }
+                    }
+                }
+            },
+            "Choanozoa": {
+                "Choanoflagellatea": {
+                    "Craspedida": {
+                        "Codonosigaceae": {
+                            "Desmarella": {
+                                "Sp": {}
+                            },
+                            "Monosiga": {
+                                "Sp": {}
+                            }
+                        },
+                        "Salpingoecaceae": {
+                            "Salpingoeca": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                }
+            },
             "Dinophyta": {
                 "Dinophyceae": {
                     "Gonyaulacales": {
                         "Ceratiaceae": {
                             "Ceratium": {
-                                "hirundinella": {}
+                                "Hirundinella": {},
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Gymnodiniales": {
+                        "Gymnodiniaceae": {
+                            "Amphidinium": {
+                                "Sp": {},
+                                "Turicense": {}
+                            },
+                            "Gymnodinium": {
+                                "Sp": {}
                             }
                         }
                     },
                     "Peridiniales": {
+                        "Glenodiniopsidaceae": {
+                            "Glenodiniopsis": {
+                                "Sp": {}
+                            }
+                        },
                         "Peridiniaceae": {
                             "Peridinium": {
-                                "willei": {}
+                                "Aciculiferum": {},
+                                "Sp": {},
+                                "Willei": {}
+                            }
+                        }
+                    },
+                    "Phytodiniales": {
+                        "Phytodiniaceae": {
+                            "Cystodinium": {
+                                "Sp": {}
                             }
                         }
                     }
                 }
+            },
+            "Euglenozoa": {
+                "Euglenophyceae": {
+                    "Euglenales": {
+                        "Euglenaceae": {
+                            "Euglena": {
+                                "Sp": {}
+                            },
+                            "Trachelomonas": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Eutreptiales": {
+                        "Astasiaceae": {
+                            "Astasia": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "Sarcodina": {
+                "Actinopoda ": {
+                    "Heliozoa": {}
+                }
             }
         }
     },
-    "prokaryota": {
+    "Prokaryota": {
         "Bacteria": {
             "Cyanobacteria": {
                 "Cyanophyceae": {
+                    "Chroococcales": {
+                        "Aphanothecaceae": {
+                            "Aphanothece": {
+                                "Sp": {}
+                            },
+                            "Gloeothece": {
+                                "Sp": {}
+                            }
+                        },
+                        "Chroococcaceae": {
+                            "Chroococcus": {
+                                "Limneticus": {},
+                                "Sp": {}
+                            }
+                        },
+                        "Gomphosphaeriaceae": {
+                            "Gomphosphaeria": {
+                                "Sp": {}
+                            },
+                            "Gomphosphaeria/snowella": {
+                                "Sp": {}
+                            }
+                        },
+                        "Microcystaceae": {
+                            "Gloeocapsa": {
+                                "Sp": {}
+                            },
+                            "Microcystis": {
+                                "Aeruginosa": {},
+                                "Flos-aquae": {},
+                                "Sp": {},
+                                "Wesenbergii": {}
+                            }
+                        }
+                    },
                     "Nostocales": {
+                        "Aphanizomenonaceae": {
+                            "Anabaenopsis": {
+                                "Sp": {}
+                            },
+                            "Aphanizomenon": {
+                                "Flos-aquae": {},
+                                "Gracile": {},
+                                "Sp": {}
+                            },
+                            "Dolichospermum": {
+                                "Sp": {}
+                            },
+                            "Nodularia": {
+                                "Sp": {}
+                            }
+                        },
                         "Nostocaceae": {
                             "Anabaena": {
-                                "sp": {}
+                                "Circinalis": {},
+                                "Oscillarioides": {},
+                                "Sp": {},
+                                "Spiroides": {}
+                            },
+                            "Nostoc": {
+                                "Sp": {}
+                            }
+                        },
+                        "Rivulariaceae": {
+                            "Calothrix": {
+                                "Sp": {}
+                            },
+                            "Rivularia": {
+                                "Sp": {}
+                            }
+                        },
+                        "Scytonemataceae": {
+                            "Scytonema": {
+                                "Sp": {}
+                            }
+                        },
+                        "Tolypothrichaceae": {
+                            "Tolypothrix": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Oscillatoriales": {
+                        "Gloeotrichiaceae": {
+                            "Gloeotrichia": {
+                                "Sp": {}
+                            }
+                        },
+                        "Gomontiellaceae": {
+                            "Komvophoron": {
+                                "Sp": {}
+                            }
+                        },
+                        "Microcoleaceae": {
+                            "Planktothrix": {
+                                "Rubescens": {},
+                                "Sp": {}
+                            }
+                        },
+                        "Oscillatoriaceae": {
+                            "Lyngbya": {
+                                "Sp": {}
+                            },
+                            "Oscillatoria": {
+                                "Sp": {}
+                            },
+                            "Phormidium": {
+                                "Sp": {}
+                            },
+                            "Plectonema": {
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Spirulinales": {
+                        "Spirulinaceae": {
+                            "Spirulina": {
+                                "Major": {},
+                                "Sp": {}
+                            }
+                        }
+                    },
+                    "Synechococcales": {
+                        "Coelosphaeriaceae": {
+                            "Coelosphaerium": {
+                                "Sp": {}
+                            },
+                            "Snowella": {
+                                "Sp": {}
+                            },
+                            "Woronichinia": {
+                                "Sp": {}
+                            }
+                        },
+                        "Leptolyngbyaceae": {
+                            "Leptolyngbya": {
+                                "Tenuis": {}
+                            },
+                            "Planktolyngbya": {
+                                "Sp": {}
+                            }
+                        },
+                        "Merismopediaceae": {
+                            "Aphanocapsa": {
+                                "Sp": {}
+                            },
+                            "Merismopedia": {
+                                "Sp": {}
+                            },
+                            "Synechocystis": {
+                                "Sp": {}
+                            }
+                        },
+                        "Pseudanabaenaceae": {
+                            "Pseudanabaena": {
+                                "Sp": {}
+                            }
+                        },
+                        "Synechococcaceae": {
+                            "Synechococcus": {
+                                "Sp": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "Proteobacteria": {
+                "Betaproteobacteria": {
+                    "Burkholderiales": {
+                        "Comamonadaceae": {
+                            "Leptothrix": {
+                                "Echinata": {},
+                                "Ochracea": {}
                             }
                         }
                     }
