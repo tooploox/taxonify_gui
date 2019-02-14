@@ -43,6 +43,8 @@ void Uploader::upload(QString path) {
     if(!token.isEmpty()) {
         request.setRawHeader(QByteArray("Authorization"),
                              ("Bearer " + token).toUtf8());
+        request.setRawHeader(QByteArray("Accept-Encoding"),
+                             QByteArray("gzip, deflate"));
     }
 
     reply = nam->put(request, file);
