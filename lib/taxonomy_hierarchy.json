@@ -6,7 +6,7 @@
                     "Diplostraca": {
                         "Bosminidae": {
                             "Bosmina": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Daphniidae": {
@@ -15,19 +15,19 @@
                                 "Galeata": {},
                                 "Longispina": {},
                                 "Magna": {},
-                                "Pulex": {},
-                                "Sp": {}
+                                "Not specified": {},
+                                "Pulex": {}
                             }
                         },
                         "Leptodoridae": {
                             "Leptodora": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Sididae": {
                             "Diaphanosoma": {
                                 "Brachyurum": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -37,7 +37,7 @@
                     "Diptera": {
                         "Chaoboridae": {
                             "Chaoborus": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -46,11 +46,11 @@
                     "Calanoida": {
                         "Diaptomidae": {
                             "Diaptomus": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Eudiaptomus": {
                                 "Gracilis": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
@@ -59,21 +59,21 @@
                             "Cyclops": {
                                 "Abyssorum": {},
                                 "Bohater": {},
-                                "Sp": {},
+                                "Not specified": {},
                                 "Strenuus": {},
                                 "Vicinus": {}
                             },
                             "Diacyclops": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Macrocyclops": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Megacyclops": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Thermocyclops": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -97,24 +97,24 @@
                     "Flosculariacea": {
                         "Conochilidae": {
                             "Conochilus": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Trochosphaeridae": {
                             "Filinia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Ploima": {
                         "Asplanchnidae": {
                             "Asplanchna": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Trichocercidae": {
                             "Trichocerca": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -123,29 +123,29 @@
                     "Ploima": {
                         "Brachionidae": {
                             "Kellikottia": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Keratella": {
                                 "Cochlearis": {},
-                                "Quadrata": {},
-                                "Sp": {}
+                                "Not specified": {},
+                                "Quadrata": {}
                             }
                         },
                         "Gastropodidae": {
                             "Gastropus": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Synchaetidae": {
                             "Polyarthra": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Ploimida": {
                         "Gastropidae": {
                             "Ascomorpha": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -159,7 +159,7 @@
                     "Rhabdophorina": {
                         "Didiniidae": {
                             "Didinium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -177,14 +177,14 @@
                     "Cyclotrichiida": {
                         "Mesodiniidae": {
                             "Askenasia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Haptorida": {
                         "Trachelophyllidae": {
                             "Lagynophrya": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -193,12 +193,12 @@
                     "Sessilida": {
                         "Epistylididae": {
                             "Epistylis": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Vaginicolidae": {
                             "Cothurnia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -207,26 +207,26 @@
                     "Choreotrichida": {
                         "Codonellidae": {
                             "Tintinnopsis": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Tintinnidiidae": {
                             "Tintinnidium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Halteriida": {
                         "Halteriidae": {
                             "Halteria": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Oligotrichida": {
                         "Strombidiidae": {
                             "Strombidium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -235,12 +235,12 @@
                     "Prostomatida": {
                         "Colepidae": {
                             "Coleps": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Urotrichidae": {
                             "Urotricha": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -249,7 +249,7 @@
                     "Pleuronematina": {
                         "Cyclidiidae": {
                             "Cyclidium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -262,19 +262,19 @@
                     "Achnanthales": {
                         "Achnanthaceae": {
                             "Achnanthes": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Bacillariales": {
                         "Bacillariaceae": {
                             "Bacillaria": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Nitzschia": {
                                 "Acicularis": {},
-                                "Paleacea": {},
-                                "Sp": {}
+                                "Not specified": {},
+                                "Paleacea": {}
                             }
                         }
                     },
@@ -287,21 +287,21 @@
                         },
                         "Cocconeidaceae": {
                             "Cocconeis": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Cymbellales": {
                         "Cymbellaceae": {
                             "Cymbella": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Gomphonemataceae": {
                             "Gomphonema": {
                                 "Acuminatum": {},
                                 "Angustatum": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
@@ -311,7 +311,7 @@
                                 "Acus": {},
                                 "Capucina": {},
                                 "Crotonensis": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
@@ -325,25 +325,25 @@
                     "Naviculales": {
                         "Amphipleuraceae": {
                             "Amphipleura": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Diploneidaceae": {
                             "Diploneis": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Naviculaceae": {
                             "Caloneis": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Navicula": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Pinnulariaceae": {
                             "Pinnularia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Sellaphoraceae": {
@@ -353,7 +353,7 @@
                         },
                         "Stauroneidaceae": {
                             "Stauroneis": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
@@ -362,26 +362,26 @@
                         "Rhopalodiaceae": {
                             "Epithemia": {
                                 "Adnata": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Surirellales": {
                         "Surirellaceae": {
                             "Cymatopleura": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Surirella": {
                                 "Didyma": {},
                                 "Elegans": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Thalassiophysales": {
                         "Catenulaceae": {
                             "Amphora": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
@@ -391,7 +391,7 @@
                                 "Meneghiniana": {}
                             },
                             "Stephanodiscus": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -400,7 +400,7 @@
                     "Aulacoseirales": {
                         "Aulacoseiraceae": {
                             "Aulacoseira": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -413,7 +413,7 @@
                             },
                             "Synedra": {
                                 "Cyclopum": {},
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Tabularia": {
                                 "Fasciculata": {}
@@ -427,15 +427,15 @@
                         "Tabellariaceae": {
                             "Asterionella": {
                                 "Formosa": {},
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Diatoma": {
-                                "Sp": {},
+                                "Not specified": {},
                                 "Tenuis": {},
                                 "Vulgaris": {}
                             },
                             "Tabellaria": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -446,7 +446,7 @@
                     "Bicosecida": {
                         "Bicosoecaceae": {
                             "Bicosoeca": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -457,19 +457,19 @@
                     "Cryptomonadales": {
                         "Cryptomonadaceae": {
                             "Cryptomonas": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Pyrenomonadales": {
                         "Chroomonadaceae": {
                             "Chroomonas": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Pyrenomonadaceae": {
                             "Rhodomonas": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -480,7 +480,7 @@
                     "Prymnesiales": {
                         "Chrysochromulinaceae": {
                             "Chrysochromulina": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -491,7 +491,7 @@
                     "Katablephariales": {
                         "Katablepharidaceae": {
                             "Katablepharis": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -502,41 +502,41 @@
                     "Chromulinales": {
                         "Chromulinaceae": {
                             "Chromulina": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Ochromonas": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Uroglena": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Chrysocapsaceae": {
                             "Chrysocapsa": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Dinobryaceae": {
                             "Dinobryon": {
                                 "Bavaricum": {},
                                 "Divergens": {},
-                                "Sociale": {},
-                                "Sp": {}
+                                "Not specified": {},
+                                "Sociale": {}
                             },
                             "Kephyrion": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Paraphysomonadaceae": {
                             "Chrysosphaerella": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Hibberdiales": {
                         "Stylococcaceae": {
                             "Bitrichia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -545,17 +545,17 @@
                     "Ochromonadales": {
                         "Ochromonadaceae": {
                             "Erkenia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Synurales": {
                         "Mallomonadaceae": {
                             "Mallomonas": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Synura": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -564,14 +564,14 @@
                     "Tribonematales": {
                         "Tribonemataceae": {
                             "Tribonema": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Vaucheriales": {
                         "Vaucheriaceae": {
                             "Vaucheria": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -584,7 +584,7 @@
                     "Coleochaetales": {
                         "Coleochaetaceae": {
                             "Coleochaete": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -595,36 +595,36 @@
                             "Closterium": {
                                 "Acutum": {},
                                 "Acutum_var_variabile": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Desmidiaceae": {
                             "Cosmarium": {
                                 "Depressum_var_planctonicum": {},
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Micrasterias": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Staurastrum": {
                                 "Cingulum": {},
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Xanthidium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Zygnematales": {
                         "Zygnemataceae": {
                             "Mougeotia": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Spirogyra": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Zygnema": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -633,7 +633,7 @@
                     "Klebsormidiales": {
                         "Elakatotrichaceae": {
                             "Elakatothrix": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Klebsormidiaceae": {
@@ -647,7 +647,7 @@
                     "Chaetosphaeridiales": {
                         "Chaetosphaeridiaceae": {
                             "Chaetosphaeridium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -659,7 +659,7 @@
                         "Chlorodendraceae": {
                             "Tetraselmis": {
                                 "Cordiformis": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -668,10 +668,10 @@
                     "Chlamydomonadales": {
                         "Chlamydomonadaceae": {
                             "Carteria": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Chlamydomonas": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Haematococcaceae": {
@@ -683,7 +683,7 @@
                     "Chlorococcales": {
                         "Treubariaceae": {
                             "Treubaria": {
-                                "Sp": {},
+                                "Not specified": {},
                                 "Triappendiculata": {}
                             }
                         }
@@ -691,46 +691,46 @@
                     "Oedogoniales": {
                         "Oedogoniaceae": {
                             "Bulbochaete": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Oedogonium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Sphaeropleales": {
                         "Characiaceae": {
                             "Schroederia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Chariaceae": {
                             "Ankyra": {
                                 "Ancora": {},
                                 "Judayi": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Hydrodictyaceae": {
                             "Pediastrum": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Tetraedron": {
                                 "Minimum": {},
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Tetrapedia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Neochloridaceae": {
                             "Planktosphaeria": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Radiococcaceae": {
                             "Eutetramorus": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Scenedesmaceae": {
@@ -740,21 +740,21 @@
                             },
                             "Coelastrum": {
                                 "Microporum": {},
-                                "Reticulatum": {},
-                                "Sp": {}
+                                "Not specified": {},
+                                "Reticulatum": {}
                             },
                             "Desmodesmus": {
                                 "Armatus": {}
                             },
                             "Scenedesmus": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Tetrastrum": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Willea": {
                                 "Apiculata": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Selenastraceae": {
@@ -762,50 +762,50 @@
                                 "Gracilis": {}
                             },
                             "Kirchneriella": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Monoraphidium": {
                                 "Circinale": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Tetrasporales": {
                         "Palmellopsidaceae": {
                             "Asterococcus": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Chlamydocapsa": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Sphaerocystidaceae": {
                             "Sphaerocystis": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Volvocales": {
                         "Goniaceae": {
                             "Gonium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Phacotaceae": {
                             "Phacotus": {
                                 "Lenticularis": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Volvocaceae": {
                             "Eudorina": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Pandorina": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Volvox": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -814,39 +814,39 @@
                     "Chlorellales": {
                         "Chlorellaceae": {
                             "Chlorella": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Dictyosphaerium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Oocystaceae": {
                             "Crucigeniella": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Lagerheimia": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Nephrocytium": {
-                                "Sp": {},
+                                "Not specified": {},
                                 "Varium": {}
                             },
                             "Oocystis": {
                                 "Marssonii": {},
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Rayssiella": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Tetrachlorella": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Incertae_sedis": {
                         "Incertae_sedis": {
                             "Crucigenia": {
-                                "Sp": {},
+                                "Not specified": {},
                                 "Tetrapedia": {}
                             }
                         }
@@ -862,7 +862,7 @@
                         "Botryococcaceae": {
                             "Botryococcus": {
                                 "Braunii": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -871,14 +871,14 @@
                     "Ulotrichales": {
                         "Ulotrichaceae": {
                             "Ulothrix": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Ulvales": {
                         "Ulvaceae": {
                             "Enteromorpha": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -900,15 +900,15 @@
                     "Craspedida": {
                         "Codonosigaceae": {
                             "Desmarella": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Monosiga": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Salpingoecaceae": {
                             "Salpingoeca": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -920,31 +920,31 @@
                         "Ceratiaceae": {
                             "Ceratium": {
                                 "Hirundinella": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Gymnodiniales": {
                         "Gymnodiniaceae": {
                             "Amphidinium": {
-                                "Sp": {},
+                                "Not specified": {},
                                 "Turicense": {}
                             },
                             "Gymnodinium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Peridiniales": {
                         "Glenodiniopsidaceae": {
                             "Glenodiniopsis": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Peridiniaceae": {
                             "Peridinium": {
                                 "Aciculiferum": {},
-                                "Sp": {},
+                                "Not specified": {},
                                 "Willei": {}
                             }
                         }
@@ -952,7 +952,7 @@
                     "Phytodiniales": {
                         "Phytodiniaceae": {
                             "Cystodinium": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
@@ -963,24 +963,24 @@
                     "Euglenales": {
                         "Euglenaceae": {
                             "Euglena": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Trachelomonas": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Eutreptiales": {
                         "Astasiaceae": {
                             "Astasia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
                 }
             },
             "Sarcodina": {
-                "Actinopoda ": {
+                "Actinopoda": {
                     "Heliozoa": {}
                 }
             }
@@ -993,34 +993,34 @@
                     "Chroococcales": {
                         "Aphanothecaceae": {
                             "Aphanothece": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Gloeothece": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Chroococcaceae": {
                             "Chroococcus": {
                                 "Limneticus": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Gomphosphaeriaceae": {
                             "Gomphosphaeria": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Gomphosphaeria/snowella": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Microcystaceae": {
                             "Gloeocapsa": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Microcystis": {
                                 "Aeruginosa": {},
                                 "Flos-aquae": {},
-                                "Sp": {},
+                                "Not specified": {},
                                 "Wesenbergii": {}
                             }
                         }
@@ -1028,79 +1028,79 @@
                     "Nostocales": {
                         "Aphanizomenonaceae": {
                             "Anabaenopsis": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Aphanizomenon": {
                                 "Flos-aquae": {},
                                 "Gracile": {},
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Dolichospermum": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Nodularia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Nostocaceae": {
                             "Anabaena": {
                                 "Circinalis": {},
+                                "Not specified": {},
                                 "Oscillarioides": {},
-                                "Sp": {},
                                 "Spiroides": {}
                             },
                             "Nostoc": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Rivulariaceae": {
                             "Calothrix": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Rivularia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Scytonemataceae": {
                             "Scytonema": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Tolypothrichaceae": {
                             "Tolypothrix": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Oscillatoriales": {
                         "Gloeotrichiaceae": {
                             "Gloeotrichia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Gomontiellaceae": {
                             "Komvophoron": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Microcoleaceae": {
                             "Planktothrix": {
-                                "Rubescens": {},
-                                "Sp": {}
+                                "Not specified": {},
+                                "Rubescens": {}
                             }
                         },
                         "Oscillatoriaceae": {
                             "Lyngbya": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Oscillatoria": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Phormidium": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Plectonema": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
@@ -1108,20 +1108,20 @@
                         "Spirulinaceae": {
                             "Spirulina": {
                                 "Major": {},
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     },
                     "Synechococcales": {
                         "Coelosphaeriaceae": {
                             "Coelosphaerium": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Snowella": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Woronichinia": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Leptolyngbyaceae": {
@@ -1129,28 +1129,28 @@
                                 "Tenuis": {}
                             },
                             "Planktolyngbya": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Merismopediaceae": {
                             "Aphanocapsa": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Merismopedia": {
-                                "Sp": {}
+                                "Not specified": {}
                             },
                             "Synechocystis": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Pseudanabaenaceae": {
                             "Pseudanabaena": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         },
                         "Synechococcaceae": {
                             "Synechococcus": {
-                                "Sp": {}
+                                "Not specified": {}
                             }
                         }
                     }
