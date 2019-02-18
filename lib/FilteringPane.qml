@@ -144,14 +144,10 @@ Rectangle {
                 const acquisitionTime = dateFilter.getAcquisitionTimeAndApply(dateCkbx.checked)
                 if (acquisitionTime) {
                     dateCkbx.font.bold = true
-                    if (acquisitionTime.start) {
-                        console.log(acquisitionTime.start)
+                    if (acquisitionTime.start)
                         filter.acquisition_time_start = acquisitionTime.start
-                    }
-                    if (acquisitionTime.end) {
-                        console.log(acquisitionTime.end)
+                    if (acquisitionTime.end)
                         filter.acquisition_time_end = acquisitionTime.end
-                    }
                 } else {
                     dateCkbx.font.bold = false
                     dateCkbx.checked = false
