@@ -141,25 +141,21 @@ Rectangle {
                     checkBox1.checked = false
                 }
 
-                let applyStart = false, applyEnd = false
-                if (dateCkbx.checked && dateFilter.valid) {
+                const acquisitionTime = dateFilter.getAcquisitionTimeAndApply(dateCkbx.checked)
+                if (acquisitionTime) {
                     dateCkbx.font.bold = true
-                    if (!dateFilter.start.empty) {
-                        applyStart = true
-                        console.log(dateFilter.start.isostring)
-                        filter.acquisition_time_start = dateFilter.start.isostring
+                    if (acquisitionTime.start) {
+                        console.log(acquisitionTime.start)
+                        filter.acquisition_time_start = acquisitionTime.start
                     }
-                    if (!dateFilter.end.empty) {
-                        applyEnd = true
-                        console.log(dateFilter.end.isostring)
-                        filter.acquisition_time_end = dateFilter.end.isostring
+                    if (acquisitionTime.end) {
+                        console.log(acquisitionTime.end)
+                        filter.acquisition_time_end = acquisitionTime.end
                     }
                 } else {
                     dateCkbx.font.bold = false
                     dateCkbx.checked = false
                 }
-                dateFilter.start.apply(!applyStart)
-                dateFilter.end.apply(!applyEnd)
 
                 if (taxonomyCkbx.checked) {
                     for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {

@@ -51,8 +51,6 @@ ApplicationWindow {
 
         FilteringPane {
 
-            id: filteringPane
-
             Layout.preferredWidth: 300
             Layout.fillHeight: true
 
