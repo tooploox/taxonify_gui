@@ -51,13 +51,11 @@ Rectangle {
                     }
 
                     Column {
-
-                        anchors.fill: parent
-
                         TextField {
                             id: fileNameField
                             enabled: checkBox1.checked
                             placeholderText: 'File name regex'
+                            visible: checkBox1.checked
                         }
 
                     }
@@ -74,10 +72,12 @@ Rectangle {
                         ButtonGroup.group: filterButtons
                     }
 
-                    DateFilter {
-                        id: dateFilter
-                        anchors.fill: parent
-                        enabled: dateCkbx.checked
+                    Column {
+                        DateFilter {
+                            id: dateFilter
+                            enabled: dateCkbx.checked
+                            visible: dateCkbx.checked
+                        }
                     }
                 }
 
@@ -92,13 +92,20 @@ Rectangle {
                         ButtonGroup.group: filterButtons
                     }
 
-                    TaxonomyFilter {
-                        id: taxonomyFilter
-                        enabled: taxonomyCkbx.checked
+                    Column {
+                        anchors.fill: parent
+
+                        TaxonomyFilter {
+                            id: taxonomyFilter
+                            enabled: taxonomyCkbx.checked
+                            visible: taxonomyCkbx.checked
+                            width: parent.width
+                        }
                     }
                 }
 
                 GroupBox {
+
                     Layout.fillWidth: true
 
                     label: CheckBox {
@@ -108,10 +115,13 @@ Rectangle {
                         ButtonGroup.group: filterButtons
                     }
 
-                    LivenessFilter {
-                        id: livenessFilter
-                        enabled: livenessCkbx.checked
-                        annotationMode: false
+                    Column {
+                        LivenessFilter {
+                            id: livenessFilter
+                            enabled: livenessCkbx.checked
+                            annotationMode: false
+                            visible: livenessCkbx.checked
+                        }
                     }
                 }
             }

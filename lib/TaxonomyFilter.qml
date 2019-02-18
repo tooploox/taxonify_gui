@@ -6,10 +6,7 @@ import QtQuick.Layouts 1.12
 import "network/requests.js" as Requests
 
 ColumnLayout {
-    anchors.fill: parent
-
     property alias container: rptr
-
     readonly property string notSpecifiedStr: "Not specified"
 
     readonly property var taxonomyNames: [
