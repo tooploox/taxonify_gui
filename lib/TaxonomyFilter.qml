@@ -2,10 +2,13 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
+
 import "network/requests.js" as Requests
 
 ColumnLayout {
     anchors.fill: parent
+
+    property alias container: rptr
 
     readonly property string notSpecifiedStr: "Not specified"
 
@@ -14,7 +17,10 @@ ColumnLayout {
         'species'
     ]
 
+    property bool annotationMode: false
     property int taxonomyDepth: 8
+    property int updateCounter: 0
+
     property var nodes: new Array(taxonomyDepth)
     property var notSpecifiedLastApplied: new Array(taxonomyDepth)
 
@@ -26,12 +32,6 @@ ColumnLayout {
             crtr[taxonomyNames[i]] = null
         return crtr
     }
-
-    property bool annotationMode: false
-
-    property alias container: rptr
-
-    property int updateCounter: 0
 
     function update() {
         if (updateCounter == Number.MAX_SAFE_INTEGER)
@@ -74,7 +74,7 @@ ColumnLayout {
                 readonly property string value: model[currentIndex]
                 readonly property int notSpecifiedStrPosition: 0
 
-                property bool isEmpty: model.length == 1
+                property bool isEmpty: model.length === 1
 
                 property int appliedIndex: -1 // if nothing was applied then -1
 
@@ -82,7 +82,7 @@ ColumnLayout {
                     if (!isEmpty && nodes[index].time === (updateCounter - 1))
                         return nodes[index].applied
                     if (notSpecifiedLastApplied[index] === (updateCounter - 1))
-                            return notSpecifiedStrPosition
+                        return notSpecifiedStrPosition
                     return -1
                 }
 
