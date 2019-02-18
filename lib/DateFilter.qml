@@ -23,4 +23,17 @@ ColumnLayout {
         enabled: parent.enabled
         dateTextColor: (parent.valid || empty) ? 'black' : 'red'
     }
+
+    function getAcquisitionTimeAndApply(checked) {
+        if (checked && valid) {
+            let acquisitionTime = {}
+            acquisitionTime.start = start.getTimeAndApply(false)
+            acquisitionTime.end = end.getTimeAndApply(false)
+            return acquisitionTime
+        } else {
+            start.getTimeAndApply(true)
+            end.getTimeAndApply(true)
+            return null
+        }
+    }
 }

@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
 import QtQuick.Controls.Material 2.12
+import QtQuick.Layouts 1.12
 import "network/requests.js" as Requests
 
 ColumnLayout {
@@ -88,7 +88,11 @@ ColumnLayout {
 
                 delegate: MenuItem {
                     width: parent.width
-                    text: combobox.textRole ? (Array.isArray(combobox.model) ? modelData[combobox.textRole] : model[combobox.textRole]) : modelData
+                    text: {
+                        if(!combobox.textRole) return modelData;
+                        if(Array.isArray(combobox.model)) return modelData[combobox.textRole]
+                        return model[combobox.textRole]
+                    }
                     Material.foreground: combobox.currentIndex === index ? parent.Material.accent : parent.Material.foreground
                     highlighted: combobox.highlightedIndex === index
                     hoverEnabled: combobox.hoverEnabled

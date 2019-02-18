@@ -19,7 +19,7 @@ ColumnLayout {
 
     function apply(checked) {
         applied = []
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < container.count; i++) {
             let item = container.itemAt(i).item
             if (item.checked)
                 applied.push(item.text)
