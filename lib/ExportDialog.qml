@@ -7,12 +7,6 @@ Dialog {
     id: root
 
     property string address;
-    property alias token : uploadForm.token
-    readonly property alias uploadProgress : uploadForm.uploadProgress
-
-    signal success(string replyData)
-    signal error(string errorMsg)
-    signal uploadStarted()
 
     x: Math.floor((parent.width - width) / 2)
     y: Math.floor((parent.height - height) / 2)
@@ -26,14 +20,9 @@ Dialog {
 
     parent: ApplicationWindow.overlay
 
-    UploadForm{
-        id: uploadForm
+    ExportForm{
+        id: exporForm
         anchors.fill: parent
-        address: root.address + '/upload'
-        token: dataAccess.internal.access_token
-        onSuccess: root.success(replyData)
-        onError: root.error(errorMsg)
-        onUploadStarted: root.uploadStarted()
     }
 
 }
