@@ -25,6 +25,15 @@ ApplicationWindow {
     property var currentFilter: {}
     property string currentSas: ''
     property bool viewPopulated: false
+    property real scrollViewLastPos: 0
+
+    function storeScrollLastPos(){
+        scrollViewLastPos = imageViewAndControls.imageView.getCurrentScrollPosition()
+    }
+
+    function restoreScrollLastPos(){
+        imageViewAndControls.imageView.setScrollPosition(scrollViewLastPos)
+    }
 
     function getSettingVariable(key) {
         if(settingsFromFile) {
@@ -60,6 +69,7 @@ ApplicationWindow {
        property bool pageLoadingInProgress: false
        property bool lastPageLoaded: false
        property var multiplePagesToLoad: []
+       property bool multiplePagesLoading: false
 
        function nextPageNumber() { return pagesLoaded + 1; }
 
@@ -81,6 +91,7 @@ ApplicationWindow {
 
        function loadPages(filter, pagesToLoad){
            resetPagesStatus()
+           multiplePagesLoading = true
 
            var pagesRange = [...Array((pagesToLoad+1)).keys()]  // Generate range 0 ... n
            multiplePagesToLoad = pagesRange.slice(1)
@@ -99,10 +110,16 @@ ApplicationWindow {
            pageLoadingInProgress = false
            if(lastPageLoaded) multiplePagesToLoad = []
 
-           if(multiplePagesToLoad.length != 0){
-               var pageToLoad = multiplePagesToLoad[0]
-               multiplePagesToLoad.shift()
-               loadPage(getCurrentFilter(), pageToLoad)
+           if(multiplePagesLoading){
+               if(multiplePagesToLoad.length > 0){
+                 var pageToLoad = multiplePagesToLoad[0]
+                 multiplePagesToLoad.shift()
+                 loadPage(getCurrentFilter(), pageToLoad)
+               }
+               else {
+                   multiplePagesToLoad = false
+                   restoreScrollLastPos()
+               }
            }
        }
     }
@@ -156,6 +173,7 @@ ApplicationWindow {
             Layout.fillHeight: true
 
             onApplyClicked: {
+                storeScrollLastPos()
 
                 const model = imageViewAndControls.imageView.model
 

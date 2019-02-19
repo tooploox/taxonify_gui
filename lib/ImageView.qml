@@ -19,6 +19,18 @@ Item {
 
     clip: true
 
+    function getCurrentScrollPosition() {
+        return scroll.position
+    }
+
+    function setScrollPosition(position) {
+        console.log("pos:" + position + ", size: " +scroll.size)
+
+        // Hack - double set fixes positioning problem
+        scroll.position = position
+        scroll.position = position
+    }
+
     function appendData(data, useLastY) {
         for (let item of data) {
             model.append(item)
