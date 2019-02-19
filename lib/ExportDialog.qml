@@ -11,12 +11,12 @@ Dialog {
     x: Math.floor((parent.width - width) / 2)
     y: Math.floor((parent.height - height) / 2)
 
-    width: 600
+    width: 800
     height: 600
 
     modal: true
     title: 'Export data'
-    standardButtons: Dialog.Close
+    standardButtons: Dialog.Ok | Dialog.Close
 
     parent: ApplicationWindow.overlay
 

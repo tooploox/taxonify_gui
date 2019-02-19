@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
 
 import "qrc:/"
@@ -9,11 +8,20 @@ ApplicationWindow {
 
     visible: true
 
-    width: 800
-    height: 500
+    width: exportDialog.width + 100
+    height: exportDialog.height + 100
 
-    ExportForm {
-        id: exporForm
-        anchors.fill: parent
+    ExportDialog {
+       id: exportDialog
+    }
+
+    Button {
+        id: exportButton
+
+        Layout.alignment: Qt.AlignRight
+        Layout.rightMargin: 5
+
+        text: 'Export'
+        onClicked: exportDialog.open()
     }
 }
