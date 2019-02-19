@@ -42,39 +42,52 @@ Rectangle {
 
                 ButtonGroup { id: radioGroup }
 
-
-                GroupBox {
-                    Layout.fillWidth: true
-
-                    label: RadioButton {
-                        id: taxonomyRbtn
-                        checked: false
-                        text: qsTr("Taxonomy")
-                        ButtonGroup.group: radioGroup
-                    }
-
-                    TaxonomyFilter {
-                        id: taxonomyfltr
-                        anchors.fill: parent
-                        annotationMode: true
-                        enabled: taxonomyRbtn.checked
-                    }
+                RadioButton {
+                    id: taxonomyRbtn
+                    checked: false
+                    text: qsTr("Taxonomy")
+                    ButtonGroup.group: radioGroup
                 }
 
+                RadioButton {
+                    id: livenessRbtn
+                    checked: false
+                    text: qsTr("Liveness")
+                    ButtonGroup.group: radioGroup
+                }
+            }
+        }
+
+        ScrollView {
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignCenter
+            Layout.maximumHeight: parent.height - 100
+            clip: true
+            contentWidth: width
+
+            ColumnLayout {
+                width: parent.width
+
                 GroupBox {
                     Layout.fillWidth: true
 
-                    label: RadioButton {
-                        id: livenessRbtn
-                        checked: false
-                        text: qsTr("Liveness")
-                        ButtonGroup.group: radioGroup
-                    }
+                    Column {
+                        anchors.fill: parent
 
-                    LivenessFilter {
-                        id: livenessfltr
-                        enabled: livenessRbtn.checked
-                        annotationMode: true
+                        TaxonomyFilter {
+                            id: taxonomyfltr
+                            annotationMode: true
+                            enabled: taxonomyRbtn.checked
+                            visible: taxonomyRbtn.checked
+                            width: parent.width
+                        }
+
+                        LivenessFilter {
+                            id: livenessfltr
+                            enabled: livenessRbtn.checked
+                            visible: livenessRbtn.checked
+                            annotationMode: true
+                        }
                     }
                 }
             }
