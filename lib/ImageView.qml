@@ -11,11 +11,28 @@ Item {
         return false
     }
 
+    signal reachedBottom()
+
     readonly property ListModel model: ListModel {}
     readonly property int programatic_scroll_step: 100
     readonly property int x_offset_to_content: 1
 
     clip: true
+
+    function appendData(data, useLastY) {
+        for (let item of data) {
+            model.append(item)
+        }
+
+        update(useLastY)
+    }
+
+    function clearData() {
+        listModel.clear()
+        listView.forceLayout()
+        model.clear()
+        update(false)
+    }
 
     function setData(data) {
 
@@ -111,6 +128,7 @@ Item {
                 setContentY(0)
             }
         }
+
         listView.forceLayout()
 
         listView.lastY = listView.contentY
@@ -132,7 +150,14 @@ Item {
         anchors.fill: parent
         property int lastY: 0
         property int firstIdInTheFirstRow: -1
-        ScrollIndicator.vertical: ScrollIndicator { }
+        ScrollIndicator.vertical: ScrollIndicator {
+            id: scroll
+            onPositionChanged: {
+                if (position + size == 1.0) {
+                    root.reachedBottom()
+                }
+            }
+        }
 
         model: ListModel {
             id: listModel

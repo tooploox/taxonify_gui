@@ -57,6 +57,7 @@ ColumnLayout {
 
     property alias filter: imageView.filter
     readonly property ImageView imageView: imageView
+    signal atPageBottom()
 
     ImageView {
         id: imageView
@@ -65,6 +66,11 @@ ColumnLayout {
         Layout.fillHeight: true
 
         sizeScale: tileSizeSlider.value
+
+        onReachedBottom: {
+            atPageBottom()
+            console.log("Reached bottom")
+        }
     }
 
     Rectangle {

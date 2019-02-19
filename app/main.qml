@@ -46,6 +46,67 @@ ApplicationWindow {
         }
     }
 
+    function getCurrentFilter() {
+        if (currentFilter) {
+            return JSON.parse(JSON.stringify(currentFilter))
+        }
+        return {}
+    }
+
+    Item{
+       id: pageLoader
+
+       property var pagesLoaded: 0
+       property bool pageLoadingInProgress: false
+       property bool lastPageLoaded: false
+       property var multiplePagesToLoad: []
+
+       function nextPageNumber() { return pagesLoaded + 1; }
+
+       function resetPagesStatus() {
+           pagesLoaded = 0
+           lastPageLoaded = false
+       }
+
+       function loadNextPage(filter){
+           let pageNo = nextPageNumber()
+           console.log("load Next page: " + pageNo)
+           loadPage(filter, pageNo)
+       }
+
+       function loadPage(filter, pageNumber){
+         pageLoadingInProgress = true
+         filterPagedItems.call(filter, pageNumber)
+       }
+
+       function loadPages(filter, pagesToLoad){
+           resetPagesStatus()
+
+           var pagesRange = [...Array((pagesToLoad+1)).keys()]  // Generate range 0 ... n
+           multiplePagesToLoad = pagesRange.slice(1)
+           console.log(multiplePagesToLoad)
+           var pageToLoad = multiplePagesToLoad[0]
+           multiplePagesToLoad.shift()
+           loadPage(filter, pageToLoad)
+       }
+
+       function finishLoadingPage(continuationToken){
+           console.log("Finished loading page " + nextPageNumber())
+
+           let loadedPage = pagesLoaded
+           pagesLoaded += 1
+           lastPageLoaded = (continuationToken === undefined ? true : false)
+           pageLoadingInProgress = false
+           if(lastPageLoaded) multiplePagesToLoad = []
+
+           if(multiplePagesToLoad.length != 0){
+               var pageToLoad = multiplePagesToLoad[0]
+               multiplePagesToLoad.shift()
+               loadPage(getCurrentFilter(), pageToLoad)
+           }
+       }
+    }
+
     RowLayout {
         anchors.fill: parent
 
@@ -56,13 +117,14 @@ ApplicationWindow {
 
             onAppliedClicked: {
                 currentFilter = filter
-                filterItems.call(filter)
+                imageViewAndControls.imageView.clearData()
+                pageLoader.resetPages()
+                pageLoader.loadNextPage(getCurrentFilter())
             }
 
         }
 
         ImageViewAndControls {
-
             id: imageViewAndControls
 
             address: getSettingVariable('host')
@@ -81,6 +143,11 @@ ApplicationWindow {
                          }
 
                      })(annotationPane.criteria)
+
+            onAtPageBottom: {
+                if(pageLoader.pageLoadingInProgress || pageLoader.lastPageLoaded) return
+                pageLoader.loadNextPage(getCurrentFilter())
+            }
         }
 
         AnnotationPane {
@@ -145,7 +212,8 @@ ApplicationWindow {
         onSuccess: {
             currentSas = res.token
             if (!viewPopulated) {
-                filterItems.call({}) // to populate view just once
+                pageLoader.resetPagesStatus()
+                pageLoader.loadNextPage({})
             }
         }
 
@@ -172,19 +240,49 @@ ApplicationWindow {
         onSuccess: {
             const params = currentSas.length > 0 ? '?' + currentSas : ''
 
-            let data = []
-
-            for (let item of res.items) {
-                const modelItem = {
+            function makeItem(item) {
+                return {
                     image: res.urls[item._id] + params,
                     selected: false,
                     metadata: item
                 }
-                data.push(modelItem)
             }
+
+            let data = res.items.map(makeItem)
 
             viewPopulated = true
             imageViewAndControls.imageView.setData(data)
+        }
+
+        onError: {
+            console.log('error in retrieving data items. Error: '+ details.text)
+        }
+    }
+
+    Request {
+        id: filterPagedItems
+
+        handler: dataAccess.filterPagedItems
+
+        onSuccess: {
+            const params = currentSas.length > 0 ? '?' + currentSas : ''
+
+            function makeItem(item) {
+                return {
+                    image: res.urls[item._id], //+ params,
+                    selected: false,
+                    metadata: item
+                }
+            }
+
+            let data = res.items.map(makeItem)
+
+            if(data.length > 0){
+                viewPopulated = true
+                imageViewAndControls.imageView.appendData(data, true)
+            }
+
+            pageLoader.finishLoadingPage(res.continuation_token)
         }
 
         onError: {
@@ -197,7 +295,11 @@ ApplicationWindow {
 
         handler: dataAccess.updateItems
 
-        onSuccess: filterItems.call(currentFilter)
+        onSuccess: {
+            console.log("Update items")
+            imageViewAndControls.imageView.clearData()
+            pageLoader.loadPages(getCurrentFilter(), pageLoader.pagesLoaded)
+        }
 
         onError: {
             // TODO
