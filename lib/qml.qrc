@@ -8,7 +8,7 @@
         <file>ImageViewAndControls.qml</file>
         <file>DateTextField.qml</file>
         <file>DateFilter.qml</file>
-        <file>LivenessFilter.qml</file>
+        <file>AttributeFilter.qml</file>
         <file>taxonomy_hierarchy.json</file>
         <file>UploadForm.qml</file>
         <file>UploadDialog.qml</file>
