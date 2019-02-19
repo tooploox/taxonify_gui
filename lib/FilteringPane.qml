@@ -7,6 +7,13 @@ Rectangle {
 
     signal applyClicked(var filter)
 
+    property var attributes: ['with_eggs', 'dividing', 'dead', 'with_epibiont', 'with_parasite', 'broken',
+        'colony', 'cluster', 'eating', 'multiple_species', 'partially_cropped', 'male',
+        'female', 'juvenile', 'adult', 'ephippium', 'resting_egg', 'heterocyst', 'akinete',
+        'with_spines', 'beatles', 'stones', 'zeppelin', 'floyd', 'acdc', 'hendrix',
+        'alan_parsons', 'allman', 'dire_straits', 'eagles', 'guns', 'purple', 'van_halen',
+        'skynyrd', 'zz_top', 'iron', 'police', 'moore', 'inxs', 'chilli_peppers']
+
     ColumnLayout {
         anchors.fill: parent
         width: parent.width
@@ -105,24 +112,33 @@ Rectangle {
                     }
                 }
 
-                GroupBox {
+                Repeater {
+                    id: attributefltrs
+                    model: attributes
 
-                    Layout.fillWidth: true
+                    GroupBox {
 
-                    label: CheckBox {
-                        id: livenessCkbx
-                        checked: false
-                        text: qsTr("Dead")
-                        ButtonGroup.group: filterButtons
-                    }
+                        property string attrName: modelData
+                        property alias checked: attrCbx.checked
+                        property alias bold: attrCbx.font.bold
+                        property alias container: attrFltr.container
+                        property alias apply: attrFltr.apply
 
-                    Column {
-                        AttributeFilter {
-                            id: livenessFilter
-                            attributeName: 'dead'
-                            enabled: livenessCkbx.checked
-                            annotationMode: false
-                            visible: livenessCkbx.checked
+                        Layout.fillWidth: true
+
+                        label: CheckBox {
+                            id: attrCbx
+                            checked: false
+                            text: attrName
+                        }
+
+                        Column {
+                            AttributeFilter {
+                                id: attrFltr
+                                attributeName: attrName
+                                enabled: checked
+                                visible: checked
+                            }
                         }
                     }
                 }
@@ -182,21 +198,29 @@ Rectangle {
                 taxonomyCkbx.font.bold = taxonomyCkbx.checked
                 taxonomyFilter.update()
 
-                livenessFilter.apply(livenessCkbx.checked)
-                livenessCkbx.font.bold = livenessCkbx.checked
-                if (livenessCkbx.checked) {
-                    var livenessChecked = []
-                    if (livenessFilter.container.itemAt(0).item.checked) {
-                        livenessChecked.push("false") // dead false
-                    }
-                    if (livenessFilter.container.itemAt(1).item.checked) {
-                        livenessChecked.push("true") // dead true
-                    }
-                    if (livenessFilter.container.itemAt(2).item.checked) {
-                        livenessChecked.push("") // not specified
-                    }
-                    if (livenessChecked.length > 0) {
-                        filter.dead = livenessChecked
+                for (let i = 0; i < attributefltrs.count; i++) {
+
+                    const attrFltr = attributefltrs.itemAt(i)
+                    const attrName = attrFltr.attrName
+                    const attrContainer = attrFltr.container
+
+                    attrFltr.apply(attrFltr.checked)
+                    attrFltr.bold = attrFltr.checked
+
+                    if (attrFltr.checked) {
+                        var attrChecked = []
+                        if (attrContainer.itemAt(0).item.checked) {
+                            attrChecked.push("false") // attr value is false
+                        }
+                        if (attrContainer.itemAt(1).item.checked) {
+                            attrChecked.push("true") // attr value is true
+                        }
+                        if (attrContainer.itemAt(2).item.checked) {
+                            attrChecked.push("") // attr value is not specified
+                        }
+                        if (attrChecked.length > 0) {
+                            filter[attrName] = attrChecked
+                        }
                     }
                 }
 
