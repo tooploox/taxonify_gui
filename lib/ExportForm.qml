@@ -5,6 +5,10 @@ import QtQuick.Layouts 1.12
 Item {
     id: root
 
+    function criteria() {
+        return filteringPane.buildFilter()
+    }
+
     RowLayout {
         anchors.fill: parent
 
@@ -12,15 +16,10 @@ Item {
             Layout.fillHeight: true
 
             FilteringPane {
+                id: filteringPane
                 Layout.preferredWidth: 300
                 Layout.fillHeight: true
-
                 withApplyButton: false
-
-                onAppliedClicked: {
-                    currentFilter = filter
-                    filterItems.call(filter)
-                }
             }
 
         }
@@ -39,13 +38,29 @@ Item {
                 text: "Include images"
             }
 
-            CheckBox {
+            RowLayout {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
                 Layout.leftMargin: 5
 
-                checked: true
-                enabled: true
-                text: "Limit results to first 1000."
+                CheckBox {
+                    id: limitCheckBox
+
+                    Layout.alignment: Qt.AlignLeft
+                    checked: true
+                    enabled: true
+                    text: "Limit results to first"
+                }
+
+                TextField {
+                    Layout.alignment: Qt.AlignRight | Qt.AlignHCenter
+                    text: "1000"
+                    enabled: limitCheckBox.checked
+                    selectByMouse: true
+                    validator: IntValidator { bottom: 1 }
+                    //inputMethodHints: Qt.ImhDigitsOnly
+                }
+
+
             }
 
             Label {

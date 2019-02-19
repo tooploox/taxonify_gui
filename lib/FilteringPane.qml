@@ -8,23 +8,72 @@ Rectangle {
     signal appliedClicked(var filter)
     property alias withApplyButton: applyButton.visible
 
+    function buildFilter() {
+        var filter = {}
+        if (checkBox1.checked) {
+            if (fileNameField.text.length>0) {
+                filter.filename = fileNameField.text
+            }
+        }
+        if (dateCkbx.checked && dateFilter.valid) {
+            if (!dateFilter.start.empty) {
+                console.log(dateFilter.start.isostring)
+                filter.acquisition_time_start = dateFilter.start.isostring
+            }
+            if (!dateFilter.end.empty) {
+                console.log(dateFilter.end.isostring)
+                filter.acquisition_time_end = dateFilter.end.isostring
+            }
+        }
+        if (taxonomyCkbx.checked) {
+            for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
+                if(taxonomyFilter.container.itemAt(i).checked) {
+                    var key = taxonomyFilter.taxonomyNames[i]
+                    var value = taxonomyFilter.container.itemAt(i).value
+                    if (value === taxonomyFilter.notSpecifiedStr) {
+                        value = ''
+                    }
+                    filter[key] = value
+                }
+            }
+        }
+        if (livenessCkbx.checked) {
+            var livenessChecked = []
+            if (livenessFilter.container.itemAt(0).item.checked) {
+                livenessChecked.push("false") // dead false
+            }
+            if (livenessFilter.container.itemAt(1).item.checked) {
+                livenessChecked.push("true") // dead true
+            }
+            if (livenessFilter.container.itemAt(2).item.checked) {
+                livenessChecked.push("") // not specified
+            }
+            if (livenessChecked.length > 0) {
+                filter.dead = livenessChecked
+            }
+        }
+        return filter
+    }
+
     ColumnLayout {
         anchors.fill: parent
         width: parent.width
         height: parent.height
 
         Label {
+            id: titleLabel
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignCenter
             text: qsTr("Filtering")
             font.pixelSize: 25
             horizontalAlignment: Text.AlignHCenter
+            visible : withApplyButton ? true : false
         }
 
         ScrollView {
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignCenter
-            Layout.maximumHeight: parent.height - 100
+            Layout.maximumHeight: parent.height - titleLabel.height - applyButton.height - 20
             clip: true
             contentWidth: width
 
@@ -119,8 +168,8 @@ Rectangle {
         }
 
         Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            Layout.fillHeight: withApplyButton ? true : false
+            Layout.fillWidth: withApplyButton ? true : false
         }
 
         Button {
@@ -131,50 +180,7 @@ Rectangle {
             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
             height: visible ? 40 : 0
             onClicked: {
-                var filter = {}
-                if (checkBox1.checked) {
-                    if (fileNameField.text.length>0) {
-                        filter.filename = fileNameField.text
-                    }
-                }
-                if (dateCkbx.checked && dateFilter.valid) {
-                    if (!dateFilter.start.empty) {
-                        console.log(dateFilter.start.isostring)
-                        filter.acquisition_time_start = dateFilter.start.isostring
-                    }
-                    if (!dateFilter.end.empty) {
-                        console.log(dateFilter.end.isostring)
-                        filter.acquisition_time_end = dateFilter.end.isostring
-                    }
-                }
-                if (taxonomyCkbx.checked) {
-                    for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
-                        if(taxonomyFilter.container.itemAt(i).checked) {
-                            var key = taxonomyFilter.taxonomyNames[i]
-                            var value = taxonomyFilter.container.itemAt(i).value
-                            if (value === taxonomyFilter.notSpecifiedStr) {
-                                value = ''
-                            }
-                            filter[key] = value
-                        }
-                    }
-                }
-                if (livenessCkbx.checked) {
-                    var livenessChecked = []
-                    if (livenessFilter.container.itemAt(0).item.checked) {
-                        livenessChecked.push("false") // dead false
-                    }
-                    if (livenessFilter.container.itemAt(1).item.checked) {
-                        livenessChecked.push("true") // dead true
-                    }
-                    if (livenessFilter.container.itemAt(2).item.checked) {
-                        livenessChecked.push("") // not specified
-                    }
-                    if (livenessChecked.length > 0) {
-                        filter.dead = livenessChecked
-                    }
-                }
-
+                let filter = buildFilter()
                 appliedClicked(filter)
             }
         }

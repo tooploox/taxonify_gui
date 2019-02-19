@@ -20,8 +20,14 @@ Dialog {
 
     parent: ApplicationWindow.overlay
 
+    onAccepted: {
+        console.log('accepted')
+        let exportCriteria = exportForm.criteria()
+        console.log('time to send export request with', JSON.stringify(exportCriteria))
+    }
+
     ExportForm{
-        id: exporForm
+        id: exportForm
         anchors.fill: parent
     }
 
