@@ -56,6 +56,7 @@ Rectangle {
                             enabled: checkBox1.checked
                             placeholderText: 'File name regex'
                             visible: checkBox1.checked
+
                         }
 
                     }
