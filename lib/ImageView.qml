@@ -118,7 +118,8 @@ Item {
         anchors.fill: parent
         property int lastY: 0
         property int firstIdInTheFirstRow: -1
-        ScrollBar.vertical: ScrollBar {}
+
+        ScrollIndicator.vertical: ScrollIndicator { }
 
         model: ListModel {
             id: listModel
@@ -132,7 +133,6 @@ Item {
 
             console.log('A lastY: ' + lastY + ', contentY: ' + contentY)
         }
-
 
         delegate: Rectangle {
             id: rowRect
