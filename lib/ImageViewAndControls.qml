@@ -27,23 +27,47 @@ ColumnLayout {
        }
     }
 
+    ExportDialog {
+       id: exportDialog
+    }
+
     Rectangle{
         Layout.fillWidth: true
         Layout.preferredHeight: 50
         border.color: 'lightgray'
+
+        clip: true
+
         RowLayout{
             anchors.fill: parent
+            anchors.margins: 1
 
             SortingControls {
                 enabled: false
+                Layout.alignment: Qt.AlignLeft
             }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            Button {
+                id: exportButton
+
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 5
+
+                text: 'Export'
+                onClicked: exportDialog.open()
+            }
+
             DelayButton {
                 id: uploadButton
 
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 5
 
-                text: 'Upload data'
+                text: 'Upload'
                 delay: 0
                 progress: uploadDialog.uploadProgress
 
