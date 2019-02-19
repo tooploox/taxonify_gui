@@ -5,14 +5,21 @@ import QtQuick.Layouts 1.12
 ColumnLayout {
     property bool annotationMode: false
     property alias container: rptr
+
+    property string attributeName: null
     property string value: ''
 
     property var criteria: {
-        if (value === "Dead")
-            return { dead: true }
-        else if (value === "Alive")
-            return { dead: false }
-        return { dead: null }
+        let crit = {}
+
+        if (value === "True")
+            crit[attributeName] = true
+        else if (value === "False")
+            crit[attributeName] = false
+        else
+            crit[attributeName] = null
+
+        return crit
     }
 
     property var applied: []
@@ -37,7 +44,7 @@ ColumnLayout {
 
     Repeater {
         id: rptr
-        model: [qsTr("Alive"), qsTr("Dead"), qsTr("Not specified")]
+        model: [qsTr("True"), qsTr("False"), qsTr("Not specified")]
 
         delegate: Loader {
             sourceComponent: annotationMode ?  radioBtn : checkBox

@@ -9,13 +9,22 @@ Rectangle {
         if(taxonomyRbtn.checked)
             return taxonomyfltr.criteria
 
-        if(livenessRbtn.checked)
-            return livenessfltr.criteria
+        if (checkedAttrIdx !== null)
+            return attributefltrs.itemAt(checkedAttrIdx).criteria
 
         return { dummyExclusive: true }
     }
 
     signal applyClicked()
+
+    property var attributes: ['with_eggs', 'dividing', 'dead', 'with_epibiont', 'with_parasite', 'broken',
+        'colony', 'cluster', 'eating', 'multiple_species', 'partially_cropped', 'male',
+        'female', 'juvenile', 'adult', 'ephippium', 'resting_egg', 'heterocyst', 'akinete',
+        'with_spines', 'beatles', 'stones', 'zeppelin', 'floyd', 'acdc', 'hendrix',
+        'alan_parsons', 'allman', 'dire_straits', 'eagles', 'guns', 'purple', 'van_halen',
+        'skynyrd', 'zz_top', 'iron', 'police', 'moore', 'inxs', 'chilli_peppers']
+
+    property var checkedAttrIdx: null
 
     ColumnLayout {
         anchors.fill: parent
@@ -32,6 +41,7 @@ Rectangle {
 
         ScrollView {
             Layout.fillWidth: true
+            Layout.fillHeight: true
             Layout.alignment: Qt.AlignCenter
             Layout.maximumHeight: parent.height - 100
             clip: true
@@ -49,17 +59,31 @@ Rectangle {
                     ButtonGroup.group: radioGroup
                 }
 
-                RadioButton {
-                    id: livenessRbtn
-                    checked: false
-                    text: qsTr("Liveness")
-                    ButtonGroup.group: radioGroup
+                Repeater {
+                    id: attributesRbtns
+                    model: attributes
+
+                    RadioButton {
+                        checked: false
+                        text: modelData
+                        ButtonGroup.group: radioGroup
+
+                        onClicked: {
+                            checkedAttrIdx = index
+                        }
+                    }
                 }
             }
         }
 
+        Item {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+        }
+
         ScrollView {
             Layout.fillWidth: true
+            Layout.fillHeight: true
             Layout.alignment: Qt.AlignCenter
             Layout.maximumHeight: parent.height - 100
             clip: true
@@ -82,11 +106,18 @@ Rectangle {
                             width: parent.width
                         }
 
-                        LivenessFilter {
-                            id: livenessfltr
-                            enabled: livenessRbtn.checked
-                            visible: livenessRbtn.checked
-                            annotationMode: true
+                        Repeater {
+                            id: attributefltrs
+                            model: attributes
+
+                            AttributeFilter {
+                                attributeName: modelData
+                                enabled: checked
+                                visible: checked
+                                annotationMode: true
+
+                                property bool checked: index < attributesRbtns.count ? attributesRbtns.itemAt(index).checked : false
+                            }
                         }
                     }
                 }

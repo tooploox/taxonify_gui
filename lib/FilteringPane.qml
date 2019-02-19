@@ -112,13 +112,14 @@ Rectangle {
                     label: CheckBox {
                         id: livenessCkbx
                         checked: false
-                        text: qsTr("Liveness")
+                        text: qsTr("Dead")
                         ButtonGroup.group: filterButtons
                     }
 
                     Column {
-                        LivenessFilter {
+                        AttributeFilter {
                             id: livenessFilter
+                            attributeName: 'dead'
                             enabled: livenessCkbx.checked
                             annotationMode: false
                             visible: livenessCkbx.checked
