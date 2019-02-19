@@ -48,6 +48,11 @@ ColumnLayout {
         RowLayout {
             property alias value: combobox.value
             property alias checked: checkbox.checked
+            property alias currentIndex: combobox.currentIndex
+            property alias combobox: combobox
+            property alias checkbox: checkbox
+            property bool updatesDisabled: false
+
             function getValue() {
                 return combobox.getValue()
             }
@@ -119,19 +124,105 @@ ColumnLayout {
                 }
 
                 function getModel() {
-                    return index > rptr.specifiedTill ?
-                                [notSpecifiedStr] :
-                                [notSpecifiedStr, ...Object.keys(nodes[index])]
+                    return getModelForIndex(index)
+                }
+
+                function getModelForIndex(idx) {
+                    return [notSpecifiedStr, ...Object.keys(nodes[idx])]
+                }
+
+                function has(object, key) {
+                      return object ? hasOwnProperty.call(object, key) : false;
+                }
+
+                function fixItemState(itemIdx, value) {
+                    let item = rptr.itemAt(itemIdx)
+
+                    item.combobox.model = getModelForIndex(itemIdx)
+                    for (let model_idx in item.combobox.model) {
+                        if (item.combobox.model[model_idx] === value) {
+                            item.combobox.currentIndex = model_idx
+
+                            item.checked = true
+                            item.checkbox.enabled = true
+                        }
+                    }
+                }
+
+                function fixUpperFields(itemIdx) {
+                    let itemValue = rptr.itemAt(itemIdx).getValue()
+                    let upperItemIdx = itemIdx - 1
+                    let upperItem = rptr.itemAt(upperItemIdx)
+                    console.log('item', upperItemIdx, upperItem.getValue())
+
+                    if (upperItem.getValue() !== notSpecifiedStr) {
+                        return
+                    }
+
+
+                    let upperItemModel = getModelForIndex(upperItemIdx)
+
+                    let node = nodes[upperItemIdx]
+                    for (let childNodeIdx in node) {
+                        let childNode = node[childNodeIdx]
+                        if (has(childNode, itemValue)) {
+                            // fixing the node for itemIdx
+                            nodes[itemIdx] = childNode
+
+                            if (itemIdx > 0) {
+                                for (let upperItemModelIdx in upperItemModel) {
+                                    if (upperItemModel[upperItemModelIdx] == childNodeIdx) {
+                                        // set upper item to correct index and trigger changes on that level
+                                        upperItem.combobox.currentIndex = upperItemModelIdx
+                                        if (upperItemIdx > 0) {
+                                            fixUpperFields(upperItemIdx)
+                                        }
+                                    }
+                                }
+                            }
+                            break
+                        }
+                    }
+
+                    fixItemState(itemIdx, itemValue)
+                }
+
+                function populateLowerNode() {
+                    let nextNodes = {}
+                    for (let idx in model) {
+                        if (model[idx] !== notSpecifiedStr) {
+                            let idxNodes = nodes[index][model[idx]]
+                            nextNodes = Object.assign(nextNodes, idxNodes)
+                        }
+                    }
+                    nodes[index + 1] = nextNodes
+                }
+
+                function resetLowerChoiceWithoutUpdate() {
+                    let lowerItem = rptr.itemAt(index + 1)
+                    if (lowerItem) {
+                        lowerItem.updatesDisabled = true
+                        lowerItem.currentIndex = 0
+                        lowerItem.updatesDisabled = false
+                    }
                 }
 
                 function update() {
                     model = getModel()
                     if (model[currentIndex] !== notSpecifiedStr)
                     {
-                        nodes[index + 1] = nodes[index][model[currentIndex]]
+                        if (index > 0) {
+                            fixUpperFields(index)
+                        }
+
+                        let next_nodes = nodes[index][model[currentIndex]]
+                        nodes[index + 1] = next_nodes
+
                         checkbox.checked = true
                         checkbox.enabled = false
                     } else {
+                        populateLowerNode()
+                        resetLowerChoiceWithoutUpdate()
                         checkbox.enabled = true
                     }
 
@@ -143,6 +234,10 @@ ColumnLayout {
                 }
 
                 onCurrentIndexChanged: {
+                    if (updatesDisabled) {
+                        return
+                    }
+
                     if (model[currentIndex] === notSpecifiedStr) {
                         rptr.specifiedTill = Math.min(rptr.specifiedTill, index)
                     } else if (rptr.specifiedTill === index) {
