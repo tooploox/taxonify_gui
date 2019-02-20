@@ -29,8 +29,37 @@ Item {
         update(true)
     }
 
+    function setContentY(value) {
+        let step = 100
+        if(value > listView.contentY){
+            while(listView.contentY+step<=value){
+                listView.contentY += step
+            }
+            listView.contentY += (value - listView.contentY) % 100
+        }else{
+            while(listView.contentY-step>=value){
+                listView.contentY -= step
+            }
+            listView.contentY -= (listView.contentY - value) % 100
+        }
+    }
+
+    function setContentYatIndex(idx) {
+        let step  =100
+        setContentY(100)
+        listView.forceLayout()
+        while (listView.model.get(listView.indexAt(10, listView.contentY)) && listView.model.get(listView.indexAt(10, listView.contentY)).firstIdx <= idx){
+            listView.contentY+=step
+        }
+        while (listView.model.get(listView.indexAt(10, listView.contentY)) && listView.model.get(listView.indexAt(10, listView.contentY)).firstIdx > idx){
+            listView.contentY-=step
+        }
+    }
+
     function update(useLastY) {
         listModel.clear()
+        listView.forceLayout()
+        setContentY(0)
         let row = []
         let sumWidth = 0
         let maxHeight = 0
@@ -66,12 +95,12 @@ Item {
         listView.forceLayout()
 
         if (useLastY) {
-            listView.contentY = listView.lastY
+            setContentY(listView.lastY)
         } else {
             if (matchedRow != -1) {
-                listView.positionViewAtIndex(matchedRow, ListView.Beginning)
+                setContentYatIndex(listView.firstIdInTheFirstRow)
             } else {
-                listView.contentY = 0
+                setContentY(0)
             }
         }
         listView.forceLayout()
