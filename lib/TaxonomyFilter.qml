@@ -139,13 +139,11 @@ ColumnLayout {
                     let item = rptr.itemAt(itemIdx)
 
                     item.combobox.model = getModelForIndex(itemIdx)
-                    for (let model_idx in item.combobox.model) {
-                        if (item.combobox.model[model_idx] === value) {
-                            item.combobox.currentIndex = model_idx
-
-                            item.checked = true
-                            item.checkbox.enabled = true
-                        }
+                    let modelIdx = item.combobox.model.indexOf(value)
+                    if (modelIdx !== -1) {
+                        item.combobox.currentIndex = modelIdx
+                        item.checked = true
+                        item.checkbox.enabled = true
                     }
                 }
 
@@ -166,13 +164,12 @@ ColumnLayout {
                             nodes[itemIdx] = childNode
 
                             if (itemIdx > 0) {
-                                for (let upperItemModelIdx in upperItemModel) {
-                                    if (upperItemModel[upperItemModelIdx] == childNodeIdx) {
-                                        // set upper item to correct index and trigger changes on that level
-                                        upperItem.combobox.currentIndex = upperItemModelIdx
-                                        if (upperItemIdx > 0) {
-                                            fixUpperFields(upperItemIdx)
-                                        }
+                                let upperItemModelIdx = upperItemModel.indexOf(childNodeIdx)
+                                if (upperItemModelIdx !== -1) {
+                                    // set upper item to correct index and trigger changes on that level
+                                    upperItem.combobox.currentIndex = upperItemModelIdx
+                                    if (upperItemIdx > 0) {
+                                        fixUpperFields(upperItemIdx)
                                     }
                                 }
                             }
