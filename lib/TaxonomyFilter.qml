@@ -128,7 +128,7 @@ ColumnLayout {
                 }
 
                 function getModelForIndex(idx) {
-                    return [notSpecifiedStr, ...Object.keys(nodes[idx])]
+                    return [notSpecifiedStr, ...Object.keys(nodes[idx]).sort()]
                 }
 
                 function has(object, key) {
