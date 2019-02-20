@@ -182,7 +182,7 @@ ColumnLayout {
                 function populateLowerNode() {
                     let nextNodes = {}
                     for (let idx in model) {
-                        if (model[idx] !== notSpecifiedStr) {
+                        if (idx != 0) {
                             let idxNodes = nodes[index][model[idx]]
                             nextNodes = Object.assign(nextNodes, idxNodes)
                         }
