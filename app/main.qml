@@ -25,14 +25,14 @@ ApplicationWindow {
     property var currentFilter: {}
     property string currentSas: ''
     property bool viewPopulated: false
-    property real scrollViewLastPos: 0
+    property real lastContentYPos: 0
 
     function storeScrollLastPos(){
-        scrollViewLastPos = imageViewAndControls.imageView.getCurrentScrollPosition()
+        lastContentYPos = imageViewAndControls.imageView.getContentY()
     }
 
     function restoreScrollLastPos(){
-        imageViewAndControls.imageView.setScrollPosition(scrollViewLastPos)
+        imageViewAndControls.imageView.setContentY(lastContentYPos)
     }
 
     function getSettingVariable(key) {
@@ -69,6 +69,7 @@ ApplicationWindow {
        property bool pageLoadingInProgress: false
        property bool lastPageLoaded: false
        property var multiplePagesToLoad: []
+       property var multipageData: []
        property bool multiplePagesLoading: false
 
        function nextPageNumber() { return pagesLoaded + 1; }
@@ -101,24 +102,37 @@ ApplicationWindow {
            loadPage(filter, pageToLoad)
        }
 
-       function finishLoadingPage(continuationToken){
+       function finishLoadingPage(data, continuationToken){
            console.log("Finished loading page " + nextPageNumber())
 
            let loadedPage = pagesLoaded
            pagesLoaded += 1
            lastPageLoaded = (continuationToken === undefined ? true : false)
            pageLoadingInProgress = false
-           if(lastPageLoaded) multiplePagesToLoad = []
+           if(lastPageLoaded) multiplePagesToLoad = []        
 
            if(multiplePagesLoading){
+               if(data.length > 0)
+                   multipageData = multipageData.concat(data)
+
                if(multiplePagesToLoad.length > 0){
+                 viewPopulated = false
                  var pageToLoad = multiplePagesToLoad[0]
                  multiplePagesToLoad.shift()
                  loadPage(getCurrentFilter(), pageToLoad)
                }
                else {
                    multiplePagesToLoad = false
+                   viewPopulated = true
+                   imageViewAndControls.imageView.appendData(multipageData, true)
                    restoreScrollLastPos()
+                   multipageData = []
+               }
+           }
+           else{
+               if(data.length > 0){
+                   viewPopulated = true
+                   imageViewAndControls.imageView.appendData(data, true)
                }
            }
        }
@@ -294,13 +308,7 @@ ApplicationWindow {
             }
 
             let data = res.items.map(makeItem)
-
-            if(data.length > 0){
-                viewPopulated = true
-                imageViewAndControls.imageView.appendData(data, true)
-            }
-
-            pageLoader.finishLoadingPage(res.continuation_token)
+            pageLoader.finishLoadingPage(data, res.continuation_token)
         }
 
         onError: {

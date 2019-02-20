@@ -19,24 +19,12 @@ Item {
 
     clip: true
 
-    function getCurrentScrollPosition() {
-        return scroll.position
-    }
-
-    function setScrollPosition(position) {
-        console.log("pos:" + position + ", size: " +scroll.size)
-
-        // Hack - double set fixes positioning problem
-        scroll.position = position
-        scroll.position = position
-    }
-
-    function appendData(data, useLastY) {
+    function appendData(data, useLastY, reposition) {
         for (let item of data) {
             model.append(item)
         }
 
-        update(useLastY)
+        update(useLastY, reposition)
     }
 
     function clearData() {
@@ -44,6 +32,10 @@ Item {
         listView.forceLayout()
         model.clear()
         update(false)
+    }
+
+    function getContentY() {
+        return listView.contentY
     }
 
     function setData(data) {
@@ -93,7 +85,7 @@ Item {
         }
     }
 
-    function update(useLastY) {
+    function update(useLastY, reposition=true) {
         listModel.clear()
         listView.forceLayout()
         setContentY(0)
@@ -141,7 +133,8 @@ Item {
             }
         }
 
-        listView.forceLayout()
+      //  if(reposition)
+            listView.forceLayout()
 
         listView.lastY = listView.contentY
 
