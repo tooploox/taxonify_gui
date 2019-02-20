@@ -12,6 +12,8 @@ Item {
     }
 
     readonly property ListModel model: ListModel {}
+    readonly property int programatic_scroll_step: 100
+    readonly property int x_offset_to_content: 1
 
     clip: true
 
@@ -29,11 +31,43 @@ Item {
         update(true)
     }
 
-    function update(useLastY) {
+    function setContentY(value) {
+        if(value > listView.contentY){
+            while(listView.contentY + programatic_scroll_step <= value){
+                listView.contentY += programatic_scroll_step
+            }
+            listView.contentY += (value - listView.contentY) % programatic_scroll_step
+        }else{
+            while(listView.contentY - programatic_scroll_step >= value){
+                listView.contentY -= programatic_scroll_step
+            }
+            listView.contentY -= (listView.contentY - value) % programatic_scroll_step
+        }
+    }
+
+    function getLastIdxAfterPotentialNextStep(step){
+        let row = listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY + step))
+        let lastIdx = row.firstIdx + row.sub.count -1
+        return lastIdx
+    }
+
+    function setContentYatIndex(idx) {
+        setContentY(0)
         listView.forceLayout()
-        listView.positionViewAtBeginning()
+        //move down by programatic_scroll_step pixels until next move would reach the desired line
+        while (listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)) && getLastIdxAfterPotentialNextStep(programatic_scroll_step) < idx){
+            listView.contentY += programatic_scroll_step
+        }
+        //move down by 1 until desired line is actually reached (hence the 0 arg)
+        while (listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)) && getLastIdxAfterPotentialNextStep(0) < idx){
+            listView.contentY += 1
+        }
+    }
+
+    function update(useLastY) {
         listModel.clear()
         listView.forceLayout()
+        setContentY(0)
         let row = []
         let sumWidth = 0
         let maxHeight = 0
@@ -69,16 +103,19 @@ Item {
         listView.forceLayout()
 
         if (useLastY) {
-            listView.contentY = listView.lastY
+            setContentY(listView.lastY)
         } else {
             if (matchedRow != -1) {
-                listView.positionViewAtIndex(matchedRow, ListView.Beginning)
+                setContentYatIndex(listView.firstIdInTheFirstRow)
             } else {
-                listView.contentY = 0
+                setContentY(0)
             }
         }
         listView.forceLayout()
+
         listView.lastY = listView.contentY
+
+        listView.firstIdInTheFirstRow = listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)).firstIdx
     }
 
     onWidthChanged: timer.restart()
@@ -95,17 +132,16 @@ Item {
         anchors.fill: parent
         property int lastY: 0
         property int firstIdInTheFirstRow: -1
-        ScrollBar.vertical: ScrollBar {}
+        ScrollIndicator.vertical: ScrollIndicator { }
 
         model: ListModel {
             id: listModel
         }
 
         onMovementEnded: {
-            firstIdInTheFirstRow = model.get(indexAt(10, contentY)).firstIdx
+            firstIdInTheFirstRow = model.get(indexAt(x_offset_to_content, contentY)).firstIdx
             lastY = contentY
         }
-
 
         delegate: Rectangle {
             id: rowRect
