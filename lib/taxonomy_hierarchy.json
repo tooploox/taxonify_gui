@@ -324,7 +324,7 @@
                                 "Fasciculata": {}
                             },
                             "Ulnaria": {
-                                "Delicatissima_var_angustissima": {}
+                                "Delicatissima var angustissima": {}
                             }
                         }
                     },
@@ -456,12 +456,12 @@
                         "Closteriaceae": {
                             "Closterium": {
                                 "Acutum": {},
-                                "Acutum_var_variabile": {}
+                                "Acutum var variabile": {}
                             }
                         },
                         "Desmidiaceae": {
                             "Cosmarium": {
-                                "Depressum_var_planctonicum": {}
+                                "Depressum var planctonicum": {}
                             },
                             "Micrasterias": {},
                             "Staurastrum": {
@@ -628,8 +628,8 @@
                             "Tetrachlorella": {}
                         }
                     },
-                    "Incertae_sedis": {
-                        "Incertae_sedis": {
+                    "Incertae sedis": {
+                        "Incertae sedis": {
                             "Crucigenia": {
                                 "Tetrapedia": {}
                             }
