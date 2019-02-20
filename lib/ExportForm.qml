@@ -6,7 +6,19 @@ Item {
     id: root
 
     function criteria() {
-        return filteringPane.buildFilter()
+        let crit = {}
+
+        if (limitCheckBox.checked) {
+            crit.limit = limitTextField.text
+        }
+
+        crit.filter = filteringPane.buildFilter()
+        return crit
+    }
+
+    function buildCriteriaText() {
+        let crit = criteria()
+        filterTextArea.text = JSON.stringify(crit, null, 2)
     }
 
     RowLayout {
@@ -49,15 +61,23 @@ Item {
                     checked: true
                     enabled: true
                     text: "Limit results to first"
+
+                    onCheckedChanged: buildCriteriaText()
                 }
 
                 TextField {
+                    id: limitTextField
                     Layout.alignment: Qt.AlignRight | Qt.AlignHCenter
                     text: "1000"
                     enabled: limitCheckBox.checked
                     selectByMouse: true
                     validator: IntValidator { bottom: 1 }
-                    //inputMethodHints: Qt.ImhDigitsOnly
+
+                    onTextChanged: {
+                        if (enabled) {
+                            buildCriteriaText()
+                        }
+                    }
                 }
 
 
@@ -70,7 +90,11 @@ Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
 
-                text: "hello"
+                FontLoader { id: fixedFont; name: "Courier" }
+                font { family: fixedFont.name; pointSize: 10 }
+
+                text: buildCriteriaText()
+
             }
 
             Label {
