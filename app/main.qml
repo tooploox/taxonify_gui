@@ -132,6 +132,7 @@ ApplicationWindow {
                if(data.length > 0){
                    viewPopulated = true
                    imageViewAndControls.imageView.appendData(data, true)
+                   restoreScrollLastPos()
                }
            }
        }
@@ -176,6 +177,7 @@ ApplicationWindow {
 
             onAtPageBottom: {
                 if(pageLoader.pageLoadingInProgress || pageLoader.lastPageLoaded) return
+                storeScrollLastPos()
                 pageLoader.loadNextPage(getCurrentFilter())
             }
         }
