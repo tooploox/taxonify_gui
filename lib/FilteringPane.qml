@@ -7,12 +7,7 @@ Rectangle {
 
     signal applyClicked(var filter)
 
-    property var attributes: ['with_eggs', 'dividing', 'dead', 'with_epibiont', 'with_parasite', 'broken',
-        'colony', 'cluster', 'eating', 'multiple_species', 'partially_cropped', 'male',
-        'female', 'juvenile', 'adult', 'ephippium', 'resting_egg', 'heterocyst', 'akinete',
-        'with_spines', 'beatles', 'stones', 'zeppelin', 'floyd', 'acdc', 'hendrix',
-        'alan_parsons', 'allman', 'dire_straits', 'eagles', 'guns', 'purple', 'van_halen',
-        'skynyrd', 'zz_top', 'iron', 'police', 'moore', 'inxs', 'chilli_peppers']
+    readonly property var attributes: FilteringAttributes.filteringAttributes
 
     ColumnLayout {
         anchors.fill: parent
@@ -46,11 +41,11 @@ Rectangle {
                     exclusive: false
                 }
 
-                GroupBox {
+                Column {
 
                     Layout.fillWidth: true
 
-                    label: CheckBox {
+                    CheckBox {
                         id: checkBox1
                         checked: false
                         text: qsTr("File name")
@@ -58,6 +53,9 @@ Rectangle {
                     }
 
                     Column {
+                        anchors.left: parent.left
+                        anchors.leftMargin: 10
+
                         TextField {
                             id: fileNameField
                             enabled: checkBox1.checked
@@ -69,11 +67,11 @@ Rectangle {
                     }
                 }
 
-                GroupBox {
+                Column {
 
                     Layout.fillWidth: true
 
-                    label: CheckBox {
+                    CheckBox {
                         id: dateCkbx
                         checked: false
                         text: qsTr("Date")
@@ -81,6 +79,9 @@ Rectangle {
                     }
 
                     Column {
+                        anchors.left: parent.left
+                        anchors.leftMargin: 10
+
                         DateFilter {
                             id: dateFilter
                             enabled: dateCkbx.checked
@@ -100,6 +101,7 @@ Rectangle {
                         ButtonGroup.group: filterButtons
                     }
 
+
                     Column {
                         anchors.fill: parent
 
@@ -110,13 +112,14 @@ Rectangle {
                             width: parent.width
                         }
                     }
+
                 }
 
                 Repeater {
                     id: attributefltrs
                     model: attributes
 
-                    GroupBox {
+                    Column {
 
                         property string attrName: modelData
                         property alias checked: attrCbx.checked
@@ -124,21 +127,26 @@ Rectangle {
                         property alias container: attrFltr.container
                         property alias apply: attrFltr.apply
 
-                        Layout.fillWidth: true
-
-                        label: CheckBox {
+                        CheckBox {
                             id: attrCbx
                             checked: false
-                            text: attrName
+                            text: preformatAttrName(attrName)
                         }
 
                         Column {
+                            anchors.left: parent.left
+                            anchors.leftMargin: 10
+
                             AttributeFilter {
                                 id: attrFltr
                                 attributeName: attrName
                                 enabled: checked
                                 visible: checked
                             }
+                        }
+
+                        function preformatAttrName(name) {
+                            return (name.charAt(0).toUpperCase() + name.slice(1)).replace(/[_]/g, " ")
                         }
                     }
                 }

@@ -24,7 +24,7 @@ ColumnLayout {
 
     property var applied: []
 
-    function apply(checked) {
+    property var apply: function (checked) {
         applied = []
         for (let i = 0; i < container.count; i++) {
             let item = container.itemAt(i).item
