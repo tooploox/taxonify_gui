@@ -153,14 +153,10 @@ ColumnLayout {
                     let itemValue = rptr.itemAt(itemIdx).getValue()
                     let upperItemIdx = itemIdx - 1
                     let upperItem = rptr.itemAt(upperItemIdx)
-                    console.log('item', upperItemIdx, upperItem.getValue())
-
+                    let upperItemModel = getModelForIndex(upperItemIdx)
                     if (upperItem.getValue() !== notSpecifiedStr) {
                         return
                     }
-
-
-                    let upperItemModel = getModelForIndex(upperItemIdx)
 
                     let node = nodes[upperItemIdx]
                     for (let childNodeIdx in node) {
@@ -183,7 +179,6 @@ ColumnLayout {
                             break
                         }
                     }
-
                     fixItemState(itemIdx, itemValue)
                 }
 
