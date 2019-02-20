@@ -26,8 +26,12 @@ Dialog {
         }
 
         if (success) {
-            Qt.openUrlExternally(response.url)
-            resultDialog.title = 'Data exported successfully!'
+            if (response.status === 'ok') {
+                Qt.openUrlExternally(response.url)
+                resultDialog.title = 'Data exported successfully!'
+            } else if (response.status === 'empty') {
+                resultDialog.title = 'Nothing to export. No data matches\ngiven criteria.'
+            }
         } else {
             resultDialog.title = 'An error occurred during data export.'
         }
