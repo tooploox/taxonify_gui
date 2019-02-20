@@ -149,6 +149,7 @@ ApplicationWindow {
             onAppliedClicked: {
                 currentFilter = filter
                 imageViewAndControls.imageView.clearData()
+                storeScrollLastPos()
                 pageLoader.resetPagesStatus()
                 pageLoader.loadNextPage(getCurrentFilter())
             }
