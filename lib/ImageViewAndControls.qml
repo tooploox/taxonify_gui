@@ -67,10 +67,7 @@ ColumnLayout {
 
         sizeScale: tileSizeSlider.value
 
-        onReachedBottom: {
-            atPageBottom()
-            console.log("Reached bottom")
-        }
+        onReachedBottom: atPageBottom()
     }
 
     Rectangle {

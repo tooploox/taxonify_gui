@@ -96,7 +96,6 @@ ApplicationWindow {
 
            var pagesRange = [...Array((pagesToLoad+1)).keys()]  // Generate range 0 ... n
            multiplePagesToLoad = pagesRange.slice(1)
-           console.log(multiplePagesToLoad)
            var pageToLoad = multiplePagesToLoad[0]
            multiplePagesToLoad.shift()
            loadPage(filter, pageToLoad)
@@ -149,7 +148,7 @@ ApplicationWindow {
             onAppliedClicked: {
                 currentFilter = filter
                 imageViewAndControls.imageView.clearData()
-                pageLoader.resetPages()
+                pageLoader.resetPagesStatus()
                 pageLoader.loadNextPage(getCurrentFilter())
             }
 
@@ -301,7 +300,7 @@ ApplicationWindow {
 
             function makeItem(item) {
                 return {
-                    image: res.urls[item._id], //+ params,
+                    image: res.urls[item._id] + params,
                     selected: false,
                     metadata: item
                 }

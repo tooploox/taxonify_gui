@@ -19,12 +19,12 @@ Item {
 
     clip: true
 
-    function appendData(data, useLastY, reposition) {
+    function appendData(data, useLastY) {
         for (let item of data) {
             model.append(item)
         }
 
-        update(useLastY, reposition)
+        update(useLastY)
     }
 
     function clearData() {
@@ -85,7 +85,7 @@ Item {
         }
     }
 
-    function update(useLastY, reposition=true) {
+    function update(useLastY) {
         listModel.clear()
         listView.forceLayout()
         setContentY(0)
@@ -133,8 +133,7 @@ Item {
             }
         }
 
-      //  if(reposition)
-            listView.forceLayout()
+        listView.forceLayout()
 
         listView.lastY = listView.contentY
 
