@@ -15,6 +15,8 @@
         <file>UploadList.qml</file>
         <file>UploadListDialog.qml</file>
         <file>PageLoader.qml</file>
+        <file>FilteringAttributes.qml</file>
+        <file>qmldir</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>

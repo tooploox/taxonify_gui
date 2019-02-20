@@ -17,13 +17,7 @@ Rectangle {
 
     signal applyClicked()
 
-    property var attributes: ['with_eggs', 'dividing', 'dead', 'with_epibiont', 'with_parasite', 'broken',
-        'colony', 'cluster', 'eating', 'multiple_species', 'partially_cropped', 'male',
-        'female', 'juvenile', 'adult', 'ephippium', 'resting_egg', 'heterocyst', 'akinete',
-        'with_spines', 'beatles', 'stones', 'zeppelin', 'floyd', 'acdc', 'hendrix',
-        'alan_parsons', 'allman', 'dire_straits', 'eagles', 'guns', 'purple', 'van_halen',
-        'skynyrd', 'zz_top', 'iron', 'police', 'moore', 'inxs', 'chilli_peppers']
-
+    readonly property var attributes: FilteringAttributes.filteringAttributes
     property var checkedAttrIdx: null
 
     ColumnLayout {
@@ -65,20 +59,19 @@ Rectangle {
 
                     RadioButton {
                         checked: false
-                        text: modelData
+                        text: preformatAttrName(modelData)
                         ButtonGroup.group: radioGroup
 
                         onClicked: {
                             checkedAttrIdx = index
                         }
+
+                        function preformatAttrName(name) {
+                            return (name.charAt(0).toUpperCase() + name.slice(1)).replace(/[_]/g, " ")
+                        }
                     }
                 }
             }
-        }
-
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
         }
 
         ScrollView {
@@ -86,10 +79,12 @@ Rectangle {
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignCenter
             Layout.maximumHeight: parent.height - 100
+            Layout.minimumHeight: fltrsSubpane.height
             clip: true
             contentWidth: width
 
             ColumnLayout {
+                id: fltrsSubpane
                 width: parent.width
 
                 GroupBox {
