@@ -12,6 +12,8 @@ Item {
     }
 
     readonly property ListModel model: ListModel {}
+    readonly property int programatic_scroll_step: 100
+    readonly property int x_offset_to_content: 1
 
     clip: true
 
@@ -30,29 +32,35 @@ Item {
     }
 
     function setContentY(value) {
-        let step = 100
         if(value > listView.contentY){
-            while(listView.contentY+step<=value){
-                listView.contentY += step
+            while(listView.contentY + programatic_scroll_step <= value){
+                listView.contentY += programatic_scroll_step
             }
-            listView.contentY += (value - listView.contentY) % step
+            listView.contentY += (value - listView.contentY) % programatic_scroll_step
         }else{
-            while(listView.contentY-step>=value){
-                listView.contentY -= step
+            while(listView.contentY - programatic_scroll_step >= value){
+                listView.contentY -= programatic_scroll_step
             }
-            listView.contentY -= (listView.contentY - value) % step
+            listView.contentY -= (listView.contentY - value) % programatic_scroll_step
         }
     }
 
+    function getLastIdxAfterPotentialNextStep(step){
+        let row = listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY + step))
+        let lastIdx = row.firstIdx + row.sub.count -1
+        return lastIdx
+    }
+
     function setContentYatIndex(idx) {
-        let step = 100
         setContentY(0)
         listView.forceLayout()
-        while (listView.model.get(listView.indexAt(10, listView.contentY)) && listView.model.get(listView.indexAt(10, listView.contentY)).firstIdx <= idx){
-            listView.contentY+=step
+        //move down by programatic_scroll_step pixels until next move would reach the desired line
+        while (listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)) && getLastIdxAfterPotentialNextStep(programatic_scroll_step) < idx){
+            listView.contentY += programatic_scroll_step
         }
-        while (listView.model.get(listView.indexAt(10, listView.contentY)) && listView.model.get(listView.indexAt(10, listView.contentY)).firstIdx > idx){
-            listView.contentY-=step
+        //move down by 1 until desired line is actually reached (hence the 0 arg)
+        while (listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)) && getLastIdxAfterPotentialNextStep(0) < idx){
+            listView.contentY += 1
         }
     }
 
