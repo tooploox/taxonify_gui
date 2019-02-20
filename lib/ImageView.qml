@@ -122,7 +122,6 @@ Item {
         anchors.fill: parent
         property int lastY: 0
         property int firstIdInTheFirstRow: -1
-
         ScrollIndicator.vertical: ScrollIndicator { }
 
         model: ListModel {

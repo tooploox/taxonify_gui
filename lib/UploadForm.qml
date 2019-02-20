@@ -8,6 +8,8 @@ import com.microscopeit 1.0
 Item {
     id: root
 
+    readonly property alias uploadProgress : progress.value
+
     /**
       * Address on which put operation will be performed
       */
@@ -31,6 +33,10 @@ Item {
       */
     signal success(string replyData)
 
+    signal error(string errorMsg)
+
+    signal uploadStarted()
+
     QtObject {
         id: internal
 
@@ -44,6 +50,7 @@ Item {
         id: fileDialog
         title: "Please choose a file"
         folder: shortcuts.home
+        nameFilters: ["Data packages tar.bz2 (*.tar.bz2)", "All files (*)"]
 
         onAccepted: {
             let file = decodeURIComponent(fileDialog.fileUrl)
@@ -54,6 +61,7 @@ Item {
             internal.errorMessage = ''
             internal.fileName = file
 
+            root.uploadStarted()
             uploader.upload(file)
         }
     }
@@ -68,6 +76,7 @@ Item {
         onError: {
             internal.errorMessage = errorString
             internal.errorStatus = status
+            root.error(internal.errorMessage)
         }
         onProgressChanged: progress.value = bytesSent / bytesTotal
     }

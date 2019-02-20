@@ -1,10 +1,14 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
+
 import "network/requests.js" as Requests
 
 ColumnLayout {
     anchors.fill: parent
+
+    property alias container: rptr
 
     readonly property string notSpecifiedStr: "Not specified"
 
@@ -13,8 +17,12 @@ ColumnLayout {
         'species'
     ]
 
+    property bool annotationMode: false
     property int taxonomyDepth: 8
+    property int updateCounter: 0
+
     property var nodes: new Array(taxonomyDepth)
+    property var notSpecifiedLastApplied: new Array(taxonomyDepth)
 
     property var criteria: {
         let crtr = {}
@@ -25,9 +33,12 @@ ColumnLayout {
         return crtr
     }
 
-    property bool annotationMode: false
-
-    property alias container: rptr
+    function update() {
+        if (updateCounter == Number.MAX_SAFE_INTEGER)
+            updateCounter = 0
+        updateCounter += 1
+        container.itemAt(0).update()
+    }
 
     Repeater {
         id: rptr
@@ -45,6 +56,10 @@ ColumnLayout {
                 combobox.update()
             }
 
+            function apply() {
+                combobox.apply()
+            }
+
             CheckBox {
                 id: checkbox
                 visible: !annotationMode
@@ -57,6 +72,47 @@ ColumnLayout {
                 model: getModel()
                 property bool completed: false
                 readonly property string value: model[currentIndex]
+                readonly property int notSpecifiedStrPosition: 0
+
+                property bool isEmpty: model.length === 1
+
+                property int appliedIndex: -1 // if nothing was applied then -1
+
+                function calculateAppliedIndex() {
+                    if (!isEmpty && nodes[index].time === (updateCounter - 1))
+                        return nodes[index].applied
+                    if (notSpecifiedLastApplied[index] === (updateCounter - 1))
+                        return notSpecifiedStrPosition
+                    return -1
+                }
+
+                delegate: MenuItem {
+                    width: parent.width
+                    text: {
+                        if(!combobox.textRole) return modelData;
+                        if(Array.isArray(combobox.model)) return modelData[combobox.textRole]
+                        return model[combobox.textRole]
+                    }
+                    Material.foreground: combobox.currentIndex === index ? parent.Material.accent : parent.Material.foreground
+                    highlighted: combobox.highlightedIndex === index
+                    hoverEnabled: combobox.hoverEnabled
+                    font.bold: combobox.appliedIndex === index
+                }
+
+                function apply() {
+                    if (isEmpty || model[currentIndex] === notSpecifiedStr) {
+                        notSpecifiedLastApplied[index] = updateCounter
+                    } else {
+                        Object.defineProperty(nodes[index], 'applied', {
+                                                  value: currentIndex,
+                                                  configurable: true
+                                              })
+                        Object.defineProperty(nodes[index], 'time', {
+                                                  value: updateCounter,
+                                                  configurable: true
+                                              })
+                    }
+                }
 
                 function getValue() {
                     return model[currentIndex]
@@ -81,6 +137,9 @@ ColumnLayout {
 
                     if (completed && index + 1 < taxonomyDepth)
                         rptr.itemAt(index + 1).update()
+
+                    appliedIndex = calculateAppliedIndex()
+                    font.bold = currentIndex === appliedIndex
                 }
 
                 onCurrentIndexChanged: {

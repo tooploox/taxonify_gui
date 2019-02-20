@@ -50,6 +50,7 @@ ApplicationWindow {
         anchors.fill: parent
 
         FilteringPane {
+
             Layout.preferredWidth: 300
             Layout.fillHeight: true
 
@@ -63,6 +64,9 @@ ApplicationWindow {
         ImageViewAndControls {
 
             id: imageViewAndControls
+
+            address: getSettingVariable('host')
+            token: dataAccess.internal.access_token
 
             Layout.fillWidth: true
             Layout.fillHeight: true

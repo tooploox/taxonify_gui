@@ -10,6 +10,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("EAWAG");
+    app.setOrganizationDomain("Underwater microscopy");
+    app.setApplicationName("Aquascope annotation");
 
     QQmlApplicationEngine engine;
     auto applicationPath = QCoreApplication::applicationDirPath();
@@ -23,8 +26,7 @@ int main(int argc, char *argv[])
         settingsPath = QVariant(QVariant::String);
     }
 
-    // Dummy instance to enforce proper linking
-    Uploader();
+    qmlRegisterType<Uploader>("com.microscopeit", 1, 0, "Uploader");
 
     engine.rootContext()->setContextProperty("settingsPath", settingsPath);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

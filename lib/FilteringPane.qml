@@ -127,28 +127,39 @@ Rectangle {
 
             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
             height: 40
+
             onClicked: {
                 var filter = {}
-                if (checkBox1.checked) {
-                    if (fileNameField.text.length>0) {
-                        filter.filename = fileNameField.text
-                    }
+
+                if (checkBox1.checked && fileNameField.text.length > 0) {
+                    filter.filename = fileNameField.text
+                    fileNameField.placeholderText = fileNameField.text
+                    checkBox1.font.bold = true
+                } else {
+                    fileNameField.placeholderText = 'File name regex'
+                    checkBox1.font.bold = false
+                    checkBox1.checked = false
                 }
-                if (dateCkbx.checked && dateFilter.valid) {
-                    if (!dateFilter.start.empty) {
-                        console.log(dateFilter.start.isostring)
-                        filter.acquisition_time_start = dateFilter.start.isostring
-                    }
-                    if (!dateFilter.end.empty) {
-                        console.log(dateFilter.end.isostring)
-                        filter.acquisition_time_end = dateFilter.end.isostring
-                    }
+
+                const acquisitionTime = dateFilter.getAcquisitionTimeAndApply(dateCkbx.checked)
+                if (acquisitionTime) {
+                    dateCkbx.font.bold = true
+                    if (acquisitionTime.start)
+                        filter.acquisition_time_start = acquisitionTime.start
+                    if (acquisitionTime.end)
+                        filter.acquisition_time_end = acquisitionTime.end
+                } else {
+                    dateCkbx.font.bold = false
+                    dateCkbx.checked = false
                 }
+
                 if (taxonomyCkbx.checked) {
                     for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
-                        if(taxonomyFilter.container.itemAt(i).checked) {
+                        var item = taxonomyFilter.container.itemAt(i)
+                        if(item.checked) {
+                            item.apply()
                             var key = taxonomyFilter.taxonomyNames[i]
-                            var value = taxonomyFilter.container.itemAt(i).value
+                            var value = item.value
                             if (value === taxonomyFilter.notSpecifiedStr) {
                                 value = ''
                             }
@@ -156,6 +167,11 @@ Rectangle {
                         }
                     }
                 }
+                taxonomyCkbx.font.bold = taxonomyCkbx.checked
+                taxonomyFilter.update()
+
+                livenessFilter.apply(livenessCkbx.checked)
+                livenessCkbx.font.bold = livenessCkbx.checked
                 if (livenessCkbx.checked) {
                     var livenessChecked = []
                     if (livenessFilter.container.itemAt(0).item.checked) {

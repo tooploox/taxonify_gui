@@ -15,6 +15,18 @@ ColumnLayout {
         return { dead: null }
     }
 
+    property var applied: []
+
+    function apply(checked) {
+        applied = []
+        for (let i = 0; i < container.count; i++) {
+            let item = container.itemAt(i).item
+            if (item.checked)
+                applied.push(item.text)
+            item.font.bold = checked && item.checked
+        }
+    }
+
     ButtonGroup {
         id: radioGroup
 
@@ -32,7 +44,6 @@ ColumnLayout {
             Component {
                 id: checkBox
                 CheckBox {
-                    id: cb
                     text: model.modelData
                     checked: true
                 }
@@ -42,8 +53,9 @@ ColumnLayout {
                 id: radioBtn
                 RadioButton {
                     text: model.modelData;
-                    ButtonGroup.group: radioGroup
                     checked: true
+
+                    ButtonGroup.group: radioGroup
                 }
             }
         }
