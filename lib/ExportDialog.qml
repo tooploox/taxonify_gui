@@ -27,7 +27,23 @@ Dialog {
         console.log('response received', JSON.stringify(response, null, 2))
 
         Qt.openUrlExternally(response.url)
-        close()
+        exportedSuccessfullyDialog.open()
+    }
+
+    Dialog {
+        id: exportedSuccessfullyDialog
+        x: Math.floor((parent.width - width) / 2)
+        y: Math.floor((parent.height - height) / 2)
+        width: 300
+        height: 100
+
+        modal: true
+        title: 'Data exported successfully!'
+        standardButtons: Dialog.Ok
+
+        onAccepted: {
+            root.close()
+        }
     }
 
     ExportForm {

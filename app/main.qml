@@ -114,6 +114,8 @@ ApplicationWindow {
                 storeScrollLastPos()
                 pageLoader.loadNextPage(getCurrentFilter())
             }
+
+            onExportScheduled: exportItems.call(imageViewAndControls.exportCriteria)
         }
 
         AnnotationPane {
@@ -240,6 +242,17 @@ ApplicationWindow {
         onError: {
             // TODO
             console.log("Updating annotations failed!")
+            console.log(JSON.stringify(details, null, "  "))
+        }
+    }
+
+    Request {
+        id: exportItems
+        handler: dataAccess.exportItems
+
+        onSuccess: imageViewAndControls.processExportResponse(res)
+        onError: {
+            console.log("Exporting items failed!")
             console.log(JSON.stringify(details, null, "  "))
         }
     }

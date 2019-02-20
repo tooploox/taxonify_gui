@@ -7,7 +7,13 @@ import com.microscopeit 1.0
 ColumnLayout {
 
     property alias address : uploadDialog.address
+    property alias exportCriteria: exportDialog.exportCriteria
     property alias token : uploadDialog.token
+    signal exportScheduled()
+
+    function processExportResponse(response) {
+        exportDialog.processExportResponse(response)
+    }
 
     property bool uploadInProgress: false
 
@@ -29,6 +35,7 @@ ColumnLayout {
 
     ExportDialog {
        id: exportDialog
+       onAccepted: exportScheduled()
     }
 
     Rectangle{
