@@ -3,6 +3,8 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
 
+import "qrc:/network"
+
 Dialog {
     id: root
 
@@ -55,6 +57,14 @@ Dialog {
         }
     }
 
+    Request{
+        id: uploadListReq
+        handler: dataAccess.uploadList
+
+        onSuccess: uploadList.setData(res)
+        onError: console.log("Failed to get upload list! Details: " + details)
+    }
+
     // Uploaded files list dialog
     Dialog {
         id: uploadListDiag
@@ -71,14 +81,10 @@ Dialog {
             id: uploadList
         }
 
-        function loadUploadListData() {
-            dataAccess.uploadList(function(resp) { uploadList.setData(resp.body) })
-        }
-
         footer: DialogButtonBox {
             Layout.alignment: Qt.AlignBottom | Qt.AlignRight
 
-            onReset: uploadListDiag.loadUploadListData()
+            onReset: uploadListReq.call()
             onRejected: uploadListDiag.close()
 
             Button {
@@ -95,6 +101,6 @@ Dialog {
             }
         }
 
-        onAboutToShow: loadUploadListData()
+        onAboutToShow: uploadListReq.call()
     }
 }

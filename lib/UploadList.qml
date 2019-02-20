@@ -10,9 +10,9 @@ Item {
     function setData(data){
        uploadData.clear()
        for(let d of data){
-           let genDate = d['generation_date'].split('T')
-           uploadData.append({filename: d['filename'],
-                              up_state: d['state'],
+           let genDate = d.generation_date.split('T')
+           uploadData.append({filename: d.filename,
+                              up_state: d.state,
                               gen_date: genDate[0] + "   " +genDate[1].split('+')[0]})
        }
     }
@@ -29,29 +29,32 @@ Item {
         delegate: Item{
             width: parent.width - 20
             height: 60
-            Rectangle{
+
+            Column {
+                id: content
+
                 anchors.fill: parent
                 anchors.topMargin: 5
                 anchors.bottomMargin: 5
-                id: content
-                Column{
-                    anchors.fill: parent
-                    RowLayout{
-                        Layout.fillWidth: true
-                        width: parent.width
-                        Text {
-                            id: mainLine
-                            text: '<b>' + filename + '</b>'
-                        }
-                        Text {
-                            Layout.alignment: Qt.AlignRight
-                            text: up_state
-                        }
-                    }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    width: parent.width
+
                     Text {
-                        font.pointSize: mainLine.font.pointSize - 2
-                        text: "    Date:   " + gen_date
+                        id: mainLine
+                        text: '<b>' + filename + '</b>'
                     }
+
+                    Text {
+                        Layout.alignment: Qt.AlignRight
+                        text: up_state
+                    }
+                }
+
+                Text {
+                    font.pointSize: mainLine.font.pointSize - 2
+                    text: "    Date:   " + gen_date
                 }
             }
 
