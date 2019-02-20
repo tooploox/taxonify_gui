@@ -13,7 +13,7 @@ Uploader::Uploader(QObject *parent)
 
 QString Uploader::getPlatformFilePath(QString fileUrl) const{
   QUrl url(fileUrl);
-  return QDir::toNativeSeparators(url.path());
+  return QDir::toNativeSeparators(url.toLocalFile());
 }
 
 void Uploader::upload(QString path) {

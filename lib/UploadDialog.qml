@@ -8,6 +8,7 @@ Dialog {
 
     property string address;
     property alias token : uploadForm.token
+
     readonly property alias uploadProgress : uploadForm.uploadProgress
 
     signal success(string replyData)
@@ -18,21 +19,47 @@ Dialog {
     y: Math.floor((parent.height - height) / 2)
 
     width: 600
-    height: 250
+    height: 300
 
     modal: true
     title: 'Upload data'
-    standardButtons: Dialog.Close
 
     parent: ApplicationWindow.overlay
 
-    UploadForm{
+    contentItem: UploadForm{
         id: uploadForm
-        anchors.fill: parent
         address: root.address + '/upload'
         token: dataAccess.internal.access_token
         onSuccess: root.success(replyData)
         onError: root.error(errorMsg)
         onUploadStarted: root.uploadStarted()
     }
+
+    footer: DialogButtonBox {
+        Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+
+        onReset: uploadListDiag.open()
+        onRejected: root.close()
+
+        Button {
+            text: qsTr("Upload List")
+            DialogButtonBox.buttonRole: DialogButtonBox.ResetRole
+            Material.primary: Material.Grey
+            Material.background: Material.background
+        }
+        Button {
+            text: qsTr("Close")
+            DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
+            Material.primary: Material.Grey
+            Material.background: Material.background
+        }
+    }
+
+    UploadListDialog {
+        id: uploadListDiag
+
+        width: root.width; height: root.height
+        x: root.x; y: root.y
+    }
+
 }

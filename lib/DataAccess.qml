@@ -99,4 +99,13 @@ QtObject {
         }
         return server.send(req,cb)
     }
+
+    function uploadList(cb) {
+        var req = {
+            handler: '/upload/list',
+            method: 'GET',
+            headers: [internal.access_token_header]
+        }
+        return server.send(req,cb)
+    }
 }
