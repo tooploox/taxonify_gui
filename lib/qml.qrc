@@ -13,6 +13,7 @@
         <file>UploadForm.qml</file>
         <file>UploadDialog.qml</file>
         <file>UploadList.qml</file>
+        <file>UploadListDialog.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
