@@ -63,6 +63,16 @@ Item {
 
             }
 
+            TextArea {
+                id: filterTextArea
+                readOnly: true
+
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
+                text: "hello"
+            }
+
             Label {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
                 Layout.leftMargin: 5
