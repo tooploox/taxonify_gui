@@ -3,6 +3,8 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 import "qrc:/"
+import "qrc:/network"
+import "qrc:/network/requests.js" as Req
 
 ApplicationWindow {
 
@@ -13,6 +15,10 @@ ApplicationWindow {
 
     ExportDialog {
        id: exportDialog
+
+       onAccepted: {
+           exportItems.call(exportDialog.exportCriteria)
+       }
     }
 
     Button {
@@ -23,5 +29,38 @@ ApplicationWindow {
 
         text: 'Export'
         onClicked: exportDialog.open()
+    }
+
+    property var dataAccess: Item {
+        property var server: new Req.Server('http://localhost:5000')
+        property QtObject internal: QtObject {
+            property string access_token_header: ''
+        }
+
+        function exportItems(exportCriteria, cb) {
+            console.log(exportCriteria)
+            var req = {
+                handler: '/export',
+                method: 'GET',
+                headers: [internal.access_token_header],
+                params: exportCriteria
+            }
+            return server.send(req, cb)
+        }
+    }
+
+    Request {
+        id: exportItems
+        handler: dataAccess.exportItems
+
+        onSuccess: {
+            console.log('worked fine!')
+            exportDialog.processExportResponse(res)
+        }
+
+        onError: {
+            console.log("Exporting items failed!")
+            console.log(JSON.stringify(details, null, "  "))
+        }
     }
 }

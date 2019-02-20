@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.12
 
 Item {
     id: root
+    property var exportCriteria: criteria()
 
     function criteria() {
         let crit = {}
