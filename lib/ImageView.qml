@@ -114,6 +114,8 @@ Item {
         listView.forceLayout()
 
         listView.lastY = listView.contentY
+
+        listView.firstIdInTheFirstRow = listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)).firstIdx
     }
 
     onWidthChanged: timer.restart()
@@ -137,7 +139,7 @@ Item {
         }
 
         onMovementEnded: {
-            firstIdInTheFirstRow = model.get(indexAt(10, contentY)).firstIdx
+            firstIdInTheFirstRow = model.get(indexAt(x_offset_to_content, contentY)).firstIdx
             lastY = contentY
         }
 
