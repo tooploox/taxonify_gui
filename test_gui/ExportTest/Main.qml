@@ -53,14 +53,7 @@ ApplicationWindow {
         id: exportItems
         handler: dataAccess.exportItems
 
-        onSuccess: {
-            console.log('worked fine!')
-            exportDialog.processExportResponse(res)
-        }
-
-        onError: {
-            console.log("Exporting items failed!")
-            console.log(JSON.stringify(details, null, "  "))
-        }
+        onSuccess: exportDialog.processExportResponse(true, res)
+        onError: exportDialog.processExportResponse(false, details)
     }
 }

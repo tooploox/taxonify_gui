@@ -18,32 +18,31 @@ Dialog {
 
     property alias exportCriteria: exportForm.exportCriteria
 
-    function processExportResponse(response) {
+    function processExportResponse(success, response) {
         busyIndication.running = false
         okButton.enabled = true
         if (!visible) {
             return
         }
-        console.log('response received', JSON.stringify(response, null, 2))
 
-        Qt.openUrlExternally(response.url)
-        exportedSuccessfullyDialog.open()
+        if (success) {
+            Qt.openUrlExternally(response.url)
+            resultDialog.title = 'Data exported successfully!'
+        } else {
+            resultDialog.title = 'An error occurred during data export.'
+        }
+        resultDialog.open()
     }
 
     Dialog {
-        id: exportedSuccessfullyDialog
+        id: resultDialog
         x: Math.floor((parent.width - width) / 2)
         y: Math.floor((parent.height - height) / 2)
-        width: 300
+        width: 400
         height: 100
-
         modal: true
-        title: 'Data exported successfully!'
         standardButtons: Dialog.Ok
-
-        onAccepted: {
-            root.close()
-        }
+        onAccepted: root.close()
     }
 
     ExportForm {
@@ -62,6 +61,7 @@ Dialog {
 
         Button {
             id: okButton
+            // hack for proper layout of busy indicator and text on button
             property string prefix: busyIndication.running ? "        " : ""
             text: prefix + "Ok"
 

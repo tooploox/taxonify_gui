@@ -7,13 +7,10 @@ Item {
     property var exportCriteria: criteria()
 
     function criteria() {
-        let crit = {}
-
+        let crit = filteringPane.buildFilter()
         if (limitCheckBox.checked) {
             crit.limit = limitTextField.text
         }
-
-        crit.filter = filteringPane.buildFilter()
         return crit
     }
 

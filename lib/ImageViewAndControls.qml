@@ -11,8 +11,8 @@ ColumnLayout {
     property alias token : uploadDialog.token
     signal exportScheduled()
 
-    function processExportResponse(response) {
-        exportDialog.processExportResponse(response)
+    function processExportResponse(success, response) {
+        exportDialog.processExportResponse(success, response)
     }
 
     property bool uploadInProgress: false

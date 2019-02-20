@@ -250,11 +250,8 @@ ApplicationWindow {
         id: exportItems
         handler: dataAccess.exportItems
 
-        onSuccess: imageViewAndControls.processExportResponse(res)
-        onError: {
-            console.log("Exporting items failed!")
-            console.log(JSON.stringify(details, null, "  "))
-        }
+        onSuccess: imageViewAndControls.processExportResponse(true, res)
+        onError: imageViewAndControls.processExportResponse(false, details)
     }
 
     Component.onCompleted: {
