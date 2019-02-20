@@ -35,18 +35,18 @@ Item {
             while(listView.contentY+step<=value){
                 listView.contentY += step
             }
-            listView.contentY += (value - listView.contentY) % 100
+            listView.contentY += (value - listView.contentY) % step
         }else{
             while(listView.contentY-step>=value){
                 listView.contentY -= step
             }
-            listView.contentY -= (listView.contentY - value) % 100
+            listView.contentY -= (listView.contentY - value) % step
         }
     }
 
     function setContentYatIndex(idx) {
-        let step  =100
-        setContentY(100)
+        let step = 100
+        setContentY(0)
         listView.forceLayout()
         while (listView.model.get(listView.indexAt(10, listView.contentY)) && listView.model.get(listView.indexAt(10, listView.contentY)).firstIdx <= idx){
             listView.contentY+=step
