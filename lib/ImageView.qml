@@ -137,7 +137,9 @@ Item {
 
         listView.lastY = listView.contentY
 
-        //listView.firstIdInTheFirstRow = listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)).firstIdx
+        if(listView.indexAt(x_offset_to_content, listView.contentY) >= 0){
+            listView.firstIdInTheFirstRow = listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)).firstIdx
+        }
     }
 
     onWidthChanged: timer.restart()
