@@ -115,6 +115,7 @@ Rectangle {
                                 id: col
                                 property bool checked: index < attributesRbtns.count ? attributesRbtns.itemAt(index).checked : false
                                 property string text: index < attributesRbtns.count ? attributesRbtns.itemAt(index).text : ''
+                                property alias criteria: attrFltr.criteria
 
                                 Text {
                                     text: col.text
@@ -124,6 +125,7 @@ Rectangle {
                                 }
 
                                 AttributeFilter {
+                                    id: attrFltr
                                     attributeName: modelData
                                     enabled: col.checked
                                     visible: col.checked
