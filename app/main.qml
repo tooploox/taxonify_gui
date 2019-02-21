@@ -25,6 +25,15 @@ ApplicationWindow {
     property var currentFilter: {}
     property string currentSas: ''
     property bool viewPopulated: false
+    property real lastContentYPos: 0
+
+    function storeScrollLastPos() {
+        lastContentYPos = imageViewAndControls.imageView.getContentY()
+    }
+
+    function restoreScrollLastPos(){
+        imageViewAndControls.imageView.setContentY(lastContentYPos)
+    }
 
     function getSettingVariable(key) {
         if(settingsFromFile) {
@@ -46,6 +55,22 @@ ApplicationWindow {
         }
     }
 
+    function getCurrentFilter() {
+        if (currentFilter) {
+            return JSON.parse(JSON.stringify(currentFilter))
+        }
+        return {}
+    }
+
+    PageLoader {
+        id: pageLoader
+
+        appendDataToModel: imageViewAndControls.imageView.appendData
+        restoreModelViewLastPos: restoreScrollLastPos
+
+        currentSas: currentSas
+    }
+
     RowLayout {
         anchors.fill: parent
 
@@ -56,13 +81,15 @@ ApplicationWindow {
 
             onAppliedClicked: {
                 currentFilter = filter
-                filterItems.call(filter)
+                imageViewAndControls.imageView.clearData()
+                storeScrollLastPos()
+                pageLoader.resetPagesStatus()
+                pageLoader.loadNextPage(getCurrentFilter())
             }
 
         }
 
         ImageViewAndControls {
-
             id: imageViewAndControls
 
             address: getSettingVariable('host')
@@ -81,6 +108,12 @@ ApplicationWindow {
                          }
 
                      })(annotationPane.criteria)
+
+            onAtPageBottom: {
+                if(pageLoader.internal.pageLoadingInProgress || pageLoader.internal.lastPageLoaded) return
+                storeScrollLastPos()
+                pageLoader.loadNextPage(getCurrentFilter())
+            }
         }
 
         AnnotationPane {
@@ -89,6 +122,7 @@ ApplicationWindow {
             Layout.fillHeight: true
 
             onApplyClicked: {
+                storeScrollLastPos()
 
                 const model = imageViewAndControls.imageView.model
 
@@ -145,7 +179,8 @@ ApplicationWindow {
         onSuccess: {
             currentSas = res.token
             if (!viewPopulated) {
-                filterItems.call({}) // to populate view just once
+                pageLoader.resetPagesStatus()
+                pageLoader.loadNextPage({})
             }
         }
 
@@ -172,16 +207,15 @@ ApplicationWindow {
         onSuccess: {
             const params = currentSas.length > 0 ? '?' + currentSas : ''
 
-            let data = []
-
-            for (let item of res.items) {
-                const modelItem = {
+            function makeItem(item) {
+                return {
                     image: res.urls[item._id] + params,
                     selected: false,
                     metadata: item
                 }
-                data.push(modelItem)
             }
+
+            let data = res.items.map(makeItem)
 
             viewPopulated = true
             imageViewAndControls.imageView.setData(data)
@@ -197,7 +231,11 @@ ApplicationWindow {
 
         handler: dataAccess.updateItems
 
-        onSuccess: filterItems.call(currentFilter)
+        onSuccess: {
+            console.log("Update items")
+            imageViewAndControls.imageView.clearData()
+            pageLoader.loadPages(getCurrentFilter(), pageLoader.getNumberOfLoadedPages())
+        }
 
         onError: {
             // TODO

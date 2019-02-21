@@ -93,6 +93,18 @@ QtObject {
         return server.send(req, cb)
     }
 
+    function filterPagedItems(filter, page, cb) {
+        filter.continuation_token = page
+        console.log('about to send filter: ', JSON.stringify(filter))
+        var req = {
+            handler: '/items/paged',
+            method: 'GET',
+            headers: [internal.access_token_header],
+            params: filter
+        }
+        return server.send(req, cb)
+    }
+
     function updateItems(updateList, cb) {
         var req = {
             handler: '/items',
