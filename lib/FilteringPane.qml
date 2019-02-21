@@ -34,16 +34,12 @@ Rectangle {
                 width: parent.width
                 //width: 200//parent.viewport.width
 
-
-
                 ButtonGroup {
                     id: filterButtons
                     exclusive: false
                 }
 
                 Column {
-
-                    Layout.fillWidth: true
 
                     CheckBox {
                         id: checkBox1
@@ -54,7 +50,7 @@ Rectangle {
 
                     Column {
                         anchors.left: parent.left
-                        anchors.leftMargin: 10
+                        anchors.leftMargin: 20
 
                         TextField {
                             id: fileNameField
@@ -69,8 +65,6 @@ Rectangle {
 
                 Column {
 
-                    Layout.fillWidth: true
-
                     CheckBox {
                         id: dateCkbx
                         checked: false
@@ -80,7 +74,7 @@ Rectangle {
 
                     Column {
                         anchors.left: parent.left
-                        anchors.leftMargin: 10
+                        anchors.leftMargin: 20
 
                         DateFilter {
                             id: dateFilter
@@ -90,29 +84,23 @@ Rectangle {
                     }
                 }
 
-                GroupBox {
-
+                Column {
                     Layout.fillWidth: true
+                    Layout.rightMargin: 20
 
-                    label: CheckBox {
+                    CheckBox {
                         id: taxonomyCkbx
                         checked: false
                         text: qsTr("Taxonomy")
                         ButtonGroup.group: filterButtons
                     }
 
-
-                    Column {
-                        anchors.fill: parent
-
-                        TaxonomyFilter {
-                            id: taxonomyFilter
-                            enabled: taxonomyCkbx.checked
-                            visible: taxonomyCkbx.checked
-                            width: parent.width
-                        }
+                    TaxonomyFilter {
+                        id: taxonomyFilter
+                        enabled: taxonomyCkbx.checked
+                        visible: taxonomyCkbx.checked
+                        width: parent.width
                     }
-
                 }
 
                 Repeater {
@@ -135,7 +123,7 @@ Rectangle {
 
                         Column {
                             anchors.left: parent.left
-                            anchors.leftMargin: 10
+                            anchors.leftMargin: 20
 
                             AttributeFilter {
                                 id: attrFltr
