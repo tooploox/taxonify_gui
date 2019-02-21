@@ -15,7 +15,7 @@ Rectangle {
         return { dummyExclusive: true }
     }
 
-    signal annotationApplyClicked()
+    signal applyClicked()
 
     ColumnLayout {
         anchors.fill: parent
@@ -89,7 +89,7 @@ Rectangle {
             enabled: radioGroup.checkState !== Qt.Unchecked
             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
 
-            onClicked: annotationApplyClicked()
+            onClicked: applyClicked()
         }
     }
 }

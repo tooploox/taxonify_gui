@@ -54,7 +54,7 @@ ApplicationWindow {
             Layout.preferredWidth: 300
             Layout.fillHeight: true
 
-            onFilterApplyClicked: {
+            onApplyClicked: {
                 currentFilter = filter
                 filterItems.call(filter)
             }
@@ -88,7 +88,7 @@ ApplicationWindow {
             Layout.preferredWidth: 300
             Layout.fillHeight: true
 
-            onAnnotationApplyClicked: {
+            onApplyClicked: {
 
                 const model = imageViewAndControls.imageView.model
 
