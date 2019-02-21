@@ -40,11 +40,12 @@ void Uploader::upload(QString path) {
     QFileInfo fileInfo(*file);
     QNetworkRequest request(address + "/" + fileInfo.fileName());
 
+    request.setRawHeader(QByteArray("Accept-Encoding"),
+                         QByteArray("gzip, deflate"));
+
     if(!token.isEmpty()) {
         request.setRawHeader(QByteArray("Authorization"),
                              ("Bearer " + token).toUtf8());
-        request.setRawHeader(QByteArray("Accept-Encoding"),
-                             QByteArray("gzip, deflate"));
     }
 
     reply = nam->put(request, file);

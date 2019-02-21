@@ -19,7 +19,8 @@ QtObject {
         property var access_token_header
         property var refresh_token_header
 
-        readonly property var compress_header: ['Accept-Encoding', 'gzip, deflate']
+        readonly property var compressHeader: ['Accept-Encoding', 'gzip, deflate']
+        readonly property var commonHeaders: [access_token_header, compressHeader]
 
         onAccess_tokenChanged: {
             access_token_header = ['Authorization', 'Bearer ' + access_token]
@@ -53,10 +54,6 @@ QtObject {
                 }
             })
         }
-
-        function getCommonHeaders() {
-           return [access_token_header, compress_header]
-        }
     }
 
     function login(username, password, cb) {
@@ -80,7 +77,7 @@ QtObject {
         var req = {
             handler: '/sas',
             method: 'GET',
-            headers: internal.getCommonHeaders(),
+            headers: internal.commonHeaders,
             params: { destination: destination }
         }
         return server.send(req, cb)
@@ -90,7 +87,7 @@ QtObject {
         var req = {
             handler: '/items',
             method: 'GET',
-            headers: internal.getCommonHeaders(),
+            headers: internal.commonHeaders,
             params: filter
         }
         return server.send(req, cb)
@@ -100,7 +97,7 @@ QtObject {
         var req = {
             handler: '/items',
             method: 'POST',
-            headers: internal.getCommonHeaders(),
+            headers: internal.commonHeaders,
             params: updateList
         }
         return server.send(req,cb)
@@ -110,7 +107,7 @@ QtObject {
         var req = {
             handler: '/upload/list',
             method: 'GET',
-            headers: internal.getCommonHeaders()
+            headers: internal.commonHeaders
         }
         return server.send(req,cb)
     }
