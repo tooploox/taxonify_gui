@@ -27,7 +27,7 @@ ApplicationWindow {
     property bool viewPopulated: false
     property real lastContentYPos: 0
 
-    function storeScrollLastPos(){
+    function storeScrollLastPos() {
         lastContentYPos = imageViewAndControls.imageView.getContentY()
     }
 
@@ -68,7 +68,7 @@ ApplicationWindow {
         appendDataToModel: imageViewAndControls.imageView.appendData
         restoreModelViewLastPos: restoreScrollLastPos
 
-        filterPagedItemsReq: filterPagedItems
+        currentSas: currentSas
     }
 
     RowLayout {
@@ -219,31 +219,6 @@ ApplicationWindow {
 
             viewPopulated = true
             imageViewAndControls.imageView.setData(data)
-        }
-
-        onError: {
-            console.log('error in retrieving data items. Error: '+ details.text)
-        }
-    }
-
-    Request {
-        id: filterPagedItems
-
-        handler: dataAccess.filterPagedItems
-
-        onSuccess: {
-            const params = currentSas.length > 0 ? '?' + currentSas : ''
-
-            function makeItem(item) {
-                return {
-                    image: res.urls[item._id] + params,
-                    selected: false,
-                    metadata: item
-                }
-            }
-
-            let data = res.items.map(makeItem)
-            pageLoader.finishLoadingPage(data, res.continuation_token)
         }
 
         onError: {

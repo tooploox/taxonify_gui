@@ -1,5 +1,7 @@
 import QtQuick 2.12
 
+import "qrc:/network"
+
 QtObject {
    property QtObject internal: QtObject {
        property int pagesLoaded: 0
@@ -14,14 +16,14 @@ QtObject {
 
    // Function which appends received data to viewing model.
    // Signature: appendDataToModel([Array] data , [bool] useLastContentY )
-   property var appendDataToModel: undefined
+   property var appendDataToModel
 
    // Function which restore last position of viewing model
    // Signature: restoreModelViewLastPos()
-   property var restoreModelViewLastPos: undefined
+   property var restoreModelViewLastPos
 
    // Request type object for getting paged items with defined filter
-   property var filterPagedItemsReq: undefined
+   property string currentSas: ''
 
    // Public methods
    function getNumberOfLoadedPages() { return internal.pagesLoaded }
@@ -40,7 +42,7 @@ QtObject {
 
    function loadPage(filter, pageNumber){
      internal.pageLoadingInProgress = true
-     filterPagedItemsReq.call(filter, pageNumber)
+     filterPagedItems.call(filter, pageNumber)
    }
 
    function loadPages(filter, pagesToLoad){
@@ -87,6 +89,29 @@ QtObject {
                appendDataToModel(data, true)
                restoreModelViewLastPos()
            }
+       }
+   }
+
+   property Request filterPagedItems: Request {
+       handler: dataAccess.filterPagedItems
+
+       onSuccess: {
+           const params = currentSas.length > 0 ? '?' + currentSas : ''
+
+           function makeItem(item) {
+               return {
+                   image: res.urls[item._id] + params,
+                   selected: false,
+                   metadata: item
+               }
+           }
+
+           let data = res.items.map(makeItem)
+           pageLoader.finishLoadingPage(data, res.continuation_token)
+       }
+
+       onError: {
+           console.log('error in retrieving data items. Error: '+ details.text)
        }
    }
 }
