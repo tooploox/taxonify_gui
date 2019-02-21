@@ -97,6 +97,7 @@ Rectangle {
                             text: taxonomyRbtn.text
                             visible: taxonomyRbtn.checked
                             font.bold: true
+                            height: 30
                         }
 
                         TaxonomyFilter {
@@ -104,7 +105,6 @@ Rectangle {
                             annotationMode: true
                             enabled: taxonomyRbtn.checked
                             visible: taxonomyRbtn.checked
-                            width: parent.width
                         }
 
                         Repeater {
@@ -120,6 +120,7 @@ Rectangle {
                                     text: col.text
                                     visible: col.checked
                                     font.bold: true
+                                    height: 30
                                 }
 
                                 AttributeFilter {
