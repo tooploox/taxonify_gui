@@ -1,22 +1,22 @@
 <RCC>
     <qresource prefix="/">
-        <file>FilteringPane.qml</file>
         <file>AnnotationPane.qml</file>
+        <file>AttributeFilter.qml</file>
+        <file>DateFilter.qml</file>
+        <file>DateTextField.qml</file>
+        <file>FilteringAttributes.qml</file>
+        <file>FilteringPane.qml</file>
         <file>ImageView.qml</file>
+        <file>ImageViewAndControls.qml</file>
+        <file>PageLoader.qml</file>
+        <file>qmldir</file>
         <file>SortingControls.qml</file>
         <file>TaxonomyFilter.qml</file>
-        <file>ImageViewAndControls.qml</file>
-        <file>DateTextField.qml</file>
-        <file>DateFilter.qml</file>
-        <file>AttributeFilter.qml</file>
         <file>taxonomy_hierarchy.json</file>
         <file>UploadForm.qml</file>
         <file>UploadDialog.qml</file>
         <file>UploadList.qml</file>
         <file>UploadListDialog.qml</file>
-        <file>PageLoader.qml</file>
-        <file>FilteringAttributes.qml</file>
-        <file>qmldir</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
