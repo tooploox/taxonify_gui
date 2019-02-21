@@ -206,7 +206,7 @@ Rectangle {
                     if (attrFltr.checked) {
                         var attrChecked = []
                         if (attrContainer.itemAt(0).item.checked) {
-                            attrChecked.push("false") // attr value is false
+                            attrChecked.push("true") // attr value is true
                         }
                         if (attrContainer.itemAt(1).item.checked) {
                             attrChecked.push("true") // attr value is true
