@@ -209,7 +209,7 @@ Rectangle {
                             attrChecked.push("true") // attr value is true
                         }
                         if (attrContainer.itemAt(1).item.checked) {
-                            attrChecked.push("true") // attr value is true
+                            attrChecked.push("false") // attr value is false
                         }
                         if (attrContainer.itemAt(2).item.checked) {
                             attrChecked.push("") // attr value is not specified
