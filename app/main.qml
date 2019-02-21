@@ -110,7 +110,7 @@ ApplicationWindow {
                      })(annotationPane.criteria)
 
             onAtPageBottom: {
-                if(pageLoader.pageLoadingInProgress || pageLoader.lastPageLoaded) return
+                if(pageLoader.internal.pageLoadingInProgress || pageLoader.internal.lastPageLoaded) return
                 storeScrollLastPos()
                 pageLoader.loadNextPage(getCurrentFilter())
             }
