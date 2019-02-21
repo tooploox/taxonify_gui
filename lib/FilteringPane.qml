@@ -5,55 +5,9 @@ import QtQuick.Layouts 1.12
 Rectangle {
     border.color: 'lightgray'
 
-    signal appliedClicked(var filter)
-    property alias withApplyButton: applyButton.visible
+    signal applyClicked(var filter)
 
-    function buildFilter() {
-        var filter = {}
-        if (checkBox1.checked) {
-            if (fileNameField.text.length>0) {
-                filter.filename = fileNameField.text
-            }
-        }
-        if (dateCkbx.checked && dateFilter.valid) {
-            if (!dateFilter.start.empty) {
-                console.log(dateFilter.start.isostring)
-                filter.acquisition_time_start = dateFilter.start.isostring
-            }
-            if (!dateFilter.end.empty) {
-                console.log(dateFilter.end.isostring)
-                filter.acquisition_time_end = dateFilter.end.isostring
-            }
-        }
-        if (taxonomyCkbx.checked) {
-            for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
-                if(taxonomyFilter.container.itemAt(i).checked) {
-                    var key = taxonomyFilter.taxonomyNames[i]
-                    var value = taxonomyFilter.container.itemAt(i).value
-                    if (value === taxonomyFilter.notSpecifiedStr) {
-                        value = ''
-                    }
-                    filter[key] = value
-                }
-            }
-        }
-        if (livenessCkbx.checked) {
-            var livenessChecked = []
-            if (livenessFilter.container.itemAt(0).item.checked) {
-                livenessChecked.push("false") // dead false
-            }
-            if (livenessFilter.container.itemAt(1).item.checked) {
-                livenessChecked.push("true") // dead true
-            }
-            if (livenessFilter.container.itemAt(2).item.checked) {
-                livenessChecked.push("") // not specified
-            }
-            if (livenessChecked.length > 0) {
-                filter.dead = livenessChecked
-            }
-        }
-        return filter
-    }
+    readonly property var attributes: FilteringAttributes.filteringAttributes
 
     ColumnLayout {
         anchors.fill: parent
@@ -61,19 +15,17 @@ Rectangle {
         height: parent.height
 
         Label {
-            id: titleLabel
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignCenter
             text: qsTr("Filtering")
             font.pixelSize: 25
             horizontalAlignment: Text.AlignHCenter
-            visible : withApplyButton ? true : false
         }
 
         ScrollView {
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignCenter
-            Layout.maximumHeight: parent.height - titleLabel.height - applyButton.height - 20
+            Layout.maximumHeight: parent.height - 100
             clip: true
             contentWidth: width
 
@@ -82,18 +34,14 @@ Rectangle {
                 width: parent.width
                 //width: 200//parent.viewport.width
 
-
-
                 ButtonGroup {
                     id: filterButtons
                     exclusive: false
                 }
 
-                GroupBox {
+                Column {
 
-                    Layout.fillWidth: true
-
-                    label: CheckBox {
+                    CheckBox {
                         id: checkBox1
                         checked: false
                         text: qsTr("File name")
@@ -101,41 +49,46 @@ Rectangle {
                     }
 
                     Column {
-
-                        anchors.fill: parent
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20
 
                         TextField {
                             id: fileNameField
                             enabled: checkBox1.checked
                             placeholderText: 'File name regex'
+                            visible: checkBox1.checked
+
                         }
 
                     }
                 }
 
-                GroupBox {
+                Column {
 
-                    Layout.fillWidth: true
-
-                    label: CheckBox {
+                    CheckBox {
                         id: dateCkbx
                         checked: false
                         text: qsTr("Date")
                         ButtonGroup.group: filterButtons
                     }
 
-                    DateFilter {
-                        id: dateFilter
-                        anchors.fill: parent
-                        enabled: dateCkbx.checked
+                    Column {
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20
+
+                        DateFilter {
+                            id: dateFilter
+                            enabled: dateCkbx.checked
+                            visible: dateCkbx.checked
+                        }
                     }
                 }
 
-                GroupBox {
-
+                Column {
                     Layout.fillWidth: true
+                    Layout.rightMargin: 20
 
-                    label: CheckBox {
+                    CheckBox {
                         id: taxonomyCkbx
                         checked: false
                         text: qsTr("Taxonomy")
@@ -145,43 +98,129 @@ Rectangle {
                     TaxonomyFilter {
                         id: taxonomyFilter
                         enabled: taxonomyCkbx.checked
+                        visible: taxonomyCkbx.checked
+                        width: parent.width
                     }
                 }
 
-                GroupBox {
-                    Layout.fillWidth: true
+                Repeater {
+                    id: attributefltrs
+                    model: attributes
 
-                    label: CheckBox {
-                        id: livenessCkbx
-                        checked: false
-                        text: qsTr("Liveness")
-                        ButtonGroup.group: filterButtons
-                    }
+                    Column {
 
-                    LivenessFilter {
-                        id: livenessFilter
-                        enabled: livenessCkbx.checked
-                        annotationMode: false
+                        property string attrName: modelData
+                        property alias checked: attrCbx.checked
+                        property alias bold: attrCbx.font.bold
+                        property alias container: attrFltr.container
+                        property alias apply: attrFltr.apply
+
+                        CheckBox {
+                            id: attrCbx
+                            checked: false
+                            text: preformatAttrName(attrName)
+                        }
+
+                        Column {
+                            anchors.left: parent.left
+                            anchors.leftMargin: 20
+
+                            AttributeFilter {
+                                id: attrFltr
+                                attributeName: attrName
+                                enabled: checked
+                                visible: checked
+                            }
+                        }
+
+                        function preformatAttrName(name) {
+                            return (name.charAt(0).toUpperCase() + name.slice(1)).replace(/[_]/g, " ")
+                        }
                     }
                 }
             }
         }
 
         Item {
-            Layout.fillHeight: withApplyButton ? true : false
-            Layout.fillWidth: withApplyButton ? true : false
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
 
         Button {
-            id: applyButton
             text: qsTr('Apply filters')
-            visible: true
 
             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
-            height: visible ? 40 : 0
+            height: 40
+
             onClicked: {
-                let filter = buildFilter()
-                appliedClicked(filter)
+                var filter = {}
+
+                if (checkBox1.checked && fileNameField.text.length > 0) {
+                    filter.filename = fileNameField.text
+                    fileNameField.placeholderText = fileNameField.text
+                    checkBox1.font.bold = true
+                } else {
+                    fileNameField.placeholderText = 'File name regex'
+                    checkBox1.font.bold = false
+                    checkBox1.checked = false
+                }
+
+                const acquisitionTime = dateFilter.getAcquisitionTimeAndApply(dateCkbx.checked)
+                if (acquisitionTime) {
+                    dateCkbx.font.bold = true
+                    if (acquisitionTime.start)
+                        filter.acquisition_time_start = acquisitionTime.start
+                    if (acquisitionTime.end)
+                        filter.acquisition_time_end = acquisitionTime.end
+                } else {
+                    dateCkbx.font.bold = false
+                    dateCkbx.checked = false
+                }
+
+                if (taxonomyCkbx.checked) {
+                    for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
+                        var item = taxonomyFilter.container.itemAt(i)
+                        if(item.checked) {
+                            item.apply()
+                            var key = taxonomyFilter.taxonomyNames[i]
+                            var value = item.value
+                            if (value === taxonomyFilter.notSpecifiedStr) {
+                                value = ''
+                            }
+                            filter[key] = value
+                        }
+                    }
+                }
+                taxonomyCkbx.font.bold = taxonomyCkbx.checked
+                taxonomyFilter.update()
+
+                for (let i = 0; i < attributefltrs.count; i++) {
+
+                    const attrFltr = attributefltrs.itemAt(i)
+                    const attrName = attrFltr.attrName
+                    const attrContainer = attrFltr.container
+
+                    attrFltr.apply(attrFltr.checked)
+                    attrFltr.bold = attrFltr.checked
+
+                    if (attrFltr.checked) {
+                        var attrChecked = []
+                        if (attrContainer.itemAt(0).item.checked) {
+                            attrChecked.push("true") // attr value is true
+                        }
+                        if (attrContainer.itemAt(1).item.checked) {
+                            attrChecked.push("false") // attr value is false
+                        }
+                        if (attrContainer.itemAt(2).item.checked) {
+                            attrChecked.push("") // attr value is not specified
+                        }
+                        if (attrChecked.length > 0) {
+                            filter[attrName] = attrChecked
+                        }
+                    }
+                }
+
+                applyClicked(filter)
             }
         }
     }
