@@ -79,7 +79,7 @@ ApplicationWindow {
             Layout.preferredWidth: 300
             Layout.fillHeight: true
 
-            onAppliedClicked: {
+            onApplyClicked: {
                 currentFilter = filter
                 imageViewAndControls.imageView.clearData()
                 storeScrollLastPos()

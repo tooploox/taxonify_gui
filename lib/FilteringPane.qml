@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.12
 Rectangle {
     border.color: 'lightgray'
 
-    signal appliedClicked(var filter)
+    signal applyClicked(var filter)
 
     ColumnLayout {
         anchors.fill: parent
@@ -188,7 +188,7 @@ Rectangle {
                     }
                 }
 
-                appliedClicked(filter)
+                applyClicked(filter)
             }
         }
     }
