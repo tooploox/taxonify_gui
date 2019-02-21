@@ -93,6 +93,12 @@ Rectangle {
                     Column {
                         anchors.fill: parent
 
+                        Text {
+                            text: taxonomyRbtn.text
+                            visible: taxonomyRbtn.checked
+                            font.bold: true
+                        }
+
                         TaxonomyFilter {
                             id: taxonomyfltr
                             annotationMode: true
@@ -105,13 +111,23 @@ Rectangle {
                             id: attributefltrs
                             model: attributes
 
-                            AttributeFilter {
-                                attributeName: modelData
-                                enabled: checked
-                                visible: checked
-                                annotationMode: true
-
+                            Column {
+                                id: col
                                 property bool checked: index < attributesRbtns.count ? attributesRbtns.itemAt(index).checked : false
+                                property string text: index < attributesRbtns.count ? attributesRbtns.itemAt(index).text : ''
+
+                                Text {
+                                    text: col.text
+                                    visible: col.checked
+                                    font.bold: true
+                                }
+
+                                AttributeFilter {
+                                    attributeName: modelData
+                                    enabled: col.checked
+                                    visible: col.checked
+                                    annotationMode: true
+                                }
                             }
                         }
                     }
