@@ -31,7 +31,6 @@ Item {
         listModel.clear()
         listView.forceLayout()
         model.clear()
-        update(false)
     }
 
     function getContentY() {

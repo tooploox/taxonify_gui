@@ -62,80 +62,13 @@ ApplicationWindow {
         return {}
     }
 
-    Item{
-       id: pageLoader
+    PageLoader {
+        id: pageLoader
 
-       property var pagesLoaded: 0
-       property bool pageLoadingInProgress: false
-       property bool lastPageLoaded: false
-       property var multiplePagesToLoad: []
-       property var multipageData: []
-       property bool multiplePagesLoading: false
+        appendDataToModel: imageViewAndControls.imageView.appendData
+        restoreModelViewLastPos: restoreScrollLastPos
 
-       function nextPageNumber() { return pagesLoaded + 1; }
-
-       function resetPagesStatus() {
-           pagesLoaded = 0
-           lastPageLoaded = false
-       }
-
-       function loadNextPage(filter){
-           let pageNo = nextPageNumber()
-           console.log("load Next page: " + pageNo)
-           loadPage(filter, pageNo)
-       }
-
-       function loadPage(filter, pageNumber){
-         pageLoadingInProgress = true
-         filterPagedItems.call(filter, pageNumber)
-       }
-
-       function loadPages(filter, pagesToLoad){
-           resetPagesStatus()
-           multiplePagesLoading = true
-
-           var pagesRange = [...Array((pagesToLoad+1)).keys()]  // Generate range 0 ... n
-           multiplePagesToLoad = pagesRange.slice(1)
-           var pageToLoad = multiplePagesToLoad[0]
-           multiplePagesToLoad.shift()
-           loadPage(filter, pageToLoad)
-       }
-
-       function finishLoadingPage(data, continuationToken){
-           console.log("Finished loading page " + nextPageNumber())
-
-           let loadedPage = pagesLoaded
-           pagesLoaded += 1
-           lastPageLoaded = (continuationToken === undefined ? true : false)
-           pageLoadingInProgress = false
-           if(lastPageLoaded) multiplePagesToLoad = []        
-
-           if(multiplePagesLoading){
-               if(data.length > 0)
-                   multipageData = multipageData.concat(data)
-
-               if(multiplePagesToLoad.length > 0){
-                 viewPopulated = false
-                 var pageToLoad = multiplePagesToLoad[0]
-                 multiplePagesToLoad.shift()
-                 loadPage(getCurrentFilter(), pageToLoad)
-               }
-               else {
-                   multiplePagesToLoad = false
-                   viewPopulated = true
-                   imageViewAndControls.imageView.appendData(multipageData, true)
-                   restoreScrollLastPos()
-                   multipageData = []
-               }
-           }
-           else{
-               if(data.length > 0){
-                   viewPopulated = true
-                   imageViewAndControls.imageView.appendData(data, true)
-                   restoreScrollLastPos()
-               }
-           }
-       }
+        filterPagedItemsReq: filterPagedItems
     }
 
     RowLayout {
@@ -326,7 +259,7 @@ ApplicationWindow {
         onSuccess: {
             console.log("Update items")
             imageViewAndControls.imageView.clearData()
-            pageLoader.loadPages(getCurrentFilter(), pageLoader.pagesLoaded)
+            pageLoader.loadPages(getCurrentFilter(), pageLoader.getNumberOfLoadedPages())
         }
 
         onError: {
