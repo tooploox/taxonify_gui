@@ -102,6 +102,7 @@ Rectangle {
 
                         TaxonomyFilter {
                             id: taxonomyfltr
+                            width: parent.width
                             annotationMode: true
                             enabled: taxonomyRbtn.checked
                             visible: taxonomyRbtn.checked
