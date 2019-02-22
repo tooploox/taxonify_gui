@@ -28,7 +28,7 @@ Dialog {
         if (success) {
             if (response.status === 'ok') {
                 Qt.openUrlExternally(response.url)
-                resultDialog.title = 'Data exported successfully!'
+                resultDialog.title = 'Data exported successfully\nwith your internet browser!'
                 resultDialog.closeOnOk = true
             } else if (response.status === 'empty') {
                 resultDialog.title = 'Nothing to export. No data matches\ngiven criteria.'

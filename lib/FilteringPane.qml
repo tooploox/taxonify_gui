@@ -7,6 +7,9 @@ Rectangle {
 
     signal applyClicked(var filter)
     property alias withApplyButton: applyButton.visible
+    property alias title: titleLabel.text
+    property alias titleSize: titleLabel.font.pixelSize
+
     readonly property var attributes: FilteringAttributes.filteringAttributes
     readonly property var filter: buildFilter()
 
@@ -111,6 +114,7 @@ Rectangle {
         height: parent.height
 
         Label {
+            id: titleLabel
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignCenter
             text: qsTr("Filtering")
@@ -120,8 +124,8 @@ Rectangle {
 
         ScrollView {
             Layout.fillWidth: true
+            Layout.fillHeight: true
             Layout.alignment: Qt.AlignCenter
-            Layout.maximumHeight: parent.height - 100
             clip: true
             contentWidth: width
 
@@ -235,11 +239,6 @@ Rectangle {
                     }
                 }
             }
-        }
-
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
         }
 
         Button {

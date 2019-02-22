@@ -30,6 +30,8 @@ Item {
                 Layout.fillHeight: true
                 withApplyButton: false
                 onFilterChanged: buildCriteriaText()
+                title: "Export filter"
+                titleSize: 20
 
             }
         }
@@ -76,6 +78,12 @@ Item {
                         }
                     }
                 }
+            }
+
+            Label {
+                Layout.topMargin: 20
+                Layout.leftMargin: 5
+                text: 'Export filter summary'
             }
 
             ScrollView {
