@@ -6,6 +6,7 @@ import "qrc:/network"
 import "qrc:/network/requests.js" as Req
 
 ApplicationWindow {
+    id: root
     visible: true
 
     width: 640 * 2
@@ -68,7 +69,7 @@ ApplicationWindow {
         appendDataToModel: imageViewAndControls.imageView.appendData
         restoreModelViewLastPos: restoreScrollLastPos
 
-        currentSas: currentSas
+        currentSas: root.currentSas
     }
 
     RowLayout {
