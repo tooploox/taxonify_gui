@@ -4,10 +4,10 @@ import QtQuick.Layouts 1.12
 
 Item {
     id: root
-    property var exportCriteria: criteria()
+    readonly property var exportCriteria: criteria()
 
     function criteria() {
-        let crit = filteringPane.buildFilter()
+        let crit = filteringPane.filter
         if (limitCheckBox.checked) {
             crit.limit = limitTextField.text
         }
@@ -15,8 +15,7 @@ Item {
     }
 
     function buildCriteriaText() {
-        let crit = criteria()
-        filterTextArea.text = JSON.stringify(crit, null, 2)
+        filterTextArea.text = JSON.stringify(criteria(), null, 2)
     }
 
     RowLayout {
@@ -29,8 +28,10 @@ Item {
                 id: filteringPane
                 Layout.preferredWidth: 300
                 Layout.fillHeight: true
-            }
+                withApplyButton: false
+                onFilterChanged: buildCriteriaText()
 
+            }
         }
 
         ColumnLayout {
@@ -58,7 +59,6 @@ Item {
                     checked: true
                     enabled: true
                     text: "Limit results to first"
-
                     onCheckedChanged: buildCriteriaText()
                 }
 
@@ -76,38 +76,34 @@ Item {
                         }
                     }
                 }
-
-
             }
 
-            TextArea {
-                id: filterTextArea
-                readOnly: true
-
+            ScrollView {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                Layout.margins: 5
+                clip: true
 
-                FontLoader { id: fixedFont; name: "Courier" }
-                font { family: fixedFont.name; pointSize: 10 }
+                TextArea {
+                    id: filterTextArea
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    readOnly: true
 
-                text: buildCriteriaText()
-
+                    FontLoader { id: fixedFont; name: "Courier" }
+                    font { family: fixedFont.name; pointSize: 10 }
+                    background: Rectangle {
+                        color: 'whitesmoke'
+                    }
+                }
             }
 
             Label {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
                 Layout.leftMargin: 5
-
-
                 text: "By clicking \"OK\" you will download data that matches provided criteria."
             }
         }
 
     }
-
-
-
-
-
-
 }

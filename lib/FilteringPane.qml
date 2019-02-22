@@ -6,8 +6,104 @@ Rectangle {
     border.color: 'lightgray'
 
     signal applyClicked(var filter)
-
+    property alias withApplyButton: applyButton.visible
     readonly property var attributes: FilteringAttributes.filteringAttributes
+    readonly property var filter: buildFilter()
+
+    function emboldenChoices() {
+        if (checkBox1.checked && fileNameField.text.length > 0) {
+            fileNameField.placeholderText = fileNameField.text
+            checkBox1.font.bold = true
+        } else {
+            fileNameField.placeholderText = 'File name regex'
+            checkBox1.font.bold = false
+            checkBox1.checked = false
+        }
+
+        const acquisitionTime = dateFilter.getAcquisitionTimeAndApply(dateCkbx.checked)
+        if (acquisitionTime) {
+            dateCkbx.font.bold = true
+        } else {
+            dateCkbx.font.bold = false
+            dateCkbx.checked = false
+        }
+
+        if (taxonomyCkbx.checked) {
+            for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
+                var item = taxonomyFilter.container.itemAt(i)
+                if(item.checked) {
+                    item.apply()
+                }
+            }
+        }
+        taxonomyCkbx.font.bold = taxonomyCkbx.checked
+        taxonomyFilter.update()
+
+        for (let i = 0; i < attributefltrs.count; i++) {
+            const attrFltr = attributefltrs.itemAt(i)
+            const attrName = attrFltr.attrName
+            const attrContainer = attrFltr.container
+
+            attrFltr.apply(attrFltr.checked)
+            attrFltr.bold = attrFltr.checked
+        }
+    }
+
+    function buildFilter() {
+        var filter = {}
+
+        if (checkBox1.checked && fileNameField.text.length > 0) {
+            filter.filename = fileNameField.text
+        }
+
+        let startTime = dateFilter.start.isostring
+        if (startTime) {
+            filter.acquisition_time_start = startTime
+        }
+
+        let endTime = dateFilter.end.isostring
+        if (endTime) {
+            filter.acquisition_time_end = endTime
+        }
+
+        if (taxonomyCkbx.checked) {
+            for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
+                var item = taxonomyFilter.container.itemAt(i)
+                if(item.checked) {
+                    var key = taxonomyFilter.taxonomyNames[i]
+                    var value = item.value
+                    if (value === taxonomyFilter.notSpecifiedStr) {
+                        value = ''
+                    }
+                    filter[key] = value
+                }
+            }
+        }
+
+        for (let i = 0; i < attributefltrs.count; i++) {
+
+            const attrFltr = attributefltrs.itemAt(i)
+            const attrName = attrFltr.attrName
+            const attrContainer = attrFltr.container
+
+            if (attrFltr.checked) {
+                var attrChecked = []
+                if (attrContainer.itemAt(0).item.checked) {
+                    attrChecked.push("true") // attr value is true
+                }
+                if (attrContainer.itemAt(1).item.checked) {
+                    attrChecked.push("false") // attr value is false
+                }
+                if (attrContainer.itemAt(2).item.checked) {
+                    attrChecked.push("") // attr value is not specified
+                }
+                if (attrChecked.length > 0) {
+                    filter[attrName] = attrChecked
+                }
+            }
+        }
+        return filter
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -147,79 +243,15 @@ Rectangle {
         }
 
         Button {
+            id: applyButton
             text: qsTr('Apply filters')
 
             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
             height: 40
 
             onClicked: {
-                var filter = {}
-
-                if (checkBox1.checked && fileNameField.text.length > 0) {
-                    filter.filename = fileNameField.text
-                    fileNameField.placeholderText = fileNameField.text
-                    checkBox1.font.bold = true
-                } else {
-                    fileNameField.placeholderText = 'File name regex'
-                    checkBox1.font.bold = false
-                    checkBox1.checked = false
-                }
-
-                const acquisitionTime = dateFilter.getAcquisitionTimeAndApply(dateCkbx.checked)
-                if (acquisitionTime) {
-                    dateCkbx.font.bold = true
-                    if (acquisitionTime.start)
-                        filter.acquisition_time_start = acquisitionTime.start
-                    if (acquisitionTime.end)
-                        filter.acquisition_time_end = acquisitionTime.end
-                } else {
-                    dateCkbx.font.bold = false
-                    dateCkbx.checked = false
-                }
-
-                if (taxonomyCkbx.checked) {
-                    for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
-                        var item = taxonomyFilter.container.itemAt(i)
-                        if(item.checked) {
-                            item.apply()
-                            var key = taxonomyFilter.taxonomyNames[i]
-                            var value = item.value
-                            if (value === taxonomyFilter.notSpecifiedStr) {
-                                value = ''
-                            }
-                            filter[key] = value
-                        }
-                    }
-                }
-                taxonomyCkbx.font.bold = taxonomyCkbx.checked
-                taxonomyFilter.update()
-
-                for (let i = 0; i < attributefltrs.count; i++) {
-
-                    const attrFltr = attributefltrs.itemAt(i)
-                    const attrName = attrFltr.attrName
-                    const attrContainer = attrFltr.container
-
-                    attrFltr.apply(attrFltr.checked)
-                    attrFltr.bold = attrFltr.checked
-
-                    if (attrFltr.checked) {
-                        var attrChecked = []
-                        if (attrContainer.itemAt(0).item.checked) {
-                            attrChecked.push("true") // attr value is true
-                        }
-                        if (attrContainer.itemAt(1).item.checked) {
-                            attrChecked.push("false") // attr value is false
-                        }
-                        if (attrContainer.itemAt(2).item.checked) {
-                            attrChecked.push("") // attr value is not specified
-                        }
-                        if (attrChecked.length > 0) {
-                            filter[attrName] = attrChecked
-                        }
-                    }
-                }
-
+                let filter = buildFilter()
+                emboldenChoices()
                 applyClicked(filter)
             }
         }

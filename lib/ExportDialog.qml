@@ -29,11 +29,14 @@ Dialog {
             if (response.status === 'ok') {
                 Qt.openUrlExternally(response.url)
                 resultDialog.title = 'Data exported successfully!'
+                resultDialog.closeOnOk = true
             } else if (response.status === 'empty') {
                 resultDialog.title = 'Nothing to export. No data matches\ngiven criteria.'
+                resultDialog.closeOnOk = false
             }
         } else {
             resultDialog.title = 'An error occurred during data export.'
+            resultDialog.closeOnOk = true
         }
         resultDialog.open()
     }
@@ -46,7 +49,13 @@ Dialog {
         height: 100
         modal: true
         standardButtons: Dialog.Ok
-        onAccepted: root.close()
+
+        property bool closeOnOk: true
+        onAccepted: {
+            if (closeOnOk) {
+                root.close()
+            }
+        }
     }
 
     ExportForm {
