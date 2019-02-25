@@ -6,6 +6,7 @@ Item {
 
     property real borderWidth: 5
     property real sizeScale: 1
+    property int selectedCount: 0
 
     property var filter: function(item) {
         return false
@@ -31,6 +32,7 @@ Item {
         listModel.clear()
         listView.forceLayout()
         model.clear()
+        selectedCount = 0
         update(false)
     }
 
@@ -236,6 +238,17 @@ Item {
                                     border.width: borderWidth
                                     color: 'lightblue'
                                 }
+                            }
+                        ]
+
+                        transitions: [
+                            Transition {
+                                from: "selected"
+                                ScriptAction { script: { selectedCount -= 1 } }
+                            },
+                            Transition {
+                                to: "selected"
+                                ScriptAction { script: { selectedCount += 1 } }
                             }
                         ]
 
