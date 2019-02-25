@@ -43,11 +43,13 @@ FocusScope {
 
                 TextField {
                     id: username
+                    Layout.alignment: Qt.AlignHCenter
                     placeholderText: "username"
                 }
 
                 TextField {
                     id: password
+                    Layout.alignment: Qt.AlignHCenter
                     placeholderText: "password"
                     echoMode: TextInput.Password
                 }
