@@ -17,6 +17,8 @@
         <file>UploadDialog.qml</file>
         <file>UploadList.qml</file>
         <file>UploadListDialog.qml</file>
+        <file>MainPage.qml</file>
+        <file>LoginPage.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>

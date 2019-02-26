@@ -2,22 +2,33 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
+import 'qrc:/network'
+
 FocusScope {
+    id: root
 
-    //signal login is emitted after a successful login
-    signal login()
+    //signal userLogged is emitted after a successful login
+    signal userLogged(string username)
 
-    property alias username: username.text
-    property alias password: password.text
+    property alias username: usernameField.text
+    property alias password: passwordField.text
 
     function clean() {
-        username.text = ''
-        password.text = ''
+        username = ''
+        password = ''
     }
 
-    Item {
+    Request {
         id: loginRequest
-        property bool busy: false
+        handler: dataAccess.login
+
+        onSuccess: {
+            root.userLogged(username)
+        }
+
+        onError: {
+            errorLabel.text = "Invalid username or password!"
+        }
     }
 
     Item {
@@ -42,13 +53,13 @@ FocusScope {
                 anchors.top: parent.top
 
                 TextField {
-                    id: username
+                    id: usernameField
                     Layout.alignment: Qt.AlignHCenter
                     placeholderText: "username"
                 }
 
                 TextField {
-                    id: password
+                    id: passwordField
                     Layout.alignment: Qt.AlignHCenter
                     placeholderText: "password"
                     echoMode: TextInput.Password
@@ -87,9 +98,8 @@ FocusScope {
                     id: loginButton
                     objectName: "loginButton"
 
-                    enabled: username.text.length !== 0
-                             && password.text.length !== 0
-                             && !loginRequest.busy
+                    enabled: username.length !== 0
+                             && password.length !== 0
 
                     property string customColor: enabled ? "#09f" : "#999"
 
@@ -99,8 +109,7 @@ FocusScope {
                     // enabled:
                     text: "LOGIN"
                     onClicked: {
-                        loginRequest.busy = true
-                        login()
+                        loginRequest.call(username, password)
                     }
                 }
             }
