@@ -125,7 +125,7 @@ ApplicationWindow {
                 ToolButton {
                     text: qsTr("Export")
                     Layout.rightMargin: 5
-                    onClicked: menu.open()
+                    onClicked: { console.log("Export not yet implemented") }
                 }
 
                 DelayButton {
@@ -145,7 +145,7 @@ ApplicationWindow {
                 ToolButton {
                     text: qsTr("⋮")
                     Layout.rightMargin: 5
-                    onClicked: menu.open()
+                    onClicked: { console.log("Logout not yet implemented") }
                 }
 
                 ToolButton {
