@@ -32,9 +32,14 @@ ApplicationWindow {
     }
 
     property var dataAccess: Item {
-        property var server: new Req.Server('http://localhost:5000')
+        property var server
         property QtObject internal: QtObject {
-            property string access_token_header: ''
+            property string access_token
+            property var access_token_header
+
+            onAccess_tokenChanged: {
+                access_token_header = ['Authorization', 'Bearer ' + access_token]
+            }
         }
 
         function exportItems(exportCriteria, cb) {
@@ -47,6 +52,22 @@ ApplicationWindow {
             }
             return server.send(req, cb)
         }
+
+        function login(username, password, cb) {
+
+            var req = {
+                handler: '/user/login',
+                method: 'POST',
+                params: { username: username, password: password }
+            }
+
+            return server.send(req, function(res) {
+                if(res.status === 200 && res.body !== null) {
+                    internal.access_token = res.body.access_token
+                }
+                cb(res)
+            })
+        }
     }
 
     Request {
@@ -55,5 +76,20 @@ ApplicationWindow {
 
         onSuccess: exportDialog.processExportResponse(true, res)
         onError: exportDialog.processExportResponse(false, details)
+    }
+
+    Request {
+        id: login
+        handler: dataAccess.login
+        onError: console.log('Login failed. Details: ' + JSON.stringify(details, null, 2))
+    }
+
+    Component.onCompleted: {
+        const serverAddress = 'http://localhost'
+        console.log('using server:', serverAddress)
+        dataAccess.server = new Req.Server(serverAddress)
+        const username = 'aquascopeuser'
+        const password = 'hardpass'
+        login.call(username, password)
     }
 }
