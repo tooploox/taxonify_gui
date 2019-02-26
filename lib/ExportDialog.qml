@@ -36,7 +36,7 @@ Dialog {
             }
         } else {
             resultDialog.title = 'An error occurred during data export.'
-            resultDialog.closeOnOk = true
+            resultDialog.closeOnOk = false
         }
         resultDialog.open()
     }
