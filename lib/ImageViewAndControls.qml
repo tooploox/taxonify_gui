@@ -6,27 +6,6 @@ import com.microscopeit 1.0
 
 ColumnLayout {
 
-    property alias address : uploadDialog.address
-    property alias token : uploadDialog.token
-
-    property bool uploadInProgress: false
-
-    UploadDialog {
-       id: uploadDialog
-       onSuccess: {
-           uploadButton.background.color = 'lightgreen'
-           uploadInProgress = false
-       }
-       onError: {
-           uploadButton.background.color = 'lightcoral'
-           uploadInProgress = false
-       }
-       onUploadStarted: {
-           uploadButton.background.color = 'lightgray'
-           uploadInProgress = true
-       }
-    }
-
     Rectangle{
         Layout.fillWidth: true
         Layout.preferredHeight: 50
@@ -36,21 +15,6 @@ ColumnLayout {
 
             SortingControls {
                 enabled: false
-            }
-            DelayButton {
-                id: uploadButton
-
-                Layout.alignment: Qt.AlignRight
-                Layout.rightMargin: 5
-
-                text: 'Upload data'
-                delay: 0
-                progress: uploadDialog.uploadProgress
-
-                onClicked: {
-                    if(!uploadInProgress) uploadButton.background.color = 'lightgray'
-                    uploadDialog.open()
-                }
             }
         }
     }
