@@ -89,7 +89,7 @@ Item {
                 }
 
                 Label {
-                    text: getSettingVariable('username')
+                    text: currentUser
                     font.bold: true
                     rightPadding: 10
                 }
