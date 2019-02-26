@@ -145,13 +145,13 @@ ApplicationWindow {
                 ToolButton {
                     text: qsTr("⋮")
                     Layout.rightMargin: 5
-                    onClicked: { console.log("Logout not yet implemented") }
+                    onClicked: { console.log("Settings not yet implemented") }
                 }
 
                 ToolButton {
                     text: qsTr("Log out")
                     Layout.rightMargin: 15
-                    onClicked: menu.open()
+                    onClicked: { console.log("Logout not yet implemented") }
                 }
             }
         }
