@@ -105,7 +105,7 @@ Item {
         x: Math.floor((parent.width - width) / 2)
         y: Math.floor((parent.height - height) / 2)
 
-        title: qsTr("Package name already uploaded")
+        title: qsTr("Package " + uploader.getFileName(internal.fileName) + " is already uploaded")
         standardButtons: Dialog.Yes | Dialog.No
 
         modal: true
@@ -117,7 +117,7 @@ Item {
         Label {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            text: "\nPackage " + uploader.getFileName(internal.fileName) + " already uploaded.\n\nDo you want to upload for the second time?\n"
+            text: "Do you want to upload <b>" + uploader.getFileName(internal.fileName) + "</b> for the second time?"
         }
     }
 
