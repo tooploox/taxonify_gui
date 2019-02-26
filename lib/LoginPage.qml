@@ -22,7 +22,9 @@ Item {
     }
 
     function tryLogin() {
+        if(username.length == 0 || password.length == 0) return
         loginInProgress = true
+        console.log(username + "p: " + password)
         loginRequest.call(username, password)
     }
 
@@ -75,8 +77,8 @@ Item {
 
                     placeholderText: "username"
 
-                    Keys.onReturnPressed: loginRequest.call(username, password)
-                    Keys.onEnterPressed: loginRequest.call(username, password)
+                    Keys.onReturnPressed: tryLogin()
+                    Keys.onEnterPressed: tryLogin()
                 }
 
                 TextField {
@@ -87,8 +89,8 @@ Item {
                     placeholderText: "password"
                     echoMode: TextInput.Password
 
-                    Keys.onReturnPressed: loginRequest.call(username, password)
-                    Keys.onEnterPressed: loginRequest.call(username, password)
+                    Keys.onReturnPressed: tryLogin()
+                    Keys.onEnterPressed: tryLogin()
                 }
 
                 Text {

@@ -50,7 +50,7 @@ ApplicationWindow {
     LoginPage {
         id: loginPage
         onUserLogged: (username) => {
-            currentUser = username
+            mainPage.currentUser = username
             st.replace(mainPage)
             mainPage.visible = true
         }

@@ -31,6 +31,7 @@ Item {
     property alias address : uploadDialog.address
     property alias token : uploadDialog.token
     property bool uploadInProgress: false
+    property string currentUser
 
     address: getSettingVariable('host')
     token: dataAccess.internal.access_token
@@ -51,6 +52,11 @@ Item {
             uploadButton.background.color = 'lightgray'
             uploadInProgress = true
         }
+    }
+
+    ExportDialog {
+           id: exportDialog
+           onAccepted: exportItems.call(exportDialog.exportCriteria)
     }
 
     PageLoader {
@@ -83,7 +89,7 @@ Item {
                 }
 
                 Label {
-                    text: currentUser
+                    text: getSettingVariable('username')
                     font.bold: true
                     rightPadding: 10
                 }
@@ -91,7 +97,7 @@ Item {
                 ToolButton {
                     text: qsTr("Export")
                     Layout.rightMargin: 5
-                    onClicked: { console.log("Export not yet implemented") }
+                    onClicked: exportDialog.open()
                 }
 
                 DelayButton {
@@ -180,15 +186,23 @@ Item {
                         return JSON.parse(JSON.stringify(obj))
                     }
 
+                    let now = new Date().toISOString()
+
                     for(let i = 0; i < model.count; i++) {
 
                         const item = model.get(i)
 
                         if(!imageViewAndControls.filter(item) && item.selected) {
 
+                            let annotation_update = makeCopy(criteria)
+                            for (let field in criteria) {
+                                annotation_update[field + '_modification_time'] = now
+                                annotation_update[field + '_modified_by'] = currentUser
+                            }
+
                             const current = makeCopy(item.metadata)
                             const update = Object.assign(makeCopy(item.metadata),
-                                                         criteria)
+                                                         annotation_update)
 
                             const updateItem = {
                                 current: current,
