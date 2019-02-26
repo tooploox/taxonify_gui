@@ -105,6 +105,9 @@ Item {
         modal: true
         parent: ApplicationWindow.overlay
 
+        width: 450
+        height: 150
+
         x: Math.floor((parent.width - width) / 2)
         y: Math.floor((parent.height - height) / 2)
 

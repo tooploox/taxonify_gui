@@ -8,8 +8,6 @@ import "qrc:/network/requests.js" as Req
 Item {
     id: root
 
-
-
     property string currentSas: ''
     property var currentFilter: {}
     property bool viewPopulated: false
@@ -84,7 +82,7 @@ Item {
                 }
 
                 Label {
-                    text: getSettingVariable('username')
+                    text: currentUser
                     font.bold: true
                     rightPadding: 10
                 }

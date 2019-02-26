@@ -13,9 +13,17 @@ FocusScope {
     property alias username: usernameField.text
     property alias password: passwordField.text
 
+    property bool loginInProgress: false
+
     function clean() {
         username = ''
         password = ''
+        loginInProgress = false
+    }
+
+    function tryLogin() {
+        loginInProgress = true
+        loginRequest.call(username, password)
     }
 
     Request {
@@ -23,10 +31,12 @@ FocusScope {
         handler: dataAccess.login
 
         onSuccess: {
+            loginInProgress = false
             root.userLogged(username)
         }
 
         onError: {
+            loginInProgress = false
             errorLabel.text = "Invalid username or password!"
         }
     }
@@ -56,6 +66,9 @@ FocusScope {
                     id: usernameField
                     Layout.alignment: Qt.AlignHCenter
                     placeholderText: "username"
+
+                    Keys.onReturnPressed: loginRequest.call(username, password)
+                    Keys.onEnterPressed: loginRequest.call(username, password)
                 }
 
                 TextField {
@@ -63,6 +76,9 @@ FocusScope {
                     Layout.alignment: Qt.AlignHCenter
                     placeholderText: "password"
                     echoMode: TextInput.Password
+
+                    Keys.onReturnPressed: loginRequest.call(username, password)
+                    Keys.onEnterPressed: loginRequest.call(username, password)
                 }
 
                 Text {
@@ -100,6 +116,7 @@ FocusScope {
 
                     enabled: username.length !== 0
                              && password.length !== 0
+                             && !loginInProgress
 
                     property string customColor: enabled ? "#09f" : "#999"
 
@@ -108,9 +125,7 @@ FocusScope {
 
                     // enabled:
                     text: "LOGIN"
-                    onClicked: {
-                        loginRequest.call(username, password)
-                    }
+                    onClicked: tryLogin()
                 }
             }
         }
