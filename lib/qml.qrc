@@ -17,6 +17,8 @@
         <file>UploadDialog.qml</file>
         <file>UploadList.qml</file>
         <file>UploadListDialog.qml</file>
+        <file>MainPage.qml</file>
+        <file>LoginPage.qml</file>
         <file>ExportDialog.qml</file>
         <file>ExportForm.qml</file>
     </qresource>
@@ -43,5 +45,8 @@
         <file>DataAccess.qml</file>
         <file>Request.qml</file>
         <file>requests.js</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>logo.png</file>
     </qresource>
 </RCC>

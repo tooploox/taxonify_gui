@@ -57,7 +57,6 @@ QtObject {
     }
 
     function login(username, password, cb) {
-
         var req = {
             handler: '/user/login',
             method: 'POST',

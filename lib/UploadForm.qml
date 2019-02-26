@@ -102,14 +102,17 @@ Item {
     Dialog {
         id: duplicated
 
+        modal: true
+        parent: ApplicationWindow.overlay
+
+        width: 450
+        height: 150
+
         x: Math.floor((parent.width - width) / 2)
         y: Math.floor((parent.height - height) / 2)
 
         title: qsTr("Package " + uploader.getFileName(internal.fileName) + " is already uploaded")
         standardButtons: Dialog.Yes | Dialog.No
-
-        modal: true
-        parent: ApplicationWindow.overlay
 
         onAccepted: root.startUpload()
         onRejected: clearUploadStatus()
