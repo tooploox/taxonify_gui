@@ -16,6 +16,10 @@ QString Uploader::getPlatformFilePath(QString fileUrl) const{
   return QDir::toNativeSeparators(url.toLocalFile());
 }
 
+QString Uploader::getFileName(QString filePath) const{
+  return QUrl(filePath).fileName();
+}
+
 void Uploader::upload(QString path) {
 
     if(address.isEmpty()) {
