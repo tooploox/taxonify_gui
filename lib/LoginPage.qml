@@ -99,6 +99,8 @@ FocusScope {
                     Layout.maximumWidth: parent.width
                     Layout.preferredHeight: text != "" ? implicitHeight : 0
 
+                    horizontalAlignment: Text.AlignHCenter
+
                     wrapMode: Text.Wrap
                     color: '#a00'
                     text: ""
