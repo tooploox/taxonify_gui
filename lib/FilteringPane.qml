@@ -42,13 +42,13 @@ Rectangle {
         taxonomyCkbx.font.bold = taxonomyCkbx.checked
         taxonomyFilter.update()
 
-        for (let i = 0; i < attributefltrs.count; i++) {
-            const attrFltr = attributefltrs.itemAt(i)
-            const attrName = attrFltr.attrName
-            const attrContainer = attrFltr.container
+        for (let i = 0; i < attributeFilters.count; i++) {
+            const attrFilter = attributeFilters.itemAt(i)
+            const attrName = attrFilter.attrName
+            const attrContainer = attrFilter.container
 
-            attrFltr.apply(attrFltr.checked)
-            attrFltr.bold = attrFltr.checked
+            attrFilter.apply(attrFilter.checked)
+            attrFilter.bold = attrFilter.checked
         }
     }
 
@@ -83,13 +83,13 @@ Rectangle {
             }
         }
 
-        for (let i = 0; i < attributefltrs.count; i++) {
+        for (let i = 0; i < attributeFilters.count; i++) {
 
-            const attrFltr = attributefltrs.itemAt(i)
-            const attrName = attrFltr.attrName
-            const attrContainer = attrFltr.container
+            const attrFilter = attributeFilters.itemAt(i)
+            const attrName = attrFilter.attrName
+            const attrContainer = attrFilter.container
 
-            if (attrFltr.checked) {
+            if (attrFilter.checked) {
                 var attrChecked = []
                 if (attrContainer.itemAt(0).item.checked) {
                     attrChecked.push("true") // attr value is true
@@ -204,7 +204,7 @@ Rectangle {
                 }
 
                 Repeater {
-                    id: attributefltrs
+                    id: attributeFilters
                     model: attributes
 
                     Column {
@@ -212,8 +212,8 @@ Rectangle {
                         property string attrName: modelData
                         property alias checked: attrCbx.checked
                         property alias bold: attrCbx.font.bold
-                        property alias container: attrFltr.container
-                        property alias apply: attrFltr.apply
+                        property alias container: attrFilter.container
+                        property alias apply: attrFilter.apply
 
                         CheckBox {
                             id: attrCbx
@@ -226,7 +226,7 @@ Rectangle {
                             anchors.leftMargin: 20
 
                             AttributeFilter {
-                                id: attrFltr
+                                id: attrFilter
                                 attributeName: attrName
                                 enabled: checked
                                 visible: checked
