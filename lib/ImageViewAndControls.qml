@@ -6,82 +6,15 @@ import com.microscopeit 1.0
 
 ColumnLayout {
 
-    property alias address : uploadDialog.address
-    property alias exportCriteria: exportDialog.exportCriteria
-    property alias token : uploadDialog.token
-    signal exportScheduled()
-
-    function processExportResponse(success, response) {
-        exportDialog.processExportResponse(success, response)
-    }
-
-    property bool uploadInProgress: false
-
-    UploadDialog {
-       id: uploadDialog
-       onSuccess: {
-           uploadButton.background.color = 'lightgreen'
-           uploadInProgress = false
-       }
-       onError: {
-           uploadButton.background.color = 'lightcoral'
-           uploadInProgress = false
-       }
-       onUploadStarted: {
-           uploadButton.background.color = 'lightgray'
-           uploadInProgress = true
-       }
-    }
-
-    ExportDialog {
-       id: exportDialog
-       onAccepted: exportScheduled()
-    }
-
     Rectangle{
         Layout.fillWidth: true
         Layout.preferredHeight: 50
         border.color: 'lightgray'
-
-        clip: true
-
         RowLayout{
             anchors.fill: parent
-            anchors.margins: 1
 
             SortingControls {
                 enabled: false
-                Layout.alignment: Qt.AlignLeft
-            }
-
-            Item {
-                Layout.fillWidth: true
-            }
-
-            Button {
-                id: exportButton
-
-                Layout.alignment: Qt.AlignRight
-                Layout.rightMargin: 5
-
-                text: 'Export'
-                onClicked: exportDialog.open()
-            }
-
-            DelayButton {
-                id: uploadButton
-
-                Layout.alignment: Qt.AlignRight
-                Layout.rightMargin: 5
-
-                text: 'Upload'
-                delay: 0
-                progress: uploadDialog.uploadProgress
-
-                onClicked: {
-                    if(!uploadInProgress) uploadButton.background.color = 'lightgray'
-                    uploadDialog.open()
-                }
             }
         }
     }

@@ -19,6 +19,7 @@ public:
     Q_INVOKABLE void upload(QString path);
     Q_INVOKABLE void abort();
     Q_INVOKABLE QString getPlatformFilePath(QString filePath) const;
+    Q_INVOKABLE QString getFileName(QString filePath) const;
 
 signals:
     void addressChanged();

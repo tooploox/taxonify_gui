@@ -1,9 +1,13 @@
 import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
+
 import QtQuick.Dialogs 1.3
+import QtQuick.Layouts 1.12
+// This import needs to be in this order to use QtQuick.Control Dialog class for duplicated Dialog!
+import QtQuick.Controls 2.12
 
 import com.microscopeit 1.0
+
+import "qrc:/network"
 
 Item {
     id: root
@@ -46,6 +50,36 @@ Item {
         property int errorStatus
     }
 
+    function proceedWithUpload(uploadedPackages) {
+        let baseName = uploader.getFileName(internal.fileName)
+        for(let pack of uploadedPackages) {
+            if(baseName == pack.filename) {
+                return duplicated.open()
+            }
+        }
+        startUpload()
+    }
+
+    function startUpload() {
+        root.uploadStarted()
+        uploader.upload(internal.fileName)
+    }
+
+    function clearUploadStatus() {
+        internal.errorMessage = ''
+        internal.errorStatus = 0
+        internal.fileName = ''
+        uploadMessage.text = 'Select file for upload'
+    }
+
+    Request{
+        id: checkPackagename
+        handler: dataAccess.uploadList
+
+        onSuccess: root.proceedWithUpload(res)
+        onError: console.log("Failed to get upload list! Details: " + details)
+    }
+
     FileDialog {
         id: fileDialog
         title: "Please choose a file"
@@ -61,8 +95,29 @@ Item {
             internal.errorMessage = ''
             internal.fileName = file
 
-            root.uploadStarted()
-            uploader.upload(file)
+            checkPackagename.call()
+        }
+    }
+
+    Dialog {
+        id: duplicated
+
+        x: Math.floor((parent.width - width) / 2)
+        y: Math.floor((parent.height - height) / 2)
+
+        title: qsTr("Package " + uploader.getFileName(internal.fileName) + " is already uploaded")
+        standardButtons: Dialog.Yes | Dialog.No
+
+        modal: true
+        parent: ApplicationWindow.overlay
+
+        onAccepted: root.startUpload()
+        onRejected: clearUploadStatus()
+
+        Label {
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: "Do you want to upload <b>" + uploader.getFileName(internal.fileName) + "</b> for the second time?"
         }
     }
 
@@ -102,6 +157,7 @@ Item {
             Layout.fillWidth: true
 
             Label {
+                id: uploadMessage
                 Layout.fillWidth: true
                 elide: Text.ElideLeft
 

@@ -6,6 +6,7 @@ import "qrc:/network"
 import "qrc:/network/requests.js" as Req
 
 ApplicationWindow {
+    id: root
     visible: true
 
     width: 640 * 2
@@ -14,10 +15,10 @@ ApplicationWindow {
     title: qsTr("Aquascope Data Browser")
 
     readonly property var defaultSettings: ({
-        host: 'http://localhost',
-        username: 'aq_user',
-        password : 'hardpass'
-    })
+                                                host: 'http://localhost',
+                                                username: 'aq_user',
+                                                password : 'hardpass'
+                                            })
 
     readonly property var settingsFromFile:
         settingsPath ? Req.readJsonFromLocalFileSync(settingsPath) : null
@@ -62,101 +63,186 @@ ApplicationWindow {
         return {}
     }
 
+    property alias address : uploadDialog.address
+    property alias token : uploadDialog.token
+    property bool uploadInProgress: false
+
+    address: getSettingVariable('host')
+    token: dataAccess.internal.access_token
+
+
+    UploadDialog {
+        id: uploadDialog
+        onSuccess: {
+            uploadButton.background.color = 'lightgreen'
+            uploadInProgress = false
+        }
+        onError: {
+            uploadButton.background.color = 'lightcoral'
+            uploadInProgress = false
+        }
+        onUploadStarted: {
+            uploadButton.background.color = 'lightgray'
+            uploadInProgress = true
+        }
+    }
+
+    ExportDialog {
+           id: exportDialog
+           onAccepted: exportItems.call(exportDialog.exportCriteria)
+    }
+
     PageLoader {
         id: pageLoader
 
         appendDataToModel: imageViewAndControls.imageView.appendData
         restoreModelViewLastPos: restoreScrollLastPos
 
-        currentSas: currentSas
+        currentSas: root.currentSas
     }
 
-    RowLayout {
+    ColumnLayout {
+
         anchors.fill: parent
 
-        FilteringPane {
-
-            Layout.preferredWidth: 300
-            Layout.fillHeight: true
-
-            onApplyClicked: {
-                currentFilter = filter
-                imageViewAndControls.imageView.clearData()
-                storeScrollLastPos()
-                pageLoader.resetPagesStatus()
-                pageLoader.loadNextPage(getCurrentFilter())
-            }
-
-        }
-
-        ImageViewAndControls {
-            id: imageViewAndControls
-
-            address: getSettingVariable('host')
-            token: dataAccess.internal.access_token
-
+        Rectangle{
             Layout.fillWidth: true
-            Layout.fillHeight: true
+            Layout.preferredHeight: 50
+            border.color: 'lightgray'
 
-            filter: ((criteria) => {
-                         return (item) => {
-                             for (let c in criteria) {
-                                 if (item.metadata[c] !== criteria[c])
-                                 return false
-                             }
-                             return true
-                         }
+            RowLayout {
+                anchors.fill: parent
 
-                     })(annotationPane.criteria)
-
-            onAtPageBottom: {
-                if(pageLoader.internal.pageLoadingInProgress || pageLoader.internal.lastPageLoaded) return
-                storeScrollLastPos()
-                pageLoader.loadNextPage(getCurrentFilter())
-            }
-
-            onExportScheduled: exportItems.call(imageViewAndControls.exportCriteria)
-        }
-
-        AnnotationPane {
-            id: annotationPane
-            Layout.preferredWidth: 300
-            Layout.fillHeight: true
-
-            onApplyClicked: {
-                storeScrollLastPos()
-
-                const model = imageViewAndControls.imageView.model
-
-                const toUpdate = []
-
-                function makeCopy(obj) {
-                    return JSON.parse(JSON.stringify(obj))
+                Item {
+                    Layout.fillWidth: true
                 }
 
-                for(let i = 0; i < model.count; i++) {
+                Label {
+                    text: qsTr("You are signed in as: ")
+                }
 
-                    const item = model.get(i)
+                Label {
+                    text: getSettingVariable('username')
+                    font.bold: true
+                    rightPadding: 10
+                }
 
-                    if(!imageViewAndControls.filter(item) && item.selected) {
+                ToolButton {
+                    text: qsTr("Export")
+                    Layout.rightMargin: 5
+                    onClicked: exportDialog.open()
+                }
 
-                        const current = makeCopy(item.metadata)
-                        const update = Object.assign(makeCopy(item.metadata),
-                                                     criteria)
+                DelayButton {
+                    id: uploadButton
+                    Layout.rightMargin: 5
 
-                        const updateItem = {
-                            current: current,
-                            update: update
-                        }
+                    text: 'Upload data'
+                    delay: 0
+                    progress: uploadDialog.uploadProgress
 
-                        toUpdate.push(updateItem)
+                    onClicked: {
+                        if(!uploadInProgress) uploadButton.background.color = 'lightgray'
+                        uploadDialog.open()
+                    }
+                }
+
+                ToolButton {
+                    text: qsTr("⋮")
+                    Layout.rightMargin: 5
+                    onClicked: { console.log("Settings not yet implemented") }
+                }
+
+                ToolButton {
+                    text: qsTr("Log out")
+                    Layout.rightMargin: 15
+                    onClicked: { console.log("Logout not yet implemented") }
+                }
+            }
+        }
+
+        RowLayout {
+            Layout.fillHeight: true
+
+            FilteringPane {
+
+                Layout.preferredWidth: 300
+                Layout.fillHeight: true
+
+                onApplyClicked: {
+                    currentFilter = filter
+                    imageViewAndControls.imageView.clearData()
+                    storeScrollLastPos()
+                    pageLoader.resetPagesStatus()
+                    pageLoader.loadNextPage(getCurrentFilter())
+                }
+
+            }
+
+            ImageViewAndControls {
+                id: imageViewAndControls
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                filter: ((criteria) => {
+                             return (item) => {
+                                 for (let c in criteria) {
+                                     if (item.metadata[c] !== criteria[c])
+                                     return false
+                                 }
+                                 return true
+                             }
+
+                         })(annotationPane.criteria)
+
+                onAtPageBottom: {
+                    if(pageLoader.internal.pageLoadingInProgress || pageLoader.internal.lastPageLoaded) return
+                    storeScrollLastPos()
+                    pageLoader.loadNextPage(getCurrentFilter())
+                }
+            }
+
+            AnnotationPane {
+                id: annotationPane
+                Layout.preferredWidth: 300
+                Layout.fillHeight: true
+
+                onApplyClicked: {
+                    storeScrollLastPos()
+
+                    const model = imageViewAndControls.imageView.model
+
+                    const toUpdate = []
+
+                    function makeCopy(obj) {
+                        return JSON.parse(JSON.stringify(obj))
                     }
 
-                    // remove selection
-                    item.selected = false
-                }
-                if (toUpdate.length > 0) {
-                    updateItems.call(toUpdate)
+                    for(let i = 0; i < model.count; i++) {
+
+                        const item = model.get(i)
+
+                        if(!imageViewAndControls.filter(item) && item.selected) {
+
+                            const current = makeCopy(item.metadata)
+                            const update = Object.assign(makeCopy(item.metadata),
+                                                         criteria)
+
+                            const updateItem = {
+                                current: current,
+                                update: update
+                            }
+
+                            toUpdate.push(updateItem)
+                        }
+
+                        // remove selection
+                        item.selected = false
+                    }
+                    if (toUpdate.length > 0) {
+                        updateItems.call(toUpdate)
+                    }
                 }
             }
         }
@@ -250,8 +336,8 @@ ApplicationWindow {
         id: exportItems
         handler: dataAccess.exportItems
 
-        onSuccess: imageViewAndControls.processExportResponse(true, res)
-        onError: imageViewAndControls.processExportResponse(false, details)
+        onSuccess: exportDialog.processExportResponse(true, res)
+        onError: exportDialog.processExportResponse(false, details)
     }
 
     Component.onCompleted: {
