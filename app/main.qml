@@ -13,11 +13,7 @@ ApplicationWindow {
 
     title: qsTr("Aquascope Data Browser")
 
-    readonly property var defaultSettings: ({
-                                                host: 'http://localhost',
-                                                username: 'aq_user',
-                                                password : 'hardpass'
-                                            })
+    readonly property var defaultSettings: ({ host: 'http://localhost' })
 
     readonly property var settingsFromFile:
         settingsPath ? Req.readJsonFromLocalFileSync(settingsPath) : null

@@ -49,22 +49,31 @@ FocusScope {
         Rectangle {
             anchors.centerIn: parent
 
-            width: 200
+            width: 280
             height: column.height + 40
             radius: 10
 
             ColumnLayout {
-
                 id: column
 
-                anchors.margins: 20
+                width: parent.width - 20
+
+                anchors.margins: 10
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
 
+
+                Image {
+                    source: "images/logo.png"
+                    height: 100
+                }
+
                 TextField {
                     id: usernameField
-                    Layout.alignment: Qt.AlignHCenter
+
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
                     placeholderText: "username"
 
                     Keys.onReturnPressed: loginRequest.call(username, password)
@@ -73,7 +82,9 @@ FocusScope {
 
                 TextField {
                     id: passwordField
-                    Layout.alignment: Qt.AlignHCenter
+
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
                     placeholderText: "password"
                     echoMode: TextInput.Password
 
