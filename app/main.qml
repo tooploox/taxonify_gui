@@ -27,6 +27,7 @@ ApplicationWindow {
     property string currentSas: ''
     property bool viewPopulated: false
     property real lastContentYPos: 0
+    property var currentUser: getSettingVariable('username')
 
     function storeScrollLastPos() {
         lastContentYPos = imageViewAndControls.imageView.getContentY()
@@ -219,15 +220,23 @@ ApplicationWindow {
                         return JSON.parse(JSON.stringify(obj))
                     }
 
+                    let now = new Date().toISOString()
+
                     for(let i = 0; i < model.count; i++) {
 
                         const item = model.get(i)
 
                         if(!imageViewAndControls.filter(item) && item.selected) {
 
+                            let annotation_update = makeCopy(criteria)
+                            for (let field in criteria) {
+                                annotation_update[field + '_modification_time'] = now
+                                annotation_update[field + '_modified_by'] = currentUser
+                            }
+
                             const current = makeCopy(item.metadata)
                             const update = Object.assign(makeCopy(item.metadata),
-                                                         criteria)
+                                                         annotation_update)
 
                             const updateItem = {
                                 current: current,
