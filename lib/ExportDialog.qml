@@ -74,15 +74,15 @@ Dialog {
 
         Button {
             id: okButton
-            // hack for proper layout of busy indicator and text on button
-            property string prefix: busyIndication.running ? "        " : ""
-            text: prefix + "Ok"
+            text: busyIndication.running ? "" : "Ok"
 
             indicator: Item {
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 BusyIndicator {
                     id: busyIndication
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     width: 30
                     height: 30
                     running: false
