@@ -52,6 +52,11 @@ Item {
         }
     }
 
+    ExportDialog {
+           id: exportDialog
+           onAccepted: exportItems.call(exportDialog.exportCriteria)
+    }
+
     PageLoader {
         id: pageLoader
 
@@ -90,7 +95,7 @@ Item {
                 ToolButton {
                     text: qsTr("Export")
                     Layout.rightMargin: 5
-                    onClicked: { console.log("Export not yet implemented") }
+                    onClicked: exportDialog.open()
                 }
 
                 DelayButton {

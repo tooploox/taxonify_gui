@@ -64,10 +64,17 @@ ApplicationWindow {
         MainPage { }
     }
 
+    Request {
+        id: exportItems
+        handler: dataAccess.exportItems
+
+        onSuccess: exportDialog.processExportResponse(true, res)
+        onError: exportDialog.processExportResponse(false, details)
+    }
+
     Component.onCompleted: {
         const serverAddress = getSettingVariable('host')
+        console.log('using server:', serverAddress)
         dataAccess.server = new Req.Server(serverAddress)
-        const username = getSettingVariable('username')
-        const password = getSettingVariable('password')
     }
 }

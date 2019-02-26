@@ -122,4 +122,14 @@ QtObject {
         }
         return server.send(req,cb)
     }
+
+    function exportItems(exportCriteria, cb) {
+        var req = {
+            handler: '/export',
+            method: 'GET',
+            headers: [internal.access_token_header],
+            params: exportCriteria
+        }
+        return server.send(req, cb)
+    }
 }
