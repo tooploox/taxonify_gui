@@ -18,6 +18,16 @@ Item {
         filterTextArea.text = JSON.stringify(criteria(), null, 2)
     }
 
+    function acceptLimitInput() {
+        limitTextWarning.visible = false
+        buildCriteriaText()
+    }
+
+    function denyLimitInput() {
+        limitTextWarning.visible = true
+
+    }
+
     RowLayout {
         anchors.fill: parent
 
@@ -73,11 +83,22 @@ Item {
                     validator: IntValidator { bottom: 1 }
 
                     onTextChanged: {
-                        if (enabled) {
-                            buildCriteriaText()
+                        if (!acceptableInput) {
+                            denyLimitInput()
+                        } else if (enabled && acceptableInput) {
+                            acceptLimitInput()
                         }
                     }
                 }
+            }
+
+            Label {
+                Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
+                Layout.leftMargin: 5
+                id: limitTextWarning
+                text: "Limit must be a number greater than 0."
+                color: 'red'
+                visible: false
             }
 
             Label {
