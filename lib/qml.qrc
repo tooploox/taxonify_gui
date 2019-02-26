@@ -10,6 +10,7 @@
         <file>ImageViewAndControls.qml</file>
         <file>PageLoader.qml</file>
         <file>qmldir</file>
+        <file>SettingsDialog.qml</file>
         <file>SortingControls.qml</file>
         <file>TaxonomyFilter.qml</file>
         <file>taxonomy_hierarchy.json</file>
@@ -22,7 +23,8 @@
         <file>ExportDialog.qml</file>
         <file>ExportForm.qml</file>
         <file>ModifiedByFilter.qml</file>
-    </qresource>
+        <file>UserSettingsForm.qml</file>
+   </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
         <file>sample_images/10.jpeg</file>
