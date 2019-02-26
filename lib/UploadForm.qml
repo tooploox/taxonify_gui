@@ -1,7 +1,9 @@
 import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
+
 import QtQuick.Dialogs 1.3
+import QtQuick.Layouts 1.12
+// This import needs to be in this order to use QtQuick.Control Dialog class for duplicated Dialog!
+import QtQuick.Controls 2.12
 
 import com.microscopeit 1.0
 
@@ -100,16 +102,22 @@ Item {
     Dialog {
         id: duplicated
 
-        title: "Package name already uploaded"
+        x: Math.floor((parent.width - width) / 2)
+        y: Math.floor((parent.height - height) / 2)
+
+        title: qsTr("Package name already uploaded")
         standardButtons: Dialog.Yes | Dialog.No
 
-        onYes: root.startUpload()
-        onNo: clearUploadStatus()
+        modal: true
+        parent: ApplicationWindow.overlay
+
+        onAccepted: root.startUpload()
+        onRejected: clearUploadStatus()
 
         Label {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            text: "Package " + uploader.getFileName(internal.fileName) + " already uploaded.\n\nDo you want to upload for the second time?\n"
+            text: "\nPackage " + uploader.getFileName(internal.fileName) + " already uploaded.\n\nDo you want to upload for the second time?\n"
         }
     }
 
