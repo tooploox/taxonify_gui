@@ -47,29 +47,18 @@ ApplicationWindow {
         initialItem: loginPage
     }
 
-    Component {
+    LoginPage {
         id: loginPage
-
-        LoginPage {
-            onUserLogged: (username) => {
-                currentUser = username
-                st.replace(mainPage)
-            }
+        onUserLogged: (username) => {
+            currentUser = username
+            st.replace(mainPage)
+            mainPage.visible = true
         }
     }
 
-    Component {
+    MainPage {
         id: mainPage
-
-        MainPage { }
-    }
-
-    Request {
-        id: exportItems
-        handler: dataAccess.exportItems
-
-        onSuccess: exportDialog.processExportResponse(true, res)
-        onError: exportDialog.processExportResponse(false, details)
+        visible: false
     }
 
     Component.onCompleted: {

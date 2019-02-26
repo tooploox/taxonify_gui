@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.12
 
 import 'qrc:/network'
 
-FocusScope {
+Item {
     id: root
 
     //signal userLogged is emitted after a successful login
@@ -71,7 +71,6 @@ FocusScope {
 
                 TextField {
                     id: usernameField
-
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                     placeholderText: "username"
@@ -142,5 +141,9 @@ FocusScope {
                 }
             }
         }
+    }
+
+    Component.onCompleted: {
+        usernameField.forceActiveFocus()
     }
 }

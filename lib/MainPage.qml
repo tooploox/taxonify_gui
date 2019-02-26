@@ -35,6 +35,7 @@ Item {
     address: getSettingVariable('host')
     token: dataAccess.internal.access_token
 
+    onVisibleChanged: if(visible) pageLoader.loadNextPage(getCurrentFilter())
 
     UploadDialog {
         id: uploadDialog
@@ -50,11 +51,6 @@ Item {
             uploadButton.background.color = 'lightgray'
             uploadInProgress = true
         }
-    }
-
-    ExportDialog {
-           id: exportDialog
-           onAccepted: exportItems.call(exportDialog.exportCriteria)
     }
 
     PageLoader {
@@ -95,7 +91,7 @@ Item {
                 ToolButton {
                     text: qsTr("Export")
                     Layout.rightMargin: 5
-                    onClicked: exportDialog.open()
+                    onClicked: { console.log("Export not yet implemented") }
                 }
 
                 DelayButton {
@@ -211,6 +207,87 @@ Item {
                 }
             }
         }
+    }
+
+    Request {
+        id: sas
+
+        handler: dataAccess.sas
+
+        onSuccess: {
+            currentSas = res.token
+            if (!viewPopulated) {
+                pageLoader.resetPagesStatus()
+                pageLoader.loadNextPage({})
+            }
+        }
+
+        onError: {
+            console.log('sas failed. Details: ' + details)
+        }
+    }
+
+    Timer {
+        interval: 1000 * 60 * 30 // 30 min
+        running: true
+        repeat: true
+
+        onTriggered: {
+            sas.call('processed')
+        }
+    }
+
+    Request {
+        id: filterItems
+
+        handler: dataAccess.filterItems
+
+        onSuccess: {
+            const params = currentSas.length > 0 ? '?' + currentSas : ''
+
+            function makeItem(item) {
+                return {
+                    image: res.urls[item._id] + params,
+                    selected: false,
+                    metadata: item
+                }
+            }
+
+            let data = res.items.map(makeItem)
+
+            viewPopulated = true
+            imageViewAndControls.imageView.setData(data)
+        }
+
+        onError: {
+            console.log('error in retrieving data items. Error: '+ details.text)
+        }
+    }
+
+    Request {
+        id: updateItems
+
+        handler: dataAccess.updateItems
+
+        onSuccess: {
+            console.log("Update items")
+            imageViewAndControls.imageView.clearData()
+            pageLoader.loadPages(getCurrentFilter(), pageLoader.getNumberOfLoadedPages())
+        }
+
+        onError: {
+            // TODO
+            console.log("Updating annotations failed!")
+            console.log(JSON.stringify(details, null, "  "))
+        }
+    }
+
+    Request {
+        id: exportItems
+        handler: dataAccess.exportItems
+
+        onSuccess: exportDialog.processExportResponse(true, res)
+        onError: exportDialog.processExportResponse(false, details)
     }
 }
 
