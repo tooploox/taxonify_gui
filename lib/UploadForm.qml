@@ -50,8 +50,8 @@ Item {
 
     function proceedWithUpload(uploadedPackages) {
         let baseName = uploader.getFileName(internal.fileName)
-        for(let pack of uploadedPackages){
-            if(baseName == pack.filename){
+        for(let pack of uploadedPackages) {
+            if(baseName == pack.filename) {
                 return duplicated.open()
             }
         }
@@ -109,7 +109,7 @@ Item {
         Label {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            text: "Package " + uploader.getFileName(internal.fileName) + " already uploaded.\n\nDo you want to upload second time?\n"
+            text: "Package " + uploader.getFileName(internal.fileName) + " already uploaded.\n\nDo you want to upload for the second time?\n"
         }
     }
 
