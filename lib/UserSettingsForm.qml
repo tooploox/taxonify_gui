@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.12
 
 ColumnLayout {
@@ -22,7 +23,7 @@ ColumnLayout {
 
         Label {
           id: message
-          text: "Server response text"
+          text: qsTr('Server response text')
         }
     }
     Component {
@@ -52,7 +53,11 @@ ColumnLayout {
 
         Button {
             Layout.preferredHeight: 30
-            text: "Add user"
+            text: qsTr('Add user')
+
+            Material.primary: Material.Grey
+            Material.background: Material.background
+
             onClicked: {
                 console.log("ADD USER!")
                 message.text = "ADD USER!"
@@ -60,9 +65,13 @@ ColumnLayout {
             }
         }
 
-        Button {
+        ToolButton {
             Layout.preferredHeight: 30
-            text: "Remove user"
+            text: qsTr('Remove user')
+
+            Material.primary: Material.Grey
+            Material.background: Material.background
+
             onClicked: {
                 console.log("REMOVE USER!")
                 message.text = "REMOVE USER!"

@@ -1,44 +1,69 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
+
 
 ColumnLayout {
     id: root
     property ListModel settingsSections: ListModel {}
 
-    Rectangle {
-        Layout.fillWidth: true
-        Layout.preferredHeight: 40
-        color: "ghostwhite"
+    // Signal emmited when Main view button clicked
+    signal mainView()
+
+    RowLayout {
         Text {
-            anchors.fill: parent
-            anchors.margins: 10
+            Layout.leftMargin: 10
+            Layout.topMargin: 5
+
             verticalAlignment: Text.AlignHCenter
             text: '<b>Settings</b>'
         }
+
+        Item {
+            Layout.fillWidth: true
+        }
+
+        ToolButton {
+            Layout.preferredHeight: 30
+            Layout.rightMargin: 10
+            Layout.topMargin: 5
+            text: qsTr("Main view")
+            onClicked: root.mainView()
+        }
+    }
+
+    Rectangle {
+        Layout.fillWidth: true
+        Layout.bottomMargin: 2
+
+        border.width: 1
+        height: 2
+
+        border.color: "gainsboro"
     }
 
     RowLayout {
-//            spacing: 6
         ListView {
             Layout.fillHeight: true
+            Layout.margins: 10
             Layout.preferredWidth: 80
-            Layout.margins: 5
             model: settingsSections
             delegate: Text {
                 text: { '<b>' + id + '</b>' }
             }
         }
 
-//            Rectangle {
-//                id: settingsView
-//                Layout.fillHeight: true
-//                Layout.fillWidth: true
+        Rectangle {
+            Layout.fillHeight: true
+            Layout.topMargin: 2
+            Layout.leftMargin: 2
 
-//                Layout.minimumHeight: 400
-//                Layout.minimumWidth: 400
-//                color: "gainsboro"
-//            }
+            border.width: 1
+            height: 2
+
+            border.color: "gainsboro"
+        }
 
         UserSettingsForm {
             id: userSettings

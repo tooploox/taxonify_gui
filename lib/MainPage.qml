@@ -33,11 +33,14 @@ Item {
     property bool uploadInProgress: false
     property string currentUser
 
+    // Signal emmited when settings button clicked
+    signal settingsView()
+
     address: getSettingVariable('host')
     token: dataAccess.internal.access_token
 
     onVisibleChanged: {
-        if(visible) {
+        if(visible && pageLoader.getNumberOfLoadedPages() == 0) {
             pageLoader.loadNextPage(getCurrentFilter())
         }
     }
@@ -122,7 +125,7 @@ Item {
                 ToolButton {
                     text: qsTr("⋮")
                     Layout.rightMargin: 5
-                    onClicked: { console.log("Settings not yet implemented") }
+                    onClicked: root.settingsView()
                 }
 
                 ToolButton {

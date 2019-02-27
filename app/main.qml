@@ -59,6 +59,22 @@ ApplicationWindow {
     MainPage {
         id: mainPage
         visible: false
+
+        onSettingsView: {
+            st.replace(settingsPage)
+            mainPage.visible = false
+        }
+    }
+
+    SettingsPage {
+        id: settingsPage
+        visible: false
+
+        onMainView: {
+            st.replace(mainPage)
+            settingsPage.visible = false
+            mainPage.visible = true
+        }
     }
 
     Component.onCompleted: {
