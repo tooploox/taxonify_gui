@@ -22,6 +22,16 @@ Rectangle {
         }
     }
 
+    function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
+        const time = timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
+        if (acquisitionTime) {
+            time.font.bold = true
+        } else {
+            timeCheckBox.font.bold = false
+            timeCheckBox.checked = false
+        }
+    }
+
     function emboldenChoices() {
         if (modifiedByCheckBox.checked) {
             modifiedByCheckBox.font.bold = true
@@ -39,21 +49,8 @@ Rectangle {
             checkBox1.checked = false
         }
 
-        const acquisitionTime = acquisitionTimeDateFilter.getAcquisitionTimeAndApply(acquisitionTimeCheckBox.checked)
-        if (acquisitionTime) {
-            acquisitionTimeCheckBox.font.bold = true
-        } else {
-            acquisitionTimeCheckBox.font.bold = false
-            acquisitionTimeCheckBox.checked = false
-        }
-
-        const modificationTime = modificationTimeDateFilter.getAcquisitionTimeAndApply(modificationTimeCheckBox.checked)
-        if (modificationTime) {
-            modificationTimeCheckBox.font.bold = true
-        } else {
-            modificationTimeCheckBox.font.bold = false
-            modificationTimeCheckBox.checked = false
-        }
+        emboldenTimeCheckBox(acquisitionTimeDateFilter, acquisitionTimeCheckBox)
+        emboldenTimeCheckBox(modificationTimeDateFilter, modificationTimeCheckBox)
 
         if (taxonomyCkbx.checked) {
             for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
