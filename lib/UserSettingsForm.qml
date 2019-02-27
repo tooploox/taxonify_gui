@@ -3,10 +3,16 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.12
 
+import "qrc:/network"
+
 ColumnLayout {
     id: root
     property ListModel userListModel: ListModel {}
     property string selectedUser: ''
+    property string newUser: ''
+
+    // Signal is emmited when button close is clicked
+    signal close()
 
     function getSelectedUsername() {
        if (userList.currentIndex != -1)
@@ -14,32 +20,21 @@ ColumnLayout {
        return {}
     }
 
-    Dialog {
-        id: responseDialog
-
-        parent: ApplicationWindow.overlay
-
-        x: Math.floor((parent.width - width) / 2)
-        y: Math.floor((parent.height - height) / 2)
-
-        standardButtons: Dialog.Ok
-
-        Label {
-          id: message
-          text: qsTr('Server response text')
-        }
+    function refreshUserList() {
+        userListModel.clear()
+        getUserList.call()
     }
 
     Component {
         id: userListDelegate
         Item {
             width: parent.width
-            height: 40
+            height: 50
             Text {
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
-                leftPadding: 10
-                text: '<b>' + username + '</b>'
+                horizontalAlignment: Text.AlignHCenter
+                text: username
             }
             MouseArea {
                 anchors.fill: parent
@@ -77,7 +72,7 @@ ColumnLayout {
         highlight: Rectangle {
             color: 'whitesmoke'
         }
-        onCurrentItemChanged: { console.log(root.getSelectedUsername().username + ' selected') }
+        onCurrentItemChanged: { }
     }
 
     RowLayout {
@@ -86,16 +81,13 @@ ColumnLayout {
         }
 
         Button {
-            Layout.preferredHeight: 30
-            text: qsTr('Reload List')
+            Layout.preferredHeight: 50
+            text: qsTr('REFRESH ')
 
             Material.primary: Material.Grey
             Material.background: Material.background
 
-            onClicked: {
-                message.text = "RELOAD!"
-                responseDialog.open()
-            }
+            onClicked: root.refreshUserList()
         }
 
         Item {
@@ -103,45 +95,143 @@ ColumnLayout {
         }
 
         Button {
-            Layout.preferredHeight: 30
-            text: qsTr('Add user')
+            Layout.preferredHeight: 50
+            text: qsTr('ADD USER')
 
             Material.primary: Material.Grey
             Material.background: Material.background
 
             onClicked: {
-                console.log("ADD USER!")
-                message.text = "ADD USER!"
-                responseDialog.open()
+                addUserDialog.open()
+                newUsername.forceActiveFocus()
             }
         }
 
-        ToolButton {
-            Layout.preferredHeight: 30
-            text: qsTr('Remove user')
+        Button {
+            Layout.preferredHeight: 50
+            text: qsTr('CLOSE')
 
             Material.primary: Material.Grey
             Material.background: Material.background
 
-            onClicked: {
-                console.log("REMOVE USER!")
-                message.text = "REMOVE USER!"
-                responseDialog.open()
-            }
+            onClicked: root.close()
         }
     }
 
-  Dialog {
-      id: confirmRemoveUser
-  }
+    Dialog {
+        id: addUserDialog
+        modal: true
+        parent: ApplicationWindow.overlay
 
-  Dialog {
-      id: addUser
-  }
+        width: 250
+        height: 180
 
-  Component.onCompleted: {
-      userListModel.append({username: "First User"})
-      userListModel.append({username: "Second User"})
-      userListModel.append({username: "Third User"})
-  }
+        x: Math.floor((parent.width - width) / 2)
+        y: Math.floor((parent.height - height) / 2)
+
+        title: qsTr("Input new user name")
+        standardButtons: Dialog.Cancel | Dialog.Ok
+
+        onAccepted: {
+            if(newUsername.text.length == 0){
+               newUsername.forceActiveFocus()
+               return addUserDialog.open()
+            }
+            root.newUser = newUsername.text
+            newUsername.text = ''
+            return confirmAddUserDialog.open()
+        }
+        onRejected: {
+            root.newUser = ''
+        }
+
+        TextField {
+            id: newUsername
+            anchors.centerIn: parent
+            width: parent.width - 10
+            focus: true
+
+            Material.accent: Material.Pink
+
+            validator: RegExpValidator { regExp: /^[a-zA-Z0-9.]{1,64}$/ }
+            placeholderText: "username"
+        }
+    }
+
+    Dialog {
+        id: confirmAddUserDialog
+
+        modal: true
+        parent: ApplicationWindow.overlay
+
+        width: 450
+        height: 150
+
+        x: Math.floor((parent.width - width) / 2)
+        y: Math.floor((parent.height - height) / 2)
+
+        title: qsTr("Confirm adding user")
+        standardButtons: Dialog.Yes | Dialog.No
+
+        onAccepted: addUserRequest.call(root.newUser)
+        onRejected: root.newUser = ''
+
+        Label {
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: "Are you sure you want to add new user: <b>" + root.newUser + "</b> to the system?"
+        }
+    }
+
+    Dialog {
+        id: responseAddUserDialog
+
+        parent: ApplicationWindow.overlay
+
+        width: 250
+        height: 150
+        x: Math.floor((parent.width - width) / 2)
+        y: Math.floor((parent.height - height) / 2)
+
+        standardButtons: Dialog.Ok
+
+        Label {
+          id: responseMessage
+          text: qsTr('Server response text')
+        }
+    }
+
+    Request {
+        id: addUserRequest
+        handler: dataAccess.addUser
+
+        onSuccess: {
+            responseAddUserDialog.title = qsTr("Success")
+            responseMessage.text = "User added sucessfully!"
+            root.newUser = ''
+            root.refreshUserList()
+            return responseAddUserDialog.open()
+        }
+
+        onError: {
+            responseAddUserDialog.title = qsTr("Failed!")
+            responseMessage.text = "Could not add user: " + root.newUser
+            root.newUser = ''
+            root.refreshUserList()
+            return responseAddUserDialog.open()
+        }
+    }
+
+    Request {
+        id: getUserList
+        handler: dataAccess.userList
+
+        onSuccess: {
+            for(const item of res){
+                userListModel.append(item)
+            }
+        }
+
+        onError: { console.log("Failed to get user list!") }
+    }
 }

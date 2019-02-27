@@ -11,36 +11,26 @@ ColumnLayout {
     // Signal emmited when Main view button clicked
     signal mainView()
 
+    function refreshUserList() {
+        userSettings.refreshUserList()
+    }
 
     Rectangle{
         Layout.fillWidth: true
         Layout.preferredHeight: 50
         border.color: 'lightgray'
-        RowLayout {
-            anchors.fill: parent
-            anchors.leftMargin: 20
-            anchors.rightMargin: 10
-            Text {
-                verticalAlignment: Text.AlignVCenter
-                text: '<b>Settings</b>'
-            }
 
-            Item {
-                Layout.fillWidth: true
-            }
-
-            ToolButton {
-                Layout.preferredHeight: 30
-                text: qsTr("Main view")
-                onClicked: root.mainView()
-            }
+        Text {
+            anchors.centerIn: parent
+            verticalAlignment: Text.AlignVCenter
+            text: '<b>Settings</b>'
         }
     }
 
     RowLayout {
         Rectangle {
             Layout.fillHeight: true
-            Layout.preferredWidth: 80
+            Layout.preferredWidth: 100
             border.color: 'lightgray'
 
             ListView {
@@ -76,6 +66,8 @@ ColumnLayout {
             UserSettingsForm {
                 id: userSettings
                 anchors.fill: parent
+
+                onClose: root.mainView()
             }
         }
 

@@ -61,6 +61,7 @@ ApplicationWindow {
         visible: false
 
         onSettingsView: {
+            settingsPage.refreshUserList()
             st.replace(settingsPage)
             mainPage.visible = false
         }
