@@ -11,73 +11,79 @@ ColumnLayout {
     // Signal emmited when Main view button clicked
     signal mainView()
 
-    RowLayout {
-        Text {
-            Layout.leftMargin: 10
-            Layout.topMargin: 5
 
-            verticalAlignment: Text.AlignHCenter
-            text: '<b>Settings</b>'
-        }
-
-        Item {
-            Layout.fillWidth: true
-        }
-
-        ToolButton {
-            Layout.preferredHeight: 30
-            Layout.rightMargin: 10
-            Layout.topMargin: 5
-            text: qsTr("Main view")
-            onClicked: root.mainView()
-        }
-    }
-
-    Rectangle {
+    Rectangle{
         Layout.fillWidth: true
-        Layout.bottomMargin: 2
+        Layout.preferredHeight: 50
+        border.color: 'lightgray'
+        RowLayout {
+            anchors.fill: parent
+            anchors.leftMargin: 20
+            anchors.rightMargin: 10
+            Text {
+                verticalAlignment: Text.AlignVCenter
+                text: '<b>Settings</b>'
+            }
 
-        border.width: 1
-        height: 2
+            Item {
+                Layout.fillWidth: true
+            }
 
-        border.color: "gainsboro"
+            ToolButton {
+                Layout.preferredHeight: 30
+                text: qsTr("Main view")
+                onClicked: root.mainView()
+            }
+        }
     }
 
     RowLayout {
-        ListView {
+        Rectangle {
             Layout.fillHeight: true
-            Layout.margins: 10
             Layout.preferredWidth: 80
-            model: settingsSections
-            delegate: Text {
-                text: { '<b>' + id + '</b>' }
+            border.color: 'lightgray'
+
+            ListView {
+                id: settingsList
+                anchors.fill: parent
+                anchors.topMargin: 10
+                model: settingsSections
+                delegate: ColumnLayout {
+                    Text {
+                        Layout.fillWidth: true
+                        horizontalAlignment: Text.AlignHCenter
+                        rightPadding: 2
+                        text: { '<b>' + id + '</b>' }
+                    }
+                    Rectangle {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 1
+                        Layout.preferredWidth: settingsList.width - 5
+                        Layout.leftMargin: 2
+                        Layout.rightMargin: 2
+
+                        color: 'lightgray'
+                    }
+                }
             }
         }
 
         Rectangle {
             Layout.fillHeight: true
-            Layout.topMargin: 2
-            Layout.leftMargin: 2
-
-            border.width: 1
-            height: 2
-
-            border.color: "gainsboro"
-        }
-
-        UserSettingsForm {
-            id: userSettings
-            Layout.fillHeight: true
             Layout.fillWidth: true
+            Layout.margins: 10
 
-            Layout.minimumHeight: 400
-            Layout.minimumWidth: 400
-
+            UserSettingsForm {
+                id: userSettings
+                anchors.fill: parent
+            }
         }
+
+
     }
 
     Component.onCompleted: {
-        settingsSections.append({id: 'Users'})
+        settingsSections.append({id: 'USERS'})
     }
 }
 

@@ -5,11 +5,14 @@ import QtQuick.Layouts 1.12
 
 ColumnLayout {
     id: root
-
-    Layout.margins: 5
-
-    property ListModel usersList: ListModel {}
+    property ListModel userListModel: ListModel {}
     property string selectedUser: ''
+
+    function getSelectedUsername() {
+       if (userList.currentIndex != -1)
+           return userListModel.get(userList.currentIndex)
+       return {}
+    }
 
     Dialog {
         id: responseDialog
@@ -26,29 +29,77 @@ ColumnLayout {
           text: qsTr('Server response text')
         }
     }
+
     Component {
         id: userListDelegate
         Item {
-            width: 180; height: 40
-            Column {
-                Text { text: '<b>' + username + '</b>' }
+            width: parent.width
+            height: 40
+            Text {
+                anchors.fill: parent
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: 10
+                text: '<b>' + username + '</b>'
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: userList.currentIndex = index
             }
         }
     }
 
+    Text {
+        Layout.fillWidth: true
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+
+        text: '<b>USERS LIST</b>'
+    }
+
+    Rectangle {
+        Layout.fillWidth: true
+        Layout.preferredHeight: 1
+        Layout.leftMargin: 10
+        Layout.rightMargin: 10
+
+        color: 'lightgray'
+    }
+
     ListView {
+        id: userList
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        model: root.usersList
+        model: root.userListModel
         delegate: userListDelegate
+        currentIndex: -1
 
-        //onSelect: selectedUser == selection
+        highlight: Rectangle {
+            color: 'whitesmoke'
+        }
+        onCurrentItemChanged: { console.log(root.getSelectedUsername().username + ' selected') }
     }
 
     RowLayout {
         Item {
             Layout.fillWidth: true
+        }
+
+        Button {
+            Layout.preferredHeight: 30
+            text: qsTr('Reload List')
+
+            Material.primary: Material.Grey
+            Material.background: Material.background
+
+            onClicked: {
+                message.text = "RELOAD!"
+                responseDialog.open()
+            }
+        }
+
+        Item {
+            width: 20
         }
 
         Button {
@@ -89,8 +140,8 @@ ColumnLayout {
   }
 
   Component.onCompleted: {
-      usersList.append({username: "First User"})
-      usersList.append({username: "Second User"})
-      usersList.append({username: "Third User"})
+      userListModel.append({username: "First User"})
+      userListModel.append({username: "Second User"})
+      userListModel.append({username: "Third User"})
   }
 }
