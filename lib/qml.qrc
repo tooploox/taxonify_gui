@@ -21,6 +21,7 @@
         <file>LoginPage.qml</file>
         <file>ExportDialog.qml</file>
         <file>ExportForm.qml</file>
+        <file>ModifiedByFilter.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>

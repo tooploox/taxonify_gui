@@ -132,4 +132,13 @@ QtObject {
         }
         return server.send(req, cb)
     }
+
+    function userList(cb) {
+        var req = {
+            handler: '/user/list',
+            method: 'GET',
+            headers: [internal.access_token_header]
+        }
+        return server.send(req, cb)
+    }
 }

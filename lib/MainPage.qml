@@ -32,11 +32,17 @@ Item {
     property alias token : uploadDialog.token
     property bool uploadInProgress: false
     property string currentUser
+    property var userList: []
 
     address: getSettingVariable('host')
     token: dataAccess.internal.access_token
 
-    onVisibleChanged: if(visible) pageLoader.loadNextPage(getCurrentFilter())
+    onVisibleChanged: {
+        if(visible) {
+            pageLoader.loadNextPage(getCurrentFilter())
+            listUsers.call()
+        }
+    }
 
     UploadDialog {
         id: uploadDialog
@@ -135,6 +141,8 @@ Item {
 
                 Layout.preferredWidth: 300
                 Layout.fillHeight: true
+
+                userList: root.userList
 
                 onApplyClicked: {
                     currentFilter = filter
@@ -302,6 +310,19 @@ Item {
 
         onSuccess: exportDialog.processExportResponse(true, res)
         onError: exportDialog.processExportResponse(false, details)
+    }
+
+    Request {
+        id: listUsers
+        handler: dataAccess.userList
+
+        onSuccess: {
+            let userList = []
+            for (const user of res) {
+                userList.push(user.username)
+            }
+            root.userList = userList
+        }
     }
 }
 

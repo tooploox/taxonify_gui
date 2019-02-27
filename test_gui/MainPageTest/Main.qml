@@ -48,14 +48,17 @@ ApplicationWindow {
     Request {
         id: login
         handler: dataAccess.login
-        onSuccess: mainPage.currentUser = currentUser
+        onSuccess: {
+            mainPage.currentUser = currentUser
+            mainPage.visible = true
+        }
         onError: console.log('Login failed. Details: ' + JSON.stringify(details, null, 2))
     }
 
     MainPage {
         anchors.fill: parent
         id: mainPage
-        visible: true
+        visible: false
     }
 
     Component.onCompleted: {
