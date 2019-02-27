@@ -1,8 +1,13 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include <Uploader.h>
+
 int main(int argc, char *argv[])
 {
+    // dummy initialization to enforce proper linking
+    Uploader();
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);

@@ -10,6 +10,8 @@ ApplicationWindow {
     width: 800
     height: 500
 
-    UserSettingsForm {
+    SettingsPage {
+        id: settings
+        anchors.fill: parent
     }
 }
