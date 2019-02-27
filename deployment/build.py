@@ -29,9 +29,9 @@ def build_e2e(
     call_qmake(qmake, aquascope_gui_pro_path)
     call_jom(jom)
 
-    os.chdir(os.path.join(repository_path, "components"))
+    os.chdir(os.path.join(repository_path, "lib"))
     print(f"\nBuidling: {os.getcwd()}\n")
-    call_qmake(qmake, "components.pro")
+    call_qmake(qmake, "lib.pro")
     call_jom(jom)
 
     os.chdir(repository_path)

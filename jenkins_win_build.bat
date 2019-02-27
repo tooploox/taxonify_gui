@@ -15,7 +15,7 @@ set commit_hash=%3
 ECHO "Workspace: %workspace%"
 
 ECHO Prepare environment
-set PATH=C:\Qt\5.12.0\msvc2017_64\bin;%workspace%\deployment\components\release;%workspace%\deployment\testing_utils\release;%PATH%
+set PATH=C:\Qt\5.12.0\msvc2017_64\bin;%workspace%\deployment\lib\release;
 
 ECHO Build workspace
 cd %workspace%\deployment
