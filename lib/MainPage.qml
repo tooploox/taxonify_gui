@@ -36,7 +36,11 @@ Item {
     address: getSettingVariable('host')
     token: dataAccess.internal.access_token
 
-    onVisibleChanged: if(visible) pageLoader.loadNextPage(getCurrentFilter())
+    onVisibleChanged: {
+        if(visible) {
+            pageLoader.loadNextPage(getCurrentFilter())
+        }
+    }
 
     UploadDialog {
         id: uploadDialog
@@ -57,6 +61,7 @@ Item {
     ExportDialog {
            id: exportDialog
            onAccepted: exportItems.call(exportDialog.exportCriteria)
+           onUserListRequested: listUsers.call()
     }
 
     PageLoader {
@@ -132,6 +137,7 @@ Item {
             Layout.fillHeight: true
 
             FilteringPane {
+                id: filteringPane
 
                 Layout.preferredWidth: 300
                 Layout.fillHeight: true
@@ -143,6 +149,8 @@ Item {
                     pageLoader.resetPagesStatus()
                     pageLoader.loadNextPage(getCurrentFilter())
                 }
+
+                onUserListRequested: listUsers.call()
 
             }
 
@@ -302,6 +310,19 @@ Item {
 
         onSuccess: exportDialog.processExportResponse(true, res)
         onError: exportDialog.processExportResponse(false, details)
+    }
+
+    Request {
+        id: listUsers
+        handler: dataAccess.userList
+
+        onSuccess: {
+            let receivers = [filteringPane, exportDialog]
+            let userList = res.map(item => item.username)
+            for (const item of receivers) {
+                item.userList = userList
+            }
+        }
     }
 }
 

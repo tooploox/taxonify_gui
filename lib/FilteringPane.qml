@@ -6,14 +6,28 @@ Rectangle {
     border.color: 'lightgray'
 
     signal applyClicked(var filter)
+    signal userListRequested()
+
     property alias withApplyButton: applyButton.visible
     property alias title: titleLabel.text
     property alias titleSize: titleLabel.font.pixelSize
 
+    property alias userList: modifiedByFilter.userList
     readonly property var attributes: FilteringAttributes.filteringAttributes
     readonly property var filter: buildFilter()
 
+    onVisibleChanged: {
+        if (visible) {
+            userListRequested()
+        }
+    }
+
     function emboldenChoices() {
+        if (modifiedByCheckBox.checked) {
+            modifiedByCheckBox.font.bold = true
+            modifiedByFilter.emboldenCurrentChoice()
+        }
+
         if (checkBox1.checked && fileNameField.text.length > 0) {
             fileNameField.placeholderText = fileNameField.text
             checkBox1.font.bold = true
@@ -54,6 +68,10 @@ Rectangle {
 
     function buildFilter() {
         var filter = {}
+
+        if (modifiedByCheckBox.checked) {
+            filter.modified_by = modifiedByFilter.choice()
+        }
 
         if (checkBox1.checked && fileNameField.text.length > 0) {
             filter.filename = fileNameField.text
@@ -137,6 +155,24 @@ Rectangle {
                 ButtonGroup {
                     id: filterButtons
                     exclusive: false
+                }
+
+                Column {
+                    Layout.rightMargin: 20
+                    Layout.fillWidth: true
+
+                    CheckBox {
+                        id: modifiedByCheckBox
+                        checked: false
+                        text: qsTr("Modified by")
+                        ButtonGroup.group: filterButtons
+                    }
+
+                    ModifiedByFilter {
+                        id: modifiedByFilter
+                        width: parent.width
+                        visible: modifiedByCheckBox.checked
+                    }
                 }
 
                 Column {

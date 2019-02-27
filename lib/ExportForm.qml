@@ -4,7 +4,12 @@ import QtQuick.Layouts 1.12
 
 Item {
     id: root
+
+    signal userListRequested()
+
     readonly property var exportCriteria: criteria()
+
+    property alias userList: filteringPane.userList
 
     function criteria() {
         let crit = filteringPane.filter
@@ -43,6 +48,7 @@ Item {
                 title: "Export filter"
                 titleSize: 20
 
+                onUserListRequested: root.userListRequested()
             }
         }
 
