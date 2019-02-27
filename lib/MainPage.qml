@@ -317,9 +317,11 @@ Item {
         handler: dataAccess.userList
 
         onSuccess: {
+            let receivers = [filteringPane, exportDialog]
             let userList = res.map(item => item.username)
-            filteringPane.userList = userList
-            exportDialog.userList = userList
+            for (const item of receivers) {
+                item.userList = userList
+            }
         }
     }
 }
