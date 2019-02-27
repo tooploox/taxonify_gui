@@ -6,13 +6,21 @@ Rectangle {
     border.color: 'lightgray'
 
     signal applyClicked(var filter)
+    signal userListRequested()
+
     property alias withApplyButton: applyButton.visible
     property alias title: titleLabel.text
     property alias titleSize: titleLabel.font.pixelSize
 
-    property var userList: []
+    property alias userList: modifiedByFilter.userList
     readonly property var attributes: FilteringAttributes.filteringAttributes
     readonly property var filter: buildFilter()
+
+    onVisibleChanged: {
+        if (visible) {
+            userListRequested()
+        }
+    }
 
     function emboldenChoices() {
         if (modifiedByCheckBox.checked) {
@@ -161,10 +169,9 @@ Rectangle {
                     }
 
                     ModifiedByFilter {
-                        width: parent.width
                         id: modifiedByFilter
+                        width: parent.width
                         visible: modifiedByCheckBox.checked
-                        userList: root.userList
                     }
                 }
 

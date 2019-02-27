@@ -16,6 +16,9 @@ Dialog {
 
     parent: ApplicationWindow.overlay
 
+    signal userListRequested()
+
+    property alias userList: exportForm.userList
     property alias exportCriteria: exportForm.exportCriteria
 
     function processExportResponse(success, response) {
@@ -61,6 +64,7 @@ Dialog {
     ExportForm {
         id: exportForm
         anchors.fill: parent
+        onUserListRequested: root.userListRequested()
     }
 
     footer: DialogButtonBox {

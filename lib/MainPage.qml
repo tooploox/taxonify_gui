@@ -32,7 +32,6 @@ Item {
     property alias token : uploadDialog.token
     property bool uploadInProgress: false
     property string currentUser
-    property var userList: []
 
     address: getSettingVariable('host')
     token: dataAccess.internal.access_token
@@ -40,7 +39,6 @@ Item {
     onVisibleChanged: {
         if(visible) {
             pageLoader.loadNextPage(getCurrentFilter())
-            listUsers.call()
         }
     }
 
@@ -63,6 +61,7 @@ Item {
     ExportDialog {
            id: exportDialog
            onAccepted: exportItems.call(exportDialog.exportCriteria)
+           onUserListRequested: listUsers.call()
     }
 
     PageLoader {
@@ -138,11 +137,10 @@ Item {
             Layout.fillHeight: true
 
             FilteringPane {
+                id: filteringPane
 
                 Layout.preferredWidth: 300
                 Layout.fillHeight: true
-
-                userList: root.userList
 
                 onApplyClicked: {
                     currentFilter = filter
@@ -151,6 +149,8 @@ Item {
                     pageLoader.resetPagesStatus()
                     pageLoader.loadNextPage(getCurrentFilter())
                 }
+
+                onUserListRequested: listUsers.call()
 
             }
 
@@ -317,7 +317,9 @@ Item {
         handler: dataAccess.userList
 
         onSuccess: {
-            root.userList = res.map(item => item.username)
+            let userList = res.map(item => item.username)
+            filteringPane.userList = userList
+            exportDialog.userList = userList
         }
     }
 }
