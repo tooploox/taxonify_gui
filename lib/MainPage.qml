@@ -317,11 +317,7 @@ Item {
         handler: dataAccess.userList
 
         onSuccess: {
-            let userList = []
-            for (const user of res) {
-                userList.push(user.username)
-            }
-            root.userList = userList
+            root.userList = res.map(item => item.username)
         }
     }
 }
