@@ -12,6 +12,7 @@ Item {
     property var currentFilter: {}
     property bool viewPopulated: false
     property real lastContentYPos: 0
+    signal logoutClicked()
 
     function storeScrollLastPos() {
         lastContentYPos = imageViewAndControls.imageView.getContentY()
@@ -36,12 +37,6 @@ Item {
     address: getSettingVariable('host')
     token: dataAccess.internal.access_token
 
-    onVisibleChanged: {
-        if(visible) {
-            pageLoader.loadNextPage(getCurrentFilter())
-        }
-    }
-
     UploadDialog {
         id: uploadDialog
         onSuccess: {
@@ -59,9 +54,9 @@ Item {
     }
 
     ExportDialog {
-           id: exportDialog
-           onAccepted: exportItems.call(exportDialog.exportCriteria)
-           onUserListRequested: listUsers.call()
+        id: exportDialog
+        onAccepted: exportItems.call(exportDialog.exportCriteria)
+        onUserListRequested: listUsers.call()
     }
 
     PageLoader {
@@ -128,7 +123,10 @@ Item {
                 ToolButton {
                     text: qsTr("Log out")
                     Layout.rightMargin: 15
-                    onClicked: { console.log("Logout not yet implemented") }
+                    onClicked: {
+                        logoutClicked()
+                        dataAccess.internal.access_token = ''
+                    }
                 }
             }
         }
@@ -323,6 +321,10 @@ Item {
                 item.userList = userList
             }
         }
+    }
+
+    Component.onCompleted: {
+        pageLoader.loadNextPage(getCurrentFilter())
     }
 }
 
