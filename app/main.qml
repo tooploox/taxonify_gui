@@ -14,7 +14,14 @@ ApplicationWindow {
     title: qsTr("Aquascope Data Browser")
 
     readonly property var defaultSettings: ({ host: 'http://localhost' })
-    property var dataAccess: DataAccess {}
+    readonly property string serverAddress: Util.getSettingVariable(
+                                                'host', defaultSettings['host'])
+
+    DataAccess {
+        id: dataAccess
+        server: new Req.Server(serverAddress)
+    }
+
     property string currentUser: ''
 
     StackView {
@@ -33,14 +40,11 @@ ApplicationWindow {
         id: mainPage
         MainPage {
             onLogoutClicked: st.replace(loginPage)
+            address: Util.getSettingVariable('host', defaultSettings['host'])
         }
     }
 
     Component.onCompleted: {
-        Util.settingsPath = settingsPath
-        const serverAddress = Util.getSettingVariable('host', defaultSettings['host'])
         console.log('using server:', serverAddress)
-        dataAccess.server = new Req.Server(serverAddress)
-        mainPage.address = serverAddress
     }
 }
