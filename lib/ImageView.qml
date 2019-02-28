@@ -32,7 +32,6 @@ Item {
         listModel.clear()
         listView.forceLayout()
         model.clear()
-        selectedCount = 0
         update(false)
     }
 
@@ -44,7 +43,6 @@ Item {
 
         listModel.clear()
         listView.forceLayout()
-        selectedCount = 0
         model.clear()
 
         for (let item of data) {
@@ -98,6 +96,9 @@ Item {
         let firstId = 0
         let matchedRow = -1
         for(let i = 0; i < model.count; i++) {
+
+            if (root.model.get(i).selected)
+                selectedCount += 1
 
             const metadata = root.model.get(i).metadata
             const imageWidth = metadata.image_width * sizeScale
