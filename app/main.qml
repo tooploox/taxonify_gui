@@ -49,16 +49,15 @@ ApplicationWindow {
 
     LoginPage {
         id: loginPage
-        onUserLogged: (username) => {
-            mainPage.currentUser = username
-            st.replace(mainPage)
-            mainPage.visible = true
-        }
+        onUserLogged: st.replace(mainPage, { currentUser: username })
+        StackView.onActivated: usernameField.forceActiveFocus()
     }
 
-    MainPage {
+    Component {
         id: mainPage
-        visible: false
+        MainPage {
+            onLogoutClicked: st.replace(loginPage)
+        }
     }
 
     Component.onCompleted: {

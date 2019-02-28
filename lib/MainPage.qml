@@ -12,6 +12,7 @@ Item {
     property var currentFilter: {}
     property bool viewPopulated: false
     property real lastContentYPos: 0
+    signal logoutClicked()
 
     function storeScrollLastPos() {
         lastContentYPos = imageViewAndControls.imageView.getContentY()
@@ -128,7 +129,10 @@ Item {
                 ToolButton {
                     text: qsTr("Log out")
                     Layout.rightMargin: 15
-                    onClicked: { console.log("Logout not yet implemented") }
+                    onClicked: {
+                        root.logoutClicked()
+                        dataAccess.internal.access_token = ''
+                    }
                 }
             }
         }

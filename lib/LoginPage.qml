@@ -10,6 +10,7 @@ Item {
     //signal userLogged is emitted after a successful login
     signal userLogged(string username)
 
+    property alias usernameField: usernameField
     property alias username: usernameField.text
     property alias password: passwordField.text
 
