@@ -3,9 +3,10 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls 1.4 as OldControls
 import QtQuick.Layouts 1.12
 
-Item {
+Rectangle {
     height: box.height
     width: box.width
+
     property var dateTime: {
         let date = calendar.selectedDate
         let hour = hoursTumbler.currentIndex
@@ -35,16 +36,13 @@ Item {
     }
 
     Rectangle {
-
         id: box
-
         width: layout.preferredWidth
         height: layout.preferredHeight
 
-        border.color: 'black'
-
         ColumnLayout {
             id: layout
+            spacing: 1
 
             OldControls.Calendar {
                 id: calendar
@@ -62,25 +60,22 @@ Item {
 
                 Row {
                     Layout.fillWidth: true
+                    Layout.fillHeight: true
                     anchors.horizontalCenter: parent.horizontalCenter
-                    Layout.alignment: Qt.AlignCenter
-                    height: frame.height
 
                     Tumbler {
                         id: hoursTumbler
+                        height: frame.height
                         model: 24
                         delegate: delegateComponent
-                        Layout.alignment: Qt.AlignCenter
-                        height: frame.height
                         visibleItemCount: 5
                     }
 
                     Tumbler {
                         id: minutesTumbler
+                        height: frame.height
                         model: 60
                         delegate: delegateComponent
-                        Layout.alignment: Qt.AlignCenter
-                        height: frame.height
                         visibleItemCount: 5
                     }
                 }
@@ -89,10 +84,10 @@ Item {
             Button {
                 Layout.fillWidth: true
                 text: "OK"
-
                 onClicked: dateTimePicked()
             }
         }
+
     }
 }
 
