@@ -37,12 +37,6 @@ Item {
     address: getSettingVariable('host')
     token: dataAccess.internal.access_token
 
-    onVisibleChanged: {
-        if(visible) {
-            pageLoader.loadNextPage(getCurrentFilter())
-        }
-    }
-
     UploadDialog {
         id: uploadDialog
         onSuccess: {
@@ -327,6 +321,10 @@ Item {
                 item.userList = userList
             }
         }
+    }
+
+    Component.onCompleted: {
+        pageLoader.loadNextPage(getCurrentFilter())
     }
 }
 
