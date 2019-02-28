@@ -34,7 +34,6 @@ Item {
     property bool uploadInProgress: false
     property string currentUser
 
-    address: getSettingVariable('host')
     token: dataAccess.internal.access_token
 
     UploadDialog {

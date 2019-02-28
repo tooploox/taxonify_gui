@@ -187,6 +187,7 @@ Rectangle {
                         checked: false
                         text: qsTr("Modified by")
                         ButtonGroup.group: filterButtons
+                        enabled: Util.getSettingVariable('userFeaturesEnabled', false)
                     }
 
                     ModifiedByFilter {
@@ -248,6 +249,7 @@ Rectangle {
                         checked: false
                         text: qsTr("Modification Time")
                         ButtonGroup.group: filterButtons
+                        enabled: Util.getSettingVariable('userFeaturesEnabled', false)
                     }
 
                     Column {
