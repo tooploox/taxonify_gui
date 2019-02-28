@@ -18,32 +18,41 @@ ApplicationWindow {
     title: qsTr("Aquascope Data Browser")
 
     readonly property var defaultSettings: ({ host: 'http://localhost' })
-    property var dataAccess: DataAccess {}
+    readonly property string serverAddress: Util.getSettingVariable(
+                                                'host', defaultSettings['host'])
+
     property string currentUser: 'aquascopeuser'
     property string password: 'hardpass'
+
+    DataAccess {
+        id: dataAccess
+        server: new Req.Server(serverAddress)
+    }
 
     Request {
         id: login
         handler: dataAccess.login
         onSuccess: {
-            mainPage.currentUser = currentUser
-            mainPage.visible = true
+            root.currentUser = currentUser
+            loader.active = true
         }
         onError: console.log('Login failed. Details: ' + JSON.stringify(details, null, 2))
     }
 
-    MainPage {
+    Loader {
+        id: loader
         anchors.fill: parent
-        id: mainPage
-        visible: false
+        active: false
+
+        sourceComponent: MainPage {
+            id: mainPage
+            currentUser: root.currentUser
+            address: serverAddress
+        }
     }
 
     Component.onCompleted: {
-        Util.settingsPath = settingsPath
-        const serverAddress = Util.getSettingVariable('host', defaultSettings['host'])
         console.log('using server:', serverAddress)
-        dataAccess.server = new Req.Server(serverAddress)
-        mainPage.address = serverAddress
         login.call(currentUser, password)
     }
 }
