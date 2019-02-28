@@ -12,6 +12,15 @@ Item {
         return false
     }
 
+    onFilterChanged: {
+        selectedCount = 0
+        for(let i = 0; i < model.count; i++) {
+            let item = model.get(i)
+            item.selected = item.selected && !filter(item)
+            selectedCount += item.selected
+        }
+    }
+
     signal reachedBottom()
 
     readonly property ListModel model: ListModel {}
@@ -97,10 +106,11 @@ Item {
         let matchedRow = -1
         for(let i = 0; i < model.count; i++) {
 
-            if (root.model.get(i).selected)
-                selectedCount += 1
+            let item = model.get(i)
+            item.selected = item.selected && !filter(item)
+            selectedCount += item.selected
 
-            const metadata = root.model.get(i).metadata
+            const metadata = item.metadata
             const imageWidth = metadata.image_width * sizeScale
                     + 3 * borderWidth
             const imageHeight = metadata.image_height
@@ -243,31 +253,6 @@ Item {
                             }
                         ]
 
-                        transitions: [
-                            Transition {
-                                from: "selected"
-                                ScriptAction {
-                                    script: {
-                                        selectedCount -= 1
-                                    }
-                                }
-                            },
-                            Transition {
-                                to: "selected"
-                                ScriptAction {
-                                    script: {
-                                        selectedCount += 1
-                                    }
-                                }
-                            }
-                        ]
-
-                        Component.onCompleted: {
-                            // Item was already selected, so do not count it two times
-                            if (rect.state === "selected")
-                                selectedCount -= 1
-                        }
-
                         Image {
                             id: img
                             source: item.image
@@ -284,7 +269,14 @@ Item {
                                 if (rect.state == "grayout")
                                     return
 
-                                item.selected = !item.selected
+                                if (item.selected) {
+                                    item.selected = false
+                                    selectedCount -= 1
+                                } else {
+                                    item.selected = true
+                                    selectedCount += 1
+                                }
+
                                 item = root.model.get(modelData)
                             }
                         }
