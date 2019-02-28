@@ -4,7 +4,8 @@ import QtQuick.Controls 1.4 as OldControls
 import QtQuick.Layouts 1.12
 
 Item {
-    height: layout.height
+    height: box.height
+    width: box.width
     property var dateTime: {
         let date = calendar.selectedDate
         let hour = hoursTumbler.currentIndex
@@ -34,6 +35,12 @@ Item {
     }
 
     Rectangle {
+
+        id: box
+
+        width: layout.preferredWidth
+        height: layout.preferredHeight
+
         border.color: 'black'
 
         ColumnLayout {
