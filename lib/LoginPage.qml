@@ -27,7 +27,7 @@ Item {
     function tryLogin() {
         if(username.length == 0 || password.length == 0) return
         loginInProgress = true
-        console.log(username + "p: " + password)
+        console.log("Username: " + username)
         loginRequest.call(username, password)
     }
 
