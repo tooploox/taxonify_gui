@@ -25,15 +25,15 @@ ApplicationWindow {
             Layout.fillWidth: true
             readOnly: true
             onReleased: {
-                dateTimeFilter.x = x
-                dateTimeFilter.y = y
-                dateTimeFilter.visible = true
+                dateTimePicker.x = x
+                dateTimePicker.y = y
+                dateTimePicker.visible = true
             }
         }
     }
 
-    DateTimeField {
-        id: dateTimeFilter
+    DateTimePicker {
+        id: dateTimePicker
         width: textField.width
         visible: false
 
