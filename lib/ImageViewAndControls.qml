@@ -103,10 +103,7 @@ ColumnLayout {
 
             Label {
                 text: "Images loaded: " + imageView.model.count
-            }
-
-            Item {
-                Layout.fillWidth: true
+                Layout.rightMargin: 20
             }
 
             Label {

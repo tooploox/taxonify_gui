@@ -44,7 +44,7 @@ Item {
 
         listModel.clear()
         listView.forceLayout()
-
+        selectedCount = 0
         model.clear()
 
         for (let item of data) {
@@ -90,6 +90,7 @@ Item {
     function update(useLastY) {
         listModel.clear()
         listView.forceLayout()
+        selectedCount = 0
         setContentY(0)
         let row = []
         let sumWidth = 0
@@ -244,13 +245,27 @@ Item {
                         transitions: [
                             Transition {
                                 from: "selected"
-                                ScriptAction { script: { selectedCount -= 1 } }
+                                ScriptAction {
+                                    script: {
+                                        selectedCount -= 1
+                                    }
+                                }
                             },
                             Transition {
                                 to: "selected"
-                                ScriptAction { script: { selectedCount += 1 } }
+                                ScriptAction {
+                                    script: {
+                                        selectedCount += 1
+                                    }
+                                }
                             }
                         ]
+
+                        Component.onCompleted: {
+                            // Item was already selected, so do not count it two times
+                            if (rect.state === "selected")
+                                selectedCount -= 1
+                        }
 
                         Image {
                             id: img
