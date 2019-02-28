@@ -17,7 +17,7 @@ Rectangle {
     readonly property var filter: buildFilter()
 
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
-        const time = timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
+        const time = timeDateFilter.start//timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
         if (time) {
             time.font.bold = true
         } else {
@@ -79,26 +79,26 @@ Rectangle {
         }
 
         if (acquisitionTimeCheckBox.checked) {
-            let acquisitionStartTime = acquisitionTimeDateFilter.start.isostring
+            let acquisitionStartTime = acquisitionTimeDateFilter.start
             if (acquisitionStartTime) {
-                filter.acquisition_time_start = acquisitionStartTime
+                filter.acquisition_time_start = acquisitionStartTime.toISOString()
             }
 
-            let acquisitionEndTime = acquisitionTimeDateFilter.end.isostring
+            let acquisitionEndTime = acquisitionTimeDateFilter.end
             if (acquisitionEndTime) {
-                filter.acquisition_time_end = acquisitionEndTime
+                filter.acquisition_time_end = acquisitionEndTime.toISOString()
             }
         }
 
         if (modificationTimeCheckBox.checked) {
-            let modificationStartTime = modificationTimeDateFilter.start.isostring
+            let modificationStartTime = modificationTimeDateFilter.start
             if (modificationStartTime) {
-                filter.modification_time_start = modificationStartTime
+                filter.modification_time_start = modificationStartTime.toISOString()
             }
 
-            let modificationEndTime = modificationTimeDateFilter.end.isostring
+            let modificationEndTime = modificationTimeDateFilter.end
             if (modificationEndTime) {
-                filter.modification_time_end = modificationEndTime
+                filter.modification_time_end = modificationEndTime.toISOString()
             }
         }
 
@@ -211,7 +211,6 @@ Rectangle {
                             visible: checkBox1.checked
 
                         }
-
                     }
                 }
 
