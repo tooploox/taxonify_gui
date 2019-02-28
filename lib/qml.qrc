@@ -24,6 +24,7 @@
         <file>ModifiedByFilter.qml</file>
         <file>Util.qml</file>
         <file>DateTimePicker.qml</file>
+        <file>DateTimeField.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>

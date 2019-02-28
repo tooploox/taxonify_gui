@@ -31,16 +31,12 @@ Item {
                 text: 'Start time:'
             }
 
-            TextField {
-                id: startTextField
+            DateTimeField {
+                id: startDateField
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                readOnly: true
-                onReleased: {
-                    const mappedPoint = mapToItem(startDateTimePicker, 0, 0)
-                    startPopup.x = mappedPoint.x
-                    startPopup.y = mappedPoint.y
-                    startPopup.open()
+                onDateTimePicked: {
+                    root.start = dateTime
                 }
             }
         }
@@ -53,60 +49,16 @@ Item {
                 text: 'End time:'
             }
 
-            TextField {
-                id: endTextField
+            DateTimeField {
+                id: endDateField
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                readOnly: true
-                onReleased: {
-                    const mappedPoint = mapToItem(endDateTimePicker, 0, 0)
-                    endPopup.x = mappedPoint.x
-                    endPopup.y = mappedPoint.y
-                    endPopup.open()
+                onDateTimePicked: {
+                    root.end = dateTime
                 }
             }
         }
     }
-
-    Popup {
-        id: endPopup
-        parent: Overlay.overlay
-        width: endDateTimePicker.width
-        height: endDateTimePicker.height
-        modal: true
-
-        DateTimePicker {
-            id: endDateTimePicker
-            onDateTimePicked: {
-                endPopup.close()
-                endTextField.text = dateTime.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat)
-                root.end = dateTime
-            }
-        }
-    }
-
-    Popup {
-        id: startPopup
-        parent: Overlay.overlay
-        width: startDateTimePicker.width
-        height: startDateTimePicker.height
-        modal: true
-
-        DateTimePicker {
-            id: startDateTimePicker
-            onDateTimePicked: {
-                startPopup.close()
-                startTextField.text = dateTime.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat)
-                root.start = dateTime
-            }
-        }
-    }
-
-
-
-
-
-
 
 //    DateTextField {
 //        id: startDateField
