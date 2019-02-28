@@ -24,7 +24,7 @@ Rectangle {
 
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
         const time = timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
-        if (acquisitionTime) {
+        if (time) {
             time.font.bold = true
         } else {
             timeCheckBox.font.bold = false
