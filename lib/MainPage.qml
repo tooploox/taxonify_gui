@@ -76,6 +76,11 @@ Item {
         currentSas: root.currentSas
     }
 
+    SettingsDialog {
+        id: settingsDialog
+
+    }
+
     ColumnLayout {
 
         anchors.fill: parent
@@ -125,7 +130,7 @@ Item {
                 ToolButton {
                     text: qsTr("⋮")
                     Layout.rightMargin: 5
-                    onClicked: root.settingsView()
+                    onClicked: settingsDialog.open()
                 }
 
                 ToolButton {

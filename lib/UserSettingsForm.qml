@@ -33,7 +33,8 @@ ColumnLayout {
             Text {
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
+                horizontalAlignment: Text.AlignLeft
+                leftPadding: 10
                 text: username
             }
             MouseArea {
@@ -43,78 +44,88 @@ ColumnLayout {
         }
     }
 
-    Text {
-        Layout.fillWidth: true
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-
-        text: '<b>USERS LIST</b>'
-    }
-
     Rectangle {
-        Layout.fillWidth: true
-        Layout.preferredHeight: 1
-        Layout.leftMargin: 10
-        Layout.rightMargin: 10
-
-        color: 'lightgray'
-    }
-
-    ListView {
-        id: userList
         Layout.fillWidth: true
         Layout.fillHeight: true
 
-        model: root.userListModel
-        delegate: userListDelegate
-        currentIndex: -1
+        border.color: 'lightgray'
 
-        highlight: Rectangle {
-            color: 'whitesmoke'
-        }
-        onCurrentItemChanged: { }
-    }
+        ColumnLayout {
+            anchors.fill: parent
 
-    RowLayout {
-        Item {
-            Layout.fillWidth: true
-        }
+            ListView {
+                id: userList
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-        Button {
-            Layout.preferredHeight: 50
-            text: qsTr('REFRESH ')
+                clip: true
 
-            Material.primary: Material.Grey
-            Material.background: Material.background
+                ScrollBar.vertical: ScrollBar {
+                    parent: userList
+                    anchors.top: parent.top
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    width: 5
+                }
 
-            onClicked: root.refreshUserList()
-        }
+                model: root.userListModel
+                delegate: userListDelegate
+                currentIndex: -1
 
-        Item {
-            width: 20
-        }
-
-        Button {
-            Layout.preferredHeight: 50
-            text: qsTr('ADD USER')
-
-            Material.primary: Material.Grey
-            Material.background: Material.background
-
-            onClicked: {
-                addUserDialog.open()
-                newUsername.forceActiveFocus()
+                highlight: Rectangle {
+                    color: 'whitesmoke'
+                }
+                onCurrentItemChanged: { }
             }
-        }
 
-        Button {
-            Layout.preferredHeight: 50
-            text: qsTr('CLOSE')
+            Item {
+                Layout.fillWidth: true
+                height: 10
+            }
 
-            Material.primary: Material.Grey
-            Material.background: Material.background
+            RowLayout {
+                Layout.rightMargin: 5
+                Item {
+                    Layout.fillWidth: true
+                }
 
-            onClicked: root.close()
+                Button {
+                    Layout.preferredHeight: 50
+                    text: qsTr('REFRESH ')
+
+                    Material.primary: Material.Grey
+                    Material.background: Material.background
+
+                    onClicked: root.refreshUserList()
+                }
+
+                Item {
+                    width: 20
+                }
+
+                Button {
+                    Layout.preferredHeight: 50
+                    text: qsTr('ADD USER')
+
+                    Material.primary: Material.Grey
+                    Material.background: Material.background
+
+                    onClicked: {
+                        addUserDialog.open()
+                        newUsername.forceActiveFocus()
+                    }
+                }
+
+                Button {
+                    Layout.preferredHeight: 50
+                    text: qsTr('CLOSE')
+
+                    Material.primary: Material.Grey
+                    Material.background: Material.background
+
+                    onClicked: root.close()
+                }
+            }
         }
     }
 

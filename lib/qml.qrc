@@ -23,7 +23,7 @@
         <file>ExportForm.qml</file>
         <file>ModifiedByFilter.qml</file>
         <file>UserSettingsForm.qml</file>
-        <file>SettingsPage.qml</file>
+        <file>SettingsDialog.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
