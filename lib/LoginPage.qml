@@ -36,8 +36,8 @@ Item {
         handler: dataAccess.login
 
         onSuccess: {
-            loginInProgress = false
             root.userLogged(username)
+            clean()
         }
 
         onError: {
