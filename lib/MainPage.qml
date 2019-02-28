@@ -54,9 +54,9 @@ Item {
     }
 
     ExportDialog {
-           id: exportDialog
-           onAccepted: exportItems.call(exportDialog.exportCriteria)
-           onUserListRequested: listUsers.call()
+        id: exportDialog
+        onAccepted: exportItems.call(exportDialog.exportCriteria)
+        onUserListRequested: listUsers.call()
     }
 
     PageLoader {
