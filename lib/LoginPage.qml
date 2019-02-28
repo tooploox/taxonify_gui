@@ -13,12 +13,14 @@ Item {
     property alias usernameField: usernameField
     property alias username: usernameField.text
     property alias password: passwordField.text
+    property alias errorMsg: errorLabel.text
 
     property bool loginInProgress: false
 
     function clean() {
         username = ''
         password = ''
+        errorMsg = ''
         loginInProgress = false
     }
 
