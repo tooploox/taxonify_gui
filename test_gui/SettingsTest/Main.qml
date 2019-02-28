@@ -10,10 +10,13 @@ ApplicationWindow {
     width: 800
     height: 500
 
-    SettingsPage {
+    SettingsDialog {
         id: settings
-        anchors.fill: parent
 
-        onMainView: app.close()
+        onClosed: app.close()
+    }
+
+    Component.onCompleted: {
+        settings.open()
     }
 }
