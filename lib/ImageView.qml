@@ -6,9 +6,19 @@ Item {
 
     property real borderWidth: 5
     property real sizeScale: 1
+    property int selectedCount: 0
 
     property var filter: function(item) {
         return false
+    }
+
+    onFilterChanged: {
+        selectedCount = 0
+        for(let i = 0; i < model.count; i++) {
+            let item = model.get(i)
+            item.selected = item.selected && !filter(item)
+            selectedCount += item.selected
+        }
     }
 
     signal reachedBottom()
@@ -42,7 +52,6 @@ Item {
 
         listModel.clear()
         listView.forceLayout()
-
         model.clear()
 
         for (let item of data) {
@@ -88,6 +97,7 @@ Item {
     function update(useLastY) {
         listModel.clear()
         listView.forceLayout()
+        selectedCount = 0
         setContentY(0)
         let row = []
         let sumWidth = 0
@@ -96,7 +106,11 @@ Item {
         let matchedRow = -1
         for(let i = 0; i < model.count; i++) {
 
-            const metadata = root.model.get(i).metadata
+            let item = model.get(i)
+            item.selected = item.selected && !filter(item)
+            selectedCount += item.selected
+
+            const metadata = item.metadata
             const imageWidth = metadata.image_width * sizeScale
                     + 3 * borderWidth
             const imageHeight = metadata.image_height
@@ -255,7 +269,14 @@ Item {
                                 if (rect.state == "grayout")
                                     return
 
-                                item.selected = !item.selected
+                                if (item.selected) {
+                                    item.selected = false
+                                    selectedCount -= 1
+                                } else {
+                                    item.selected = true
+                                    selectedCount += 1
+                                }
+
                                 item = root.model.get(modelData)
                             }
                         }

@@ -10,21 +10,24 @@ Item {
     //signal userLogged is emitted after a successful login
     signal userLogged(string username)
 
+    property alias usernameField: usernameField
     property alias username: usernameField.text
     property alias password: passwordField.text
+    property alias errorMsg: errorLabel.text
 
     property bool loginInProgress: false
 
     function clean() {
         username = ''
         password = ''
+        errorMsg = ''
         loginInProgress = false
     }
 
     function tryLogin() {
         if(username.length == 0 || password.length == 0) return
         loginInProgress = true
-        console.log(username + "p: " + password)
+        console.log("Username: " + username)
         loginRequest.call(username, password)
     }
 
@@ -33,8 +36,8 @@ Item {
         handler: dataAccess.login
 
         onSuccess: {
-            loginInProgress = false
             root.userLogged(username)
+            clean()
         }
 
         onError: {
@@ -67,6 +70,8 @@ Item {
 
 
                 Image {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.bottomMargin: 15
                     source: "images/logo.png"
                     height: 100
                 }

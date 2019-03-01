@@ -22,10 +22,22 @@ Rectangle {
         }
     }
 
+    function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
+        const time = timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
+        if (time) {
+            time.font.bold = true
+        } else {
+            timeCheckBox.font.bold = false
+            timeCheckBox.checked = false
+        }
+    }
+
     function emboldenChoices() {
         if (modifiedByCheckBox.checked) {
             modifiedByCheckBox.font.bold = true
             modifiedByFilter.emboldenCurrentChoice()
+        } else{
+            modifiedByCheckBox.font.bold = false
         }
 
         if (checkBox1.checked && fileNameField.text.length > 0) {
@@ -37,13 +49,8 @@ Rectangle {
             checkBox1.checked = false
         }
 
-        const acquisitionTime = dateFilter.getAcquisitionTimeAndApply(dateCkbx.checked)
-        if (acquisitionTime) {
-            dateCkbx.font.bold = true
-        } else {
-            dateCkbx.font.bold = false
-            dateCkbx.checked = false
-        }
+        emboldenTimeCheckBox(acquisitionTimeDateFilter, acquisitionTimeCheckBox)
+        emboldenTimeCheckBox(modificationTimeDateFilter, modificationTimeCheckBox)
 
         if (taxonomyCkbx.checked) {
             for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
@@ -77,14 +84,28 @@ Rectangle {
             filter.filename = fileNameField.text
         }
 
-        let startTime = dateFilter.start.isostring
-        if (startTime) {
-            filter.acquisition_time_start = startTime
+        if (acquisitionTimeCheckBox.checked) {
+            let acquisitionStartTime = acquisitionTimeDateFilter.start.isostring
+            if (acquisitionStartTime) {
+                filter.acquisition_time_start = acquisitionStartTime
+            }
+
+            let acquisitionEndTime = acquisitionTimeDateFilter.end.isostring
+            if (acquisitionEndTime) {
+                filter.acquisition_time_end = acquisitionEndTime
+            }
         }
 
-        let endTime = dateFilter.end.isostring
-        if (endTime) {
-            filter.acquisition_time_end = endTime
+        if (modificationTimeCheckBox.checked) {
+            let modificationStartTime = modificationTimeDateFilter.start.isostring
+            if (modificationStartTime) {
+                filter.modification_time_start = modificationStartTime
+            }
+
+            let modificationEndTime = modificationTimeDateFilter.end.isostring
+            if (modificationEndTime) {
+                filter.modification_time_end = modificationEndTime
+            }
         }
 
         if (taxonomyCkbx.checked) {
@@ -166,6 +187,7 @@ Rectangle {
                         checked: false
                         text: qsTr("Modified by")
                         ButtonGroup.group: filterButtons
+                        enabled: Util.getSettingVariable('userFeaturesEnabled', false)
                     }
 
                     ModifiedByFilter {
@@ -202,9 +224,9 @@ Rectangle {
                 Column {
 
                     CheckBox {
-                        id: dateCkbx
+                        id: acquisitionTimeCheckBox
                         checked: false
-                        text: qsTr("Date")
+                        text: qsTr("Acquisition Time")
                         ButtonGroup.group: filterButtons
                     }
 
@@ -213,9 +235,31 @@ Rectangle {
                         anchors.leftMargin: 20
 
                         DateFilter {
-                            id: dateFilter
-                            enabled: dateCkbx.checked
-                            visible: dateCkbx.checked
+                            id: acquisitionTimeDateFilter
+                            enabled: acquisitionTimeCheckBox.checked
+                            visible: acquisitionTimeCheckBox.checked
+                        }
+                    }
+                }
+
+                Column {
+
+                    CheckBox {
+                        id: modificationTimeCheckBox
+                        checked: false
+                        text: qsTr("Modification Time")
+                        ButtonGroup.group: filterButtons
+                        enabled: Util.getSettingVariable('userFeaturesEnabled', false)
+                    }
+
+                    Column {
+                        anchors.left: parent.left
+                        anchors.leftMargin: 20
+
+                        DateFilter {
+                            id: modificationTimeDateFilter
+                            enabled: modificationTimeCheckBox.checked
+                            visible: modificationTimeCheckBox.checked
                         }
                     }
                 }

@@ -14,31 +14,14 @@ ApplicationWindow {
     title: qsTr("Aquascope Data Browser")
 
     readonly property var defaultSettings: ({ host: 'http://localhost' })
+    readonly property string serverAddress: Util.getSettingVariable(
+                                                'host', defaultSettings['host'])
 
-    readonly property var settingsFromFile:
-        settingsPath ? Req.readJsonFromLocalFileSync(settingsPath) : null
-
-    function getSettingVariable(key) {
-        if(settingsFromFile) {
-            if (settingsFromFile && settingsFromFile[key]) {
-                return settingsFromFile[key]
-            } else {
-                console.log('No"' + key + '" field found in settings.')
-            }
-        } else {
-            console.log('Settings file not found. Using default value for', key)
-        }
-
-        if (defaultSettings[key]) {
-            return defaultSettings[key]
-        } else {
-            console.log('key ' + key
-                        + ' not found in dafaults array. Returning null')
-            return null
-        }
+    DataAccess {
+        id: dataAccess
+        server: new Req.Server(serverAddress)
     }
 
-    property var dataAccess: DataAccess {}
     property string currentUser: ''
 
     StackView {
@@ -49,21 +32,19 @@ ApplicationWindow {
 
     LoginPage {
         id: loginPage
-        onUserLogged: (username) => {
-            mainPage.currentUser = username
-            st.replace(mainPage)
-            mainPage.visible = true
+        onUserLogged: st.replace(mainPage, { currentUser: username })
+        StackView.onActivated: usernameField.forceActiveFocus()
+    }
+
+    Component {
+        id: mainPage
+        MainPage {
+            onLogoutClicked: st.replace(loginPage)
+            address: Util.getSettingVariable('host', defaultSettings['host'])
         }
     }
 
-    MainPage {
-        id: mainPage
-        visible: false
-    }
-
     Component.onCompleted: {
-        const serverAddress = getSettingVariable('host')
         console.log('using server:', serverAddress)
-        dataAccess.server = new Req.Server(serverAddress)
     }
 }

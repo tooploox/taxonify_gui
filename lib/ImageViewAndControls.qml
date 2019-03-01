@@ -66,7 +66,12 @@ ColumnLayout {
             }
 
             Label {
-                text: "Number of images loaded: " + imageView.model.count
+                text: "Images loaded: " + imageView.model.count
+                Layout.rightMargin: 20
+            }
+
+            Label {
+                text: "Images selected: " + imageView.selectedCount
             }
         }
     }
