@@ -70,6 +70,8 @@ Item {
 
 
                 Image {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.bottomMargin: 15
                     source: "images/logo.png"
                     height: 100
                 }
