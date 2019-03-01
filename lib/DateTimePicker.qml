@@ -6,8 +6,13 @@ import QtQuick.Layouts 1.12
 Rectangle {
     height: box.height
     width: box.width
+    property bool dateCleared: true
 
     property var dateTime: {
+        if (dateCleared) {
+            return null
+        }
+
         let date = calendar.selectedDate
         let hour = hoursTumbler.currentIndex
         let minute = minutesTumbler.currentIndex
@@ -81,11 +86,33 @@ Rectangle {
                 }
             }
 
-            Button {
+            RowLayout {
+                // out style creates big gap between rect above
+                // and buttons, hence negative margin
+                Layout.topMargin: -5
                 Layout.fillWidth: true
-                text: "OK"
-                onClicked: dateTimePicked()
+                Layout.fillHeight: true
+
+                Button {
+                    Layout.preferredWidth: calendar.width / 2
+                    text: "Clear"
+                    onClicked: {
+                        dateCleared = true
+                        dateTimePicked()
+                    }
+                }
+
+                Button {
+                    Layout.fillWidth: true
+                    text: "OK"
+                    onClicked: {
+                        dateCleared = false
+                        dateTimePicked()
+                    }
+                }
             }
+
+
         }
 
     }
