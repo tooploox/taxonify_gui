@@ -322,9 +322,5 @@ Item {
             }
         }
     }
-
-    Component.onCompleted: {
-        pageLoader.loadNextPage(getCurrentFilter())
-    }
 }
 
