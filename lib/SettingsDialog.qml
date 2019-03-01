@@ -33,6 +33,7 @@ Dialog {
             Layout.maximumWidth: 100
 
             ListView {
+                id: settingsItem
                 model: content.settingsSections
                 delegate: Component {
                     Item {
@@ -43,7 +44,10 @@ Dialog {
                         }
                     }
                 }
-                highlight: Rectangle { color: 'whitesmoke'; radius: 2 }
+                highlight: Rectangle {
+                    color: 'whitesmoke'
+                    border.color: 'lightgray'
+                }
                 focus: true
             }
         }

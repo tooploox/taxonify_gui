@@ -74,6 +74,7 @@ ColumnLayout {
 
                 highlight: Rectangle {
                     color: 'whitesmoke'
+                    border.color: 'lightgray'
                 }
                 onCurrentItemChanged: { }
             }
