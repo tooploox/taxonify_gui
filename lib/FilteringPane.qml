@@ -16,12 +16,6 @@ Rectangle {
     readonly property var attributes: FilteringAttributes.filteringAttributes
     readonly property var filter: buildFilter()
 
-    onVisibleChanged: {
-        if (visible) {
-            userListRequested()
-        }
-    }
-
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
         const time = timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
         if (time) {
@@ -334,5 +328,9 @@ Rectangle {
                 applyClicked(filter)
             }
         }
+    }
+
+    Component.onCompleted: {
+       userListRequested()
     }
 }
