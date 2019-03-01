@@ -8,7 +8,6 @@ import "qrc:/network"
 import "qrc:/network/requests.js" as Req
 
 ApplicationWindow {
-
     id: root
     visible: true
 
@@ -21,38 +20,38 @@ ApplicationWindow {
     readonly property string serverAddress: Util.getSettingVariable(
                                                 'host', defaultSettings['host'])
 
-    property string currentUser: 'aquascopeuser'
-    property string password: 'hardpass'
-
     DataAccess {
         id: dataAccess
         server: new Req.Server(serverAddress)
     }
 
-    Request {
-        id: login
-        handler: dataAccess.login
-        onSuccess: {
-            root.currentUser = currentUser
-            loader.active = true
-        }
-        onError: console.log('Login failed. Details: ' + JSON.stringify(details, null, 2))
+    property string currentUser: ''
+
+    StackView {
+        id: st
+        anchors.fill: parent
+        initialItem: loginPage
     }
 
-    Loader {
-        id: loader
-        anchors.fill: parent
-        active: false
+    LoginPage {
+        id: loginPage
+        onUserLogged: st.replace(mainPage, { currentUser: username })
+        StackView.onActivated: usernameField.forceActiveFocus()
 
-        sourceComponent: MainPage {
-            id: mainPage
-            currentUser: root.currentUser
-            address: serverAddress
+        username: 'aquascopeuser'
+        password: 'hardpass'
+    }
+
+    Component {
+        id: mainPage
+        MainPage {
+            onLogoutClicked: st.replace(loginPage)
+            address: Util.getSettingVariable('host', defaultSettings['host'])
         }
     }
 
     Component.onCompleted: {
         console.log('using server:', serverAddress)
-        login.call(currentUser, password)
+        loginPage.loginButton.clicked()
     }
 }

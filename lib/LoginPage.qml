@@ -14,6 +14,7 @@ Item {
     property alias username: usernameField.text
     property alias password: passwordField.text
     property alias errorMsg: errorLabel.text
+    property alias loginButton : loginButton
 
     property bool loginInProgress: false
 
