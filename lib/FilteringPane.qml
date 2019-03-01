@@ -17,13 +17,21 @@ Rectangle {
     readonly property var filter: buildFilter()
 
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
-        const time = timeDateFilter.start//timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
-        if (time) {
-            time.font.bold = true
+        timeDateFilter.emboldenChoices()
+
+        if (timeCheckBox.checked) {
+            timeCheckBox.font.bold = true
         } else {
             timeCheckBox.font.bold = false
-            timeCheckBox.checked = false
         }
+
+//        const time = timeDateFilter.start//timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
+//        if (time) {
+//            time.font.bold = true
+//        } else {
+//            timeCheckBox.font.bold = false
+//            timeCheckBox.checked = false
+//        }
     }
 
     function emboldenChoices() {

@@ -7,8 +7,32 @@ Item {
     height: layout.height
     width: layout.width
 
-    property var start
-    property var end
+    property alias start : startDateField.dateTime
+    property var end : endDateField.dateTime
+
+    function emboldenChoices() {
+        unbolden(startLabel, startDateField)
+        unbolden(endLabel, endDateField)
+
+        if (start !== null) {
+            embolden(startLabel, startDateField)
+        }
+
+        if (end !== null) {
+            embolden(endLabel, endDateField)
+        }
+    }
+
+    function embolden(label, dateField) {
+        label.font.bold = true
+        dateField.textField.font.bold = true
+    }
+
+    function unbolden(label, dateField) {
+        label.font.bold = false
+        dateField.textField.font.bold = false
+    }
+
     //property bool valid: true
 
 //    property alias start: startDateField
@@ -28,6 +52,7 @@ Item {
             Layout.fillWidth: true
 
             Label {
+                id: startLabel
                 text: 'Start time:'
             }
 
@@ -46,6 +71,7 @@ Item {
             Layout.fillWidth: true
 
             Label {
+                id: endLabel
                 text: 'End time:'
             }
 
