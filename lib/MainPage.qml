@@ -70,6 +70,7 @@ Item {
     SettingsDialog {
         id: settingsDialog
 
+        onUserListRequested: listUsers.call()
     }
 
     ColumnLayout {
@@ -319,10 +320,10 @@ Item {
         handler: dataAccess.userList
 
         onSuccess: {
-            let receivers = [filteringPane, exportDialog]
+            let receivers = [filteringPane, exportDialog, settingsDialog]
             let userList = res.map(item => item.username)
             for (const item of receivers) {
-                item.userList = userList
+                item.updateUserList(userList)
             }
         }
     }

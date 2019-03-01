@@ -18,8 +18,10 @@ Dialog {
 
     title: qsTr("Settings")
 
-    function refreshUserList() {
-        userSettings.refreshUserList()
+    signal userListRequested()
+
+    function updateUserList(data) {
+        userSettings.updateUserList(data)
     }
 
     contentItem: RowLayout {
@@ -62,12 +64,13 @@ Dialog {
                 anchors.fill: parent
 
                 onClose: root.close()
+                onUserListRequested: root.userListRequested()
             }
         }
     }
 
     onAboutToShow: {
         content.settingsSections.append({id: "Users"})
-        root.refreshUserList()
+        root.userListRequested()
     }
 }

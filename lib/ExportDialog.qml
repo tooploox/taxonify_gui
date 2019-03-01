@@ -18,8 +18,11 @@ Dialog {
 
     signal userListRequested()
 
-    property alias userList: exportForm.userList
     property alias exportCriteria: exportForm.exportCriteria
+
+    function updateUserList(data) {
+        exportForm.updateUserList(data)
+    }
 
     function processExportResponse(success, response) {
         busyIndication.running = false

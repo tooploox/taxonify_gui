@@ -11,13 +11,13 @@ ColumnLayout {
     property string selectedUser: ''
     property string newUser: ''
 
-    // Signal is emmited when button close is clicked
     signal close()
+    signal userListRequested()
 
-    function getSelectedUsername() {
-       if (userList.currentIndex != -1)
-           return userListModel.get(userList.currentIndex)
-       return {}
+    function updateUserList(data) {
+        for(const item of data) {
+            userListModel.append({username: item})
+        }
     }
 
     function refreshUserList() {
@@ -37,10 +37,10 @@ ColumnLayout {
                 leftPadding: 10
                 text: username
             }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: userList.currentIndex = index
-            }
+//            MouseArea {
+//                anchors.fill: parent
+//                onClicked: userList.currentIndex = index
+//            }
         }
     }
 
@@ -76,7 +76,6 @@ ColumnLayout {
                     color: 'whitesmoke'
                     border.color: 'lightgray'
                 }
-                onCurrentItemChanged: { }
             }
 
             Item {
@@ -92,16 +91,13 @@ ColumnLayout {
 
                 Button {
                     Layout.preferredHeight: 50
-                    text: qsTr('REFRESH ')
+                    Layout.rightMargin: 20
+                    text: qsTr('REFRESH')
 
                     Material.primary: Material.Grey
                     Material.background: Material.background
 
                     onClicked: root.refreshUserList()
-                }
-
-                Item {
-                    width: 20
                 }
 
                 Button {
@@ -145,7 +141,7 @@ ColumnLayout {
         standardButtons: Dialog.Cancel | Dialog.Ok
 
         onAccepted: {
-            if(newUsername.text.length == 0){
+            if(newUsername.text.length === 0) {
                newUsername.forceActiveFocus()
                return addUserDialog.open()
             }
