@@ -13,16 +13,27 @@ ColumnLayout {
 
     signal close()
     signal userListRequested()
+    signal addUserRequested(string username)
 
     function updateUserList(data) {
+        userListModel.clear()
         for(const item of data) {
             userListModel.append({username: item})
         }
     }
 
-    function refreshUserList() {
-        userListModel.clear()
-        getUserList.call()
+    function addUserResponse(status) {
+        if(status === 'success') {
+            responseAddUserDialog.title = qsTr("Success")
+            responseMessage.text = "User added sucessfully!"
+        } else {
+            responseAddUserDialog.title = qsTr("Failed!")
+            responseMessage.text = "Could not add user: " + root.newUser
+        }
+
+        newUser = ''
+        userListRequested()
+        return responseAddUserDialog.open()
     }
 
     Component {
@@ -37,10 +48,10 @@ ColumnLayout {
                 leftPadding: 10
                 text: username
             }
-//            MouseArea {
-//                anchors.fill: parent
-//                onClicked: userList.currentIndex = index
-//            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: userList.currentIndex = index
+            }
         }
     }
 
@@ -97,7 +108,7 @@ ColumnLayout {
                     Material.primary: Material.Grey
                     Material.background: Material.background
 
-                    onClicked: root.refreshUserList()
+                    onClicked: root.userListRequested()
                 }
 
                 Button {
@@ -181,7 +192,7 @@ ColumnLayout {
         title: qsTr("Confirm adding user")
         standardButtons: Dialog.Yes | Dialog.No
 
-        onAccepted: addUserRequest.call(root.newUser)
+        onAccepted: root.addUserRequested(root.newUser)
         onRejected: root.newUser = ''
 
         Label {
@@ -207,39 +218,5 @@ ColumnLayout {
           id: responseMessage
           text: qsTr('Server response text')
         }
-    }
-
-    Request {
-        id: addUserRequest
-        handler: dataAccess.addUser
-
-        onSuccess: {
-            responseAddUserDialog.title = qsTr("Success")
-            responseMessage.text = "User added sucessfully!"
-            root.newUser = ''
-            root.refreshUserList()
-            return responseAddUserDialog.open()
-        }
-
-        onError: {
-            responseAddUserDialog.title = qsTr("Failed!")
-            responseMessage.text = "Could not add user: " + root.newUser
-            root.newUser = ''
-            root.refreshUserList()
-            return responseAddUserDialog.open()
-        }
-    }
-
-    Request {
-        id: getUserList
-        handler: dataAccess.userList
-
-        onSuccess: {
-            for(const item of res){
-                userListModel.append(item)
-            }
-        }
-
-        onError: { console.log("Failed to get user list!") }
     }
 }

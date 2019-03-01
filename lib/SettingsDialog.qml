@@ -19,9 +19,14 @@ Dialog {
     title: qsTr("Settings")
 
     signal userListRequested()
+    signal addUserRequested(string username)
 
     function updateUserList(data) {
         userSettings.updateUserList(data)
+    }
+
+    function addUserResponse(status) {
+        userSettings.addUserResponse(status)
     }
 
     contentItem: RowLayout {
@@ -65,6 +70,7 @@ Dialog {
 
                 onClose: root.close()
                 onUserListRequested: root.userListRequested()
+                onAddUserRequested: root.addUserRequested(username)
             }
         }
     }

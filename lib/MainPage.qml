@@ -71,6 +71,7 @@ Item {
         id: settingsDialog
 
         onUserListRequested: listUsers.call()
+        onAddUserRequested: addUserRequest.call(username)
     }
 
     ColumnLayout {
@@ -326,6 +327,14 @@ Item {
                 item.updateUserList(userList)
             }
         }
+    }
+
+    Request {
+        id: addUserRequest
+        handler: dataAccess.addUser
+
+        onSuccess: settingsDialog.addUserResponse('success')
+        onError: settingsDialog.addUserResponse('error')
     }
 
     Component.onCompleted: {
