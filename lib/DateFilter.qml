@@ -33,16 +33,6 @@ Item {
         dateField.textField.font.bold = false
     }
 
-    //property bool valid: true
-
-//    property alias start: startDateField
-//    property alias end: endDateField
-//    property bool valid: (start.valid && end.empty) ||
-//                         (start.empty && end.valid) ||
-//                         (start.valid && end.valid &&
-//                          (end.date - start.date >= 0))
-
-
     ColumnLayout {
         id: layout
         width: 300
@@ -85,33 +75,4 @@ Item {
             }
         }
     }
-
-//    DateTextField {
-//        id: startDateField
-//        deltaMilliseconds: 0 // 00:00:00.000
-//        description: qsTr("Start date:")
-//        enabled: parent.enabled
-//        dateTextColor: (parent.valid || empty) ? 'black' : 'red'
-//    }
-
-//    DateTextField {
-//        id: endDateField
-//        deltaMilliseconds: 24*60*60*1000-1 // 23:59:59.999
-//        description: qsTr("End date:")
-//        enabled: parent.enabled
-//        dateTextColor: (parent.valid || empty) ? 'black' : 'red'
-//    }
-
-//    function getAcquisitionTimeAndApply(checked) {
-//        if (checked && valid) {
-//            let acquisitionTime = {}
-//            acquisitionTime.start = start.getTimeAndApply(false)
-//            acquisitionTime.end = end.getTimeAndApply(false)
-//            return acquisitionTime
-//        } else {
-//            start.getTimeAndApply(true)
-//            end.getTimeAndApply(true)
-//            return null
-//        }
-//    }
 }
