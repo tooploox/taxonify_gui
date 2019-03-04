@@ -150,8 +150,4 @@ Item {
             }
         }
     }
-
-    Component.onCompleted: {
-        usernameField.forceActiveFocus()
-    }
 }
