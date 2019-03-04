@@ -21,8 +21,15 @@ Dialog {
     footer: DialogButtonBox {
         Layout.alignment: Qt.AlignBottom | Qt.AlignRight
 
-        onReset: uploadListReq.call()
-        onRejected: root.close()
+        onReset: {
+            Logger.log("UploadListDialog: reset")
+            uploadListReq.call()
+        }
+
+        onRejected: {
+            Logger.log("UploadListDialog: rejected")
+            root.close()
+        }
 
         Button {
             text: qsTr("Refresh")
@@ -38,13 +45,23 @@ Dialog {
         }
     }
 
-    onAboutToShow: uploadListReq.call()
+    onAboutToShow: {
+        Logger.log("UploadListDialog: about to show")
+        uploadListReq.call()
+    }
 
     Request{
         id: uploadListReq
         handler: dataAccess.uploadList
 
-        onSuccess: uploadList.setData(res)
-        onError: console.log("Failed to get upload list! Details: " + details)
+        onSuccess: {
+            Logger.log("UploadListDialog: uploadListReq succeeded")
+            uploadList.setData(res)
+        }
+
+        onError: {
+            Logger.log("UploadListDialog: uploadListReq failed")
+            console.log("Failed to get upload list! Details: " + details)
+        }
     }
 }

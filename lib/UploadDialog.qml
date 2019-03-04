@@ -26,13 +26,25 @@ Dialog {
 
     parent: ApplicationWindow.overlay
 
-    contentItem: UploadForm{
+    contentItem: UploadForm {
         id: uploadForm
         address: root.address + '/upload'
         token: dataAccess.internal.access_token
-        onSuccess: root.success(replyData)
-        onError: root.error(errorMsg)
-        onUploadStarted: root.uploadStarted()
+
+        onSuccess: {
+            Logger.log("UploadDialog: UploadForm succeeded")
+            root.success(replyData)
+        }
+
+        onError: {
+            Logger.log("UploadDialog: UploadForm failed")
+            root.error(errorMsg)
+        }
+
+        onUploadStarted: {
+            Logger.log("UploadDialog: UploadForm - UploadStarted")
+            root.uploadStarted()
+        }
     }
 
     footer: DialogButtonBox {

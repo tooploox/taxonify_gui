@@ -17,11 +17,10 @@ Rectangle {
     readonly property var filter: buildFilter()
 
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
-        Logger.log("FilteringPane: emboldenTimeCheckBox(timeDateFilter='" + JSON.stringify(timeDateFilter)
-                                                  + "', timeCheckBox='" + JSON.stringify(timeCheckBox) + "')")
+        Logger.log("FilteringPane: emboldenTimeCheckBox()")
         const time = timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
         if (time) {
-            time.font.bold = true
+            timeCheckBox.font.bold = true
         } else {
             timeCheckBox.font.bold = false
             timeCheckBox.checked = false

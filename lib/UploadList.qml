@@ -8,6 +8,7 @@ Item {
     readonly property ListModel uploadData: ListModel {}
 
     function setData(data){
+       Logger.log("UploadList: setData()")
        uploadData.clear()
        for(let d of data){
            let genDate = d.generation_date.split('T')
@@ -26,7 +27,7 @@ Item {
 
         Layout.alignment: Qt.AlignCenter
 
-        delegate: Item{
+        delegate: Item {
             width: parent.width - 20
             height: 60
 

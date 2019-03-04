@@ -1,5 +1,7 @@
 import QtQuick 2.7
 
+import "qrc:/"
+
 // This component enables performing requests for external data in QML-style.
 QtObject {
 
@@ -48,7 +50,7 @@ QtObject {
     // (success/error and finished not emitted), the next invocation will mark
     // previous invocation as abandoned.
     function call() {
-
+        Logger.log("Request: call()")
         called()
 
         internal.counter++
@@ -124,24 +126,28 @@ QtObject {
     // be used carefully with http requests other than 'GET'
     // No signal is emitted after invoking this method.
     function abandon() {
+        Logger.log("Request: abandon()")
         internal.counter++
         busy = false
     }
 
     // private
     function _emitSuccess(body, res) {
+        Logger.log("Request: _emitSuccess()")
         success(body, res)
         finished()
     }
 
     // private
     function _emitError(errorCode, res) {
+        Logger.log("Request: _emitError()")
         error(errorCode, res)
         finished()
     }
 
 
     Component.onDestruction: {
+        Logger.log("Request: Component destruction")
         abandon();
     }
 
