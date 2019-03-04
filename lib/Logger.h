@@ -9,19 +9,16 @@
 class AQUASCOPE_LIB_EXPORT Logger : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString filename MEMBER filename NOTIFY filenameChanged)
-
 public:
     explicit Logger(QObject *parent = nullptr);
     ~Logger();
 
-    Q_INVOKABLE void log(const QString &message) const;
-
-signals:
-    void filenameChanged();
+    Q_INVOKABLE void log(const QString &message);
 
 private:
     QFile file;
-    QString filename;
+    QString filename = "log.txt";
     QTextStream writer;
+
+    QString prefix() const;
 };
