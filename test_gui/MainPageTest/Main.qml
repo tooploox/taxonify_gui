@@ -8,7 +8,6 @@ import "qrc:/network"
 import "qrc:/network/requests.js" as Req
 
 ApplicationWindow {
-
     id: root
     visible: true
 
@@ -18,32 +17,41 @@ ApplicationWindow {
     title: qsTr("Aquascope Data Browser")
 
     readonly property var defaultSettings: ({ host: 'http://localhost' })
-    property var dataAccess: DataAccess {}
-    property string currentUser: 'aquascopeuser'
-    property string password: 'hardpass'
+    readonly property string serverAddress: Util.getSettingVariable(
+                                                'host', defaultSettings['host'])
 
-    Request {
-        id: login
-        handler: dataAccess.login
-        onSuccess: {
-            mainPage.currentUser = currentUser
-            mainPage.visible = true
-        }
-        onError: console.log('Login failed. Details: ' + JSON.stringify(details, null, 2))
+    DataAccess {
+        id: dataAccess
+        server: new Req.Server(serverAddress)
     }
 
-    MainPage {
+    property string currentUser: ''
+
+    StackView {
+        id: st
         anchors.fill: parent
+        initialItem: loginPage
+    }
+
+    LoginPage {
+        id: loginPage
+        onUserLogged: st.replace(mainPage, { currentUser: username })
+        StackView.onActivated: usernameField.forceActiveFocus()
+
+        username: 'aquascopeuser'
+        password: 'hardpass'
+    }
+
+    Component {
         id: mainPage
-        visible: false
+        MainPage {
+            onLogoutClicked: st.replace(loginPage)
+            address: Util.getSettingVariable('host', defaultSettings['host'])
+        }
     }
 
     Component.onCompleted: {
-        Util.settingsPath = settingsPath
-        const serverAddress = Util.getSettingVariable('host', defaultSettings['host'])
         console.log('using server:', serverAddress)
-        dataAccess.server = new Req.Server(serverAddress)
-        mainPage.address = serverAddress
-        login.call(currentUser, password)
+        loginPage.loginButton.clicked()
     }
 }

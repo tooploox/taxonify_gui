@@ -251,6 +251,7 @@ Item {
         interval: 1000 * 60 * 30 // 30 min
         running: true
         repeat: true
+        triggeredOnStart: true
 
         onTriggered: {
             sas.call('processed')
@@ -321,10 +322,6 @@ Item {
                 item.userList = userList
             }
         }
-    }
-
-    Component.onCompleted: {
-        pageLoader.loadNextPage(getCurrentFilter())
     }
 }
 
