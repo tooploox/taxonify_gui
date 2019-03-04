@@ -12,7 +12,7 @@ Rectangle {
 
     function setPopupPosition() {
         const mappedPoint = mapToItem(Overlay.overlay, 0, 0)
-        const margin = 10
+        const margin = 20
 
         const mostRightX = mappedPoint.x + dateTimePicker.width
         if (mostRightX + margin > Overlay.overlay.width) {
