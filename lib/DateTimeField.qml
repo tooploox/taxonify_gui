@@ -10,15 +10,31 @@ Rectangle {
     width: textField.width
     height: textField.height
 
+    function setPopupPosition() {
+        const mappedPoint = mapToItem(Overlay.overlay, 0, 0)
+        const margin = 10
+
+        const mostRightX = mappedPoint.x + dateTimePicker.width
+        if (mostRightX + margin > Overlay.overlay.width) {
+            mappedPoint.x -= mostRightX + margin - Overlay.overlay.width
+        }
+
+        const mostBottomY = mappedPoint.y + dateTimePicker.height
+        if (mostBottomY + margin > Overlay.overlay.height) {
+            mappedPoint.y -= mostBottomY + margin - Overlay.overlay.height
+        }
+
+        popup.x = mappedPoint.x
+        popup.y = mappedPoint.y
+    }
+
     TextField {
         id: textField
         readOnly: true
         font.pixelSize: 14
         horizontalAlignment: TextInput.AlignHCenter
         onReleased: {
-            const mappedPoint = mapToItem(Overlay.overlay, 0, 0)
-            popup.x = mappedPoint.x
-            popup.y = mappedPoint.y
+            setPopupPosition()
             popup.open()
         }
     }
@@ -34,13 +50,11 @@ Rectangle {
             id: dateTimePicker
             onDateTimePicked: {
                 popup.close()
-
                 if (dateTime) {
                     textField.text = dateTime.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat)
                 } else {
                     textField.text = ''
                 }
-
             }
         }
     }
