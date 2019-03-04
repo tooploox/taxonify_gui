@@ -9,6 +9,7 @@ Rectangle {
     signal userListRequested()
 
     property alias withApplyButton: applyButton.visible
+    property alias withTitle : titleLabel.visible
     property alias title: titleLabel.text
     property alias titleSize: titleLabel.font.pixelSize
 
