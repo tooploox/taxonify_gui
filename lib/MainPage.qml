@@ -257,6 +257,7 @@ Item {
         interval: 1000 * 60 * 30 // 30 min
         running: true
         repeat: true
+        triggeredOnStart: true
 
         onTriggered: {
             sas.call('processed')
@@ -335,10 +336,6 @@ Item {
 
         onSuccess: settingsDialog.addUserResponse('success')
         onError: settingsDialog.addUserResponse('error')
-    }
-
-    Component.onCompleted: {
-        pageLoader.loadNextPage(getCurrentFilter())
     }
 }
 

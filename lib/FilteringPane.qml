@@ -15,12 +15,6 @@ Rectangle {
     readonly property var attributes: FilteringAttributes.filteringAttributes
     readonly property var filter: buildFilter()
 
-    onVisibleChanged: {
-        if (visible) {
-            userListRequested()
-        }
-    }
-
     function updateUserList(data) {
         modifiedByFilter.userList = data
     }
@@ -337,5 +331,9 @@ Rectangle {
                 applyClicked(filter)
             }
         }
+    }
+
+    Component.onCompleted: {
+       userListRequested()
     }
 }
