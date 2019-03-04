@@ -7,6 +7,7 @@ Rectangle {
     height: box.height
     width: box.width
     property bool dateCleared: true
+    color: 'transparent'
 
     property var dateTime: {
         if (dateCleared) {
@@ -42,8 +43,9 @@ Rectangle {
 
     Rectangle {
         id: box
-        width: layout.preferredWidth
-        height: layout.preferredHeight
+        width: layout.width
+        height: layout.height
+        color: 'transparent'
 
         ColumnLayout {
             id: layout
@@ -111,10 +113,7 @@ Rectangle {
                     }
                 }
             }
-
-
         }
-
     }
 }
 
