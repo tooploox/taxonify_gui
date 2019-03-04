@@ -18,12 +18,45 @@ ApplicationWindow {
         id: settings
 
         onClosed: app.close()
+
+        onUserListRequested: listUsers.call()
+        onAddUserRequested: addUserRequest.call(username)
+
+
     }
 
     Request {
         id: login
         handler: dataAccess.login
         onError: console.log('Login failed. Details: ' + JSON.stringify(details, null, 2))
+    }
+
+    Request {
+        id: listUsers
+        handler: dataAccess.userList
+
+        onSuccess: {
+            let userList = res.map(item => item.username)
+            settings.updateUserList(userList)
+        }
+    }
+
+    Request {
+        id: addUserRequest
+        handler: dataAccess.addUser
+
+        onSuccess: settingsDialog.addUserResponse('success')
+        onError: settingsDialog.addUserResponse('error')
+    }
+
+    // Delay for 500ms is needed to get login procedure finished properly
+    // to allow settings dialog load user list at startup
+    Timer {
+        id: delayShowSettings
+        interval: 500
+        running: true
+        repeat: false
+        onTriggered: settings.open()
     }
 
     Component.onCompleted: {
@@ -33,6 +66,6 @@ ApplicationWindow {
         const username = 'aquascopeuser'
         const password = 'hardpass'
         login.call(username, password)
-        settings.open()
+        delayShowSettings.start()
     }
 }
