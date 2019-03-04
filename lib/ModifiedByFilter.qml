@@ -21,13 +21,19 @@ ComboBox {
     }
 
     function emboldenCurrentChoice() {
+        Logger.log("ModifiedByFilter: emboldenCurrentChoice - index = " + currentIndex)
         indexToEmbold = currentIndex
     }
 
     function choice() {
+        Logger.log("ModifiedByFilter: choice()")
         if (currentIndex === 0) {
+            Logger.log("ModifiedByFilter: choice() - currentIndex equal to 0")
             return ''
+        } else {
+            Logger.log("ModifiedByFilter: choice() - currentIndex not equal to 0")
         }
+
         return model[currentIndex]
     }
 }

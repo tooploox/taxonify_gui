@@ -25,12 +25,15 @@ ColumnLayout {
     }
 
     function getAcquisitionTimeAndApply(checked) {
+        Logger.log("DateFilter: getAcquisitionTimeAndApply(checked='" + checked + "')")
         if (checked && valid) {
+            Logger.log("DateFilter: checked and valid")
             let acquisitionTime = {}
             acquisitionTime.start = start.getTimeAndApply(false)
             acquisitionTime.end = end.getTimeAndApply(false)
             return acquisitionTime
         } else {
+            Logger.log("DateFilter: not (checked and valid)")
             start.getTimeAndApply(true)
             end.getTimeAndApply(true)
             return null

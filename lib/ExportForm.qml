@@ -12,23 +12,28 @@ Item {
     property alias userList: filteringPane.userList
 
     function criteria() {
+        Logger.log("ExportForm: criteria()")
         let crit = filteringPane.filter
         if (limitCheckBox.checked) {
+            Logger.log("ExportForm: criteria() - limitCheckBox checked")
             crit.limit = limitTextField.text
         }
         return crit
     }
 
     function buildCriteriaText() {
+        Logger.log("ExportForm: buildCriteriaText()")
         filterTextArea.text = JSON.stringify(criteria(), null, 2)
     }
 
     function acceptLimitInput() {
+        Logger.log("ExportForm: acceptLimitInput()")
         limitTextWarning.visible = false
         buildCriteriaText()
     }
 
     function denyLimitInput() {
+        Logger.log("ExportForm: denyLimitInput()")
         limitTextWarning.visible = true
 
     }
@@ -48,7 +53,11 @@ Item {
                 title: "Export filter"
                 titleSize: 20
 
-                onUserListRequested: root.userListRequested()
+                onUserListRequested: {
+                    Logger.log("ExportForm: filteringPane - UserList requested")
+                    limitTextWarning.visible = true
+                    root.userListRequested()
+                }
             }
         }
 
@@ -77,7 +86,10 @@ Item {
                     checked: true
                     enabled: true
                     text: "Limit results to first"
-                    onCheckedChanged: buildCriteriaText()
+                    onCheckedChanged: {
+                        Logger.log("ExportForm: limitCheckBox - Checked changed")
+                        buildCriteriaText()
+                    }
                 }
 
                 TextField {
@@ -89,9 +101,12 @@ Item {
                     validator: IntValidator { bottom: 1 }
 
                     onTextChanged: {
+                        Logger.log("ExportForm: limitTextField - Text changed")
                         if (!acceptableInput) {
+                            Logger.log("ExportForm: limitTextField - not acceptable Input")
                             denyLimitInput()
                         } else if (enabled && acceptableInput) {
+                            Logger.log("ExportForm: limitTextField - enabled and acceptable Input")
                             acceptLimitInput()
                         }
                     }

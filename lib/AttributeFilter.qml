@@ -25,6 +25,7 @@ ColumnLayout {
     property var applied: []
 
     property var apply: function (checked) {
+        Logger.log("AttributeFilter: apply(checked = " + checked + ")")
         applied = []
         for (let i = 0; i < container.count; i++) {
             let item = container.itemAt(i).item
@@ -39,6 +40,7 @@ ColumnLayout {
 
         onCheckedButtonChanged: {
             value = checkedButton.text
+            //Logger.log("AttributeFilter: checked button changed to " + value)
         }
     }
 

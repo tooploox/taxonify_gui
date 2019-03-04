@@ -31,7 +31,10 @@ ColumnLayout {
 
         sizeScale: tileSizeSlider.value
 
-        onReachedBottom: atPageBottom()
+        onReachedBottom: {
+            Logger.log("ImageViewAndControls: Reached Bottom")
+            atPageBottom()
+        }
     }
 
     Rectangle {

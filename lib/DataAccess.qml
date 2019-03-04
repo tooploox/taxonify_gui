@@ -1,6 +1,8 @@
 import QtQuick 2.12
 
+import "qrc:/"
 import "qrc:/network/requests.js" as Req
+
 
 // Sample data access object, should be replaced with requests aligned with
 // aquascope backend specification
@@ -23,10 +25,12 @@ QtObject {
         readonly property var commonHeaders: [access_token_header, compressHeader]
 
         onAccess_tokenChanged: {
+            Logger.log("DataAccess: Access token changed")
             access_token_header = ['Authorization', 'Bearer ' + access_token]
         }
 
         onRefresh_tokenChanged: {
+            Logger.log("DataAccess: Refresh token changed")
             refresh_token_header = ['Authorization', 'Bearer ' + refresh_token]
         }
 
@@ -45,6 +49,7 @@ QtObject {
         }
 
         function refresh() {
+            Logger.log("DataAccess: refresh()")
             var req = {
                 handler: '/user/refresh',
                 method: 'POST',
@@ -59,7 +64,7 @@ QtObject {
     }
 
     function login(username, password, cb) {
-
+        Logger.log("DataAccess: login(username='" + username + "')")
         var req = {
             handler: '/user/login',
             method: 'POST',
@@ -76,6 +81,7 @@ QtObject {
     }
 
     function sas(destination, cb) {
+        Logger.log("DataAccess: sas(destination='" + destination + "')")
         var req = {
             handler: '/sas',
             method: 'GET',
@@ -86,6 +92,7 @@ QtObject {
     }
 
     function filterItems(filter, cb) {
+        Logger.log("DataAccess: filter(filter='" + JSON.stringify(filter) + "')")
         var req = {
             handler: '/items',
             method: 'GET',
@@ -96,6 +103,7 @@ QtObject {
     }
 
     function filterPagedItems(filter, page, cb) {
+        Logger.log("DataAccess: filterPagedItems(filter='" + JSON.stringify(filter) + "', page='" + page + ")")
         filter.continuation_token = page
         console.log('about to send filter: ', JSON.stringify(filter))
         var req = {
@@ -108,6 +116,7 @@ QtObject {
     }
 
     function updateItems(updateList, cb) {
+        Logger.log("DataAccess: updateItems(updateList='" + JSON.stringify(updateList) + "')")
         var req = {
             handler: '/items',
             method: 'POST',
@@ -118,6 +127,7 @@ QtObject {
     }
 
     function uploadList(cb) {
+        Logger.log("DataAccess: uploadList()")
         var req = {
             handler: '/upload/list',
             method: 'GET',
@@ -127,6 +137,7 @@ QtObject {
     }
 
     function exportItems(exportCriteria, cb) {
+        Logger.log("DataAccess: exportItems(exportCriteria='" + JSON.stringify(exportCriteria) + "')")
         var req = {
             handler: '/export',
             method: 'GET',
@@ -137,6 +148,7 @@ QtObject {
     }
 
     function userList(cb) {
+        Logger.log("DataAccess: userList()")
         var req = {
             handler: '/user/list',
             method: 'GET',

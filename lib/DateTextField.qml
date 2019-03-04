@@ -15,11 +15,14 @@ RowLayout {
     property int deltaMilliseconds: 0
 
     function getTimeAndApply(discard) {
+        Logger.log("DateTextField: getTimeAndApply(discard='" + discard + "')")
         if (discard || empty) {
+            Logger.log("DateTextField: discard or empty")
             textInput.placeholderText = "____-__-__"
             labelText.font.bold = false
             return undefined
         } else {
+            Logger.log("DateTextField: not (discard or empty)")
             textInput.placeholderText = text
             labelText.font.bold = true
             return isostring

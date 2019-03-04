@@ -22,6 +22,8 @@ Dialog {
     property alias exportCriteria: exportForm.exportCriteria
 
     function processExportResponse(success, response) {
+        Logger.log("ExportDialog: processExportResponse(success='" + JSON.stringify(success) + "',
+                                                        response='" + JSON.stringify(response) + ")")
         busyIndication.running = false
         okButton.enabled = true
         if (!visible) {
@@ -29,6 +31,7 @@ Dialog {
         }
 
         if (success) {
+            Logger.log("ExportDialog: processExportResponse succeeded")
             if (response.status === 'ok') {
                 Qt.openUrlExternally(response.url)
                 resultDialog.title = 'Data exported successfully\nwith your internet browser!'
@@ -38,6 +41,7 @@ Dialog {
                 resultDialog.closeOnOk = false
             }
         } else {
+            Logger.log("ExportDialog: processExportResponse failed")
             resultDialog.title = 'An error occurred during data export.'
             resultDialog.closeOnOk = false
         }
@@ -55,6 +59,7 @@ Dialog {
 
         property bool closeOnOk: true
         onAccepted: {
+            Logger.log("ExportDialog: resultDialog accepted")
             if (closeOnOk) {
                 root.close()
             }
@@ -64,12 +69,18 @@ Dialog {
     ExportForm {
         id: exportForm
         anchors.fill: parent
-        onUserListRequested: root.userListRequested()
+        onUserListRequested: {
+            Logger.log("ExportDialog: ExportForm - UserListRequested")
+            root.userListRequested()
+        }
     }
 
     footer: DialogButtonBox {
         Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-        onRejected: root.close()
+        onRejected: {
+            Logger.log("ExportDialog: DialogButtonBox - Rejected")
+            root.close()
+        }
 
         Button {
             DialogButtonBox.buttonRole: DialogButtonBox.RejectRole

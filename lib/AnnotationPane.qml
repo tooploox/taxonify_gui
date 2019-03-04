@@ -63,6 +63,7 @@ Rectangle {
                         ButtonGroup.group: radioGroup
 
                         onClicked: {
+                            Logger.log("AnnotationPane: " + text + " button clicked")
                             checkedAttrIdx = index
                         }
 

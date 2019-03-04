@@ -23,7 +23,7 @@ Logger::Logger(QObject *parent)
 }
 
 inline QString Logger::prefix() const {
-    return "[" + QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss.zzz") + "] ";
+    return "[" + QDateTime::currentDateTimeUtc().toString("yyyy-MM-dd HH:mm:ss.zzz") + "] ";
 }
 
 void Logger::log(const QString &message) {
