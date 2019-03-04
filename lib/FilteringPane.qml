@@ -24,14 +24,6 @@ Rectangle {
         } else {
             timeCheckBox.font.bold = false
         }
-
-//        const time = timeDateFilter.start//timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
-//        if (time) {
-//            time.font.bold = true
-//        } else {
-//            timeCheckBox.font.bold = false
-//            timeCheckBox.checked = false
-//        }
     }
 
     function emboldenChoices() {
