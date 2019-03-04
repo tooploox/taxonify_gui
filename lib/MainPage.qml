@@ -123,6 +123,7 @@ Item {
                     text: qsTr("Log out")
                     Layout.rightMargin: 15
                     onClicked: {
+                        Logger.log("MainPage: Log out button clicked")
                         logoutClicked()
                         dataAccess.internal.access_token = ''
                     }

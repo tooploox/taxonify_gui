@@ -37,6 +37,7 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
+        Logger.log("main: ApplicationWindow component completed")
         Util.settingsPath = settingsPath
         const serverAddress = Util.getSettingVariable('host', defaultSettings['host'])
         console.log('using server:', serverAddress)

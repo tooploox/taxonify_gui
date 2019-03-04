@@ -149,7 +149,10 @@ Rectangle {
             enabled: radioGroup.checkState !== Qt.Unchecked
             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
 
-            onClicked: applyClicked()
+            onClicked: {
+                Logger.log("AnnotationPane: Apply button clicked")
+                applyClicked()
+            }
         }
     }
 }

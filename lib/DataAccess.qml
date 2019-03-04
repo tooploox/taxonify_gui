@@ -36,7 +36,9 @@ QtObject {
             repeat: true
 
             onTriggered: {
+                Logger.log("DataAccess: Refresh timer triggered")
                 if(internal.refresh_token) {
+                    Logger.log("DataAccess: Refreshing internal")
                     internal.refresh()
                 }
             }
@@ -57,6 +59,7 @@ QtObject {
     }
 
     function login(username, password, cb) {
+
         var req = {
             handler: '/user/login',
             method: 'POST',

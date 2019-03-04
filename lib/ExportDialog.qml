@@ -94,6 +94,7 @@ Dialog {
             }
 
             onClicked: {
+                Logger.log("ExportDialog: OkButton clicked")
                 accepted()
                 busyIndication.running = !busyIndication.running
                 enabled = false

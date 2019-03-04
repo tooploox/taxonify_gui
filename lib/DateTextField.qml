@@ -50,7 +50,9 @@ RowLayout {
         ToolTip.toolTip.y: (textInput.height - ToolTip.toolTip.height) / 2
 
         onEditingFinished: {
+            Logger.log("DateTextField: Editing finished")
             if (valid) {
+                Logger.log("DataAccess: valid date")
                 date.setUTCMilliseconds(deltaMilliseconds)
                 isostring = date.toISOString()
             }
