@@ -15,6 +15,7 @@ ColumnLayout {
             anchors.fill: parent
 
             SortingControls {
+                Layout.leftMargin: 5
                 enabled: false
             }
         }
