@@ -196,8 +196,15 @@ ColumnLayout {
         onRejected: root.newUser = ''
 
         Label {
+            property int maxWidth: 400
+
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.Wrap
+            width: maxWidth
+
+            onTextChanged: width = Math.min(maxWidth, paintedWidth)
+
             text: "Are you sure you want to add new user: <b>" + root.newUser + "</b> to the system?"
         }
     }

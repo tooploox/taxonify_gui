@@ -15,7 +15,7 @@ ApplicationWindow {
     property var dataAccess: DataAccess {}
 
     SettingsDialog {
-        id: settings
+        id: settingsDialog
 
         onClosed: app.close()
 
@@ -37,7 +37,7 @@ ApplicationWindow {
 
         onSuccess: {
             let userList = res.map(item => item.username)
-            settings.updateUserList(userList)
+            settingsDialog.updateUserList(userList)
         }
     }
 
@@ -56,7 +56,7 @@ ApplicationWindow {
         interval: 500
         running: true
         repeat: false
-        onTriggered: settings.open()
+        onTriggered: settingsDialog.open()
     }
 
     Component.onCompleted: {
