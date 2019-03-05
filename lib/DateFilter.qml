@@ -8,7 +8,7 @@ Item {
     width: layout.width
 
     property alias start : startDateField.dateTime
-    property var end : endDateField.dateTime
+    property alias end : endDateField.dateTime
 
     function emboldenChoices() {
         unbolden(startLabel, startDateField)
