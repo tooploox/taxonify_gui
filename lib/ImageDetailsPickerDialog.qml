@@ -7,7 +7,7 @@ Dialog {
     x: Math.floor((parent.width - width) / 2)
     y: Math.floor((parent.height - height) / 2)
     width: 600
-    height: 600
+    height: 650
 
     modal: true
     title: 'Choose properties'

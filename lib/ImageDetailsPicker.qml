@@ -7,35 +7,68 @@ Item {
         return {
             taxonomy: taxonomyDetails.pickedAttributes(),
             morphometry: morphometricDetails.pickedAttributes(),
-            additionalAttributes: additionalAttributesDetails.pickedAttributes()
+            additionalAttributes: additionalAttributesDetails.pickedAttributes(),
+            modified_by: modifiedByCheckbox.checked,
+            modification_time: modificationTimeCheckbox.checked
         }
     }
 
-    RowLayout {
+    ColumnLayout {
         anchors.fill: parent
+        spacing: 0
 
-        ImageDetailsList {
-            id: taxonomyDetails
+        MenuSeparator {
             Layout.fillWidth: true
-            Layout.fillHeight: true
-            detailsArray: FilteringAttributes.taxonomyAttributes
-            title: "Taxonomy"
         }
 
-        ImageDetailsList {
-            id: morphometricDetails
+        RowLayout {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            detailsArray: FilteringAttributes.morphometricAttributes
-            title: "Morphometry"
+
+            ImageDetailsList {
+                id: taxonomyDetails
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                detailsArray: FilteringAttributes.taxonomyAttributes
+                title: "Taxonomy"
+            }
+
+            ImageDetailsList {
+                id: morphometricDetails
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                detailsArray: FilteringAttributes.morphometricAttributes
+                title: "Morphometry"
+            }
+
+            ImageDetailsList {
+                id: additionalAttributesDetails
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                detailsArray: FilteringAttributes.filteringAttributes
+                title: "Additional attributes"
+            }
         }
 
-        ImageDetailsList {
-            id: additionalAttributesDetails
+        MenuSeparator {
+            Layout.topMargin: 5
             Layout.fillWidth: true
-            Layout.fillHeight: true
-            detailsArray: FilteringAttributes.filteringAttributes
-            title: "Additional attributes"
+        }
+
+        RowLayout {
+            CheckBox {
+                id: modifiedByCheckbox
+                checked: true
+                text: 'Modified by'
+            }
+
+            CheckBox {
+                id: modificationTimeCheckbox
+                checked: true
+                text: 'Modification time'
+            }
         }
     }
+
+
 }

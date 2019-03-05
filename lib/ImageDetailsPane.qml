@@ -37,8 +37,12 @@ Rectangle {
                 text += '<i>' + full_obj[key + '_modified_by'] + '</i>'
             }
             if (obj[key] !== null && with_date && full_obj[key + '_modification_time']) {
+                if (with_modified) {
+                    text += '<i>, </i>'
+                }
+
                 let time = new Date(full_obj[key + '_modification_time'])
-                text += '<i>, ' + time.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat) + '</i>'
+                text += '<i>' + time.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat) + '</i>'
             }
             text += '<br>'
         }
@@ -58,7 +62,8 @@ Rectangle {
                                                                    ordered[key] = filtered[key]
                                                                }
                                                            })
-            text += buildPropertySectionText(ordered, meta, true, true, false, 'Taxonomy')
+            text += buildPropertySectionText(ordered, meta, allowedProperties.modified_by,
+                                             allowedProperties.modification_time, false, 'Taxonomy')
         }
         if (allowedProperties.morphometry.length !== 0) {
             const filtered = filterKeys(meta, allowedProperties.morphometry)
@@ -66,7 +71,8 @@ Rectangle {
         }
         if (allowedProperties.additionalAttributes.length !== 0) {
             const filtered = filterKeys(meta, allowedProperties.additionalAttributes)
-            text += buildPropertySectionText(filtered, meta, true, true, false, 'Additional attributes')
+            text += buildPropertySectionText(filtered, meta, allowedProperties.modified_by,
+                                              allowedProperties.modification_time, false, 'Additional attributes')
         }
         label.text = text
     }
