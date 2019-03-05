@@ -8,6 +8,7 @@ Item {
     property real sizeScale: 1
     property int selectedCount: 0
     property var hoveredItem : null
+    property var rightClickedItem: null
 
     property var filter: function(item) {
         return false
@@ -24,6 +25,7 @@ Item {
 
     signal reachedBottom()
     signal itemHovered()
+    signal itemRightClicked()
 
 
     readonly property ListModel model: ListModel {}
@@ -269,26 +271,34 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             hoverEnabled: true
+                            acceptedButtons: Qt.LeftButton | Qt.RightButton
 
                             onPositionChanged: {
-                                item = root.model.get(modelData)
+                                let currentItem = root.model.get(modelData)
                                 hoveredItem = item
                                 itemHovered()
                             }
 
                             onClicked: {
-                                if (rect.state == "grayout")
-                                    return
+                                let currentItem = root.model.get(modelData)
 
-                                if (item.selected) {
-                                    item.selected = false
-                                    selectedCount -= 1
-                                } else {
-                                    item.selected = true
-                                    selectedCount += 1
+                                if (mouse.button & Qt.LeftButton) {
+                                    if (rect.state == "grayout")
+                                        return
+
+                                    if (item.selected) {
+                                        item.selected = false
+                                        selectedCount -= 1
+                                    } else {
+                                        item.selected = true
+                                        selectedCount += 1
+                                    }
+
+                                    item = currentItem
+                                } else if (mouse.button & Qt.RightButton) {
+                                    rightClickedItem = item
+                                    itemRightClicked()
                                 }
-
-                                item = root.model.get(modelData)
                             }
                         }
                     }

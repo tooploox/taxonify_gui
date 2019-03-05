@@ -22,10 +22,12 @@ ColumnLayout {
     }
 
     property alias hoveredItem: imageView.hoveredItem
+    property alias rightClickedItem: imageView.rightClickedItem
     property alias filter: imageView.filter
     readonly property ImageView imageView: imageView
     signal atPageBottom()
     signal itemHovered()
+    signal itemRightClicked()
 
     ImageView {
         id: imageView
@@ -37,6 +39,7 @@ ColumnLayout {
 
         onReachedBottom: atPageBottom()
         onItemHovered: root.itemHovered()
+        onItemRightClicked: root.itemRightClicked()
     }
 
     Rectangle {

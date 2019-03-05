@@ -203,7 +203,10 @@ Item {
                 }
 
                 onItemHovered: {
-                    imageDetailsPane.setHoveredItem(hoveredItem)
+                    imageDetailsPane.displayHoveredItem(hoveredItem)
+                }
+                onItemRightClicked: {
+                    imageDetailsPane.displayRightClickedItem(rightClickedItem)
                 }
             }
 

@@ -16,7 +16,7 @@ QtObject {
     ]
 
     readonly property var morphometricAttributes: [
-        'file_size', 'aspect_ratio', 'maj_axis_len', 'min_axis_len', 'orientation',
-        'eccentricity', 'solidity', 'estimated_volume', 'area'
+        'area', 'aspect_ratio', 'eccentricity', 'estimated_volume', 'file_size',
+        'maj_axis_len', 'min_axis_len', 'orientation', 'solidity'
     ]
 }

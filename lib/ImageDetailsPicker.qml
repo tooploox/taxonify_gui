@@ -4,9 +4,11 @@ import QtQuick.Layouts 1.12
 
 Item {
     function pickedAttributes() {
-        return [...taxonomyDetails.pickedAttributes(),
-                ...morphometricDetails.pickedAttributes(),
-                ...additionalAttributesDetails.pickedAttributes()]
+        return {
+            taxonomy: taxonomyDetails.pickedAttributes(),
+            morphometry: morphometricDetails.pickedAttributes(),
+            additionalAttributes: additionalAttributesDetails.pickedAttributes()
+        }
     }
 
     RowLayout {
