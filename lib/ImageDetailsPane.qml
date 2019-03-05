@@ -72,13 +72,32 @@ Rectangle {
     }
 
     function displayHoveredItem(item) {
-        currentHoveredItem = makeCopy(item)
-        displayItem(currentHoveredItem, hoverLabel)
+        if (item !== null) {
+            hoverLabelTimer.stop()
+            hoverPlaceholderLabel.visible = false
+            currentHoveredItem = makeCopy(item)
+            displayItem(currentHoveredItem, hoverLabel)
+        } else {
+            hoverLabelTimer.restart()
+        }
     }
 
     function displayRightClickedItem(item) {
+        clickedPlaceholderLabel.visible = false
         currentRightClickedItem = makeCopy(item)
         displayItem(currentRightClickedItem, clickedLabel)
+    }
+
+    Timer {
+        id: hoverLabelTimer
+        interval: 500
+        running: false
+        repeat: false
+
+        onTriggered: {
+            hoverPlaceholderLabel.visible = true
+        }
+
     }
 
     FontLoader {
@@ -96,10 +115,23 @@ Rectangle {
             border.color: 'lightgray'
 
             Label {
+                id: clickedPlaceholderLabel
+                anchors.margins: 5
+                anchors.fill: parent
+                clip: true
+                text: "Right-click on image to pin its details here."
+                color: 'darkgray'
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                visible: true
+            }
+
+            Label {
                 id: clickedLabel
                 anchors.margins: 5
                 anchors.fill: parent
                 clip: true
+                visible: !clickedPlaceholderLabel.visible
             }
         }
         Rectangle {
@@ -107,12 +139,26 @@ Rectangle {
             Layout.fillHeight: true
             border.color: 'lightgray'
 
+            Label {
+                id: hoverPlaceholderLabel
+                anchors.margins: 5
+                anchors.fill: parent
+                clip: true
+                text: "Hover on image to see its details here."
+                color: 'darkgray'
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                visible: true
+            }
+
 
             Label {
                 id: hoverLabel
                 anchors.margins: 5
                 anchors.fill: parent
                 clip: true
+                visible: !hoverPlaceholderLabel.visible
+
             }
         }
         Row {

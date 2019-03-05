@@ -275,7 +275,12 @@ Item {
 
                             onPositionChanged: {
                                 let currentItem = root.model.get(modelData)
-                                hoveredItem = item
+                                hoveredItem = currentItem
+                                itemHovered()
+                            }
+
+                            onExited: {
+                                hoveredItem = null
                                 itemHovered()
                             }
 
@@ -296,7 +301,7 @@ Item {
 
                                     item = currentItem
                                 } else if (mouse.button & Qt.RightButton) {
-                                    rightClickedItem = item
+                                    rightClickedItem = currentItem
                                     itemRightClicked()
                                 }
                             }
