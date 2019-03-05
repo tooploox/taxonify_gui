@@ -100,11 +100,6 @@ Rectangle {
 
     }
 
-    FontLoader {
-        id: fontLoader
-        source: 'qrc:/graphics/awesome.ttf'
-    }
-
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
@@ -161,27 +156,25 @@ Rectangle {
 
             }
         }
-        Row {
-            Layout.fillWidth: true
-            Layout.preferredHeight: filterButton.height
 
-            Button {
-                id: filterButton
-                text: '\uf0b0'
-                font.family: fontLoader.name
-                font.pixelSize: 16
-                width: 30
-                height: width
-                onClicked: imageDetailsPickerDialog.open()
-            }
+        Button {
+            id: filterButton
+            text: qsTr('Choose properties')
+            Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
+            height: 40
+            onClicked: imageDetailsPickerDialog.open()
         }
     }
 
     ImageDetailsPickerDialog {
         id: imageDetailsPickerDialog
         onAccepted: {
-            displayItem(makeCopy(currentHoveredItem), hoverLabel)
-            displayItem(makeCopy(currentRightClickedItem), clickedLabel)
+            if (currentHoveredItem) {
+                displayItem(makeCopy(currentHoveredItem), hoverLabel)
+            }
+            if (currentRightClickedItem) {
+                displayItem(makeCopy(currentRightClickedItem), clickedLabel)
+            }
         }
     }
 
