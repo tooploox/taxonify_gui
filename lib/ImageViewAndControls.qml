@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 import com.microscopeit 1.0
 
 ColumnLayout {
+    id: root
 
     Rectangle{
         Layout.fillWidth: true
@@ -19,9 +20,11 @@ ColumnLayout {
         }
     }
 
+    property alias hoveredItem: imageView.hoveredItem
     property alias filter: imageView.filter
     readonly property ImageView imageView: imageView
     signal atPageBottom()
+    signal itemHovered()
 
     ImageView {
         id: imageView
@@ -32,6 +35,7 @@ ColumnLayout {
         sizeScale: tileSizeSlider.value
 
         onReachedBottom: atPageBottom()
+        onItemHovered: root.itemHovered()
     }
 
     Rectangle {

@@ -26,6 +26,10 @@
         <file>DateTimePicker.qml</file>
         <file>DateTimeField.qml</file>
         <file>DateTimeFieldAndLabel.qml</file>
+        <file>ImageDetailsPane.qml</file>
+        <file>ImageDetailsPickerDialog.qml</file>
+        <file>ImageDetailsPicker.qml</file>
+        <file>ImageDetailsList.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
@@ -53,5 +57,8 @@
     </qresource>
     <qresource prefix="/images">
         <file>logo.png</file>
+    </qresource>
+    <qresource prefix="/graphics">
+        <file>awesome.ttf</file>
     </qresource>
 </RCC>

@@ -170,6 +170,12 @@ Item {
 
                         onUserListRequested: listUsers.call()
                     }
+
+                    ImageDetailsPane {
+                        id: imageDetailsPane
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
                 }
             }
 
@@ -194,6 +200,10 @@ Item {
                     if(pageLoader.internal.pageLoadingInProgress || pageLoader.internal.lastPageLoaded) return
                     storeScrollLastPos()
                     pageLoader.loadNextPage(getCurrentFilter())
+                }
+
+                onItemHovered: {
+                    imageDetailsPane.setHoveredItem(hoveredItem)
                 }
             }
 

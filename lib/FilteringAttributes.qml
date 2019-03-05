@@ -9,4 +9,14 @@ QtObject {
         'beatles', 'stones', 'zeppelin', 'floyd', 'acdc', 'hendrix', 'alan_parsons',
         'allman', 'dire_straits', 'eagles', 'guns', 'purple', 'van_halen', 'skynyrd',
         'zz_top', 'iron', 'police', 'moore', 'inxs', 'chilli_peppers']
+
+    readonly property var taxonomyAttributes: [
+        'empire', 'kingdom', 'phylum', 'class', 'order', 'family', 'genus',
+        'species'
+    ]
+
+    readonly property var morphometricAttributes: [
+        'file_size', 'aspect_ratio', 'maj_axis_len', 'min_axis_len', 'orientation',
+        'eccentricity', 'solidity', 'estimated_volume', 'area'
+    ]
 }

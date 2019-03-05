@@ -9,10 +9,7 @@ ColumnLayout {
     property alias container: rptr
     readonly property string notSpecifiedStr: "Not specified"
 
-    readonly property var taxonomyNames: [
-        'empire', 'kingdom', 'phylum', 'class', 'order', 'family', 'genus',
-        'species'
-    ]
+    readonly property var taxonomyNames: FilteringAttributes.taxonomyAttributes
 
     property bool annotationMode: false
     property int taxonomyDepth: 8

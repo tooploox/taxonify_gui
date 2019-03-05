@@ -7,6 +7,7 @@ Item {
     property real borderWidth: 5
     property real sizeScale: 1
     property int selectedCount: 0
+    property var hoveredItem : null
 
     property var filter: function(item) {
         return false
@@ -22,6 +23,8 @@ Item {
     }
 
     signal reachedBottom()
+    signal itemHovered()
+
 
     readonly property ListModel model: ListModel {}
     readonly property int programatic_scroll_step: 100
@@ -194,6 +197,7 @@ Item {
             width: parent.width
 
             ListView {
+                id: rowListView
                 anchors.fill: parent
                 orientation: Qt.Horizontal
                 clip: true
@@ -264,6 +268,13 @@ Item {
 
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+
+                            onPositionChanged: {
+                                item = root.model.get(modelData)
+                                hoveredItem = item
+                                itemHovered()
+                            }
 
                             onClicked: {
                                 if (rect.state == "grayout")
