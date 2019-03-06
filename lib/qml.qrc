@@ -30,6 +30,7 @@
         <file>ImageDetailsPickerDialog.qml</file>
         <file>ImageDetailsPicker.qml</file>
         <file>ImageDetailsList.qml</file>
+        <file>PopupLabel.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>

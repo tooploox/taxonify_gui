@@ -134,6 +134,15 @@ Rectangle {
                 clip: true
                 visible: !clickedPlaceholderLabel.visible
             }
+
+            PopupLabel {
+                width: 30
+                height: width
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                text: '...'
+                visible: clickedLabel.visible
+            }
         }
         Rectangle {
             Layout.fillWidth: true
