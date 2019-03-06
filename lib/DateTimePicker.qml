@@ -56,7 +56,7 @@ Rectangle {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 frameVisible: false
-                locale: Qt.locale("en_GB")
+                locale: Util.locale
             }
 
             Rectangle {

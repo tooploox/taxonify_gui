@@ -51,7 +51,7 @@ Rectangle {
             onDateTimePicked: {
                 popup.close()
                 if (dateTime) {
-                    textField.text = dateTime.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat)
+                    textField.text = dateTime.toLocaleString(Util.locale, Locale.ShortFormat)
                 } else {
                     textField.text = ''
                 }
