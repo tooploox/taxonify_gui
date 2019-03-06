@@ -17,12 +17,13 @@ Rectangle {
     readonly property var filter: buildFilter()
 
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
-        timeDateFilter.emboldenChoices()
 
         if (timeCheckBox.checked) {
             timeCheckBox.font.bold = true
+            timeDateFilter.emboldenChoices(false)
         } else {
             timeCheckBox.font.bold = false
+            timeDateFilter.emboldenChoices(true)
         }
     }
 
