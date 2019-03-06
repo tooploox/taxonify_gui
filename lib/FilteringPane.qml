@@ -12,9 +12,12 @@ Rectangle {
     property alias title: titleLabel.text
     property alias titleSize: titleLabel.font.pixelSize
 
-    property alias userList: modifiedByFilter.userList
     readonly property var attributes: FilteringAttributes.filteringAttributes
     readonly property var filter: buildFilter()
+
+    function updateUserList(data) {
+        modifiedByFilter.userList = data
+    }
 
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
 

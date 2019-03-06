@@ -4,4 +4,5 @@ SUBDIRS +=  DateTimePickerTest \
             ExampleTest \
             ExportTest \
             MainPageTest \
+            SettingsTest \
             UploadTest
