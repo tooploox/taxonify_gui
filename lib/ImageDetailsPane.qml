@@ -149,10 +149,12 @@ Rectangle {
 
             PopupImageLabel {
                 id: clickedImagePopup
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.rightMargin: 5
                 width: 30
                 height: width
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
+
                 text: '...'
                 visible: clickedLabel.visible
             }

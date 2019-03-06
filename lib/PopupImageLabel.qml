@@ -7,30 +7,19 @@ Label {
     property int imageWidth
     property int imageHeight
     readonly property int borderWidth: 3
+    property bool cursorOverImage: false
 
-    function setPopupPosition() {
-        const mappedPoint = mapToItem(Overlay.overlay, 0, 0)
-        const margin = 20
-
-        const mostRightX = mappedPoint.x + dateTimePicker.width
-        if (mostRightX + margin > Overlay.overlay.width) {
-            mappedPoint.x -= mostRightX + margin - Overlay.overlay.width
-        }
-
-        const mostBottomY = mappedPoint.y + dateTimePicker.height
-        if (mostBottomY + margin > Overlay.overlay.height) {
-            mappedPoint.y -= mostBottomY + margin - Overlay.overlay.height
-        }
-
-        popup.x = mappedPoint.x
-        popup.y = mappedPoint.y
-    }
+    horizontalAlignment: Text.AlignHCenter
+    verticalAlignment: Text.AlignVCenter
 
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
         onEntered: {
             popup.open()
+        }
+        onExited: {
+            if (!cursorOverImage) popup.close()
         }
     }
 
@@ -40,9 +29,13 @@ Label {
         width: 0
         height: 0
         modal: true
+        dim: false
 
         Rectangle {
-            anchors.centerIn: parent
+            id: content
+            anchors.left: parent.left
+            anchors.top: parent.top
+
             width: img.paintedWidth + 2 * borderWidth
             height: img.paintedHeight + 2 * borderWidth
             color: 'red'
@@ -58,7 +51,12 @@ Label {
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
+
+                onEntered: {
+                    cursorOverImage = true
+                }
                 onExited: {
+                    cursorOverImage = false
                     popup.close()
                 }
             }
