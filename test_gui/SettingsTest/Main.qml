@@ -45,8 +45,8 @@ ApplicationWindow {
         id: addUserRequest
         handler: dataAccess.addUser
 
-        onSuccess: settingsDialog.addUserResponse('success')
-        onError: settingsDialog.addUserResponse('error')
+        onSuccess: settingsDialog.addUserResponse(true)
+        onError: settingsDialog.addUserResponse(false)
     }
 
     // Delay for 500ms is needed to get login procedure finished properly

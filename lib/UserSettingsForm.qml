@@ -22,8 +22,8 @@ ColumnLayout {
         }
     }
 
-    function addUserResponse(status) {
-        if(status === 'success') {
+    function addUserResponse(success) {
+        if(success) {
             responseAddUserDialog.title = qsTr("Success")
             responseMessage.text = "User added sucessfully!"
         } else {
@@ -103,7 +103,7 @@ ColumnLayout {
                 Button {
                     Layout.preferredHeight: 50
                     Layout.rightMargin: 20
-                    text: qsTr('REFRESH')
+                    text: qsTr('Refresh')
 
                     Material.primary: Material.Grey
                     Material.background: Material.background
@@ -113,7 +113,7 @@ ColumnLayout {
 
                 Button {
                     Layout.preferredHeight: 50
-                    text: qsTr('ADD USER')
+                    text: qsTr('Add user')
 
                     Material.primary: Material.Grey
                     Material.background: Material.background
@@ -126,7 +126,7 @@ ColumnLayout {
 
                 Button {
                     Layout.preferredHeight: 50
-                    text: qsTr('CLOSE')
+                    text: qsTr('Close')
 
                     Material.primary: Material.Grey
                     Material.background: Material.background

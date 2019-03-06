@@ -334,8 +334,8 @@ Item {
         id: addUserRequest
         handler: dataAccess.addUser
 
-        onSuccess: settingsDialog.addUserResponse('success')
-        onError: settingsDialog.addUserResponse('error')
+        onSuccess: settingsDialog.addUserResponse(true)
+        onError: settingsDialog.addUserResponse(false)
     }
 }
 
