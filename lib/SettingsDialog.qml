@@ -21,6 +21,8 @@ Dialog {
     signal userListRequested()
     signal addUserRequested(string username)
 
+    property var settingsTabs: ['Users']
+
     function updateUserList(data) {
         userSettings.updateUserList(data)
     }
@@ -29,44 +31,39 @@ Dialog {
         userSettings.addUserResponse(status)
     }
 
-    contentItem: RowLayout {
-        id: content
-        property ListModel settingsSections: ListModel {}
+    ColumnLayout {
+        anchors.fill: parent
 
         Rectangle {
-            border.color: 'lightgray'
-            Layout.fillHeight: true
-            Layout.preferredWidth: 80
-            Layout.maximumWidth: 100
+            Layout.fillWidth: true
+            height: bar.height
 
-            ListView {
-                id: settingsItem
-                model: content.settingsSections
-                delegate: Component {
-                    Item {
-                        width: 80; height: 40
-                        Text {
-                            anchors.centerIn: parent
-                            text: '<b>' + id + '</b> '
-                        }
+            TabBar {
+                id: bar
+                width: parent.width
+                clip: true
+                Repeater {
+                    model: settingsTabs
+                    clip: true
+
+                    TabButton {
+                        text: modelData
+                        width: Math.max(100, bar.width / settingsTabs.length)
                     }
                 }
-                highlight: Rectangle {
-                    color: 'whitesmoke'
-                    border.color: 'lightgray'
-                }
-                focus: true
             }
         }
 
-        Rectangle {
+        StackLayout {
+            id: stack
+            currentIndex: bar.currentIndex
             Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.leftMargin: 10
 
             UserSettingsForm {
                 id: userSettings
-                anchors.fill: parent
+                Layout.fillHeight: true
+                Layout.fillWidth: true
 
                 onClose: root.close()
                 onUserListRequested: root.userListRequested()
@@ -76,7 +73,6 @@ Dialog {
     }
 
     onAboutToShow: {
-        content.settingsSections.append({id: "Users"})
         root.userListRequested()
     }
 }

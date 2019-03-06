@@ -21,8 +21,6 @@ ApplicationWindow {
 
         onUserListRequested: listUsers.call()
         onAddUserRequested: addUserRequest.call(username)
-
-
     }
 
     Request {
