@@ -92,6 +92,10 @@ Rectangle {
         clickedPlaceholderLabel.visible = false
         currentRightClickedItem = makeCopy(item)
         displayItem(currentRightClickedItem, clickedLabel)
+
+        clickedImagePopup.source = currentRightClickedItem.image
+        clickedImagePopup.imageWidth = currentRightClickedItem.metadata.image_width
+        clickedImagePopup.imageHeight = currentRightClickedItem.metadata.image_height
     }
 
     Timer {
@@ -135,7 +139,8 @@ Rectangle {
                 visible: !clickedPlaceholderLabel.visible
             }
 
-            PopupLabel {
+            PopupImageLabel {
+                id: clickedImagePopup
                 width: 30
                 height: width
                 anchors.right: parent.right
