@@ -10,16 +10,18 @@ Item {
     property alias start : startDate.dateTime
     property alias end : endDate.dateTime
 
-    function emboldenChoices() {
+    function emboldenChoices(forceInactive) {
         startDate.setBold(false)
         endDate.setBold(false)
 
-        if (start !== null) {
-            startDate.setBold(true)
-        }
+        if (!forceInactive) {
+            if (start !== null) {
+                startDate.setBold(true)
+            }
 
-        if (end !== null) {
-            endDate.setBold(true)
+            if (end !== null) {
+                endDate.setBold(true)
+            }
         }
     }
 
