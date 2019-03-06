@@ -131,12 +131,20 @@ Rectangle {
                 visible: true
             }
 
-            Label {
-                id: clickedLabel
+            Flickable {
+                id: clickedFlickable
                 anchors.margins: 5
                 anchors.fill: parent
+                contentWidth: clickedLabel.width
+                contentHeight: clickedLabel.height
                 clip: true
-                visible: !clickedPlaceholderLabel.visible
+                ScrollIndicator.vertical: ScrollIndicator {}
+
+                Label {
+                    id: clickedLabel
+                    clip: true
+                    visible: !clickedPlaceholderLabel.visible
+                }
             }
 
             PopupImageLabel {
@@ -166,14 +174,21 @@ Rectangle {
                 visible: true
             }
 
-
-            Label {
-                id: hoverLabel
+            Flickable {
+                id: hoverFlickable
                 anchors.margins: 5
                 anchors.fill: parent
+                contentWidth: hoverLabel.width
+                contentHeight: hoverLabel.height
                 clip: true
-                visible: !hoverPlaceholderLabel.visible
 
+                Label {
+                    id: hoverLabel
+                    clip: true
+                    visible: !hoverPlaceholderLabel.visible
+                }
+
+                contentY: clickedFlickable.contentY
             }
         }
 
