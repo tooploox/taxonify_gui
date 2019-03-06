@@ -59,4 +59,7 @@
     <qresource prefix="/images">
         <file>logo.png</file>
     </qresource>
+    <qresource prefix="/graphics">
+        <file>awesome.ttf</file>
+    </qresource>
 </RCC>

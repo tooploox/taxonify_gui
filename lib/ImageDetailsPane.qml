@@ -155,7 +155,9 @@ Rectangle {
                 width: 30
                 height: width
 
-                text: '...'
+                font.family: fontLoader.name
+                font.pixelSize: 15
+                text: '\uf03e'
                 visible: clickedLabel.visible
             }
         }
@@ -214,5 +216,7 @@ Rectangle {
             }
         }
     }
+
+    FontLoader { id: fontLoader; source: 'qrc:/graphics/awesome.ttf'}
 
 }
