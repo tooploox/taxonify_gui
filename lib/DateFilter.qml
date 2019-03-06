@@ -7,71 +7,47 @@ Item {
     height: layout.height
     width: layout.width
 
-    property alias start : startDateField.dateTime
-    property alias end : endDateField.dateTime
+    property alias start : startDate.dateTime
+    property alias end : endDate.dateTime
 
     function emboldenChoices() {
-        unbolden(startLabel, startDateField)
-        unbolden(endLabel, endDateField)
+        startDate.setBold(false)
+        endDate.setBold(false)
 
         if (start !== null) {
-            embolden(startLabel, startDateField)
+            startDate.setBold(true)
         }
 
         if (end !== null) {
-            embolden(endLabel, endDateField)
+            endDate.setBold(true)
         }
-    }
-
-    function embolden(label, dateField) {
-        label.font.bold = true
-        dateField.textField.font.bold = true
-    }
-
-    function unbolden(label, dateField) {
-        label.font.bold = false
-        dateField.textField.font.bold = false
     }
 
     ColumnLayout {
         id: layout
         width: 300
 
-        RowLayout {
+        DateTimeFieldAndLabel {
+            id: startDate
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            Label {
-                id: startLabel
-                text: 'Start time:'
-            }
+            text: 'Start time:'
 
-            DateTimeField {
-                id: startDateField
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                onDateTimePicked: {
-                    root.start = dateTime
-                }
+            onDateTimePicked: {
+                root.start = dateTime
             }
         }
 
-        RowLayout {
+        DateTimeFieldAndLabel {
+            id: endDate
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            Label {
-                id: endLabel
-                text: 'End time:'
-            }
+            text: 'End time:'
 
-            DateTimeField {
-                id: endDateField
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                onDateTimePicked: {
-                    root.end = dateTime
-                }
+            onDateTimePicked: {
+                root.end = dateTime
             }
         }
     }

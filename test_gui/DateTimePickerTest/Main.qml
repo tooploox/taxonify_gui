@@ -11,17 +11,9 @@ ApplicationWindow {
     width: 800
     height: 500
 
-    RowLayout {
+    DateTimeFieldAndLabel {
+        id: startDate
         width: 300
-
-        Label {
-            text: 'Please choose time:'
-        }
-
-        DateTimeField {
-            id: dateField
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
+        text: 'Please choose time:'
     }
 }
