@@ -41,7 +41,7 @@ Rectangle {
                     text += '<i>, </i>'
                 }
 
-                let time = new Date(full_obj[key + '_modification_time'])
+                let time = Util.serverDateToLocal(full_obj[key + '_modification_time'])
                 text += '<i>' + time.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat) + '</i>'
             }
             text += '<br>'
