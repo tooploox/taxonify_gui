@@ -147,19 +147,24 @@ Rectangle {
                 }
             }
 
-            PopupImageLabel {
-                id: clickedImagePopup
+            Rectangle {
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.rightMargin: 5
+                anchors.rightMargin: 15
+                anchors.topMargin: 10
                 width: 30
                 height: width
 
-                font.family: fontLoader.name
-                font.pixelSize: 15
-                text: '\uf03e'
-                visible: clickedLabel.visible
+                PopupImageLabel {
+                    id: clickedImagePopup
+                    anchors.fill: parent
+                    font.family: fontLoader.name
+                    font.pixelSize: 15
+                    text: '\uf03e'
+                    visible: clickedLabel.visible
+                }
             }
+
         }
         Rectangle {
             Layout.fillWidth: true
