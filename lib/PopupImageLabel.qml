@@ -7,7 +7,6 @@ Label {
     property int imageWidth
     property int imageHeight
     readonly property int borderWidth: 3
-    property bool cursorOverImage: false
 
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
@@ -16,11 +15,23 @@ Label {
         anchors.fill: parent
         hoverEnabled: true
         onEntered: {
+            popupCloseTimer.stop()
             popup.open()
         }
         onExited: {
-            if (!cursorOverImage) popup.close()
+            popupCloseTimer.restart()
         }
+    }
+
+    Timer {
+        id: popupCloseTimer
+        interval: 250
+        running: false
+        repeat: false
+        onTriggered: {
+            popup.close()
+        }
+
     }
 
     Popup {
@@ -53,11 +64,10 @@ Label {
                 hoverEnabled: true
 
                 onEntered: {
-                    cursorOverImage = true
+                    popupCloseTimer.stop()
                 }
                 onExited: {
-                    cursorOverImage = false
-                    popup.close()
+                    popupCloseTimer.restart()
                 }
             }
         }
