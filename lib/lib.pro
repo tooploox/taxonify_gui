@@ -91,4 +91,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     spdlog/fmt/bundled/LICENSE.rst
-

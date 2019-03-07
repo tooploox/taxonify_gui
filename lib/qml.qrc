@@ -4,6 +4,9 @@
         <file>AttributeFilter.qml</file>
         <file>DateFilter.qml</file>
         <file>DateTextField.qml</file>
+        <file>DateTimePicker.qml</file>
+        <file>DateTimeField.qml</file>
+        <file>DateTimeFieldAndLabel.qml</file>
         <file>FilteringAttributes.qml</file>
         <file>FilteringPane.qml</file>
         <file>ImageView.qml</file>
@@ -18,12 +21,14 @@
         <file>UploadList.qml</file>
         <file>UploadListDialog.qml</file>
         <file>MainPage.qml</file>
+        <file>Logger.qml</file>
         <file>LoginPage.qml</file>
         <file>ExportDialog.qml</file>
         <file>ExportForm.qml</file>
         <file>ModifiedByFilter.qml</file>
+        <file>UserSettingsForm.qml</file>
+        <file>SettingsDialog.qml</file>
         <file>Util.qml</file>
-        <file>Logger.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>

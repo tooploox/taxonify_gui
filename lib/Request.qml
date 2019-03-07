@@ -96,7 +96,7 @@ QtObject {
 
                     if(status >= 200 && status < 300) {
 
-                        if(body === null) { // parse error
+                        if(status !== 204 && body === null) { // 204 by default has no body - other parse error
                             return _emitError(Error.ParseError, res)
                         }
 

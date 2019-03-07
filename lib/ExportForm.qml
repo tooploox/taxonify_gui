@@ -9,7 +9,9 @@ Item {
 
     readonly property var exportCriteria: criteria()
 
-    property alias userList: filteringPane.userList
+    function updateUserList(data){
+        filteringPane.updateUserList(data)
+    }
 
     function criteria() {
         console.log(Logger.debug, "ExportForm: criteria()")

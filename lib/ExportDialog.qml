@@ -18,8 +18,11 @@ Dialog {
 
     signal userListRequested()
 
-    property alias userList: exportForm.userList
     property alias exportCriteria: exportForm.exportCriteria
+
+    function updateUserList(data) {
+        exportForm.updateUserList(data)
+    }
 
     function processExportResponse(success, response) {
         console.log(Logger.debug, "ExportDialog: processExportResponse(success='" + JSON.stringify(success) + "',

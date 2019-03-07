@@ -80,6 +80,13 @@ Item {
         currentSas: root.currentSas
     }
 
+    SettingsDialog {
+        id: settingsDialog
+
+        onUserListRequested: listUsers.call()
+        onAddUserRequested: addUserRequest.call(username)
+    }
+
     ColumnLayout {
 
         anchors.fill: parent
@@ -133,9 +140,10 @@ Item {
                 ToolButton {
                     text: qsTr("⋮")
                     Layout.rightMargin: 5
+
                     onClicked: {
                         console.log(Logger.debug, "MainPage: ToolButton clicked")
-                        console.log("Settings not yet implemented")
+                        settingsDialog.open()
                     }
                 }
 
@@ -365,12 +373,20 @@ Item {
 
         onSuccess: {
             console.log(Logger.debug, "MainPage: listUsers succeeded")
-            let receivers = [filteringPane, exportDialog]
+            let receivers = [filteringPane, exportDialog, settingsDialog]
             let userList = res.map(item => item.username)
             for (const item of receivers) {
-                item.userList = userList
+                item.updateUserList(userList)
             }
         }
+    }
+
+    Request {
+        id: addUserRequest
+        handler: dataAccess.addUser
+
+        onSuccess: settingsDialog.addUserResponse(true)
+        onError: settingsDialog.addUserResponse(false)
     }
 }
 

@@ -1,6 +1,8 @@
 TEMPLATE = subdirs
 
-SUBDIRS +=  ExampleTest \
+SUBDIRS +=  DateTimePickerTest \
+            ExampleTest \
             ExportTest \
             MainPageTest \
+            SettingsTest \
             UploadTest

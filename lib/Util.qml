@@ -7,6 +7,8 @@ QtObject {
     readonly property var settingsFromFile:
         settingsPath ? Req.readJsonFromLocalFileSync(settingsPath) : null
 
+    readonly property var locale: Qt.locale("en_GB")
+
     function getSettingVariable(key, defaultValue) {
         console.log(Logger.debug, "Util: getSettingVariable(key='" + key + "', defaultValue='" + defaultValue + "')")
 

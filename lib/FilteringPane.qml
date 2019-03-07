@@ -12,18 +12,21 @@ Rectangle {
     property alias title: titleLabel.text
     property alias titleSize: titleLabel.font.pixelSize
 
-    property alias userList: modifiedByFilter.userList
     readonly property var attributes: FilteringAttributes.filteringAttributes
     readonly property var filter: buildFilter()
 
+    function updateUserList(data) {
+        modifiedByFilter.userList = data
+    }
+
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
         console.log(Logger.debug, "FilteringPane: emboldenTimeCheckBox()")
-        const time = timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
-        if (time) {
+        if (timeCheckBox.checked) {
             timeCheckBox.font.bold = true
+            timeDateFilter.emboldenChoices(false)
         } else {
             timeCheckBox.font.bold = false
-            timeCheckBox.checked = false
+            timeDateFilter.emboldenChoices(true)
         }
     }
 
@@ -98,18 +101,18 @@ Rectangle {
 
         if (acquisitionTimeCheckBox.checked) {
             console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionTimeCheckBox checked")
-            let acquisitionStartTime = acquisitionTimeDateFilter.start.isostring
+            let acquisitionStartTime = acquisitionTimeDateFilter.start
             if (acquisitionStartTime) {
                 console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionStartTime not empty")
-                filter.acquisition_time_start = acquisitionStartTime
+                filter.acquisition_time_start = acquisitionStartTime.toISOString()
             } else {
                 console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionStartTime empty")
             }
 
-            let acquisitionEndTime = acquisitionTimeDateFilter.end.isostring
+            let acquisitionEndTime = acquisitionTimeDateFilter.end
             if (acquisitionEndTime) {
                 console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionEndTime not empty")
-                filter.acquisition_time_end = acquisitionEndTime
+                filter.acquisition_time_end = acquisitionEndTime.toISOString()
             } else {
                 console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionEndTime empty")
             }
@@ -119,18 +122,18 @@ Rectangle {
 
         if (modificationTimeCheckBox.checked) {
             console.log(Logger.debug, "FilteringPane: buildFilter() - modificationTimeCheckBox checked")
-            let modificationStartTime = modificationTimeDateFilter.start.isostring
+            let modificationStartTime = modificationTimeDateFilter.start
             if (modificationStartTime) {
                 console.log(Logger.debug, "FilteringPane: buildFilter() - modificationStartTime not empty")
-                filter.modification_time_start = modificationStartTime
+                filter.modification_time_start = modificationStartTime.toISOString()
             } else {
                 console.log(Logger.debug, "FilteringPane: buildFilter() - modificationStartTime empty")
             }
 
-            let modificationEndTime = modificationTimeDateFilter.end.isostring
+            let modificationEndTime = modificationTimeDateFilter.end
             if (modificationEndTime) {
                 console.log(Logger.debug, "FilteringPane: buildFilter() - modificationEndTime not empty")
-                filter.modification_time_end = modificationEndTime
+                filter.modification_time_end = modificationEndTime.toISOString()
             } else {
                 console.log(Logger.debug, "FilteringPane: buildFilter() - modificationEndTime empty")
             }
@@ -253,7 +256,6 @@ Rectangle {
                             visible: checkBox1.checked
 
                         }
-
                     }
                 }
 

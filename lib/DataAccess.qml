@@ -112,6 +112,7 @@ QtObject {
             headers: [internal.access_token_header],
             params: filter
         }
+
         return server.send(req, cb)
     }
 
@@ -154,6 +155,17 @@ QtObject {
             method: 'GET',
             headers: [internal.access_token_header]
         }
+        return server.send(req, cb)
+    }
+
+    function addUser(username, cb) {
+        var req = {
+            handler: '/user/new',
+            method: 'POST',
+            headers: [internal.access_token_header],
+            params: { username: username }
+        }
+
         return server.send(req, cb)
     }
 }
