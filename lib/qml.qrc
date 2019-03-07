@@ -26,10 +26,10 @@
         <file>DateTimePicker.qml</file>
         <file>DateTimeField.qml</file>
         <file>DateTimeFieldAndLabel.qml</file>
-        <file>ImageDetailsPane.qml</file>
-        <file>ImageDetailsPickerDialog.qml</file>
-        <file>ImageDetailsPicker.qml</file>
         <file>ImageDetailsList.qml</file>
+        <file>ImageDetailsPane.qml</file>
+        <file>ImageDetailsPicker.qml</file>
+        <file>ImageDetailsPickerDialog.qml</file>
         <file>PopupImageLabel.qml</file>
     </qresource>
     <qresource prefix="/sample">
