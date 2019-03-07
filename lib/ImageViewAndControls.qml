@@ -30,7 +30,7 @@ ColumnLayout {
         sizeScale: tileSizeSlider.value
 
         onReachedBottom: {
-            Logger.log("ImageViewAndControls: Reached Bottom")
+            console.log(Logger.debug, "ImageViewAndControls: Reached Bottom")
             atPageBottom()
         }
     }

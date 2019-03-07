@@ -21,17 +21,17 @@ ComboBox {
     }
 
     function emboldenCurrentChoice() {
-        Logger.log("ModifiedByFilter: emboldenCurrentChoice - index = " + currentIndex)
+        console.log(Logger.debug, "ModifiedByFilter: emboldenCurrentChoice - index = " + currentIndex)
         indexToEmbold = currentIndex
     }
 
     function choice() {
-        Logger.log("ModifiedByFilter: choice()")
+        console.log(Logger.debug, "ModifiedByFilter: choice()")
         if (currentIndex === 0) {
-            Logger.log("ModifiedByFilter: choice() - currentIndex equal to 0")
+            console.log(Logger.debug, "ModifiedByFilter: choice() - currentIndex equal to 0")
             return ''
         } else {
-            Logger.log("ModifiedByFilter: choice() - currentIndex not equal to 0")
+            console.log(Logger.debug, "ModifiedByFilter: choice() - currentIndex not equal to 0")
         }
 
         return model[currentIndex]

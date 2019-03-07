@@ -1,4 +1,13 @@
 pragma Singleton
-import com.microscopeit 1.0
+import QtQuick 2.12
 
-Logger { }
+Item {
+
+    readonly property alias debug: dbg
+
+    LoggingCategory {
+        id: dbg
+        name: "logger.debug"
+    }
+
+}

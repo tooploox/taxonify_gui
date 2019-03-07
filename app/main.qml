@@ -33,8 +33,9 @@ ApplicationWindow {
     LoginPage {
         id: loginPage
         onUserLogged: st.replace(mainPage, { currentUser: username })
+
         StackView.onActivated: {
-            Logger.log("main: LoginPage activated")
+            console.log(Logger.debug, "main: LoginPage activated")
             usernameField.forceActiveFocus()
         }
     }
@@ -48,7 +49,7 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        Logger.log("main: ApplicationWindow component completed")
+        console.log(Logger.debug, "main: ApplicationWindow component completed")
         console.log('using server:', serverAddress)
     }
 }

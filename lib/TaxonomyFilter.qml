@@ -31,7 +31,7 @@ ColumnLayout {
     }
 
     function update() {
-        Logger.log("TaxonomyFilter: update()")
+        console.log(Logger.debug, "TaxonomyFilter: update()")
         if (updateCounter == Number.MAX_SAFE_INTEGER)
             updateCounter = 0
         updateCounter += 1
@@ -56,12 +56,12 @@ ColumnLayout {
             }
 
             function update() {
-                Logger.log("TaxonomyFilter: Repeater - update()")
+                console.log(Logger.debug, "TaxonomyFilter: Repeater - update()")
                 combobox.update()
             }
 
             function apply() {
-                Logger.log("TaxonomyFilter: Repeater - apply()")
+                console.log(Logger.debug, "TaxonomyFilter: Repeater - apply()")
                 combobox.apply()
             }
 
@@ -84,7 +84,7 @@ ColumnLayout {
                 property int appliedIndex: -1 // if nothing was applied then -1
 
                 function calculateAppliedIndex() {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - calculateAppliedIndex()")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - calculateAppliedIndex()")
                     if (!isEmpty && nodes[index].time === (updateCounter - 1))
                         return nodes[index].applied
                     if (notSpecifiedLastApplied[index] === (updateCounter - 1))
@@ -106,7 +106,7 @@ ColumnLayout {
                 }
 
                 function apply() {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - apply()")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - apply()")
                     if (isEmpty || model[currentIndex] === notSpecifiedStr) {
                         notSpecifiedLastApplied[index] = updateCounter
                     } else {
@@ -122,17 +122,17 @@ ColumnLayout {
                 }
 
                 function getValue() {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - getValue()")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - getValue()")
                     return model[currentIndex]
                 }
 
                 function getModel() {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - getModel()")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - getModel()")
                     return getModelForIndex(index)
                 }
 
                 function getModelForIndex(idx) {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - getModelForIndex(idx='" + idx + "')")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - getModelForIndex(idx='" + idx + "')")
                     return [notSpecifiedStr, ...Object.keys(nodes[idx]).sort()]
                 }
 
@@ -141,23 +141,23 @@ ColumnLayout {
                 }
 
                 function fixItemState(itemIdx, value) {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - fixItemState(itemIdx='" + itemIdx + "')")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - fixItemState(itemIdx='" + itemIdx + "')")
                     let item = rptr.itemAt(itemIdx)
 
                     item.combobox.model = getModelForIndex(itemIdx)
                     let modelIdx = item.combobox.model.indexOf(value)
                     if (modelIdx !== -1) {
-                        Logger.log("TaxonomyFilter: Repeater - combobox - fixItemState - modelIdx is not equal to -1")
+                        console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - fixItemState - modelIdx is not equal to -1")
                         item.combobox.currentIndex = modelIdx
                         item.checked = true
                         item.checkbox.enabled = true
                     } else {
-                        Logger.log("TaxonomyFilter: Repeater - combobox - fixItemState - modelIdx is equal to -1")
+                        console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - fixItemState - modelIdx is equal to -1")
                     }
                 }
 
                 function fixUpperFields(itemIdx) {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - fixUpperFields(itemIdx='" + itemIdx + "')")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - fixUpperFields(itemIdx='" + itemIdx + "')")
                     let itemValue = rptr.itemAt(itemIdx).getValue()
                     let upperItemIdx = itemIdx - 1
                     let upperItem = rptr.itemAt(upperItemIdx)
@@ -190,7 +190,7 @@ ColumnLayout {
                 }
 
                 function populateLowerNode() {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - populateLowerNode()")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - populateLowerNode()")
                     let nextNodes = {}
                     for (let idx in model) {
                         if (idx != 0) {
@@ -202,7 +202,7 @@ ColumnLayout {
                 }
 
                 function resetLowerChoiceWithoutUpdate() {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - resetLowerChoiceWithoutUpdate()")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - resetLowerChoiceWithoutUpdate()")
                     let lowerItem = rptr.itemAt(index + 1)
                     if (lowerItem) {
                         lowerItem.updatesDisabled = true
@@ -212,7 +212,7 @@ ColumnLayout {
                 }
 
                 function update() {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - update()")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - update()")
                     model = getModel()
                     if (model[currentIndex] !== notSpecifiedStr)
                     {
@@ -239,18 +239,18 @@ ColumnLayout {
                 }
 
                 onCurrentIndexChanged: {
-                    Logger.log("TaxonomyFilter: Repeater - combobox - CurrentIndex changed")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - CurrentIndex changed")
                     if (updatesDisabled) {
-                        Logger.log("TaxonomyFilter: Repeater - combobox - CurrentIndex changed - updates disabled")
+                        console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - CurrentIndex changed - updates disabled")
                         return
                     }
-                    Logger.log("TaxonomyFilter: Repeater - combobox - CurrentIndex changed - updates enabled")
+                    console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - CurrentIndex changed - updates enabled")
 
                     if (model[currentIndex] === notSpecifiedStr) {
-                        Logger.log("TaxonomyFilter: Repeater - combobox - CurrentIndex changed - notSpecifiedStr chosen")
+                        console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - CurrentIndex changed - notSpecifiedStr chosen")
                         rptr.specifiedTill = Math.min(rptr.specifiedTill, index)
                     } else if (rptr.specifiedTill === index) {
-                        Logger.log("TaxonomyFilter: Repeater - combobox - CurrentIndex changed - enable lower combobox")
+                        console.log(Logger.debug, "TaxonomyFilter: Repeater - combobox - CurrentIndex changed - enable lower combobox")
                         rptr.specifiedTill++
                     }
                     update()
@@ -261,14 +261,14 @@ ColumnLayout {
     }
 
     Component.onCompleted: {
-        Logger.log("TaxonomyFilter: Component completed")
+        console.log(Logger.debug, "TaxonomyFilter: Component completed")
         let tree = Requests.readJsonFromLocalFileSync("qrc:/taxonomy_hierarchy.json")
         if (tree) {
-            Logger.log("TaxonomyFilter: Component completed - taxonomy tree is not empty")
+            console.log(Logger.debug, "TaxonomyFilter: Component completed - taxonomy tree is not empty")
             nodes[0] = tree
             rptr.model = taxonomyDepth
         } else {
-            Logger.log("TaxonomyFilter: Component completed - taxonomy tree is empty")
+            console.log(Logger.debug, "TaxonomyFilter: Component completed - taxonomy tree is empty")
         }
     }
 }

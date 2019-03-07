@@ -15,14 +15,14 @@ RowLayout {
     property int deltaMilliseconds: 0
 
     function getTimeAndApply(discard) {
-        Logger.log("DateTextField: getTimeAndApply(discard='" + discard + "')")
+        console.log(Logger.debug, "DateTextField: getTimeAndApply(discard='" + discard + "')")
         if (discard || empty) {
-            Logger.log("DateTextField: discard or empty")
+            console.log(Logger.debug, "DateTextField: discard or empty")
             textInput.placeholderText = "____-__-__"
             labelText.font.bold = false
             return undefined
         } else {
-            Logger.log("DateTextField: not (discard or empty)")
+            console.log(Logger.debug, "DateTextField: not (discard or empty)")
             textInput.placeholderText = text
             labelText.font.bold = true
             return isostring
@@ -53,9 +53,9 @@ RowLayout {
         ToolTip.toolTip.y: (textInput.height - ToolTip.toolTip.height) / 2
 
         onEditingFinished: {
-            Logger.log("DateTextField: Editing finished")
+            console.log(Logger.debug, "DateTextField: Editing finished")
             if (valid) {
-                Logger.log("DataAccess: valid date")
+                console.log(Logger.debug, "DataAccess: valid date")
                 date.setUTCMilliseconds(deltaMilliseconds)
                 isostring = date.toISOString()
             }

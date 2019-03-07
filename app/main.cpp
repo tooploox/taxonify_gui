@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
         settingsPath = QVariant(QVariant::String);
     }
 
-    qmlRegisterType<Logger>("com.microscopeit", 1, 0, "Logger");
+    initLogging();
     qmlRegisterType<Uploader>("com.microscopeit", 1, 0, "Uploader");
 
     engine.rootContext()->setContextProperty("settingsPath", settingsPath);

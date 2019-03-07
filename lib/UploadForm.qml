@@ -51,7 +51,7 @@ Item {
     }
 
     function proceedWithUpload(uploadedPackages) {
-        Logger.log("UploadForm: proceedWithUpload()")
+        console.log(Logger.debug, "UploadForm: proceedWithUpload()")
         let baseName = uploader.getFileName(internal.fileName)
         for(let pack of uploadedPackages) {
             if(baseName == pack.filename) {
@@ -62,13 +62,13 @@ Item {
     }
 
     function startUpload() {
-        Logger.log("UploadForm: startUpload()")
+        console.log(Logger.debug, "UploadForm: startUpload()")
         root.uploadStarted()
         uploader.upload(internal.fileName)
     }
 
     function clearUploadStatus() {
-        Logger.log("UploadForm: clearUploadStatus()")
+        console.log(Logger.debug, "UploadForm: clearUploadStatus()")
         internal.errorMessage = ''
         internal.errorStatus = 0
         internal.fileName = ''
@@ -80,12 +80,12 @@ Item {
         handler: dataAccess.uploadList
 
         onSuccess: {
-            Logger.log("UploadForm: checkPackagename succeeded")
+            console.log(Logger.debug, "UploadForm: checkPackagename succeeded")
             root.proceedWithUpload(res)
         }
 
         onError: {
-            Logger.log("UploadForm: checkPackagename failed")
+            console.log(Logger.debug, "UploadForm: checkPackagename failed")
             console.log("Failed to get upload list! Details: " + details)
         }
     }
@@ -97,7 +97,7 @@ Item {
         nameFilters: ["Data packages tar.bz2 (*.tar.bz2)", "All files (*)"]
 
         onAccepted: {
-            Logger.log("UploadForm: FileDialog accepted")
+            console.log(Logger.debug, "UploadForm: FileDialog accepted")
             let file = decodeURIComponent(fileDialog.fileUrl)
             file = uploader.getPlatformFilePath(file)
             fileSelected(file)
@@ -126,12 +126,12 @@ Item {
         standardButtons: Dialog.Yes | Dialog.No
 
         onAccepted: {
-            Logger.log("UploadForm: duplicatedDialog accepted")
+            console.log(Logger.debug, "UploadForm: duplicatedDialog accepted")
             root.startUpload()
         }
 
         onRejected: {
-            Logger.log("UploadForm: duplicatedDialog rejected")
+            console.log(Logger.debug, "UploadForm: duplicatedDialog rejected")
             clearUploadStatus()
         }
 
@@ -146,13 +146,13 @@ Item {
         id: uploader
 
         onSuccess: {
-            Logger.log("UploadForm: uploader succeeded")
+            console.log(Logger.debug, "UploadForm: uploader succeeded")
             internal.message = 'Upload finished successfully!'
             root.success(replyData)
         }
 
         onError: {
-            Logger.log("UploadForm: uploader failed")
+            console.log(Logger.debug, "UploadForm: uploader failed")
             internal.errorMessage = errorString
             internal.errorStatus = status
             root.error(internal.errorMessage)
@@ -170,7 +170,7 @@ Item {
                      || internal.errorMessage
 
             onClicked: {
-                Logger.log("UploadForm: selectFileButton clicked")
+                console.log(Logger.debug, "UploadForm: selectFileButton clicked")
                 fileDialog.visible = true
             }
         }
@@ -180,7 +180,7 @@ Item {
             enabled: internal.fileName && !internal.message
                      && !internal.errorMessage
             onClicked: {
-                Logger.log("UploadForm: AbortButton clicked")
+                console.log(Logger.debug, "UploadForm: AbortButton clicked")
                 uploader.abort()
             }
         }

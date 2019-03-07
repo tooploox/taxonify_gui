@@ -50,7 +50,7 @@ QtObject {
     // (success/error and finished not emitted), the next invocation will mark
     // previous invocation as abandoned.
     function call() {
-        Logger.log("Request: call()")
+        console.log(Logger.debug, "Request: call()")
         called()
 
         internal.counter++
@@ -126,28 +126,28 @@ QtObject {
     // be used carefully with http requests other than 'GET'
     // No signal is emitted after invoking this method.
     function abandon() {
-        Logger.log("Request: abandon()")
+        console.log(Logger.debug, "Request: abandon()")
         internal.counter++
         busy = false
     }
 
     // private
     function _emitSuccess(body, res) {
-        Logger.log("Request: _emitSuccess()")
+        console.log(Logger.debug, "Request: _emitSuccess()")
         success(body, res)
         finished()
     }
 
     // private
     function _emitError(errorCode, res) {
-        Logger.log("Request: _emitError()")
+        console.log(Logger.debug, "Request: _emitError()")
         error(errorCode, res)
         finished()
     }
 
 
     Component.onDestruction: {
-        Logger.log("Request: Component destruction")
+        console.log(Logger.debug, "Request: Component destruction")
         abandon();
     }
 

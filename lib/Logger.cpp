@@ -1,39 +1,25 @@
 #include "Logger.h"
 
-#include <QDateTime>
-#include <QDebug>
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QStandardPaths>
+#include <QString>
+#include <QtGlobal>
 
-Logger::Logger(QObject *parent)
-    : QObject(parent)
-{
-    if (!QDir(filename).isAbsolute())
-        filename = QDir::currentPath() + "/" + filename;
+#include "spdlog/sinks/rotating_file_sink.h"
 
-    QDir::root().mkpath(QFileInfo(filename).absolutePath());
+static constexpr auto logFilename = "logfile.txt";
 
-    file.setFileName(filename);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Append))
-        writer.setDevice(&file);
-    else
-        qCritical() << "Logger::Logger(): Could not open file: " << file.errorString();
+static const QString messagePattern("[%{time yyyyMMdd h:mm:ss.zzz t} %{if-debug}D%{endif}"
+                       "%{if-info}I%{endif}%{if-warning}W%{endif}%{if-critical}C%{endif}"
+                       "%{if-fatal}F%{endif}] %{file}:%{line} - %{message}");
+
+static void messageHandler(QtMsgType type,
+                    const QMessageLogContext &context,
+                    const QString &message) {
+    static auto logger = spdlog::rotating_logger_mt("logger", logFilename, 1048576 * 5, 1);
+    logger->info(qPrintable(qFormatLogMessage(type, context, message)));
 }
 
-inline QString Logger::prefix() const {
-    return "[" + QDateTime::currentDateTimeUtc().toString("yyyy-MM-dd HH:mm:ss.zzz") + "] ";
-}
-
-void Logger::log(const QString &message) {
-    if(file.isOpen())
-        writer << prefix() << message << endl;
-    else
-        qCritical() << "Logger::log(): File is not open";
-}
-
-Logger::~Logger() {
-    writer.flush();
-    file.close();
+void initLogging() {
+    spdlog::set_pattern("%v");
+    qSetMessagePattern(messagePattern);
+    qInstallMessageHandler(messageHandler);
 }

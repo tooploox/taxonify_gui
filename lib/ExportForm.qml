@@ -12,28 +12,28 @@ Item {
     property alias userList: filteringPane.userList
 
     function criteria() {
-        Logger.log("ExportForm: criteria()")
+        console.log(Logger.debug, "ExportForm: criteria()")
         let crit = filteringPane.filter
         if (limitCheckBox.checked) {
-            Logger.log("ExportForm: criteria() - limitCheckBox checked")
+            console.log(Logger.debug, "ExportForm: criteria() - limitCheckBox checked")
             crit.limit = limitTextField.text
         }
         return crit
     }
 
     function buildCriteriaText() {
-        Logger.log("ExportForm: buildCriteriaText()")
+        console.log(Logger.debug, "ExportForm: buildCriteriaText()")
         filterTextArea.text = JSON.stringify(criteria(), null, 2)
     }
 
     function acceptLimitInput() {
-        Logger.log("ExportForm: acceptLimitInput()")
+        console.log(Logger.debug, "ExportForm: acceptLimitInput()")
         limitTextWarning.visible = false
         buildCriteriaText()
     }
 
     function denyLimitInput() {
-        Logger.log("ExportForm: denyLimitInput()")
+        console.log(Logger.debug, "ExportForm: denyLimitInput()")
         limitTextWarning.visible = true
 
     }
@@ -54,7 +54,7 @@ Item {
                 titleSize: 20
 
                 onUserListRequested: {
-                    Logger.log("ExportForm: filteringPane - UserList requested")
+                    console.log(Logger.debug, "ExportForm: filteringPane - UserList requested")
                     limitTextWarning.visible = true
                     root.userListRequested()
                 }
@@ -87,7 +87,7 @@ Item {
                     enabled: true
                     text: "Limit results to first"
                     onCheckedChanged: {
-                        Logger.log("ExportForm: limitCheckBox - Checked changed")
+                        console.log(Logger.debug, "ExportForm: limitCheckBox - Checked changed")
                         buildCriteriaText()
                     }
                 }
@@ -101,12 +101,12 @@ Item {
                     validator: IntValidator { bottom: 1 }
 
                     onTextChanged: {
-                        Logger.log("ExportForm: limitTextField - Text changed")
+                        console.log(Logger.debug, "ExportForm: limitTextField - Text changed")
                         if (!acceptableInput) {
-                            Logger.log("ExportForm: limitTextField - not acceptable Input")
+                            console.log(Logger.debug, "ExportForm: limitTextField - not acceptable Input")
                             denyLimitInput()
                         } else if (enabled && acceptableInput) {
-                            Logger.log("ExportForm: limitTextField - enabled and acceptable Input")
+                            console.log(Logger.debug, "ExportForm: limitTextField - enabled and acceptable Input")
                             acceptLimitInput()
                         }
                     }

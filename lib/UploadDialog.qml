@@ -32,17 +32,17 @@ Dialog {
         token: dataAccess.internal.access_token
 
         onSuccess: {
-            Logger.log("UploadDialog: UploadForm succeeded")
+            console.log(Logger.debug, "UploadDialog: UploadForm succeeded")
             root.success(replyData)
         }
 
         onError: {
-            Logger.log("UploadDialog: UploadForm failed")
+            console.log(Logger.debug, "UploadDialog: UploadForm failed")
             root.error(errorMsg)
         }
 
         onUploadStarted: {
-            Logger.log("UploadDialog: UploadForm - UploadStarted")
+            console.log(Logger.debug, "UploadDialog: UploadForm - UploadStarted")
             root.uploadStarted()
         }
     }

@@ -22,12 +22,12 @@ Dialog {
         Layout.alignment: Qt.AlignBottom | Qt.AlignRight
 
         onReset: {
-            Logger.log("UploadListDialog: reset")
+            console.log(Logger.debug, "UploadListDialog: reset")
             uploadListReq.call()
         }
 
         onRejected: {
-            Logger.log("UploadListDialog: rejected")
+            console.log(Logger.debug, "UploadListDialog: rejected")
             root.close()
         }
 
@@ -46,7 +46,7 @@ Dialog {
     }
 
     onAboutToShow: {
-        Logger.log("UploadListDialog: about to show")
+        console.log(Logger.debug, "UploadListDialog: about to show")
         uploadListReq.call()
     }
 
@@ -55,12 +55,12 @@ Dialog {
         handler: dataAccess.uploadList
 
         onSuccess: {
-            Logger.log("UploadListDialog: uploadListReq succeeded")
+            console.log(Logger.debug, "UploadListDialog: uploadListReq succeeded")
             uploadList.setData(res)
         }
 
         onError: {
-            Logger.log("UploadListDialog: uploadListReq failed")
+            console.log(Logger.debug, "UploadListDialog: uploadListReq failed")
             console.log("Failed to get upload list! Details: " + details)
         }
     }

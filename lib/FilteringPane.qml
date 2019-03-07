@@ -17,7 +17,7 @@ Rectangle {
     readonly property var filter: buildFilter()
 
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
-        Logger.log("FilteringPane: emboldenTimeCheckBox()")
+        console.log(Logger.debug, "FilteringPane: emboldenTimeCheckBox()")
         const time = timeDateFilter.getAcquisitionTimeAndApply(timeCheckBox.checked)
         if (time) {
             timeCheckBox.font.bold = true
@@ -28,22 +28,22 @@ Rectangle {
     }
 
     function emboldenChoices() {
-        Logger.log("FilteringPane: emboldenChoices()")
+        console.log(Logger.debug, "FilteringPane: emboldenChoices()")
         if (modifiedByCheckBox.checked) {
-            Logger.log("FilteringPane: emboldenChoices - modifiedByCheckBox checked")
+            console.log(Logger.debug, "FilteringPane: emboldenChoices - modifiedByCheckBox checked")
             modifiedByCheckBox.font.bold = true
             modifiedByFilter.emboldenCurrentChoice()
         } else{
-            Logger.log("FilteringPane: emboldenChoices - modifiedByCheckBox not checked")
+            console.log(Logger.debug, "FilteringPane: emboldenChoices - modifiedByCheckBox not checked")
             modifiedByCheckBox.font.bold = false
         }
 
         if (checkBox1.checked && fileNameField.text.length > 0) {
-            Logger.log("FilteringPane: emboldenChoices - checkBox1 checked and fileNameField not empty")
+            console.log(Logger.debug, "FilteringPane: emboldenChoices - checkBox1 checked and fileNameField not empty")
             fileNameField.placeholderText = fileNameField.text
             checkBox1.font.bold = true
         } else {
-            Logger.log("FilteringPane: emboldenChoices - checkBox1 not checked or fileNameField empty")
+            console.log(Logger.debug, "FilteringPane: emboldenChoices - checkBox1 not checked or fileNameField empty")
             fileNameField.placeholderText = 'File name regex'
             checkBox1.font.bold = false
             checkBox1.checked = false
@@ -53,7 +53,7 @@ Rectangle {
         emboldenTimeCheckBox(modificationTimeDateFilter, modificationTimeCheckBox)
 
         if (taxonomyCkbx.checked) {
-            Logger.log("FilteringPane: emboldenChoices - taxonomyCkbx checked")
+            console.log(Logger.debug, "FilteringPane: emboldenChoices - taxonomyCkbx checked")
             for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
                 var item = taxonomyFilter.container.itemAt(i)
                 if(item.checked) {
@@ -61,7 +61,7 @@ Rectangle {
                 }
             }
         } else {
-            Logger.log("FilteringPane: emboldenChoices - taxonomyCkbx not checked")
+            console.log(Logger.debug, "FilteringPane: emboldenChoices - taxonomyCkbx not checked")
         }
 
         taxonomyCkbx.font.bold = taxonomyCkbx.checked
@@ -78,68 +78,68 @@ Rectangle {
     }
 
     function buildFilter() {
-        Logger.log("FilteringPane: buildFilter()")
+        console.log(Logger.debug, "FilteringPane: buildFilter()")
         var filter = {}
 
         if (modifiedByCheckBox.checked) {
-            Logger.log("FilteringPane: buildFilter() - modifiedByCheckBox checked")
+            console.log(Logger.debug, "FilteringPane: buildFilter() - modifiedByCheckBox checked")
             filter.modified_by = modifiedByFilter.choice()
         } else {
-            Logger.log("FilteringPane: buildFilter() - modifiedByCheckBox not checked")
+            console.log(Logger.debug, "FilteringPane: buildFilter() - modifiedByCheckBox not checked")
         }
 
         if (checkBox1.checked && fileNameField.text.length > 0) {
-            Logger.log("FilteringPane: buildFilter - checkBox1 checked and fileNameField not empty")
+            console.log(Logger.debug, "FilteringPane: buildFilter - checkBox1 checked and fileNameField not empty")
             filter.filename = fileNameField.text
         } else
         {
-            Logger.log("FilteringPane: buildFilter() - checkBox1 not checked or fileNameField empty")
+            console.log(Logger.debug, "FilteringPane: buildFilter() - checkBox1 not checked or fileNameField empty")
         }
 
         if (acquisitionTimeCheckBox.checked) {
-            Logger.log("FilteringPane: buildFilter() - acquisitionTimeCheckBox checked")
+            console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionTimeCheckBox checked")
             let acquisitionStartTime = acquisitionTimeDateFilter.start.isostring
             if (acquisitionStartTime) {
-                Logger.log("FilteringPane: buildFilter() - acquisitionStartTime not empty")
+                console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionStartTime not empty")
                 filter.acquisition_time_start = acquisitionStartTime
             } else {
-                Logger.log("FilteringPane: buildFilter() - acquisitionStartTime empty")
+                console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionStartTime empty")
             }
 
             let acquisitionEndTime = acquisitionTimeDateFilter.end.isostring
             if (acquisitionEndTime) {
-                Logger.log("FilteringPane: buildFilter() - acquisitionEndTime not empty")
+                console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionEndTime not empty")
                 filter.acquisition_time_end = acquisitionEndTime
             } else {
-                Logger.log("FilteringPane: buildFilter() - acquisitionEndTime empty")
+                console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionEndTime empty")
             }
         } else {
-            Logger.log("FilteringPane: buildFilter() - acquisitionTimeCheckBox not checked")
+            console.log(Logger.debug, "FilteringPane: buildFilter() - acquisitionTimeCheckBox not checked")
         }
 
         if (modificationTimeCheckBox.checked) {
-            Logger.log("FilteringPane: buildFilter() - modificationTimeCheckBox checked")
+            console.log(Logger.debug, "FilteringPane: buildFilter() - modificationTimeCheckBox checked")
             let modificationStartTime = modificationTimeDateFilter.start.isostring
             if (modificationStartTime) {
-                Logger.log("FilteringPane: buildFilter() - modificationStartTime not empty")
+                console.log(Logger.debug, "FilteringPane: buildFilter() - modificationStartTime not empty")
                 filter.modification_time_start = modificationStartTime
             } else {
-                Logger.log("FilteringPane: buildFilter() - modificationStartTime empty")
+                console.log(Logger.debug, "FilteringPane: buildFilter() - modificationStartTime empty")
             }
 
             let modificationEndTime = modificationTimeDateFilter.end.isostring
             if (modificationEndTime) {
-                Logger.log("FilteringPane: buildFilter() - modificationEndTime not empty")
+                console.log(Logger.debug, "FilteringPane: buildFilter() - modificationEndTime not empty")
                 filter.modification_time_end = modificationEndTime
             } else {
-                Logger.log("FilteringPane: buildFilter() - modificationEndTime empty")
+                console.log(Logger.debug, "FilteringPane: buildFilter() - modificationEndTime empty")
             }
         } else {
-            Logger.log("FilteringPane: buildFilter() - modificationTimeCheckBox not checked")
+            console.log(Logger.debug, "FilteringPane: buildFilter() - modificationTimeCheckBox not checked")
         }
 
         if (taxonomyCkbx.checked) {
-            Logger.log("FilteringPane: buildFilter - taxonomyCkbx checked")
+            console.log(Logger.debug, "FilteringPane: buildFilter - taxonomyCkbx checked")
             for(let i = 0; i < taxonomyFilter.taxonomyNames.length; i++) {
                 var item = taxonomyFilter.container.itemAt(i)
                 if(item.checked) {
@@ -152,7 +152,7 @@ Rectangle {
                 }
             }
         } else {
-            Logger.log("FilteringPane: buildFilter - taxonomyCkbx not checked")
+            console.log(Logger.debug, "FilteringPane: buildFilter - taxonomyCkbx not checked")
         }
 
         for (let i = 0; i < attributeFilters.count; i++) {
@@ -162,7 +162,7 @@ Rectangle {
             const attrContainer = attrFilter.container
 
             if (attrFilter.checked) {
-                Logger.log("FilteringPane: buildFilter - " + attrName + " checked")
+                console.log(Logger.debug, "FilteringPane: buildFilter - " + attrName + " checked")
                 var attrChecked = []
                 if (attrContainer.itemAt(0).item.checked) {
                     attrChecked.push("true") // attr value is true
@@ -177,7 +177,7 @@ Rectangle {
                     filter[attrName] = attrChecked
                 }
             } else {
-                Logger.log("FilteringPane: buildFilter - " + attrName + " not checked")
+                console.log(Logger.debug, "FilteringPane: buildFilter - " + attrName + " not checked")
             }
         }
         return filter
@@ -365,7 +365,7 @@ Rectangle {
             height: 40
 
             onClicked: {
-                Logger.log("FilteringPane: Apply filters button clicked")
+                console.log(Logger.debug, "FilteringPane: Apply filters button clicked")
                 let filter = buildFilter()
                 emboldenChoices()
                 applyClicked(filter)
@@ -374,7 +374,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
-       Logger.log("FilteringPane: Component completed")
+       console.log(Logger.debug, "FilteringPane: Component completed")
        userListRequested()
     }
 }

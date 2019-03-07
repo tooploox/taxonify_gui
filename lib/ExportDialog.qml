@@ -22,7 +22,7 @@ Dialog {
     property alias exportCriteria: exportForm.exportCriteria
 
     function processExportResponse(success, response) {
-        Logger.log("ExportDialog: processExportResponse(success='" + JSON.stringify(success) + "',
+        console.log(Logger.debug, "ExportDialog: processExportResponse(success='" + JSON.stringify(success) + "',
                                                         response='" + JSON.stringify(response) + ")")
         busyIndication.running = false
         okButton.enabled = true
@@ -31,7 +31,7 @@ Dialog {
         }
 
         if (success) {
-            Logger.log("ExportDialog: processExportResponse succeeded")
+            console.log(Logger.debug, "ExportDialog: processExportResponse succeeded")
             if (response.status === 'ok') {
                 Qt.openUrlExternally(response.url)
                 resultDialog.title = 'Data exported successfully\nwith your internet browser!'
@@ -41,7 +41,7 @@ Dialog {
                 resultDialog.closeOnOk = false
             }
         } else {
-            Logger.log("ExportDialog: processExportResponse failed")
+            console.log(Logger.debug, "ExportDialog: processExportResponse failed")
             resultDialog.title = 'An error occurred during data export.'
             resultDialog.closeOnOk = false
         }
@@ -59,7 +59,7 @@ Dialog {
 
         property bool closeOnOk: true
         onAccepted: {
-            Logger.log("ExportDialog: resultDialog accepted")
+            console.log(Logger.debug, "ExportDialog: resultDialog accepted")
             if (closeOnOk) {
                 root.close()
             }
@@ -70,7 +70,7 @@ Dialog {
         id: exportForm
         anchors.fill: parent
         onUserListRequested: {
-            Logger.log("ExportDialog: ExportForm - UserListRequested")
+            console.log(Logger.debug, "ExportDialog: ExportForm - UserListRequested")
             root.userListRequested()
         }
     }
@@ -78,7 +78,7 @@ Dialog {
     footer: DialogButtonBox {
         Layout.alignment: Qt.AlignBottom | Qt.AlignRight
         onRejected: {
-            Logger.log("ExportDialog: DialogButtonBox - Rejected")
+            console.log(Logger.debug, "ExportDialog: DialogButtonBox - Rejected")
             root.close()
         }
 
@@ -105,7 +105,7 @@ Dialog {
             }
 
             onClicked: {
-                Logger.log("ExportDialog: OkButton clicked")
+                console.log(Logger.debug, "ExportDialog: OkButton clicked")
                 accepted()
                 busyIndication.running = !busyIndication.running
                 enabled = false

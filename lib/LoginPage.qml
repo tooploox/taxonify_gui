@@ -19,7 +19,7 @@ Item {
     property bool loginInProgress: false
 
     function clean() {
-        Logger.log("LoginPage: clean()")
+        console.log(Logger.debug, "LoginPage: clean()")
         username = ''
         password = ''
         errorMsg = ''
@@ -27,7 +27,7 @@ Item {
     }
 
     function tryLogin() {
-        Logger.log("LoginPage: tryLogin()")
+        console.log(Logger.debug, "LoginPage: tryLogin()")
         if(username.length == 0 || password.length == 0) return
         loginInProgress = true
         console.log("Username: " + username)
@@ -39,13 +39,13 @@ Item {
         handler: dataAccess.login
 
         onSuccess: {
-            Logger.log("LoginPage: loginRequest succeeded")
+            console.log(Logger.debug, "LoginPage: loginRequest succeeded")
             root.userLogged(username)
             clean()
         }
 
         onError: {
-            Logger.log("LoginPage: loginRequest failed")
+            console.log(Logger.debug, "LoginPage: loginRequest failed")
             loginInProgress = false
             errorLabel.text = "Invalid username or password!"
         }
@@ -88,12 +88,12 @@ Item {
                     placeholderText: "username"
 
                     Keys.onReturnPressed: {
-                        Logger.log("LoginPage: usernameField - ReturnPressed")
+                        console.log(Logger.debug, "LoginPage: usernameField - ReturnPressed")
                         tryLogin()
                     }
 
                     Keys.onEnterPressed: {
-                        Logger.log("LoginPage: usernameField - EnterPressed")
+                        console.log(Logger.debug, "LoginPage: usernameField - EnterPressed")
                         tryLogin()
                     }
                 }
@@ -107,12 +107,12 @@ Item {
                     echoMode: TextInput.Password
 
                     Keys.onReturnPressed: {
-                        Logger.log("LoginPage: passwordField - ReturnPressed")
+                        console.log(Logger.debug, "LoginPage: passwordField - ReturnPressed")
                         tryLogin()
                     }
 
                     Keys.onEnterPressed: {
-                        Logger.log("LoginPage: passwordField - EnterPressed")
+                        console.log(Logger.debug, "LoginPage: passwordField - EnterPressed")
                         tryLogin()
                     }
                 }
@@ -164,7 +164,7 @@ Item {
                     // enabled:
                     text: "LOGIN"
                     onClicked: {
-                        Logger.log("LoginPage: loginButton clicked")
+                        console.log(Logger.debug, "LoginPage: loginButton clicked")
                         tryLogin()
                     }
                 }

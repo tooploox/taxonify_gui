@@ -15,22 +15,22 @@ Item {
     signal logoutClicked()
 
     function storeScrollLastPos() {
-        Logger.log("MainPage: storeScrollLastPos()")
+        console.log(Logger.debug, "MainPage: storeScrollLastPos()")
         lastContentYPos = imageViewAndControls.imageView.getContentY()
     }
 
     function restoreScrollLastPos() {
-        Logger.log("MainPage: restoreScrollLastPos()")
+        console.log(Logger.debug, "MainPage: restoreScrollLastPos()")
         imageViewAndControls.imageView.setContentY(lastContentYPos)
     }
 
     function getCurrentFilter() {
-        Logger.log("MainPage: getCurrentFilter()")
+        console.log(Logger.debug, "MainPage: getCurrentFilter()")
         if (currentFilter) {
-             Logger.log("MainPage: getCurrentFilter - filter not empty")
+             console.log(Logger.debug, "MainPage: getCurrentFilter - filter not empty")
             return JSON.parse(JSON.stringify(currentFilter))
         } else {
-            Logger.log("MainPage: getCurrentFilter - filter empty")
+            console.log(Logger.debug, "MainPage: getCurrentFilter - filter empty")
         }
 
         return {}
@@ -46,17 +46,17 @@ Item {
     UploadDialog {
         id: uploadDialog
         onSuccess: {
-            Logger.log("MainPage: UploadDialog - Success")
+            console.log(Logger.debug, "MainPage: UploadDialog - Success")
             uploadButton.background.color = 'lightgreen'
             uploadInProgress = false
         }
         onError: {
-            Logger.log("MainPage: UploadDialog - Error")
+            console.log(Logger.debug, "MainPage: UploadDialog - Error")
             uploadButton.background.color = 'lightcoral'
             uploadInProgress = false
         }
         onUploadStarted: {
-            Logger.log("MainPage: UploadDialog - UploadStarted")
+            console.log(Logger.debug, "MainPage: UploadDialog - UploadStarted")
             uploadButton.background.color = 'lightgray'
             uploadInProgress = true
         }
@@ -66,7 +66,7 @@ Item {
         id: exportDialog
         onAccepted: exportItems.call(exportDialog.exportCriteria)
         onUserListRequested: {
-            Logger.log("MainPage: ExportDialog - UserListRequested")
+            console.log(Logger.debug, "MainPage: ExportDialog - UserListRequested")
             listUsers.call()
         }
     }
@@ -110,7 +110,7 @@ Item {
                     text: qsTr("Export")
                     Layout.rightMargin: 5
                     onClicked: {
-                        Logger.log("MainPage: Export clicked")
+                        console.log(Logger.debug, "MainPage: Export clicked")
                         exportDialog.open()
                     }
                 }
@@ -124,7 +124,7 @@ Item {
                     progress: uploadDialog.uploadProgress
 
                     onClicked: {
-                        Logger.log("MainPage: DelayButton clicked")
+                        console.log(Logger.debug, "MainPage: DelayButton clicked")
                         if(!uploadInProgress) uploadButton.background.color = 'lightgray'
                         uploadDialog.open()
                     }
@@ -134,7 +134,7 @@ Item {
                     text: qsTr("⋮")
                     Layout.rightMargin: 5
                     onClicked: {
-                        Logger.log("MainPage: ToolButton clicked")
+                        console.log(Logger.debug, "MainPage: ToolButton clicked")
                         console.log("Settings not yet implemented")
                     }
                 }
@@ -143,7 +143,7 @@ Item {
                     text: qsTr("Log out")
                     Layout.rightMargin: 15
                     onClicked: {
-                        Logger.log("MainPage: Log out button clicked")
+                        console.log(Logger.debug, "MainPage: Log out button clicked")
                         logoutClicked()
                         dataAccess.internal.access_token = ''
                     }
@@ -161,7 +161,7 @@ Item {
                 Layout.fillHeight: true
 
                 onApplyClicked: {
-                    Logger.log("MainPage: FilteringPane - ApplyClicked")
+                    console.log(Logger.debug, "MainPage: FilteringPane - ApplyClicked")
                     currentFilter = filter
                     imageViewAndControls.imageView.clearData()
                     storeScrollLastPos()
@@ -170,7 +170,7 @@ Item {
                 }
 
                 onUserListRequested: {
-                    Logger.log("MainPage: FilteringPane - UserListRequested")
+                    console.log(Logger.debug, "MainPage: FilteringPane - UserListRequested")
                     listUsers.call()
                 }
 
@@ -194,12 +194,12 @@ Item {
                          })(annotationPane.criteria)
 
                 onAtPageBottom: {
-                    Logger.log("MainPage: imageViewAndControls - AtPageBottom")
+                    console.log(Logger.debug, "MainPage: imageViewAndControls - AtPageBottom")
                     if(pageLoader.internal.pageLoadingInProgress || pageLoader.internal.lastPageLoaded) {
-                        Logger.log("MainPage: imageViewAndControls - AtPageBottom - pageLoadingInProgress or lastPageLoaded")
+                        console.log(Logger.debug, "MainPage: imageViewAndControls - AtPageBottom - pageLoadingInProgress or lastPageLoaded")
                         return
                     }
-                    Logger.log("MainPage: imageViewAndControls - AtPageBottom - next page to be loaded")
+                    console.log(Logger.debug, "MainPage: imageViewAndControls - AtPageBottom - next page to be loaded")
 
                     storeScrollLastPos()
                     pageLoader.loadNextPage(getCurrentFilter())
@@ -212,7 +212,7 @@ Item {
                 Layout.fillHeight: true
 
                 onApplyClicked: {
-                    Logger.log("MainPage: AnnotationPane - ApplyClicked")
+                    console.log(Logger.debug, "MainPage: AnnotationPane - ApplyClicked")
                     storeScrollLastPos()
 
                     const model = imageViewAndControls.imageView.model
@@ -266,19 +266,19 @@ Item {
         handler: dataAccess.sas
 
         onSuccess: {
-            Logger.log("MainPage: sas succeeded")
+            console.log(Logger.debug, "MainPage: sas succeeded")
             currentSas = res.token
             if (!viewPopulated) {
-                Logger.log("MainPage: sas succeeded - not viewPopulated")
+                console.log(Logger.debug, "MainPage: sas succeeded - not viewPopulated")
                 pageLoader.resetPagesStatus()
                 pageLoader.loadNextPage({})
             } else {
-                Logger.log("MainPage: sas succeeded - viewPopulated")
+                console.log(Logger.debug, "MainPage: sas succeeded - viewPopulated")
             }
         }
 
         onError: {
-            Logger.log("MainPage: sas failed")
+            console.log(Logger.debug, "MainPage: sas failed")
             console.log('sas failed. Details: ' + details)
         }
     }
@@ -290,7 +290,7 @@ Item {
         triggeredOnStart: true
 
         onTriggered: {
-            Logger.log("MainPage: Timer triggered")
+            console.log(Logger.debug, "MainPage: Timer triggered")
             sas.call('processed')
         }
     }
@@ -301,7 +301,7 @@ Item {
         handler: dataAccess.filterItems
 
         onSuccess: {
-            Logger.log("MainPage: filterItems succeeded")
+            console.log(Logger.debug, "MainPage: filterItems succeeded")
             const params = currentSas.length > 0 ? '?' + currentSas : ''
 
             function makeItem(item) {
@@ -319,7 +319,7 @@ Item {
         }
 
         onError: {
-            Logger.log("MainPage: filterItems failed")
+            console.log(Logger.debug, "MainPage: filterItems failed")
             console.log('error in retrieving data items. Error: '+ details.text)
         }
     }
@@ -330,14 +330,14 @@ Item {
         handler: dataAccess.updateItems
 
         onSuccess: {
-            Logger.log("MainPage: updateItems succeeded")
+            console.log(Logger.debug, "MainPage: updateItems succeeded")
             console.log("Update items")
             imageViewAndControls.imageView.clearData()
             pageLoader.loadPages(getCurrentFilter(), pageLoader.getNumberOfLoadedPages())
         }
 
         onError: {
-            Logger.log("MainPage: updateItems failed")
+            console.log(Logger.debug, "MainPage: updateItems failed")
             // TODO
             console.log("Updating annotations failed!")
             console.log(JSON.stringify(details, null, "  "))
@@ -349,12 +349,12 @@ Item {
         handler: dataAccess.exportItems
 
         onSuccess: {
-            Logger.log("MainPage: exportItems succeeded")
+            console.log(Logger.debug, "MainPage: exportItems succeeded")
             exportDialog.processExportResponse(true, res)
         }
 
         onError: {
-            Logger.log("MainPage: exportItems failed")
+            console.log(Logger.debug, "MainPage: exportItems failed")
             exportDialog.processExportResponse(false, details)
         }
     }
@@ -364,7 +364,7 @@ Item {
         handler: dataAccess.userList
 
         onSuccess: {
-            Logger.log("MainPage: listUsers succeeded")
+            console.log(Logger.debug, "MainPage: listUsers succeeded")
             let receivers = [filteringPane, exportDialog]
             let userList = res.map(item => item.username)
             for (const item of receivers) {

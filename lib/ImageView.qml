@@ -13,7 +13,7 @@ Item {
     }
 
     onFilterChanged: {
-        Logger.log("ImageView: Filter changed")
+        console.log(Logger.debug, "ImageView: Filter changed")
         selectedCount = 0
         for(let i = 0; i < model.count; i++) {
             let item = model.get(i)
@@ -31,7 +31,7 @@ Item {
     clip: true
 
     function appendData(data, useLastY) {
-        Logger.log("ImageView: appendData(useLastY='" + useLastY + "')")
+        console.log(Logger.debug, "ImageView: appendData(useLastY='" + useLastY + "')")
         for (let item of data) {
             model.append(item)
         }
@@ -40,7 +40,7 @@ Item {
     }
 
     function clearData() {
-        Logger.log("ImageView: clearData()")
+        console.log(Logger.debug, "ImageView: clearData()")
         listModel.clear()
         listView.forceLayout()
         model.clear()
@@ -48,12 +48,12 @@ Item {
     }
 
     function getContentY() {
-        Logger.log("ImageView: getContentY()")
+        console.log(Logger.debug, "ImageView: getContentY()")
         return listView.contentY
     }
 
     function setData(data) {
-        Logger.log("ImageView: setData()")
+        console.log(Logger.debug, "ImageView: setData()")
         listModel.clear()
         listView.forceLayout()
         model.clear()
@@ -66,15 +66,15 @@ Item {
     }
 
     function setContentY(value) {
-        Logger.log("ImageView: setContentY(value='" + value + "')")
+        console.log(Logger.debug, "ImageView: setContentY(value='" + value + "')")
         if(value > listView.contentY){
-            Logger.log("ImageView: setContentY - value greater than listView.contentY")
+            console.log(Logger.debug, "ImageView: setContentY - value greater than listView.contentY")
             while(listView.contentY + programatic_scroll_step <= value){
                 listView.contentY += programatic_scroll_step
             }
             listView.contentY += (value - listView.contentY) % programatic_scroll_step
         } else{
-            Logger.log("ImageView: setContentY - value smaller than or equal to listView.contentY")
+            console.log(Logger.debug, "ImageView: setContentY - value smaller than or equal to listView.contentY")
             while(listView.contentY - programatic_scroll_step >= value){
                 listView.contentY -= programatic_scroll_step
             }
@@ -89,7 +89,7 @@ Item {
     }
 
     function setContentYatIndex(idx) {
-        Logger.log("ImageView: setContentYatIndex(idx='" + idx + "')")
+        console.log(Logger.debug, "ImageView: setContentYatIndex(idx='" + idx + "')")
         setContentY(0)
         listView.forceLayout()
         //move down by programatic_scroll_step pixels until next move would reach the desired line
@@ -103,7 +103,7 @@ Item {
     }
 
     function update(useLastY) {
-        Logger.log("ImageView: update(useLastY='" + useLastY + "')")
+        console.log(Logger.debug, "ImageView: update(useLastY='" + useLastY + "')")
         listModel.clear()
         listView.forceLayout()
         selectedCount = 0
@@ -147,14 +147,14 @@ Item {
         listView.forceLayout()
 
         if (useLastY) {
-            Logger.log("ImageView: update - useLastY")
+            console.log(Logger.debug, "ImageView: update - useLastY")
             setContentY(listView.lastY)
         } else {
             if (matchedRow != -1) {
-                Logger.log("ImageView: update - matchedRow not equal to -1")
+                console.log(Logger.debug, "ImageView: update - matchedRow not equal to -1")
                 setContentYatIndex(listView.firstIdInTheFirstRow)
             } else {
-                Logger.log("ImageView: update - matchedRow equal to -1")
+                console.log(Logger.debug, "ImageView: update - matchedRow equal to -1")
                 setContentY(0)
             }
         }
@@ -164,18 +164,18 @@ Item {
         listView.lastY = listView.contentY
 
         if(listView.indexAt(x_offset_to_content, listView.contentY) >= 0){
-            Logger.log("ImageView: update - listView.indexAt(" + x_offset_to_content + ", " + listView.contentY + " >= 0")
+            console.log(Logger.debug, "ImageView: update - listView.indexAt(" + x_offset_to_content + ", " + listView.contentY + " >= 0")
             listView.firstIdInTheFirstRow = listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)).firstIdx
         }
     }
 
     onWidthChanged: {
-        Logger.log("ImageView: Width changed, restarting timer")
+        console.log(Logger.debug, "ImageView: Width changed, restarting timer")
         timer.restart()
     }
 
     onSizeScaleChanged: {
-        Logger.log("ImageView: SizeScale changed, restarting timer")
+        console.log(Logger.debug, "ImageView: SizeScale changed, restarting timer")
         timer.restart()
     }
 
@@ -183,7 +183,7 @@ Item {
         id: timer
         interval: 500
         onTriggered: {
-            Logger.log("ImageView: Timer triggered")
+            console.log(Logger.debug, "ImageView: Timer triggered")
             root.update(false)
         }
     }
@@ -196,9 +196,9 @@ Item {
         ScrollIndicator.vertical: ScrollIndicator {
             id: scroll
             onPositionChanged: {
-                Logger.log("ImageView: ScrollIndicator - position Changed")
+                console.log(Logger.debug, "ImageView: ScrollIndicator - position Changed")
                 if (position + size == 1.0) {
-                    Logger.log("ImageView: ScrollIndicator - reachedBottom")
+                    console.log(Logger.debug, "ImageView: ScrollIndicator - reachedBottom")
                     root.reachedBottom()
                 }
             }
@@ -209,7 +209,7 @@ Item {
         }
 
         onMovementEnded: {
-            Logger.log("ImageView: listView - MovementEnded")
+            console.log(Logger.debug, "ImageView: listView - MovementEnded")
             firstIdInTheFirstRow = model.get(indexAt(x_offset_to_content, contentY)).firstIdx
             lastY = contentY
         }
@@ -292,19 +292,19 @@ Item {
                             anchors.fill: parent
 
                             onClicked: {
-                                Logger.log("ImageView: Item clicked")
+                                console.log(Logger.debug, "ImageView: Item clicked")
 
                                 if (rect.state == "grayout") {
-                                    Logger.log("ImageView: Item already grayed out")
+                                    console.log(Logger.debug, "ImageView: Item already grayed out")
                                     return
                                 }
 
                                 if (item.selected) {
-                                    Logger.log("ImageView: Item deselected")
+                                    console.log(Logger.debug, "ImageView: Item deselected")
                                     item.selected = false
                                     selectedCount -= 1
                                 } else {
-                                    Logger.log("ImageView: Item selected")
+                                    console.log(Logger.debug, "ImageView: Item selected")
                                     item.selected = true
                                     selectedCount += 1
                                 }

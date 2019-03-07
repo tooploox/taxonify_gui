@@ -8,7 +8,7 @@ Item {
     readonly property ListModel uploadData: ListModel {}
 
     function setData(data){
-       Logger.log("UploadList: setData()")
+       console.log(Logger.debug, "UploadList: setData()")
        uploadData.clear()
        for(let d of data){
            let genDate = d.generation_date.split('T')

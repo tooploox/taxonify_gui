@@ -63,7 +63,7 @@ Rectangle {
                         ButtonGroup.group: radioGroup
 
                         onClicked: {
-                            Logger.log("AnnotationPane: " + text + " button clicked")
+                            console.log(Logger.debug, "AnnotationPane: " + text + " button clicked")
                             checkedAttrIdx = index
                         }
 
@@ -151,7 +151,7 @@ Rectangle {
             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
 
             onClicked: {
-                Logger.log("AnnotationPane: Apply button clicked")
+                console.log(Logger.debug, "AnnotationPane: Apply button clicked")
                 applyClicked()
             }
         }
