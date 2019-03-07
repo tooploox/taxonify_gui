@@ -32,7 +32,7 @@ Rectangle {
 
         if (with_acquisition_time) {
             let time = Util.serverDateToLocal(full_obj['acquisition_time'])
-            text += smallIndent + 'acquisition time: ' + time.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat) + '<br>'
+            text += smallIndent + 'acquisition time: ' + time.toLocaleString(Util.locale, Locale.ShortFormat) + '<br>'
         }
 
         if (with_filename) {
@@ -62,7 +62,7 @@ Rectangle {
                 }
 
                 let time = Util.serverDateToLocal(full_obj[key + '_modification_time'])
-                text += '<i>' + time.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat) + '</i>'
+                text += '<i>' + time.toLocaleString(Util.locale, Locale.ShortFormat) + '</i>'
             }
             text += '<br>'
         }
