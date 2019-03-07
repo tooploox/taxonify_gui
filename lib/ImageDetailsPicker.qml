@@ -9,7 +9,9 @@ Item {
             morphometry: morphometricDetails.pickedAttributes(),
             additionalAttributes: additionalAttributesDetails.pickedAttributes(),
             modified_by: modifiedByCheckbox.checked,
-            modification_time: modificationTimeCheckbox.checked
+            modification_time: modificationTimeCheckbox.checked,
+            acquisition_time: acquisitionTimeCheckbox.checked,
+            filename: filenameCheckbox.checked
         }
     }
 
@@ -66,6 +68,18 @@ Item {
                 id: modificationTimeCheckbox
                 checked: true
                 text: 'Modification time'
+            }
+
+            CheckBox {
+                id: acquisitionTimeCheckbox
+                checked: true
+                text: 'Acquisition time'
+            }
+
+            CheckBox {
+                id: filenameCheckbox
+                checked: false
+                text: 'Filename'
             }
         }
     }

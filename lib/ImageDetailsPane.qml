@@ -21,6 +21,26 @@ Rectangle {
           }, {});
     }
 
+    function buildOtherPropertiesSectionText(full_obj, with_acquisition_time, with_filename) {
+        if (!with_acquisition_time && !with_filename) {
+            return ''
+        }
+
+        let smallIndent = '&nbsp;&nbsp;&nbsp;'
+        let bigIndent = smallIndent + smallIndent
+        let text = '<b>Other properties</b><br>'
+
+        if (with_acquisition_time) {
+            let time = Util.serverDateToLocal(full_obj['acquisition_time'])
+            text += smallIndent + 'acquisition time: ' + time.toLocaleString(Qt.locale('en_GB'), Locale.ShortFormat) + '<br>'
+        }
+
+        if (with_filename) {
+            text += smallIndent + 'filename: ' + full_obj['filename'] + '<br>'
+        }
+        return text
+    }
+
     function buildPropertySectionText(obj, full_obj, with_modified, with_date, floats, sectionName) {
         let smallIndent = '&nbsp;&nbsp;&nbsp;'
         let bigIndent = smallIndent + smallIndent
@@ -74,6 +94,8 @@ Rectangle {
             text += buildPropertySectionText(filtered, meta, allowedProperties.modified_by,
                                               allowedProperties.modification_time, false, 'Additional attributes')
         }
+        text += buildOtherPropertiesSectionText(meta, allowedProperties.acquisition_time, allowedProperties.filename)
+
         label.text = text
     }
 
