@@ -139,6 +139,7 @@ Rectangle {
                 contentHeight: clickedLabel.height
                 clip: true
                 ScrollIndicator.vertical: ScrollIndicator {}
+                boundsBehavior: Flickable.StopAtBounds
 
                 Label {
                     id: clickedLabel
