@@ -190,6 +190,7 @@ Rectangle {
                 anchors.fill: parent
                 contentWidth: hoverLabel.width
                 contentHeight: hoverLabel.height
+                interactive: false
                 clip: true
 
                 Label {
