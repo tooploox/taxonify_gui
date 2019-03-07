@@ -14,17 +14,25 @@ Dialog {
     signal success(string replyData)
     signal error(string errorMsg)
     signal uploadStarted()
+    signal uploadDetailsRequested(string upload_id)
 
     x: Math.floor((parent.width - width) / 2)
     y: Math.floor((parent.height - height) / 2)
 
+    readonly property int uploadListDialogHeight: 400
+
     width: 600
-    height: 300
+    height: 200
 
     modal: true
     title: 'Upload data'
 
     parent: ApplicationWindow.overlay
+
+    function setUploadDetails(details) {
+        uploadDetailsDialog.details = details
+        uploadDetailsDialog.open()
+    }
 
     contentItem: UploadForm{
         id: uploadForm
@@ -57,9 +65,24 @@ Dialog {
 
     UploadListDialog {
         id: uploadListDiag
+        width: root.width; height: uploadListDialogHeight
+        anchors.centerIn: parent
 
-        width: root.width; height: root.height
-        x: root.x; y: root.y
+        onUploadDetailsRequested: root.uploadDetailsRequested(upload_id)
+    }
+
+    UploadDetailsDialog {
+        id: uploadDetailsDialog
+        width: root.width
+        anchors.centerIn: parent
+
+        // trick to provide proper display
+        onAboutToShow: {
+            uploadListDiag.height = height
+        }
+        onAboutToHide: {
+            uploadListDiag.height = uploadListDialogHeight
+        }
     }
 
 }

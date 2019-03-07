@@ -153,4 +153,14 @@ QtObject {
 
         return server.send(req, cb)
     }
+
+    function getUpload(upload_id, cb) {
+        var req = {
+            handler: '/upload/' + upload_id,
+            method: 'GET',
+            headers: [internal.access_token_header]
+        }
+
+        return server.send(req, cb)
+    }
 }

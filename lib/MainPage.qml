@@ -50,6 +50,7 @@ Item {
             uploadButton.background.color = 'lightgray'
             uploadInProgress = true
         }
+        onUploadDetailsRequested: getUpload.call(upload_id)
     }
 
     ExportDialog {
@@ -390,6 +391,13 @@ Item {
 
         onSuccess: settingsDialog.addUserResponse(true)
         onError: settingsDialog.addUserResponse(false)
+    }
+
+    Request {
+        id: getUpload
+        handler: dataAccess.getUpload
+
+        onSuccess: uploadDialog.setUploadDetails(res)
     }
 }
 
