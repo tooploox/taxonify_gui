@@ -56,6 +56,7 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.bottomMargin: 10
         tristate: true
+        font.bold: true
 
         nextCheckState: function() {
             if (checkState === Qt.Checked) {
