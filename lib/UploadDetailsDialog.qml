@@ -9,13 +9,17 @@ Dialog {
 
     modal: true
     parent: ApplicationWindow.overlay
-    property var details
+    readonly property int listViewBorder: 3
+    property var details: null
 
-    height: details.duplicate_filenames === undefined ? 200 : 500
-
-    title: 'Upload: ' + details.filename
+    height: details && details.duplicate_filenames === undefined ? 200 : 500
+    title: details ? 'Upload: ' + details.filename : ''
 
     function detailsText() {
+        if (!details) {
+            return ''
+        }
+
         let text = ''
         text += 'Name: ' + details.filename + '<br>'
         text += 'State: ' + details.state + '<br>'
@@ -47,26 +51,43 @@ Dialog {
         Label {
             id: dupLabel
             text: 'Duplicate filenames:'
-            visible: details.duplicate_filenames !== undefined
+            visible: details && details.duplicate_filenames !== undefined
         }
 
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
+            visible: details && details.duplicate_filenames === undefined
         }
 
-        ScrollView {
+        Rectangle {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            visible: details.duplicate_filenames !== undefined
-            clip: true
+            border.width: listViewBorder
+            border.color: 'whitesmoke'
 
-            TextArea {
-                readOnly: true
+            ListView {
+                id: listView
+                anchors.fill: parent
+                anchors.margins: 2 * listViewBorder
+
+                visible: details && details.duplicate_filenames !== undefined
                 clip: true
-                text: JSON.stringify(details.duplicate_filenames, null, 2)
-                background: Rectangle {
-                    color: 'whitesmoke'
+                ScrollBar.horizontal: ScrollBar { active: true }
+                ScrollBar.vertical: ScrollBar { active: true }
+                spacing: 5
+
+                flickableDirection: Flickable.AutoFlickIfNeeded
+                boundsBehavior: Flickable.StopAtBounds
+
+                model: details ? details.duplicate_filenames : []
+                delegate: Text {
+                    text: modelData
+                    onWidthChanged: {
+                        if (width > listView.contentWidth) {
+                            listView.contentWidth = width
+                        }
+                    }
                 }
             }
         }
