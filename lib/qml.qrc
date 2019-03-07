@@ -4,7 +4,7 @@
         <file>AttributeFilter.qml</file>
         <file>DateFilter.qml</file>
         <file>DateTextField.qml</file>
-        <file>FilteringAttributes.qml</file>
+        <file>ItemAttributes.qml</file>
         <file>FilteringPane.qml</file>
         <file>ImageView.qml</file>
         <file>ImageViewAndControls.qml</file>

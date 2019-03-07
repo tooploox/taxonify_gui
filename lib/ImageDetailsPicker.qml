@@ -29,7 +29,7 @@ Item {
                 id: taxonomyDetails
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                detailsArray: FilteringAttributes.taxonomyAttributes
+                detailsArray: ItemAttributes.taxonomyAttributes
                 title: "Taxonomy"
             }
 
@@ -37,7 +37,7 @@ Item {
                 id: morphometricDetails
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                detailsArray: FilteringAttributes.morphometricAttributes
+                detailsArray: ItemAttributes.morphometricAttributes
                 title: "Morphometry"
             }
 
@@ -45,7 +45,7 @@ Item {
                 id: additionalAttributesDetails
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                detailsArray: FilteringAttributes.filteringAttributes
+                detailsArray: ItemAttributes.additionalAttributes
                 title: "Additional attributes"
             }
         }

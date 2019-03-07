@@ -9,7 +9,7 @@ ColumnLayout {
     property alias container: rptr
     readonly property string notSpecifiedStr: "Not specified"
 
-    readonly property var taxonomyNames: FilteringAttributes.taxonomyAttributes
+    readonly property var taxonomyNames: ItemAttributes.taxonomyAttributes
 
     property bool annotationMode: false
     property int taxonomyDepth: 8

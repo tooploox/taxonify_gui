@@ -57,7 +57,7 @@ Rectangle {
         if (allowedProperties.taxonomy.length !== 0) {
             const filtered = filterKeys(meta, allowedProperties.taxonomy)
             const ordered = {}
-            FilteringAttributes.taxonomyAttributes.forEach(key => {
+            ItemAttributes.taxonomyAttributes.forEach(key => {
                                                                if (Object.keys(filtered).includes(key)) {
                                                                    ordered[key] = filtered[key]
                                                                }

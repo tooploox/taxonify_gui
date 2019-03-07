@@ -2,7 +2,7 @@ pragma Singleton
 import QtQuick 2.12
 
 QtObject {
-    readonly property var filteringAttributes: ['with_eggs', 'dividing', 'dead',
+    readonly property var additionalAttributes: ['with_eggs', 'dividing', 'dead',
         'with_epibiont', 'with_parasite', 'broken', 'colony', 'cluster', 'eating',
         'multiple_species', 'partially_cropped', 'male', 'female', 'juvenile',
         'adult', 'ephippium', 'resting_egg', 'heterocyst', 'akinete', 'with_spines',
