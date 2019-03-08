@@ -13,7 +13,10 @@ Item {
            let genDate = d.generation_date.split('T')
            uploadData.append({filename: d.filename,
                               up_state: d.state,
-                              gen_date: genDate[0] + "   " +genDate[1].split('+')[0]})
+                              gen_date: genDate[0] + " " +genDate[1].split('+')[0],
+                              image_count: d.image_count === undefined ? '-' : d.image_count.toString(),
+                              duplicate_image_count: d.duplicate_image_count === undefined ? '-' : d.duplicate_image_count.toString()
+                             })
        }
     }
 
@@ -21,51 +24,51 @@ Item {
         id: filesList
         anchors.fill: parent
         model: uploadData
+        clip: true
 
-        ScrollBar.vertical: ScrollBar {}
+        ScrollBar.vertical: ScrollBar { id: scroll }
 
-        Layout.alignment: Qt.AlignCenter
+        delegate: ColumnLayout {
+            id: content
+            width: filesList.width - scroll.width
+            anchors.margins: 5
 
-        delegate: Item{
-            width: parent.width - 20
-            height: 60
+            RowLayout {
+                Layout.fillWidth: true
+                Text {
+                    id: mainLine
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+                    text: filename
+                    font.bold: true
+                }
 
-            Column {
-                id: content
-
-                anchors.fill: parent
-                anchors.topMargin: 5
-                anchors.bottomMargin: 5
-
-                RowLayout {
+                Item {
                     Layout.fillWidth: true
-                    width: parent.width
-
-                    Text {
-                        id: mainLine
-                        text: '<b>' + filename + '</b>'
-                    }
-
-                    Text {
-                        Layout.alignment: Qt.AlignRight
-                        text: up_state
-                    }
                 }
 
                 Text {
-                    font.pointSize: mainLine.font.pointSize - 2
-                    text: "    Date:   " + gen_date
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    Layout.rightMargin: 10
+                    text: up_state
                 }
             }
 
-            Rectangle {
-                height: 1
-                color: 'darkgray'
-                anchors {
-                    left: content.left
-                    right: content.right
-                    top: content.bottom
+            ColumnLayout {
+                Layout.fillWidth: true
+                Layout.leftMargin: 20
+
+                Text {
+                    font.pointSize: mainLine.font.pointSize - 2
+                    text: "Date:   " + gen_date
                 }
+                Text {
+                    font.pointSize: mainLine.font.pointSize - 2
+                    text: "Duplicate images:   " + duplicate_image_count + '/' + image_count
+                }
+            }
+
+            MenuSeparator {
+                Layout.fillWidth: true
             }
        }
     }
