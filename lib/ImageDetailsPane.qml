@@ -273,11 +273,11 @@ Rectangle {
         id: imageDetailsPickerDialog
         onAccepted: {
             if (currentHoveredItem) {
-                displayItem(makeCopy(currentHoveredItem), hoverLabel, hoverPlaceholderLabel,
+                displayItem(currentHoveredItem, hoverLabel, hoverPlaceholderLabel,
                             hoveredLabelHint, emptyFilterHint)
             }
             if (currentRightClickedItem) {
-                displayItem(makeCopy(currentRightClickedItem), clickedLabel, clickedPlaceholderLabel,
+                displayItem(currentRightClickedItem, clickedLabel, clickedPlaceholderLabel,
                             clickedLabelHint, emptyFilterHint)
             }
         }

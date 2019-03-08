@@ -8,7 +8,9 @@ Item {
     property real sizeScale: 1
     property int selectedCount: 0
     property var hoveredItem : null
+
     property var rightClickedItem: null
+    property var rightClickedItemId : null
 
     property var filter: function(item) {
         return false
@@ -37,6 +39,11 @@ Item {
     function appendData(data, useLastY) {
         for (let item of data) {
             model.append(item)
+
+            if (rightClickedItemId === item.metadata._id) {
+                rightClickedItem = item
+                itemRightClicked()
+            }
         }
 
         update(useLastY)
@@ -302,6 +309,7 @@ Item {
                                     item = currentItem
                                 } else if (mouse.button & Qt.RightButton) {
                                     rightClickedItem = currentItem
+                                    rightClickedItemId = currentItem.metadata._id
                                     itemRightClicked()
                                 }
                             }
