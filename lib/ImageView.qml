@@ -7,6 +7,10 @@ Item {
     property real borderWidth: 5
     property real sizeScale: 1
     property int selectedCount: 0
+    property var hoveredItem : null
+
+    property var rightClickedItem: null
+    property var rightClickedItemId : null
 
     property var filter: function(item) {
         return false
@@ -22,6 +26,9 @@ Item {
     }
 
     signal reachedBottom()
+    signal itemHovered()
+    signal itemRightClicked()
+
 
     readonly property ListModel model: ListModel {}
     readonly property int programatic_scroll_step: 100
@@ -32,6 +39,11 @@ Item {
     function appendData(data, useLastY) {
         for (let item of data) {
             model.append(item)
+
+            if (rightClickedItemId === item.metadata._id) {
+                rightClickedItem = item
+                itemRightClicked()
+            }
         }
 
         update(useLastY)
@@ -194,6 +206,7 @@ Item {
             width: parent.width
 
             ListView {
+                id: rowListView
                 anchors.fill: parent
                 orientation: Qt.Horizontal
                 clip: true
@@ -264,20 +277,41 @@ Item {
 
                         MouseArea {
                             anchors.fill: parent
+                            hoverEnabled: true
+                            acceptedButtons: Qt.LeftButton | Qt.RightButton
+
+                            onPositionChanged: {
+                                let currentItem = root.model.get(modelData)
+                                hoveredItem = currentItem
+                                itemHovered()
+                            }
+
+                            onExited: {
+                                hoveredItem = null
+                                itemHovered()
+                            }
 
                             onClicked: {
-                                if (rect.state == "grayout")
-                                    return
+                                let currentItem = root.model.get(modelData)
 
-                                if (item.selected) {
-                                    item.selected = false
-                                    selectedCount -= 1
-                                } else {
-                                    item.selected = true
-                                    selectedCount += 1
+                                if (mouse.button & Qt.LeftButton) {
+                                    if (rect.state == "grayout")
+                                        return
+
+                                    if (item.selected) {
+                                        item.selected = false
+                                        selectedCount -= 1
+                                    } else {
+                                        item.selected = true
+                                        selectedCount += 1
+                                    }
+
+                                    item = currentItem
+                                } else if (mouse.button & Qt.RightButton) {
+                                    rightClickedItem = currentItem
+                                    rightClickedItemId = currentItem.metadata._id
+                                    itemRightClicked()
                                 }
-
-                                item = root.model.get(modelData)
                             }
                         }
                     }

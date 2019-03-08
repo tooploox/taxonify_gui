@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 import com.microscopeit 1.0
 
 ColumnLayout {
+    id: root
 
     Rectangle{
         Layout.fillWidth: true
@@ -14,14 +15,19 @@ ColumnLayout {
             anchors.fill: parent
 
             SortingControls {
+                Layout.leftMargin: 5
                 enabled: false
             }
         }
     }
 
+    property alias hoveredItem: imageView.hoveredItem
+    property alias rightClickedItem: imageView.rightClickedItem
     property alias filter: imageView.filter
     readonly property ImageView imageView: imageView
     signal atPageBottom()
+    signal itemHovered()
+    signal itemRightClicked()
 
     ImageView {
         id: imageView
@@ -32,6 +38,8 @@ ColumnLayout {
         sizeScale: tileSizeSlider.value
 
         onReachedBottom: atPageBottom()
+        onItemHovered: root.itemHovered()
+        onItemRightClicked: root.itemRightClicked()
     }
 
     Rectangle {

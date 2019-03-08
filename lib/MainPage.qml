@@ -140,22 +140,50 @@ Item {
         RowLayout {
             Layout.fillHeight: true
 
-            FilteringPane {
-                id: filteringPane
-
+            ColumnLayout {
                 Layout.preferredWidth: 300
-                Layout.fillHeight: true
+                Layout.maximumWidth: 300
 
-                onApplyClicked: {
-                    currentFilter = filter
-                    imageViewAndControls.imageView.clearData()
-                    storeScrollLastPos()
-                    pageLoader.resetPagesStatus()
-                    pageLoader.loadNextPage(getCurrentFilter())
+                TabBar {
+                    id: bar
+                    Layout.fillWidth: true
+
+                    TabButton {
+                        text: qsTr("Filtering")
+                    }
+                    TabButton {
+                        text: qsTr("Image details")
+                    }
                 }
 
-                onUserListRequested: listUsers.call()
+                StackLayout {
+                    currentIndex: bar.currentIndex
+                    Layout.fillWidth: true
 
+                    FilteringPane {
+                        id: filteringPane
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        withTitle: false
+
+                        onApplyClicked: {
+                            currentFilter = filter
+                            imageViewAndControls.imageView.clearData()
+                            storeScrollLastPos()
+                            pageLoader.resetPagesStatus()
+                            pageLoader.loadNextPage(getCurrentFilter())
+                        }
+
+                        onUserListRequested: listUsers.call()
+                    }
+
+                    ImageDetailsPane {
+                        id: imageDetailsPane
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+                }
             }
 
             ImageViewAndControls {
@@ -179,6 +207,13 @@ Item {
                     if(pageLoader.internal.pageLoadingInProgress || pageLoader.internal.lastPageLoaded) return
                     storeScrollLastPos()
                     pageLoader.loadNextPage(getCurrentFilter())
+                }
+
+                onItemHovered: {
+                    imageDetailsPane.displayHoveredItem(hoveredItem)
+                }
+                onItemRightClicked: {
+                    imageDetailsPane.displayRightClickedItem(rightClickedItem)
                 }
             }
 

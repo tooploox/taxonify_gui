@@ -27,4 +27,8 @@ QtObject {
             return null
         }
     }
+
+    function serverDateToLocal(date) {
+        return new Date(date + 'Z')
+    }
 }

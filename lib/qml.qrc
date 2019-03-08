@@ -4,7 +4,7 @@
         <file>AttributeFilter.qml</file>
         <file>DateFilter.qml</file>
         <file>DateTextField.qml</file>
-        <file>FilteringAttributes.qml</file>
+        <file>ItemAttributes.qml</file>
         <file>FilteringPane.qml</file>
         <file>ImageView.qml</file>
         <file>ImageViewAndControls.qml</file>
@@ -28,6 +28,11 @@
         <file>DateTimePicker.qml</file>
         <file>DateTimeField.qml</file>
         <file>DateTimeFieldAndLabel.qml</file>
+        <file>ImageDetailsList.qml</file>
+        <file>ImageDetailsPane.qml</file>
+        <file>ImageDetailsPicker.qml</file>
+        <file>ImageDetailsPickerDialog.qml</file>
+        <file>PopupImageLabel.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
@@ -55,5 +60,8 @@
     </qresource>
     <qresource prefix="/images">
         <file>logo.png</file>
+    </qresource>
+    <qresource prefix="/graphics">
+        <file>awesome.ttf</file>
     </qresource>
 </RCC>

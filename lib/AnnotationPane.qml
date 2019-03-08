@@ -17,7 +17,7 @@ Rectangle {
 
     signal applyClicked()
 
-    readonly property var attributes: FilteringAttributes.filteringAttributes
+    readonly property var attributes: ItemAttributes.additionalAttributes
     property var checkedAttrIdx: null
 
     ColumnLayout {

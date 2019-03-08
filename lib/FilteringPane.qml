@@ -9,10 +9,12 @@ Rectangle {
     signal userListRequested()
 
     property alias withApplyButton: applyButton.visible
+    property alias withTitle : titleLabel.visible
     property alias title: titleLabel.text
     property alias titleSize: titleLabel.font.pixelSize
 
-    readonly property var attributes: FilteringAttributes.filteringAttributes
+    property alias userList: modifiedByFilter.userList
+    readonly property var attributes: ItemAttributes.additionalAttributes
     readonly property var filter: buildFilter()
 
     function updateUserList(data) {
