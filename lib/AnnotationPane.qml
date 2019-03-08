@@ -25,14 +25,6 @@ Rectangle {
         width: parent.width
         height: parent.height
 
-        Label {
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignCenter
-            text: qsTr("Annotation")
-            font.pixelSize: 25
-            horizontalAlignment: Text.AlignHCenter
-        }
-
         ScrollView {
             Layout.fillWidth: true
             Layout.fillHeight: true
