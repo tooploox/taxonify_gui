@@ -29,7 +29,7 @@ Dialog {
 
     parent: ApplicationWindow.overlay
 
-    function setUploadDetails(details) {
+    function showUploadDetails(details) {
         uploadDetailsDialog.details = details
         uploadDetailsDialog.open()
     }
@@ -46,7 +46,7 @@ Dialog {
     footer: DialogButtonBox {
         Layout.alignment: Qt.AlignBottom | Qt.AlignRight
 
-        onReset: uploadListDiag.open()
+        onReset: uploadListDialog.open()
         onRejected: root.close()
 
         Button {
@@ -64,7 +64,7 @@ Dialog {
     }
 
     UploadListDialog {
-        id: uploadListDiag
+        id: uploadListDialog
         width: root.width; height: uploadListDialogHeight
         anchors.centerIn: parent
 
@@ -78,10 +78,10 @@ Dialog {
 
         // trick to provide proper display
         onAboutToShow: {
-            uploadListDiag.height = height
+            uploadListDialog.height = height
         }
         onAboutToHide: {
-            uploadListDiag.height = uploadListDialogHeight
+            uploadListDialog.height = uploadListDialogHeight
         }
     }
 

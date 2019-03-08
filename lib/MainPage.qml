@@ -397,7 +397,7 @@ Item {
         id: getUpload
         handler: dataAccess.getUpload
 
-        onSuccess: uploadDialog.setUploadDetails(res)
+        onSuccess: uploadDialog.showUploadDetails(res)
     }
 }
 

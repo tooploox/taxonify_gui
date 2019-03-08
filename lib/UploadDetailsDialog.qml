@@ -22,7 +22,7 @@ Dialog {
 
         let text = ''
         text += 'Name: ' + details.filename + '<br>'
-        text += 'State: ' + details.state + '<br>'
+        text += 'Status: ' + details.state + '<br>'
 
         text += 'Image count: '
         if (details.image_count === undefined) {
