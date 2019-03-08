@@ -16,9 +16,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     AquascopeLibGlobal.h \
+    Logger.h \
     Uploader.h \
 
 SOURCES += \
+    Logger.cpp \
     Uploader.cpp
 
 DEFINES += AQUASCOPE_LIB_LIBRARY

@@ -1,2 +1,4 @@
+singleton FilteringAttributes 1.0 FilteringAttributes.qml
 singleton ItemAttributes 1.0 ItemAttributes.qml
+singleton Logger 1.0 Logger.qml
 singleton Util 1.0 Util.qml

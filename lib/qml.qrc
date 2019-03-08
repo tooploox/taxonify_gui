@@ -8,6 +8,7 @@
         <file>FilteringPane.qml</file>
         <file>ImageView.qml</file>
         <file>ImageViewAndControls.qml</file>
+        <file>Logger.qml</file>
         <file>PageLoader.qml</file>
         <file>qmldir</file>
         <file>SortingControls.qml</file>
