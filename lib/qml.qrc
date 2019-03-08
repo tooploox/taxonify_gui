@@ -22,6 +22,8 @@
         <file>ExportDialog.qml</file>
         <file>ExportForm.qml</file>
         <file>ModifiedByFilter.qml</file>
+        <file>UserSettingsForm.qml</file>
+        <file>SettingsDialog.qml</file>
         <file>Util.qml</file>
         <file>DateTimePicker.qml</file>
         <file>DateTimeField.qml</file>

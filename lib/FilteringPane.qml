@@ -17,6 +17,10 @@ Rectangle {
     readonly property var attributes: ItemAttributes.additionalAttributes
     readonly property var filter: buildFilter()
 
+    function updateUserList(data) {
+        modifiedByFilter.userList = data
+    }
+
     function emboldenTimeCheckBox(timeDateFilter, timeCheckBox) {
 
         if (timeCheckBox.checked) {
