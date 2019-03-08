@@ -14,17 +14,25 @@ Dialog {
     signal success(string replyData)
     signal error(string errorMsg)
     signal uploadStarted()
+    signal uploadDetailsRequested(string upload_id)
 
     x: Math.floor((parent.width - width) / 2)
     y: Math.floor((parent.height - height) / 2)
 
+    readonly property int uploadListDialogHeight: 400
+
     width: 600
-    height: 300
+    height: 200
 
     modal: true
     title: 'Upload data'
 
     parent: ApplicationWindow.overlay
+
+    function showUploadDetails(details) {
+        uploadDetailsDialog.details = details
+        uploadDetailsDialog.open()
+    }
 
     contentItem: UploadForm{
         id: uploadForm
@@ -38,7 +46,7 @@ Dialog {
     footer: DialogButtonBox {
         Layout.alignment: Qt.AlignBottom | Qt.AlignRight
 
-        onReset: uploadListDiag.open()
+        onReset: uploadListDialog.open()
         onRejected: root.close()
 
         Button {
@@ -56,10 +64,25 @@ Dialog {
     }
 
     UploadListDialog {
-        id: uploadListDiag
+        id: uploadListDialog
+        width: root.width; height: uploadListDialogHeight
+        anchors.centerIn: parent
 
-        width: root.width; height: root.height
-        x: root.x; y: root.y
+        onUploadDetailsRequested: root.uploadDetailsRequested(upload_id)
+    }
+
+    UploadDetailsDialog {
+        id: uploadDetailsDialog
+        width: root.width
+        anchors.centerIn: parent
+
+        // trick to provide proper display
+        onAboutToShow: {
+            uploadListDialog.height = height
+        }
+        onAboutToHide: {
+            uploadListDialog.height = uploadListDialogHeight
+        }
     }
 
 }

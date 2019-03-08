@@ -11,11 +11,13 @@ Dialog {
 
     modal: true
     title: 'Uploaded files: ' + uploadList.uploadData.count
-
     parent: ApplicationWindow.overlay
+
+    signal uploadDetailsRequested(string upload_id)
 
     contentItem: UploadList {
         id: uploadList
+        onUploadDetailsRequested: root.uploadDetailsRequested(upload_id)
     }
 
     footer: DialogButtonBox {

@@ -6,12 +6,15 @@ import QtQuick.Layouts 1.12
 Item {
     id: root
     readonly property ListModel uploadData: ListModel {}
+    signal uploadDetailsRequested(string upload_id)
 
     function setData(data){
        uploadData.clear()
        for(let d of data){
            let genDate = d.generation_date.split('T')
-           uploadData.append({filename: d.filename,
+           uploadData.append({
+                              _id: d._id,
+                              filename: d.filename,
                               up_state: d.state,
                               gen_date: genDate[0] + " " +genDate[1].split('+')[0],
                               image_count: d.image_count === undefined ? '-' : d.image_count.toString(),
@@ -48,7 +51,7 @@ Item {
 
                 Text {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.rightMargin: 10
+                    Layout.rightMargin: 5
                     text: up_state
                 }
             }
@@ -61,9 +64,26 @@ Item {
                     font.pointSize: mainLine.font.pointSize - 2
                     text: "Date:   " + gen_date
                 }
-                Text {
-                    font.pointSize: mainLine.font.pointSize - 2
-                    text: "Duplicate images:   " + duplicate_image_count + '/' + image_count
+
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    Text {
+                        font.pointSize: mainLine.font.pointSize - 2
+                        text: "Duplicate images:   " + duplicate_image_count + '/' + image_count
+                    }
+                    Item {
+                        Layout.fillWidth: true
+                    }
+                    ToolButton {
+                        id: moreButton
+                        Layout.rightMargin: 5
+                        text: '...'
+                        onClicked: {
+                            console.log('buttonclicked')
+                            uploadDetailsRequested(_id)
+                        }
+                    }
                 }
             }
 
