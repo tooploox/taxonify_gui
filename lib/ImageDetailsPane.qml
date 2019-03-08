@@ -8,6 +8,11 @@ Rectangle {
     property var currentHoveredItem
     property var currentRightClickedItem
 
+    readonly property string hoveredLabelHint: "Hover on image to see its details here."
+    readonly property string clickedLabelHint: "Right-click on image to pin its details here."
+    readonly property string emptyFilterHint: "No properties were selected for display. "
+                                                      + "Please go to 'Choose properties' to change that."
+
     function makeCopy(obj) {
         return JSON.parse(JSON.stringify(obj))
     }
@@ -69,9 +74,35 @@ Rectangle {
         return text
     }
 
-    function displayItem(item, label) {
+    function isFilterEmpty(allowedProperties) {
+        let arrays = ['taxonomy', 'morphometry', 'additionalAttributes']
+        let extra_fields = ['acquisition_time', 'filename']
+
+        for (const arr of arrays) {
+            if (allowedProperties[arr].length !== 0) {
+                return false
+            }
+        }
+        for (const field of extra_fields) {
+            if (allowedProperties[field]) {
+                return false
+            }
+        }
+        return true
+    }
+
+    function displayItem(item, label, hintLabel, baseLabelText, emptyFilterLabelText) {
         let meta = item.metadata
         const allowedProperties = imageDetailsPickerDialog.pickedAttributes()
+
+        if (isFilterEmpty(allowedProperties)) {
+            hintLabel.text = baseLabelText + '\n\n' + emptyFilterLabelText
+            hintLabel.visible = true
+            return
+        } else {
+            hintLabel.text = baseLabelText
+        }
+
 
         let text = ''
         if (allowedProperties.taxonomy.length !== 0) {
@@ -104,7 +135,8 @@ Rectangle {
             hoverLabelTimer.stop()
             hoverPlaceholderLabel.visible = false
             currentHoveredItem = makeCopy(item)
-            displayItem(currentHoveredItem, hoverLabel)
+            displayItem(currentHoveredItem, hoverLabel, hoverPlaceholderLabel,
+                        hoveredLabelHint, emptyFilterHint)
         } else {
             hoverLabelTimer.restart()
         }
@@ -113,7 +145,8 @@ Rectangle {
     function displayRightClickedItem(item) {
         clickedPlaceholderLabel.visible = false
         currentRightClickedItem = makeCopy(item)
-        displayItem(currentRightClickedItem, clickedLabel)
+        displayItem(currentRightClickedItem, clickedLabel, clickedPlaceholderLabel,
+                    clickedLabelHint, emptyFilterHint)
 
         clickedImagePopup.source = currentRightClickedItem.image
         clickedImagePopup.imageWidth = currentRightClickedItem.metadata.image_width
@@ -146,7 +179,8 @@ Rectangle {
                 anchors.margins: 5
                 anchors.fill: parent
                 clip: true
-                text: "Right-click on image to pin its details here."
+                text: clickedLabelHint
+                wrapMode: Text.WordWrap
                 color: 'darkgray'
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -199,7 +233,8 @@ Rectangle {
                 anchors.margins: 5
                 anchors.fill: parent
                 clip: true
-                text: "Hover on image to see its details here."
+                text: hoveredLabelHint
+                wrapMode: Text.WordWrap
                 color: 'darkgray'
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -238,10 +273,12 @@ Rectangle {
         id: imageDetailsPickerDialog
         onAccepted: {
             if (currentHoveredItem) {
-                displayItem(makeCopy(currentHoveredItem), hoverLabel)
+                displayItem(makeCopy(currentHoveredItem), hoverLabel, hoverPlaceholderLabel,
+                            hoveredLabelHint, emptyFilterHint)
             }
             if (currentRightClickedItem) {
-                displayItem(makeCopy(currentRightClickedItem), clickedLabel)
+                displayItem(makeCopy(currentRightClickedItem), clickedLabel, clickedPlaceholderLabel,
+                            clickedLabelHint, emptyFilterHint)
             }
         }
     }
