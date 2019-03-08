@@ -145,7 +145,7 @@ Item {
                 Layout.maximumWidth: 300
 
                 TabBar {
-                    id: bar
+                    id: leftBar
                     Layout.fillWidth: true
 
                     TabButton {
@@ -157,7 +157,7 @@ Item {
                 }
 
                 StackLayout {
-                    currentIndex: bar.currentIndex
+                    currentIndex: leftBar.currentIndex
                     Layout.fillWidth: true
 
                     FilteringPane {
@@ -217,53 +217,72 @@ Item {
                 }
             }
 
-            AnnotationPane {
-                id: annotationPane
+            ColumnLayout {
                 Layout.preferredWidth: 300
-                Layout.fillHeight: true
+                Layout.maximumWidth: 300
 
-                onApplyClicked: {
-                    storeScrollLastPos()
+                TabBar {
+                    id: rightBar
+                    Layout.fillWidth: true
 
-                    const model = imageViewAndControls.imageView.model
-
-                    const toUpdate = []
-
-                    function makeCopy(obj) {
-                        return JSON.parse(JSON.stringify(obj))
+                    TabButton {
+                        text: qsTr("Annotation")
                     }
+                }
 
-                    let now = new Date().toISOString()
+                StackLayout {
+                    currentIndex: rightBar.currentIndex
+                    Layout.fillWidth: true
 
-                    for(let i = 0; i < model.count; i++) {
+                    AnnotationPane {
+                        id: annotationPane
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
 
-                        const item = model.get(i)
+                        onApplyClicked: {
+                            storeScrollLastPos()
 
-                        if(!imageViewAndControls.filter(item) && item.selected) {
+                            const model = imageViewAndControls.imageView.model
 
-                            let annotation_update = makeCopy(criteria)
-                            for (let field in criteria) {
-                                annotation_update[field + '_modification_time'] = now
-                                annotation_update[field + '_modified_by'] = currentUser
+                            const toUpdate = []
+
+                            function makeCopy(obj) {
+                                return JSON.parse(JSON.stringify(obj))
                             }
 
-                            const current = makeCopy(item.metadata)
-                            const update = Object.assign(makeCopy(item.metadata),
-                                                         annotation_update)
+                            let now = new Date().toISOString()
 
-                            const updateItem = {
-                                current: current,
-                                update: update
+                            for(let i = 0; i < model.count; i++) {
+
+                                const item = model.get(i)
+
+                                if(!imageViewAndControls.filter(item) && item.selected) {
+
+                                    let annotation_update = makeCopy(criteria)
+                                    for (let field in criteria) {
+                                        annotation_update[field + '_modification_time'] = now
+                                        annotation_update[field + '_modified_by'] = currentUser
+                                    }
+
+                                    const current = makeCopy(item.metadata)
+                                    const update = Object.assign(makeCopy(item.metadata),
+                                                                 annotation_update)
+
+                                    const updateItem = {
+                                        current: current,
+                                        update: update
+                                    }
+
+                                    toUpdate.push(updateItem)
+                                }
+
+                                // remove selection
+                                item.selected = false
                             }
-
-                            toUpdate.push(updateItem)
+                            if (toUpdate.length > 0) {
+                                updateItems.call(toUpdate)
+                            }
                         }
-
-                        // remove selection
-                        item.selected = false
-                    }
-                    if (toUpdate.length > 0) {
-                        updateItems.call(toUpdate)
                     }
                 }
             }
