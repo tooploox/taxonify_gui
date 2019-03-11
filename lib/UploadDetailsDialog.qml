@@ -23,7 +23,7 @@ Dialog {
             return
         }
         lastTags = details.tags
-        tagsField.setTags(details.tags)
+        tagsField.tags = details.tags
     }
 
     function detailsText() {

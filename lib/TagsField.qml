@@ -6,10 +6,11 @@ Rectangle {
     border.color: 'lightgray'
     border.width: 1
 
+    property var tags: []
     property ListModel tagsModel: ListModel {}
     property bool readOnly: false
 
-    function setTags(tags) {
+    onTagsChanged: {
         tagsModel.clear()
         for (const tag of tags) {
             tagsModel.append({tagText: tag })

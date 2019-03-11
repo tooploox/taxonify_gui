@@ -41,6 +41,6 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        readonlyTagsField.setTags(['tag1', 'spaced tag'])
+        readonlyTagsField.tags = ['tag1', 'spaced tag']
     }
 }
