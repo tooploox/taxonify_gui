@@ -1,4 +1,5 @@
 #include "Uploader.h"
+#include "Logging.h"
 
 #include <QNetworkAccessManager>
 #include <QDir>

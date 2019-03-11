@@ -1,10 +1,12 @@
-#include "Logger.h"
+#include "Logging.h"
 
 #include <QDateTime>
 #include <QString>
 #include <QtGlobal>
 
 #include "spdlog/sinks/rotating_file_sink.h"
+
+Q_LOGGING_CATEGORY(loggerDebug, "logger.debug")
 
 static constexpr auto logFilename = "logfile.txt";
 static constexpr unsigned max_file_size = 1048576 * 5; // 5 MB

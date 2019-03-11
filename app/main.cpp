@@ -3,7 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include <Logger.h>
+#include <Logging.h>
 #include <Uploader.h>
 
 int main(int argc, char *argv[])
