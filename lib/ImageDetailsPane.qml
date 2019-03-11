@@ -26,8 +26,8 @@ Rectangle {
           }, {});
     }
 
-    function buildOtherPropertiesSectionText(full_obj, with_acquisition_time, with_filename) {
-        if (!with_acquisition_time && !with_filename) {
+    function buildOtherPropertiesSectionText(full_obj, with_acquisition_time, with_filename, with_tags) {
+        if (!with_acquisition_time && !with_filename && !with_tags) {
             return ''
         }
 
@@ -43,6 +43,11 @@ Rectangle {
         if (with_filename) {
             text += smallIndent + 'filename: ' + full_obj['filename'] + '<br>'
         }
+
+        if (with_tags) {
+            text += smallIndent + 'tags: ' + full_obj['tags'].join(', ') + '<br>'
+        }
+
         return text
     }
 
@@ -125,7 +130,8 @@ Rectangle {
             text += buildPropertySectionText(filtered, meta, allowedProperties.modified_by,
                                               allowedProperties.modification_time, false, 'Additional attributes')
         }
-        text += buildOtherPropertiesSectionText(meta, allowedProperties.acquisition_time, allowedProperties.filename)
+        text += buildOtherPropertiesSectionText(meta, allowedProperties.acquisition_time, allowedProperties.filename,
+                                                allowedProperties.tags)
 
         label.text = text
     }
