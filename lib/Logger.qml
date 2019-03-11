@@ -2,17 +2,10 @@ pragma Singleton
 import QtQuick 2.12
 
 Item {
-
-    readonly property alias debug: dbg
-    readonly property alias info: inform
+    readonly property alias log: logger
 
     LoggingCategory {
-        id: dbg
-        name: "logger.debug"
-    }
-
-    LoggingCategory {
-        id: inform
-        name: "logger.info"
+        id: logger
+        name: "logger"
     }
 }
