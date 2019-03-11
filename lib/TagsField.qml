@@ -30,6 +30,15 @@ Rectangle {
         tagsModel.remove(tagIndex)
     }
 
+    function getTags() {
+        tags = []
+        for (let i = 0; i < tagsModel.count; i++) {
+            let item = tagsModel.get(i)
+            tags.push(item.tagText)
+        }
+        return tags
+    }
+
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 1
