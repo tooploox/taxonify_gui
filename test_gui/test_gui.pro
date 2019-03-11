@@ -5,4 +5,5 @@ SUBDIRS +=  DateTimePickerTest \
             ExportTest \
             MainPageTest \
             SettingsTest \
-            UploadTest
+            UploadTest \
+            TagsFieldTest
