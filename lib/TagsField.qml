@@ -42,6 +42,7 @@ Rectangle {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 1
+        spacing: 0
 
         Rectangle {
             Layout.fillHeight: true
@@ -65,7 +66,7 @@ Rectangle {
                     Repeater {
                         model: tagsModel
                         Rectangle {
-                            color: '#fcf5de'
+                            color: 'gold'
                             width: labelFlow.width + 10
                             height: labelFlow.height + 10
                             radius: 10
@@ -101,19 +102,32 @@ Rectangle {
             }
         }
 
-        RowLayout {
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: inputField.height
+            color: 'whitesmoke'
             visible: !readOnly
-            TextField {
-                Layout.fillWidth: true
-                placeholderText: 'Input tag'
-                focus: true
-                validator: RegExpValidator {
-                    regExp: /^\S+(?: +\S+)*$/
+
+            RowLayout {
+                anchors.fill: parent
+
+                Item {
+                    Layout.preferredWidth: 5
                 }
 
-                onAccepted: {
-                    appendTag(text)
-                    text = ''
+                TextField {
+                    id: inputField
+                    Layout.fillWidth: true
+                    placeholderText: 'Input tag'
+                    focus: true
+                    validator: RegExpValidator {
+                        regExp: /^\S+(?: +\S+)*$/
+                    }
+
+                    onAccepted: {
+                        appendTag(text)
+                        text = ''
+                    }
                 }
             }
         }
