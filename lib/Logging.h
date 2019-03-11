@@ -2,6 +2,6 @@
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(loggerDebug)
+Q_DECLARE_LOGGING_CATEGORY(logger)
 
 void initLogging();
