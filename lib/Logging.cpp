@@ -6,13 +6,13 @@
 
 #include "spdlog/sinks/rotating_file_sink.h"
 
-Q_LOGGING_CATEGORY(loggerDebug, "logger.debug")
+Q_LOGGING_CATEGORY(logger, "logger")
 
 static constexpr auto logFilename = "logfile.txt";
 static constexpr unsigned max_file_size = 1048576 * 5; // 5 MB
 static constexpr unsigned max_files = 1;
 
-static const QString messagePattern("%{file}:%{line}\t{%{function}}\t%{message}");
+static const QString messagePattern("%{category}\t%{file}:%{line}\t{%{function}}\t%{message}");
 
 static void messageHandler(QtMsgType type,
                     const QMessageLogContext &context,
@@ -26,4 +26,7 @@ void initLogging() {
     spdlog::set_pattern("%v");
     qSetMessagePattern(messagePattern);
     qInstallMessageHandler(messageHandler);
+    QLoggingCategory::setFilterRules("logger.*=false\n"
+                                     "logger.debug=true\n"
+                                     "logger.info=true");
 }
