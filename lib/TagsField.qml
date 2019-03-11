@@ -31,7 +31,7 @@ Rectangle {
     }
 
     function getTags() {
-        tags = []
+        let tags = []
         for (let i = 0; i < tagsModel.count; i++) {
             let item = tagsModel.get(i)
             tags.push(item.tagText)
