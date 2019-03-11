@@ -9,11 +9,22 @@ Dialog {
 
     modal: true
     parent: ApplicationWindow.overlay
-    readonly property int listViewBorder: 3
+    readonly property int listViewBorder: 1
     property var details: null
+    property var lastTags: []
 
-    height: details && details.duplicate_filenames === undefined ? 200 : 500
+    height: details && details.duplicate_filenames === undefined ? 200 : 600
     title: details ? 'Upload: ' + details.filename : ''
+
+    signal tagsUpdateRequested(string upload_id, var tags)
+
+    onDetailsChanged: {
+        if (!details) {
+            return
+        }
+        lastTags = details.tags
+        tagsField.setTags(details.tags)
+    }
 
     function detailsText() {
         if (!details) {
@@ -48,6 +59,33 @@ Dialog {
             text: detailsText()
         }
 
+        RowLayout {
+            Layout.fillWidth: true
+            Label {
+                text: 'Tags:'
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            Label {
+                text: 'Edit'
+            }
+
+            Switch {
+                id: editTagsSwitch
+                checked: false
+            }
+        }
+
+        TagsField {
+            id: tagsField
+            Layout.fillWidth: true
+            Layout.preferredHeight: 100
+            readOnly: !editTagsSwitch.checked
+        }
+
         Label {
             id: dupLabel
             text: 'Duplicate filenames:'
@@ -64,7 +102,8 @@ Dialog {
             Layout.fillHeight: true
             Layout.fillWidth: true
             border.width: listViewBorder
-            border.color: 'whitesmoke'
+            border.color: 'lightgray'
+            color: 'whitesmoke'
 
             ListView {
                 id: listView
@@ -94,5 +133,13 @@ Dialog {
     }
 
     standardButtons: Dialog.Ok
+
+    onAccepted: {
+        editTagsSwitch.checked = false
+        let tags = tagsField.getTags()
+        if (JSON.stringify(tags) !== JSON.stringify(lastTags)) {
+            tagsUpdateRequested(details._id, tags)
+        }
+    }
 
 }

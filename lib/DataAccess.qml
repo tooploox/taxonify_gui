@@ -163,4 +163,15 @@ QtObject {
 
         return server.send(req, cb)
     }
+
+    function postTags(upload_id, tags, cb) {
+        var req = {
+            handler: '/upload/' + upload_id + '/tags',
+            method: 'POST',
+            headers: [internal.access_token_header],
+            params: { tags: tags }
+        }
+
+        return server.send(req, cb)
+    }
 }
