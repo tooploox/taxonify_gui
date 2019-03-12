@@ -39,6 +39,16 @@ Rectangle {
         return tags
     }
 
+    Timer {
+        id: hintTimer
+        interval: 250
+        running: false
+        repeat: false
+        onTriggered: {
+            hintLabel.visible = true
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 1
@@ -109,73 +119,54 @@ Rectangle {
                     }
                 }
             }
-        }
 
-        Timer {
-            id: hintTimer
-            interval: 250
-            running: false
-            repeat: false
-            onTriggered: {
-                hintLabel.visible = true
-            }
         }
 
         Rectangle {
+            Layout.alignment: Qt.AlignBottom
+            Layout.preferredHeight: hintLabel.visible ? inputField.height + hintLabel.height : inputField.height
             Layout.fillWidth: true
-            Layout.preferredHeight: inputField.height + hintLabel.height
             color: 'whitesmoke'
-            visible: !readOnly
 
-            ColumnLayout {
-                anchors.fill: parent
-                spacing: 0
-
-                RowLayout {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-
-                    TextField {
-                        id: inputField
-                        Layout.fillWidth: true
-                        Layout.leftMargin: 5
-                        leftPadding: 5
-
-                        placeholderText: 'Input tag'
-                        focus: true
-                        validator: RegExpValidator {
-                            regExp: /^\S+(?: +\S+)*$/
-                        }
-
-                        onAccepted: {
-                            appendTag(text)
-                            text = ''
-                        }
-
-                        onTextChanged: {
-                            if (text === '') {
-                                return
-                            }
-
-                            if (!acceptableInput) {
-                                hintTimer.restart()
-                            } else {
-                                hintTimer.stop()
-                                hintLabel.visible = false
-                            }
-                        }
-                    }
+            TextField {
+                id: inputField
+                anchors.top: parent.top
+                anchors.leftMargin: 5
+                leftPadding: 5
+                placeholderText: 'Input tag'
+                focus: true
+                validator: RegExpValidator {
+                    regExp: /^\S+(?: +\S+)*$/
                 }
-                Label {
-                    id: hintLabel
-                    text: 'Input tag cannot end with whitespace.'
-                    color: 'red'
-                    visible: false
-                    Layout.topMargin: -20
+
+                onAccepted: {
+                    appendTag(text)
+                    text = ''
+                }
+
+                onTextChanged: {
+                    if (text === '') {
+                        return
+                    }
+
+                    if (!acceptableInput) {
+                        hintTimer.restart()
+                    } else {
+                        hintTimer.stop()
+                        hintLabel.visible = false
+                    }
                 }
             }
 
-
+            Label {
+                id: hintLabel
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 5
+                anchors.leftMargin: 5
+                text: 'Input tag cannot end with whitespace.'
+                color: 'red'
+                visible: false
+            }
         }
     }
 }
