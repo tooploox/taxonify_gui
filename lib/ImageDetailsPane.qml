@@ -296,7 +296,7 @@ Rectangle {
                     visible: !hoverPlaceholderLabel.visible && imageDetailsPickerDialog.pickedAttributes().tags
                 }
 
-                contentY: clickedFlickable.contentY
+                contentY: clickedFlickable.atYEnd ? contentHeight-height : clickedFlickable.contentY
                 contentX: clickedFlickable.contentX
             }
         }
