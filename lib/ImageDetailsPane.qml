@@ -44,10 +44,6 @@ Rectangle {
             text += smallIndent + 'filename: ' + full_obj['filename'] + '<br>'
         }
 
-        if (with_tags) {
-            text += smallIndent + 'tags: ' + full_obj['tags'].join(', ') + '<br>'
-        }
-
         return text
     }
 
@@ -96,7 +92,17 @@ Rectangle {
         return true
     }
 
-    function displayItem(item, label, hintLabel, baseLabelText, emptyFilterLabelText) {
+    function displayTags(full_obj, tagsField, with_tags) {
+        if (with_tags) {
+            tagsField.tags = full_obj['tags']
+        }
+    }
+
+    function buildTagsSectionText(with_tags) {
+        return with_tags ? '<b>Tags</b>' : ''
+    }
+
+    function displayItem(item, label, hintLabel, tagsField, baseLabelText, emptyFilterLabelText) {
         let meta = item.metadata
         const allowedProperties = imageDetailsPickerDialog.pickedAttributes()
 
@@ -132,7 +138,8 @@ Rectangle {
         }
         text += buildOtherPropertiesSectionText(meta, allowedProperties.acquisition_time, allowedProperties.filename,
                                                 allowedProperties.tags)
-
+        text += buildTagsSectionText(allowedProperties.tags)
+        displayTags(meta, tagsField, allowedProperties.tags)
         label.text = text
     }
 
@@ -142,7 +149,7 @@ Rectangle {
             hoverPlaceholderLabel.visible = false
             currentHoveredItem = makeCopy(item)
             displayItem(currentHoveredItem, hoverLabel, hoverPlaceholderLabel,
-                        hoveredLabelHint, emptyFilterHint)
+                        hoveredTagsField, hoveredLabelHint, emptyFilterHint)
         } else {
             hoverLabelTimer.restart()
         }
@@ -152,7 +159,7 @@ Rectangle {
         clickedPlaceholderLabel.visible = false
         currentRightClickedItem = makeCopy(item)
         displayItem(currentRightClickedItem, clickedLabel, clickedPlaceholderLabel,
-                    clickedLabelHint, emptyFilterHint)
+                    clickedTagsField, clickedLabelHint, emptyFilterHint)
 
         clickedImagePopup.source = currentRightClickedItem.image
         clickedImagePopup.imageWidth = currentRightClickedItem.metadata.image_width
@@ -198,7 +205,8 @@ Rectangle {
                 anchors.margins: 5
                 anchors.fill: parent
                 contentWidth: clickedLabel.width
-                contentHeight: clickedLabel.height
+                contentHeight: clickedTagsField.visible ? clickedLabel.height + clickedTagsField.height
+                                                        : clickedLabel.height
                 clip: true
                 ScrollIndicator.vertical: ScrollIndicator {}
                 ScrollIndicator.horizontal: ScrollIndicator {}
@@ -209,6 +217,17 @@ Rectangle {
                     id: clickedLabel
                     clip: true
                     visible: !clickedPlaceholderLabel.visible
+                }
+
+                TagsField {
+                    id: clickedTagsField
+                    anchors.top: clickedLabel.bottom
+                    width: clickedFlickable.width
+                    height: contentHeight + 15
+                    readOnly: true
+                    scrollable: false
+                    transparent: true
+                    visible: !clickedPlaceholderLabel.visible && imageDetailsPickerDialog.pickedAttributes().tags
                 }
             }
 
@@ -254,7 +273,8 @@ Rectangle {
                 anchors.margins: 5
                 anchors.fill: parent
                 contentWidth: hoverLabel.width
-                contentHeight: hoverLabel.height
+                contentHeight: hoverLabel.height + hoveredTagsField.height
+
                 interactive: false
                 clip: true
 
@@ -262,6 +282,17 @@ Rectangle {
                     id: hoverLabel
                     clip: true
                     visible: !hoverPlaceholderLabel.visible
+                }
+
+                TagsField {
+                    id: hoveredTagsField
+                    anchors.top: hoverLabel.bottom
+                    width: hoverFlickable.width
+                    height: contentHeight + 15
+                    readOnly: true
+                    scrollable: false
+                    transparent: true
+                    visible: !hoverPlaceholderLabel.visible && imageDetailsPickerDialog.pickedAttributes().tags
                 }
 
                 contentY: clickedFlickable.contentY
@@ -283,11 +314,11 @@ Rectangle {
         onAccepted: {
             if (currentHoveredItem) {
                 displayItem(currentHoveredItem, hoverLabel, hoverPlaceholderLabel,
-                            hoveredLabelHint, emptyFilterHint)
+                            hoveredTagsField, hoveredLabelHint, emptyFilterHint)
             }
             if (currentRightClickedItem) {
                 displayItem(currentRightClickedItem, clickedLabel, clickedPlaceholderLabel,
-                            clickedLabelHint, emptyFilterHint)
+                            clickedTagsField, clickedLabelHint, emptyFilterHint)
             }
         }
     }
