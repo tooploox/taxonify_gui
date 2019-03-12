@@ -79,6 +79,7 @@ Rectangle {
                                 Text {
                                     id: labelText
                                     text: tagText
+                                    textFormat: Text.PlainText
                                 }
 
                                 Text {
