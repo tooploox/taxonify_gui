@@ -97,6 +97,7 @@ Rectangle {
 
                                     MouseArea {
                                         anchors.fill: parent
+                                        anchors.margins: -5
                                         onClicked: {
                                             removeTag(index)
                                         }
@@ -121,7 +122,7 @@ Rectangle {
 
         Rectangle {
             Layout.fillWidth: true
-            Layout.preferredHeight: inputField.height + hintLabel.height + 15
+            Layout.preferredHeight: inputField.height + hintLabel.height
             color: 'whitesmoke'
             visible: !readOnly
 
