@@ -127,12 +127,11 @@ Rectangle {
             Layout.preferredHeight: hintLabel.visible ? inputField.height + hintLabel.height : inputField.height
             Layout.fillWidth: true
             color: 'whitesmoke'
-            Layout.leftMargin: 5
 
             TextField {
                 id: inputField
                 anchors.top: parent.top
-
+                anchors.leftMargin: 5
                 leftPadding: 5
                 placeholderText: 'Input tag'
                 focus: true
@@ -163,6 +162,7 @@ Rectangle {
                 id: hintLabel
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 5
+                anchors.leftMargin: 5
                 text: 'Input tag cannot end with whitespace.'
                 color: 'red'
                 visible: false
