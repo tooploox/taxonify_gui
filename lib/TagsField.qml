@@ -112,13 +112,12 @@ Rectangle {
             RowLayout {
                 anchors.fill: parent
 
-                Item {
-                    Layout.preferredWidth: 5
-                }
-
                 TextField {
                     id: inputField
                     Layout.fillWidth: true
+                    Layout.leftMargin: 5
+                    leftPadding: 5
+
                     placeholderText: 'Input tag'
                     focus: true
                     validator: RegExpValidator {
