@@ -13,7 +13,7 @@ Dialog {
     property var details: null
     property var lastTags: []
 
-    height: details && details.duplicate_filenames === undefined ? 200 : 600
+    height: details && details.duplicate_filenames === undefined ? 400 : 600
     title: details ? 'Upload: ' + details.filename : ''
 
     signal tagsUpdateRequested(string upload_id, var tags)
@@ -104,13 +104,13 @@ Dialog {
             border.width: listViewBorder
             border.color: 'lightgray'
             color: 'whitesmoke'
+            visible: details && details.duplicate_filenames !== undefined
 
             ListView {
                 id: listView
                 anchors.fill: parent
                 anchors.margins: 2 * listViewBorder
 
-                visible: details && details.duplicate_filenames !== undefined
                 clip: true
                 ScrollBar.horizontal: ScrollBar { active: true }
                 ScrollBar.vertical: ScrollBar { active: true }
