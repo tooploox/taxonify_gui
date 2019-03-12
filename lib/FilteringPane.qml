@@ -201,7 +201,7 @@ Rectangle {
                         id: tagsField
                         Layout.fillWidth: true
                         Layout.leftMargin: 10
-                        height: 90
+                        height: 110
                         visible: tagsCheckBox.checked
                     }
                 }
