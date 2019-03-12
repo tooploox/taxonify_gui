@@ -86,6 +86,7 @@ Rectangle {
                                 Text {
                                     id: labelText
                                     text: textMetrics.elidedText
+                                    textFormat: Text.PlainText
                                 }
 
                                 Text {
