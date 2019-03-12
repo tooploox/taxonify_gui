@@ -82,7 +82,7 @@ Dialog {
         TagsField {
             id: tagsField
             Layout.fillWidth: true
-            Layout.preferredHeight: 100
+            Layout.preferredHeight: 120
             readOnly: !editTagsSwitch.checked
         }
 
