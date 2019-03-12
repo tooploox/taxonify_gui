@@ -76,10 +76,16 @@ Rectangle {
                                 anchors.centerIn: parent
                                 spacing: 5
 
+                                TextMetrics {
+                                    id: textMetrics
+                                    elide: Text.ElideRight
+                                    elideWidth: 150
+                                    text: tagText
+                                }
+
                                 Text {
                                     id: labelText
-                                    text: tagText
-                                    textFormat: Text.PlainText
+                                    text: textMetrics.elidedText
                                 }
 
                                 Text {
