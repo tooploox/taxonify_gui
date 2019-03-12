@@ -128,6 +128,7 @@ Rectangle {
             Layout.preferredHeight: hintLabel.visible ? inputField.height + hintLabel.height : inputField.height
             Layout.fillWidth: true
             color: 'whitesmoke'
+            visible: !readOnly
 
             TextField {
                 id: inputField
