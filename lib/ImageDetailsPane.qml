@@ -273,7 +273,8 @@ Rectangle {
                 anchors.margins: 5
                 anchors.fill: parent
                 contentWidth: hoverLabel.width
-                contentHeight: hoverLabel.height + hoveredTagsField.height
+                contentHeight: hoveredTagsField.visible ? hoverLabel.height + hoveredTagsField.height
+                                                        : hoverLabel.height
 
                 interactive: false
                 clip: true
