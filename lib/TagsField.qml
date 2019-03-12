@@ -109,33 +109,71 @@ Rectangle {
             }
         }
 
+        Timer {
+            id: hintTimer
+            interval: 250
+            running: false
+            repeat: false
+            onTriggered: {
+                hintLabel.visible = true
+            }
+        }
+
         Rectangle {
             Layout.fillWidth: true
-            Layout.preferredHeight: inputField.height
+            Layout.preferredHeight: inputField.height + hintLabel.height + 15
             color: 'whitesmoke'
             visible: !readOnly
 
-            RowLayout {
+            ColumnLayout {
                 anchors.fill: parent
+                spacing: 0
 
-                TextField {
-                    id: inputField
+                RowLayout {
                     Layout.fillWidth: true
-                    Layout.leftMargin: 5
-                    leftPadding: 5
+                    Layout.fillHeight: true
 
-                    placeholderText: 'Input tag'
-                    focus: true
-                    validator: RegExpValidator {
-                        regExp: /^\S+(?: +\S+)*$/
-                    }
+                    TextField {
+                        id: inputField
+                        Layout.fillWidth: true
+                        Layout.leftMargin: 5
+                        leftPadding: 5
 
-                    onAccepted: {
-                        appendTag(text)
-                        text = ''
+                        placeholderText: 'Input tag'
+                        focus: true
+                        validator: RegExpValidator {
+                            regExp: /^\S+(?: +\S+)*$/
+                        }
+
+                        onAccepted: {
+                            appendTag(text)
+                            text = ''
+                        }
+
+                        onTextChanged: {
+                            if (text === '') {
+                                return
+                            }
+
+                            if (!acceptableInput) {
+                                hintTimer.restart()
+                            } else {
+                                hintTimer.stop()
+                                hintLabel.visible = false
+                            }
+                        }
                     }
                 }
+                Label {
+                    id: hintLabel
+                    text: 'Input tag cannot end with whitespace.'
+                    color: 'red'
+                    visible: false
+                    Layout.topMargin: -20
+                }
             }
+
+
         }
     }
 }
