@@ -12,8 +12,10 @@ Dialog {
     readonly property int listViewBorder: 1
     property var details: null
     property var lastTags: []
+    readonly property bool displayDuplicates: details && details.duplicate_filenames !== undefined
+                                              && details.duplicate_image_count !== 0
 
-    height: details && details.duplicate_filenames === undefined ? 400 : 600
+    height: displayDuplicates ? 600 : 400
     title: details ? 'Upload: ' + details.filename : ''
 
     signal tagsUpdateRequested(string upload_id, var tags)
@@ -89,13 +91,13 @@ Dialog {
         Label {
             id: dupLabel
             text: 'Duplicate filenames:'
-            visible: details && details.duplicate_filenames !== undefined
+            visible: displayDuplicates
         }
 
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            visible: details && details.duplicate_filenames === undefined
+            visible: !displayDuplicates
         }
 
         Rectangle {
@@ -104,7 +106,7 @@ Dialog {
             border.width: listViewBorder
             border.color: 'lightgray'
             color: 'whitesmoke'
-            visible: details && details.duplicate_filenames !== undefined
+            visible: displayDuplicates
 
             ListView {
                 id: listView

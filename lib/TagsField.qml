@@ -12,6 +12,10 @@ Rectangle {
 
     onTagsChanged: {
         tagsModel.clear()
+        if (!tags) {
+            return
+        }
+
         for (const tag of tags) {
             tagsModel.append({tagText: tag })
         }
