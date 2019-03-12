@@ -9,11 +9,24 @@ Dialog {
 
     modal: true
     parent: ApplicationWindow.overlay
-    readonly property int listViewBorder: 3
+    readonly property int listViewBorder: 1
     property var details: null
+    property var lastTags: []
+    readonly property bool displayDuplicates: details && details.duplicate_filenames !== undefined
+                                              && details.duplicate_image_count !== 0
 
-    height: details && details.duplicate_filenames === undefined ? 200 : 500
+    height: displayDuplicates ? 600 : 400
     title: details ? 'Upload: ' + details.filename : ''
+
+    signal tagsUpdateRequested(string upload_id, var tags)
+
+    onDetailsChanged: {
+        if (!details) {
+            return
+        }
+        lastTags = details.tags
+        tagsField.tags = details.tags
+    }
 
     function detailsText() {
         if (!details) {
@@ -48,30 +61,58 @@ Dialog {
             text: detailsText()
         }
 
+        RowLayout {
+            Layout.fillWidth: true
+            Label {
+                text: 'Tags:'
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            Label {
+                text: 'Edit'
+            }
+
+            Switch {
+                id: editTagsSwitch
+                checked: false
+            }
+        }
+
+        TagsField {
+            id: tagsField
+            Layout.fillWidth: true
+            Layout.preferredHeight: 120
+            readOnly: !editTagsSwitch.checked
+        }
+
         Label {
             id: dupLabel
             text: 'Duplicate filenames:'
-            visible: details && details.duplicate_filenames !== undefined
+            visible: displayDuplicates
         }
 
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            visible: details && details.duplicate_filenames === undefined
+            visible: !displayDuplicates
         }
 
         Rectangle {
             Layout.fillHeight: true
             Layout.fillWidth: true
             border.width: listViewBorder
-            border.color: 'whitesmoke'
+            border.color: 'lightgray'
+            color: 'whitesmoke'
+            visible: displayDuplicates
 
             ListView {
                 id: listView
                 anchors.fill: parent
                 anchors.margins: 2 * listViewBorder
 
-                visible: details && details.duplicate_filenames !== undefined
                 clip: true
                 ScrollBar.horizontal: ScrollBar { active: true }
                 ScrollBar.vertical: ScrollBar { active: true }
@@ -94,5 +135,13 @@ Dialog {
     }
 
     standardButtons: Dialog.Ok
+
+    onAccepted: {
+        editTagsSwitch.checked = false
+        let tags = tagsField.getTags()
+        if (JSON.stringify(tags) !== JSON.stringify(lastTags)) {
+            tagsUpdateRequested(details._id, tags)
+        }
+    }
 
 }

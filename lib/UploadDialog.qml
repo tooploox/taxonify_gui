@@ -15,6 +15,7 @@ Dialog {
     signal error(string errorMsg)
     signal uploadStarted()
     signal uploadDetailsRequested(string upload_id)
+    signal tagsUpdateRequested(string upload_id, var tags)
 
     x: Math.floor((parent.width - width) / 2)
     y: Math.floor((parent.height - height) / 2)
@@ -83,6 +84,8 @@ Dialog {
         onAboutToHide: {
             uploadListDialog.height = uploadListDialogHeight
         }
+
+        onTagsUpdateRequested: root.tagsUpdateRequested(upload_id, tags)
     }
 
 }

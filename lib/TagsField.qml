@@ -6,11 +6,16 @@ Rectangle {
     border.color: 'lightgray'
     border.width: 1
 
+    property var tags: []
     property ListModel tagsModel: ListModel {}
     property bool readOnly: false
 
-    function setTags(tags) {
+    onTagsChanged: {
         tagsModel.clear()
+        if (!tags) {
+            return
+        }
+
         for (const tag of tags) {
             tagsModel.append({tagText: tag })
         }
@@ -127,6 +132,7 @@ Rectangle {
             Layout.preferredHeight: hintLabel.visible ? inputField.height + hintLabel.height : inputField.height
             Layout.fillWidth: true
             color: 'whitesmoke'
+            visible: !readOnly
 
             TextField {
                 id: inputField

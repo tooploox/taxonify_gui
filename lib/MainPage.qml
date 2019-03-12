@@ -51,6 +51,7 @@ Item {
             uploadInProgress = true
         }
         onUploadDetailsRequested: getUpload.call(upload_id)
+        onTagsUpdateRequested: postTags.call(upload_id, tags)
     }
 
     ExportDialog {
@@ -398,6 +399,11 @@ Item {
         handler: dataAccess.getUpload
 
         onSuccess: uploadDialog.showUploadDetails(res)
+    }
+
+    Request {
+        id: postTags
+        handler: dataAccess.postTags
     }
 }
 
