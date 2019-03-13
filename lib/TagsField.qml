@@ -4,11 +4,14 @@ import QtQuick.Layouts 1.12
 
 Rectangle {
     border.color: 'lightgray'
-    border.width: 1
+    border.width: transparent ? 0 : 1
 
     property var tags: []
     property ListModel tagsModel: ListModel {}
     property bool readOnly: false
+    property alias contentHeight: scrollView.contentHeight
+    property bool scrollable: true
+    property bool transparent: false
 
     onTagsChanged: {
         tagsModel.clear()
@@ -62,14 +65,16 @@ Rectangle {
         Rectangle {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            color: 'whitesmoke'
+            color: transparent ? 'transparent' : 'whitesmoke'
 
             ScrollView {
                 id: scrollView
                 anchors.fill: parent
                 anchors.margins: 5
+
                 clip: true
                 ScrollBar.vertical.interactive: false
+                enabled: scrollable
 
                 Flow {
                     id: flow

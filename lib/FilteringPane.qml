@@ -33,6 +33,8 @@ Rectangle {
     }
 
     function emboldenChoices() {
+        tagsCheckBox.font.bold = tagsCheckBox.checked
+
         if (modifiedByCheckBox.checked) {
             modifiedByCheckBox.font.bold = true
             modifiedByFilter.emboldenCurrentChoice()
@@ -75,6 +77,14 @@ Rectangle {
 
     function buildFilter() {
         var filter = {}
+
+        if (tagsCheckBox.checked) {
+            let tags = tagsField.getTags()
+            if (tags.length === 0) {
+                tags = ''
+            }
+            filter.tags = tags
+        }
 
         if (modifiedByCheckBox.checked) {
             filter.modified_by = modifiedByFilter.choice()
@@ -171,14 +181,32 @@ Rectangle {
             ColumnLayout {
 
                 width: parent.width
-                //width: 200//parent.viewport.width
 
                 ButtonGroup {
                     id: filterButtons
                     exclusive: false
                 }
 
-                Column {
+                ColumnLayout {
+                    Layout.rightMargin: 20
+                    Layout.fillWidth: true
+
+                    CheckBox {
+                        id: tagsCheckBox
+                        checked: false
+                        text: qsTr("Tags")
+                        ButtonGroup.group: filterButtons
+                    }
+                    TagsField {
+                        id: tagsField
+                        Layout.fillWidth: true
+                        Layout.leftMargin: 10
+                        height: 110
+                        visible: tagsCheckBox.checked
+                    }
+                }
+
+                ColumnLayout {
                     Layout.rightMargin: 20
                     Layout.fillWidth: true
 
@@ -191,7 +219,8 @@ Rectangle {
 
                     ModifiedByFilter {
                         id: modifiedByFilter
-                        width: parent.width
+                        Layout.fillWidth: true
+                        Layout.leftMargin: 10
                         visible: modifiedByCheckBox.checked
                     }
                 }

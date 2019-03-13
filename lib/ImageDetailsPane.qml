@@ -26,8 +26,8 @@ Rectangle {
           }, {});
     }
 
-    function buildOtherPropertiesSectionText(full_obj, with_acquisition_time, with_filename) {
-        if (!with_acquisition_time && !with_filename) {
+    function buildOtherPropertiesSectionText(full_obj, with_acquisition_time, with_filename, with_tags) {
+        if (!with_acquisition_time && !with_filename && !with_tags) {
             return ''
         }
 
@@ -43,6 +43,7 @@ Rectangle {
         if (with_filename) {
             text += smallIndent + 'filename: ' + full_obj['filename'] + '<br>'
         }
+
         return text
     }
 
@@ -91,7 +92,17 @@ Rectangle {
         return true
     }
 
-    function displayItem(item, label, hintLabel, baseLabelText, emptyFilterLabelText) {
+    function displayTags(full_obj, tagsField, with_tags) {
+        if (with_tags) {
+            tagsField.tags = full_obj['tags']
+        }
+    }
+
+    function buildTagsSectionText(with_tags) {
+        return with_tags ? '<b>Tags</b>' : ''
+    }
+
+    function displayItem(item, label, hintLabel, tagsField, baseLabelText, emptyFilterLabelText) {
         let meta = item.metadata
         const allowedProperties = imageDetailsPickerDialog.pickedAttributes()
 
@@ -125,8 +136,10 @@ Rectangle {
             text += buildPropertySectionText(filtered, meta, allowedProperties.modified_by,
                                               allowedProperties.modification_time, false, 'Additional attributes')
         }
-        text += buildOtherPropertiesSectionText(meta, allowedProperties.acquisition_time, allowedProperties.filename)
-
+        text += buildOtherPropertiesSectionText(meta, allowedProperties.acquisition_time, allowedProperties.filename,
+                                                allowedProperties.tags)
+        text += buildTagsSectionText(allowedProperties.tags)
+        displayTags(meta, tagsField, allowedProperties.tags)
         label.text = text
     }
 
@@ -136,7 +149,8 @@ Rectangle {
             hoverPlaceholderLabel.visible = false
             currentHoveredItem = makeCopy(item)
             displayItem(currentHoveredItem, hoverLabel, hoverPlaceholderLabel,
-                        hoveredLabelHint, emptyFilterHint)
+                        hoveredTagsField, hoveredLabelHint, emptyFilterHint)
+            hoverFlickable.contentY = !clickedFlickable.atYBeginning && clickedFlickable.atYEnd ? hoverFlickable.contentHeight-hoverFlickable.height : clickedFlickable.contentY
         } else {
             hoverLabelTimer.restart()
         }
@@ -146,7 +160,7 @@ Rectangle {
         clickedPlaceholderLabel.visible = false
         currentRightClickedItem = makeCopy(item)
         displayItem(currentRightClickedItem, clickedLabel, clickedPlaceholderLabel,
-                    clickedLabelHint, emptyFilterHint)
+                    clickedTagsField, clickedLabelHint, emptyFilterHint)
 
         clickedImagePopup.source = currentRightClickedItem.image
         clickedImagePopup.imageWidth = currentRightClickedItem.metadata.image_width
@@ -192,7 +206,8 @@ Rectangle {
                 anchors.margins: 5
                 anchors.fill: parent
                 contentWidth: clickedLabel.width
-                contentHeight: clickedLabel.height
+                contentHeight: clickedTagsField.visible ? clickedLabel.height + clickedTagsField.height
+                                                        : clickedLabel.height
                 clip: true
                 ScrollIndicator.vertical: ScrollIndicator {}
                 ScrollIndicator.horizontal: ScrollIndicator {}
@@ -203,6 +218,17 @@ Rectangle {
                     id: clickedLabel
                     clip: true
                     visible: !clickedPlaceholderLabel.visible
+                }
+
+                TagsField {
+                    id: clickedTagsField
+                    anchors.top: clickedLabel.bottom
+                    width: clickedFlickable.width
+                    height: contentHeight + 15
+                    readOnly: true
+                    scrollable: false
+                    transparent: true
+                    visible: !clickedPlaceholderLabel.visible && imageDetailsPickerDialog.pickedAttributes().tags
                 }
             }
 
@@ -248,7 +274,9 @@ Rectangle {
                 anchors.margins: 5
                 anchors.fill: parent
                 contentWidth: hoverLabel.width
-                contentHeight: hoverLabel.height
+                contentHeight: hoveredTagsField.visible ? hoverLabel.height + hoveredTagsField.height
+                                                        : hoverLabel.height
+
                 interactive: false
                 clip: true
 
@@ -258,7 +286,18 @@ Rectangle {
                     visible: !hoverPlaceholderLabel.visible
                 }
 
-                contentY: clickedFlickable.contentY
+                TagsField {
+                    id: hoveredTagsField
+                    anchors.top: hoverLabel.bottom
+                    width: hoverFlickable.width
+                    height: contentHeight + 15
+                    readOnly: true
+                    scrollable: false
+                    transparent: true
+                    visible: !hoverPlaceholderLabel.visible && imageDetailsPickerDialog.pickedAttributes().tags
+                }
+
+                contentY: clickedFlickable.atYEnd ? contentHeight-height : clickedFlickable.contentY
                 contentX: clickedFlickable.contentX
             }
         }
@@ -277,11 +316,11 @@ Rectangle {
         onAccepted: {
             if (currentHoveredItem) {
                 displayItem(currentHoveredItem, hoverLabel, hoverPlaceholderLabel,
-                            hoveredLabelHint, emptyFilterHint)
+                            hoveredTagsField, hoveredLabelHint, emptyFilterHint)
             }
             if (currentRightClickedItem) {
                 displayItem(currentRightClickedItem, clickedLabel, clickedPlaceholderLabel,
-                            clickedLabelHint, emptyFilterHint)
+                            clickedTagsField, clickedLabelHint, emptyFilterHint)
             }
         }
     }

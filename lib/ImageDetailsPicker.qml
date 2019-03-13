@@ -11,7 +11,8 @@ Item {
             modified_by: modifiedByCheckbox.checked,
             modification_time: modificationTimeCheckbox.checked,
             acquisition_time: acquisitionTimeCheckbox.checked,
-            filename: filenameCheckbox.checked
+            filename: filenameCheckbox.checked,
+            tags: tagsCheckbox.checked
         }
     }
 
@@ -57,7 +58,9 @@ Item {
             Layout.fillWidth: true
         }
 
-        RowLayout {
+        Flow {
+            Layout.fillWidth: true
+
             CheckBox {
                 id: modifiedByCheckbox
                 checked: true
@@ -80,6 +83,12 @@ Item {
                 id: filenameCheckbox
                 checked: false
                 text: 'Filename'
+            }
+
+            CheckBox {
+                id: tagsCheckbox
+                checked: true
+                text: 'Tags'
             }
         }
     }
