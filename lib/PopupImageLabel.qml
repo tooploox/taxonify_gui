@@ -12,6 +12,7 @@ Label {
     verticalAlignment: Text.AlignVCenter
 
     MouseArea {
+        id: mouseArea1
         anchors.fill: parent
         hoverEnabled: true
         onEntered: {
@@ -19,7 +20,9 @@ Label {
             popup.open()
         }
         onExited: {
-            popupCloseTimer.restart()
+            if (!mouseArea2.containsMouse) {
+                popupCloseTimer.restart()
+            }
         }
     }
 
@@ -60,6 +63,7 @@ Label {
             }
 
             MouseArea {
+                id: mouseArea2
                 anchors.fill: parent
                 hoverEnabled: true
 
@@ -67,7 +71,9 @@ Label {
                     popupCloseTimer.stop()
                 }
                 onExited: {
-                    popupCloseTimer.restart()
+                    if (!mouseArea1.containsMouse) {
+                        popupCloseTimer.restart()
+                    }
                 }
             }
         }
