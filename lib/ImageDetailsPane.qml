@@ -150,6 +150,7 @@ Rectangle {
             currentHoveredItem = makeCopy(item)
             displayItem(currentHoveredItem, hoverLabel, hoverPlaceholderLabel,
                         hoveredTagsField, hoveredLabelHint, emptyFilterHint)
+            hoverFlickable.contentY = !clickedFlickable.atYBeginning && clickedFlickable.atYEnd ? hoverFlickable.contentHeight-hoverFlickable.height : clickedFlickable.contentY
         } else {
             hoverLabelTimer.restart()
         }
