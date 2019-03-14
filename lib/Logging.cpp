@@ -8,14 +8,16 @@
 
 Q_LOGGING_CATEGORY(logger, loggerName)
 
-static constexpr auto logFilename = "logfile.txt";
-static constexpr unsigned max_file_size = 1048576 * 5; // 5 MB
-static constexpr unsigned max_files = 1;
+namespace {
 
-static QtMessageHandler defaultMessageHandler = nullptr;
-static const QString messagePattern("(%{type})\t%{file}:%{line}\t{%{function}}\t%{message}");
+constexpr auto logFilename = "logfile.txt";
+constexpr unsigned max_file_size = 1048576 * 5; // 5 MB
+constexpr unsigned max_files = 1;
 
-static void messageHandler(QtMsgType type,
+QtMessageHandler defaultMessageHandler = nullptr;
+const QString messagePattern("(%{type})\t%{file}:%{line}\t{%{function}}\t%{message}");
+
+void messageHandler(QtMsgType type,
                     const QMessageLogContext &context,
                     const QString &message) {
     if (strcmp(context.category, loggerName) != 0) {
@@ -27,6 +29,8 @@ static void messageHandler(QtMsgType type,
     QString timeUTC = QDateTime::currentDateTime().toUTC().toString("[yyyy-MM-dd h:mm:ss t] ");
     logger->info(qPrintable(timeUTC + qFormatLogMessage(type, context, message)));
 }
+
+} // namespace
 
 void initLogging() {
     spdlog::set_pattern("%v");
