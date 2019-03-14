@@ -1,5 +1,8 @@
 #include "Logging.h"
 
+#include <fstream>
+#include <sstream>
+
 #include <QDateTime>
 #include <QString>
 #include <QtGlobal>
@@ -11,11 +14,17 @@ Q_LOGGING_CATEGORY(logger, loggerName)
 namespace {
 
 constexpr auto logFilename = "logfile.txt";
+constexpr auto confFilename = "logging.conf";
 constexpr unsigned max_file_size = 1048576 * 5; // 5 MB
 constexpr unsigned max_files = 1;
 
 QtMessageHandler defaultMessageHandler = nullptr;
+
 const QString messagePattern("(%{type})\t%{file}:%{line}\t{%{function}}\t%{message}");
+
+constexpr auto defaultFilterRules = "logger.*=false\n"
+                                    "logger.debug=true\n"
+                                    "logger.info=true\n";
 
 void messageHandler(QtMsgType type,
                     const QMessageLogContext &context,
@@ -30,13 +39,24 @@ void messageHandler(QtMsgType type,
     logger->info(qPrintable(timeUTC + qFormatLogMessage(type, context, message)));
 }
 
+QString getFilterRules() {
+    std::string filterRules(defaultFilterRules);
+
+    std::ifstream confFileStr(confFilename);
+    if (confFileStr) {
+        std::stringstream loggingConf;
+        loggingConf << confFileStr.rdbuf();
+        filterRules = loggingConf.str();
+    }
+
+    return QString::fromStdString(filterRules);
+}
+
 } // namespace
 
 void initLogging() {
     spdlog::set_pattern("%v");
     qSetMessagePattern(messagePattern);
     defaultMessageHandler = qInstallMessageHandler(messageHandler);
-    QLoggingCategory::setFilterRules("logger.*=false\n"
-                                     "logger.debug=true\n"
-                                     "logger.info=true");
+    QLoggingCategory::setFilterRules(getFilterRules());
 }
