@@ -76,6 +76,7 @@ Rectangle {
     }
 
     function buildFilter() {
+        console.debug(Logger.log, "")
         var filter = {}
 
         if (tagsCheckBox.checked) {
@@ -355,6 +356,7 @@ Rectangle {
             height: 40
 
             onClicked: {
+                console.debug(Logger.log, "applyButton")
                 let filter = buildFilter()
                 emboldenChoices()
                 applyClicked(filter)
@@ -363,6 +365,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
+       console.debug(Logger.log, "FilteringPane")
        userListRequested()
     }
 }

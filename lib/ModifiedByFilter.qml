@@ -21,13 +21,19 @@ ComboBox {
     }
 
     function emboldenCurrentChoice() {
+        console.debug(Logger.log, "index = " + currentIndex)
         indexToEmbold = currentIndex
     }
 
     function choice() {
+        console.debug(Logger.log, "")
         if (currentIndex === 0) {
+            console.debug(Logger.log, "currentIndex equal to 0")
             return ''
+        } else {
+            console.debug(Logger.log, "currentIndex not equal to 0")
         }
+
         return model[currentIndex]
     }
 }

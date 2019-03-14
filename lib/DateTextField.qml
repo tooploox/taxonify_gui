@@ -15,11 +15,14 @@ RowLayout {
     property int deltaMilliseconds: 0
 
     function getTimeAndApply(discard) {
+        console.debug(Logger.log, "discard='" + discard + "'")
         if (discard || empty) {
+            console.debug(Logger.log, "discard or empty")
             textInput.placeholderText = "____-__-__"
             labelText.font.bold = false
             return undefined
         } else {
+            console.debug(Logger.log, "not (discard or empty)")
             textInput.placeholderText = text
             labelText.font.bold = true
             return isostring
@@ -50,7 +53,9 @@ RowLayout {
         ToolTip.toolTip.y: (textInput.height - ToolTip.toolTip.height) / 2
 
         onEditingFinished: {
+            console.debug(Logger.log, "textInput")
             if (valid) {
+                console.debug(Logger.log, "textInput is valid")
                 date.setUTCMilliseconds(deltaMilliseconds)
                 isostring = date.toISOString()
             }

@@ -19,6 +19,7 @@ Item {
     property bool loginInProgress: false
 
     function clean() {
+        console.debug(Logger.log, "")
         username = ''
         password = ''
         errorMsg = ''
@@ -26,6 +27,7 @@ Item {
     }
 
     function tryLogin() {
+        console.debug(Logger.log, "")
         if(username.length == 0 || password.length == 0) return
         loginInProgress = true
         console.log("Username: " + username)
@@ -37,11 +39,13 @@ Item {
         handler: dataAccess.login
 
         onSuccess: {
+            console.debug(Logger.log, "loginRequest")
             root.userLogged(username)
             clean()
         }
 
         onError: {
+            console.debug(Logger.log, "loginRequest")
             loginInProgress = false
             errorLabel.text = "Invalid username or password!"
         }
@@ -83,8 +87,15 @@ Item {
 
                     placeholderText: "username"
 
-                    Keys.onReturnPressed: tryLogin()
-                    Keys.onEnterPressed: tryLogin()
+                    Keys.onReturnPressed: {
+                        console.debug(Logger.log, "usernameField")
+                        tryLogin()
+                    }
+
+                    Keys.onEnterPressed: {
+                        console.debug(Logger.log, "usernameField")
+                        tryLogin()
+                    }
                 }
 
                 TextField {
@@ -95,8 +106,15 @@ Item {
                     placeholderText: "password"
                     echoMode: TextInput.Password
 
-                    Keys.onReturnPressed: tryLogin()
-                    Keys.onEnterPressed: tryLogin()
+                    Keys.onReturnPressed: {
+                        console.debug(Logger.log, "passwordField")
+                        tryLogin()
+                    }
+
+                    Keys.onEnterPressed: {
+                        console.debug(Logger.log, "passwordField")
+                        tryLogin()
+                    }
                 }
 
                 Text {
@@ -145,7 +163,10 @@ Item {
 
                     // enabled:
                     text: "LOGIN"
-                    onClicked: tryLogin()
+                    onClicked: {
+                        console.debug(Logger.log, "loginButton")
+                        tryLogin()
+                    }
                 }
             }
         }

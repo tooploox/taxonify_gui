@@ -49,6 +49,7 @@ Rectangle {
         DateTimePicker {
             id: dateTimePicker
             onDateTimePicked: {
+                console.debug(Logger.log, "dateTimePicker")
                 popup.close()
                 if (dateTime) {
                     textField.text = dateTime.toLocaleString(Util.locale, Locale.ShortFormat)

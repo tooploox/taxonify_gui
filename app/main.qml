@@ -33,7 +33,10 @@ ApplicationWindow {
     LoginPage {
         id: loginPage
         onUserLogged: st.replace(mainPage, { currentUser: username })
-        StackView.onActivated: usernameField.forceActiveFocus()
+        StackView.onActivated: {
+            console.debug(Logger.log, "LoginPage")
+            usernameField.forceActiveFocus()
+        }
     }
 
     Component {

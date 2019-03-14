@@ -39,6 +39,7 @@ Dialog {
         id: uploadForm
         address: root.address + '/upload'
         token: dataAccess.internal.access_token
+
         onSuccess: root.success(replyData)
         onError: root.error(errorMsg)
         onUploadStarted: root.uploadStarted()
@@ -69,7 +70,10 @@ Dialog {
         width: root.width; height: uploadListDialogHeight
         anchors.centerIn: parent
 
-        onUploadDetailsRequested: root.uploadDetailsRequested(upload_id)
+        onUploadDetailsRequested: {
+            console.debug(Logger.log, "uploadListDialog")
+            root.uploadDetailsRequested(upload_id)
+        }
     }
 
     UploadDetailsDialog {

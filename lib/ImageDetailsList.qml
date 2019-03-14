@@ -24,6 +24,7 @@ ColumnLayout {
     }
 
     function updateAggregateCheckbox() {
+        console.debug(Logger.log, "")
         let checked = 0
         let unchecked = 0
         for (let i = 0; i < itemList.model.count; i++) {
@@ -45,6 +46,7 @@ ColumnLayout {
     }
 
     function setGroupState(checkState) {
+        console.debug(Logger.log, "checkState=" + checkState)
         let checked = checkState == Qt.Checked ? true : false
         for (let i = 0; i < itemList.model.count; i++) {
             itemList.model.setProperty(i, 'attr_checked', checked)

@@ -21,10 +21,13 @@ Dialog {
     property alias exportCriteria: exportForm.exportCriteria
 
     function updateUserList(data) {
+        console.debug(Logger.log, "")
         exportForm.updateUserList(data)
     }
 
     function processExportResponse(success, response) {
+        console.debug(Logger.log, "success='" + JSON.stringify(success) + "', " +
+                                  "response='" + JSON.stringify(response) + "'")
         busyIndication.running = false
         okButton.enabled = true
         if (!visible) {
@@ -32,6 +35,7 @@ Dialog {
         }
 
         if (success) {
+            console.debug(Logger.log, "processExportResponse succeeded")
             if (response.status === 'ok') {
                 Qt.openUrlExternally(response.url)
                 resultDialog.title = 'Data exported successfully\nwith your internet browser!'
@@ -41,6 +45,7 @@ Dialog {
                 resultDialog.closeOnOk = false
             }
         } else {
+            console.debug(Logger.log, "processExportResponse failed")
             resultDialog.title = 'An error occurred during data export.'
             resultDialog.closeOnOk = false
         }
@@ -58,6 +63,7 @@ Dialog {
 
         property bool closeOnOk: true
         onAccepted: {
+            console.debug(Logger.log, "resultDialog")
             if (closeOnOk) {
                 root.close()
             }
@@ -67,12 +73,18 @@ Dialog {
     ExportForm {
         id: exportForm
         anchors.fill: parent
-        onUserListRequested: root.userListRequested()
+        onUserListRequested: {
+            console.debug(Logger.log, "ExportForm")
+            root.userListRequested()
+        }
     }
 
     footer: DialogButtonBox {
         Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-        onRejected: root.close()
+        onRejected: {
+            console.debug(Logger.log, "DialogButtonBox")
+            root.close()
+        }
 
         Button {
             DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
@@ -97,6 +109,7 @@ Dialog {
             }
 
             onClicked: {
+                console.debug(Logger.log, "okButton")
                 accepted()
                 busyIndication.running = !busyIndication.running
                 enabled = false

@@ -24,10 +24,12 @@ Dialog {
     property var settingsTabs: ['Users']
 
     function updateUserList(data) {
+        console.debug(Logger.log, "")
         userSettings.updateUserList(data)
     }
 
     function addUserResponse(status) {
+        console.debug(Logger.log, "")
         userSettings.addUserResponse(status)
     }
 
@@ -66,13 +68,22 @@ Dialog {
                 Layout.fillWidth: true
 
                 onClose: root.close()
-                onUserListRequested: root.userListRequested()
-                onAddUserRequested: root.addUserRequested(username)
+
+                onUserListRequested: {
+                    console.debug(Logger.log, "stack")
+                    root.userListRequested()
+                }
+
+                onAddUserRequested: {
+                    console.debug(Logger.log, "stack")
+                    root.addUserRequested(username)
+                }
             }
         }
     }
 
     onAboutToShow: {
+        console.debug(Logger.log, "")
         root.userListRequested()
     }
 }

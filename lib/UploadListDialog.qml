@@ -46,7 +46,14 @@ Dialog {
         id: uploadListReq
         handler: dataAccess.uploadList
 
-        onSuccess: uploadList.setData(res)
-        onError: console.log("Failed to get upload list! Details: " + details)
+        onSuccess: {
+            console.debug(Logger.log, "uploadListReq")
+            uploadList.setData(res)
+        }
+
+        onError: {
+            console.debug(Logger.log, "uploadListReq")
+            console.log("Failed to get upload list! Details: " + details)
+        }
     }
 }
