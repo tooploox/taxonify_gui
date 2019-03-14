@@ -37,6 +37,7 @@ Item {
             text: 'Start time:'
 
             onDateTimePicked: {
+                console.debug(Logger.log, "startDate")
                 root.start = dateTime
             }
         }
@@ -49,6 +50,7 @@ Item {
             text: 'End time:'
 
             onDateTimePicked: {
+                console.debug(Logger.log, "endDate")
                 root.end = dateTime
             }
         }

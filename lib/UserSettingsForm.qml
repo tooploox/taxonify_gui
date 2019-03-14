@@ -16,6 +16,7 @@ ColumnLayout {
     signal addUserRequested(string username)
 
     function updateUserList(data) {
+        console.info(Logger.log, "")
         userListModel.clear()
         for(const item of data) {
             userListModel.append({username: item})
@@ -23,6 +24,7 @@ ColumnLayout {
     }
 
     function addUserResponse(success) {
+        console.info(Logger.log, "success=" + success)
         if(success) {
             responseAddUserDialog.title = qsTr("Success")
             responseMessage.text = "User added sucessfully!"
@@ -108,7 +110,10 @@ ColumnLayout {
                     Material.primary: Material.Grey
                     Material.background: Material.background
 
-                    onClicked: root.userListRequested()
+                    onClicked: {
+                        console.debug(Logger.log, text)
+                        root.userListRequested()
+                    }
                 }
 
                 Button {
@@ -119,6 +124,7 @@ ColumnLayout {
                     Material.background: Material.background
 
                     onClicked: {
+                        console.debug(Logger.log, text)
                         addUserDialog.open()
                         newUsername.forceActiveFocus()
                     }
@@ -131,7 +137,10 @@ ColumnLayout {
                     Material.primary: Material.Grey
                     Material.background: Material.background
 
-                    onClicked: root.close()
+                    onClicked: {
+                        console.debug(Logger.log, text)
+                        root.close()
+                    }
                 }
             }
         }
@@ -152,6 +161,7 @@ ColumnLayout {
         standardButtons: Dialog.Cancel | Dialog.Ok
 
         onAccepted: {
+            console.debug(Logger.log, "addUserDialog")
             if(newUsername.text.length === 0) {
                newUsername.forceActiveFocus()
                return addUserDialog.open()
@@ -161,6 +171,7 @@ ColumnLayout {
             return confirmAddUserDialog.open()
         }
         onRejected: {
+            console.debug(Logger.log, "addUserDialog")
             root.newUser = ''
         }
 
@@ -192,8 +203,15 @@ ColumnLayout {
         title: qsTr("Confirm adding user")
         standardButtons: Dialog.Yes | Dialog.No
 
-        onAccepted: root.addUserRequested(root.newUser)
-        onRejected: root.newUser = ''
+        onAccepted: {
+            console.debug(Logger.log, "confirmAddUserDialog")
+            root.addUserRequested(root.newUser)
+        }
+
+        onRejected: {
+            console.debug(Logger.log, "confirmAddUserDialog")
+            root.newUser = ''
+        }
 
         Label {
             property int maxWidth: 400

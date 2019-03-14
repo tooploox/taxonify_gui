@@ -51,6 +51,7 @@ Item {
     }
 
     function proceedWithUpload(uploadedPackages) {
+        console.info(Logger.log, "")
         let baseName = uploader.getFileName(internal.fileName)
         for(let pack of uploadedPackages) {
             if(baseName == pack.filename) {
@@ -61,11 +62,13 @@ Item {
     }
 
     function startUpload() {
+        console.info(Logger.log, "")
         root.uploadStarted()
         uploader.upload(internal.fileName)
     }
 
     function clearUploadStatus() {
+        console.info(Logger.log, "")
         internal.errorMessage = ''
         internal.errorStatus = 0
         internal.fileName = ''
@@ -76,8 +79,15 @@ Item {
         id: checkPackagename
         handler: dataAccess.uploadList
 
-        onSuccess: root.proceedWithUpload(res)
-        onError: console.log("Failed to get upload list! Details: " + details)
+        onSuccess: {
+            console.info(Logger.log, "checkPackagename")
+            root.proceedWithUpload(res)
+        }
+
+        onError: {
+            console.info(Logger.log, "checkPackagename")
+            console.log("Failed to get upload list! Details: " + details)
+        }
     }
 
     FileDialog {
@@ -87,6 +97,7 @@ Item {
         nameFilters: ["Data packages tar.bz2 (*.tar.bz2)", "All files (*)"]
 
         onAccepted: {
+            console.info(Logger.log, "fileDialog")
             let file = decodeURIComponent(fileDialog.fileUrl)
             file = uploader.getPlatformFilePath(file)
             fileSelected(file)
@@ -114,8 +125,15 @@ Item {
         title: qsTr("Package " + uploader.getFileName(internal.fileName) + " is already uploaded")
         standardButtons: Dialog.Yes | Dialog.No
 
-        onAccepted: root.startUpload()
-        onRejected: clearUploadStatus()
+        onAccepted: {
+            console.info(Logger.log, "duplicated Dialog")
+            root.startUpload()
+        }
+
+        onRejected: {
+            console.info(Logger.log, "duplicated Dialog")
+            clearUploadStatus()
+        }
 
         Label {
             horizontalAlignment: Text.AlignHCenter
@@ -128,14 +146,18 @@ Item {
         id: uploader
 
         onSuccess: {
+            console.info(Logger.log, "uploader")
             internal.message = 'Upload finished successfully!'
             root.success(replyData)
         }
+
         onError: {
+            console.info(Logger.log, "uploader")
             internal.errorMessage = errorString
             internal.errorStatus = status
             root.error(internal.errorMessage)
         }
+
         onProgressChanged: progress.value = bytesSent / bytesTotal
     }
 
@@ -146,14 +168,22 @@ Item {
             text: 'Select File'
             enabled: !internal.fileName || internal.message
                      || internal.errorMessage
-            onClicked: fileDialog.visible = true
+
+            onClicked: {
+                console.debug(Logger.log, "Select file button")
+                fileDialog.visible = true
+            }
         }
 
         Button {
             text: 'Abort'
             enabled: internal.fileName && !internal.message
                      && !internal.errorMessage
-            onClicked: uploader.abort()
+
+            onClicked: {
+                console.debug(Logger.log, "Abort button")
+                uploader.abort()
+            }
         }
 
         ColumnLayout {

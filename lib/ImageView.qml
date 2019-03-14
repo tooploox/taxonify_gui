@@ -17,6 +17,7 @@ Item {
     }
 
     onFilterChanged: {
+        console.debug(Logger.log, "")
         selectedCount = 0
         for(let i = 0; i < model.count; i++) {
             let item = model.get(i)
@@ -37,6 +38,7 @@ Item {
     clip: true
 
     function appendData(data, useLastY) {
+        console.debug(Logger.log, "useLastY='" + useLastY + "'")
         for (let item of data) {
             model.append(item)
 
@@ -50,6 +52,7 @@ Item {
     }
 
     function clearData() {
+        console.debug(Logger.log, "")
         listModel.clear()
         listView.forceLayout()
         model.clear()
@@ -57,11 +60,12 @@ Item {
     }
 
     function getContentY() {
+        console.debug(Logger.log, "")
         return listView.contentY
     }
 
     function setData(data) {
-
+        console.debug(Logger.log, "")
         listModel.clear()
         listView.forceLayout()
         model.clear()
@@ -74,12 +78,15 @@ Item {
     }
 
     function setContentY(value) {
+        console.debug(Logger.log, "value='" + value + "'")
         if(value > listView.contentY){
+            console.debug(Logger.log, "value greater than listView.contentY")
             while(listView.contentY + programatic_scroll_step <= value){
                 listView.contentY += programatic_scroll_step
             }
             listView.contentY += (value - listView.contentY) % programatic_scroll_step
-        }else{
+        } else{
+            console.debug(Logger.log, "value smaller than or equal to listView.contentY")
             while(listView.contentY - programatic_scroll_step >= value){
                 listView.contentY -= programatic_scroll_step
             }
@@ -94,6 +101,7 @@ Item {
     }
 
     function setContentYatIndex(idx) {
+        console.debug(Logger.log, "idx='" + idx + "'")
         setContentY(0)
         listView.forceLayout()
         //move down by programatic_scroll_step pixels until next move would reach the desired line
@@ -107,6 +115,7 @@ Item {
     }
 
     function update(useLastY) {
+        console.debug(Logger.log, "useLastY='" + useLastY + "'")
         listModel.clear()
         listView.forceLayout()
         selectedCount = 0
@@ -153,8 +162,10 @@ Item {
             setContentY(listView.lastY)
         } else {
             if (matchedRow != -1) {
+                console.debug(Logger.log, "matchedRow not equal to -1")
                 setContentYatIndex(listView.firstIdInTheFirstRow)
             } else {
+                console.debug(Logger.log, "matchedRow equal to -1")
                 setContentY(0)
             }
         }
@@ -164,17 +175,22 @@ Item {
         listView.lastY = listView.contentY
 
         if(listView.indexAt(x_offset_to_content, listView.contentY) >= 0){
+            console.debug(Logger.log, "listView.indexAt(" + x_offset_to_content + ", " + listView.contentY + ") >= 0")
             listView.firstIdInTheFirstRow = listView.model.get(listView.indexAt(x_offset_to_content, listView.contentY)).firstIdx
         }
     }
 
     onWidthChanged: timer.restart()
+
     onSizeScaleChanged: timer.restart()
 
     Timer {
         id: timer
         interval: 500
-        onTriggered: root.update(false)
+        onTriggered: {
+            console.debug(Logger.log, "Timer triggered")
+            root.update(false)
+        }
     }
 
     ListView {
@@ -186,6 +202,7 @@ Item {
             id: scroll
             onPositionChanged: {
                 if (position + size == 1.0) {
+                    console.debug(Logger.log, "ScrollIndicator - reachedBottom")
                     root.reachedBottom()
                 }
             }
@@ -196,6 +213,7 @@ Item {
         }
 
         onMovementEnded: {
+            console.debug(Logger.log, "listView")
             firstIdInTheFirstRow = model.get(indexAt(x_offset_to_content, contentY)).firstIdx
             lastY = contentY
         }
@@ -292,16 +310,21 @@ Item {
                             }
 
                             onClicked: {
+                                console.debug(Logger.log, "Item clicked")
                                 let currentItem = root.model.get(modelData)
 
                                 if (mouse.button & Qt.LeftButton) {
-                                    if (rect.state == "grayout")
+                                    if (rect.state == "grayout") {
+                                        console.debug(Logger.log, "Item already grayed out")
                                         return
+                                    }
 
                                     if (item.selected) {
+                                        console.debug(Logger.log, "Item deselected")
                                         item.selected = false
                                         selectedCount -= 1
                                     } else {
+                                        console.debug(Logger.log, "Item selected")
                                         item.selected = true
                                         selectedCount += 1
                                     }

@@ -9,6 +9,7 @@ Item {
     signal uploadDetailsRequested(string upload_id)
 
     function setData(data){
+       console.info(Logger.log, "")
        uploadData.clear()
        for(let d of data){
            let genDate = d.generation_date.split('T')
@@ -80,6 +81,7 @@ Item {
                         Layout.rightMargin: 5
                         text: '...'
                         onClicked: {
+                            console.debug(Logger.log, "ToolButton")
                             console.log('buttonclicked')
                             uploadDetailsRequested(_id)
                         }

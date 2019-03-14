@@ -27,6 +27,7 @@ Rectangle {
     }
 
     function buildOtherPropertiesSectionText(full_obj, with_acquisition_time, with_filename, with_tags) {
+        console.debug(Logger.log, "")
         if (!with_acquisition_time && !with_filename && !with_tags) {
             return ''
         }
@@ -48,6 +49,7 @@ Rectangle {
     }
 
     function buildPropertySectionText(obj, full_obj, with_modified, with_date, floats, sectionName) {
+        console.debug(Logger.log, "")
         let smallIndent = '&nbsp;&nbsp;&nbsp;'
         let bigIndent = smallIndent + smallIndent
         let text = '<b>' + sectionName + '</b><br>'
@@ -76,6 +78,7 @@ Rectangle {
     }
 
     function isFilterEmpty(allowedProperties) {
+        console.debug(Logger.log, "allowedProperties=" + JSON.stringify(allowedProperties))
         let arrays = ['taxonomy', 'morphometry', 'additionalAttributes']
         let extra_fields = ['acquisition_time', 'filename']
 
@@ -103,6 +106,7 @@ Rectangle {
     }
 
     function displayItem(item, label, hintLabel, tagsField, baseLabelText, emptyFilterLabelText) {
+        console.debug(Logger.log, "")
         let meta = item.metadata
         const allowedProperties = imageDetailsPickerDialog.pickedAttributes()
 
@@ -144,6 +148,7 @@ Rectangle {
     }
 
     function displayHoveredItem(item) {
+        console.debug(Logger.log, "")
         if (item !== null) {
             hoverLabelTimer.stop()
             hoverPlaceholderLabel.visible = false
@@ -157,6 +162,7 @@ Rectangle {
     }
 
     function displayRightClickedItem(item) {
+        console.debug(Logger.log, "")
         clickedPlaceholderLabel.visible = false
         currentRightClickedItem = makeCopy(item)
         displayItem(currentRightClickedItem, clickedLabel, clickedPlaceholderLabel,
@@ -314,6 +320,7 @@ Rectangle {
     ImageDetailsPickerDialog {
         id: imageDetailsPickerDialog
         onAccepted: {
+            console.debug(Logger.log, "imageDetailsPickerDialog")
             if (currentHoveredItem) {
                 displayItem(currentHoveredItem, hoverLabel, hoverPlaceholderLabel,
                             hoveredTagsField, hoveredLabelHint, emptyFilterHint)

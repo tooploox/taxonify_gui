@@ -37,9 +37,17 @@ ColumnLayout {
 
         sizeScale: tileSizeSlider.value
 
-        onReachedBottom: atPageBottom()
+        onReachedBottom: {
+            console.debug(Logger.log, "imageView")
+            atPageBottom()
+        }
+
         onItemHovered: root.itemHovered()
-        onItemRightClicked: root.itemRightClicked()
+
+        onItemRightClicked: {
+            console.debug(Logger.log, "imageView")
+            root.itemRightClicked()
+        }
     }
 
     Rectangle {

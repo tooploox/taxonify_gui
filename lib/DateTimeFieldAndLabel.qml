@@ -21,6 +21,9 @@ RowLayout {
         id: dateField
         Layout.fillHeight: true
         Layout.fillWidth: true
-        onDateTimePicked: root.dateTimePicked()
+        onDateTimePicked: {
+            console.debug(Logger.log, "dateField")
+            root.dateTimePicked()
+        }
     }
 }

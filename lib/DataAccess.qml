@@ -1,6 +1,8 @@
 import QtQuick 2.12
 
+import "qrc:/"
 import "qrc:/network/requests.js" as Req
+
 
 // Sample data access object, should be replaced with requests aligned with
 // aquascope backend specification
@@ -23,10 +25,12 @@ QtObject {
         readonly property var commonHeaders: [access_token_header, compressHeader]
 
         onAccess_tokenChanged: {
+            console.info(Logger.log, "")
             access_token_header = ['Authorization', 'Bearer ' + access_token]
         }
 
         onRefresh_tokenChanged: {
+            console.info(Logger.log, "")
             refresh_token_header = ['Authorization', 'Bearer ' + refresh_token]
         }
 
@@ -43,6 +47,7 @@ QtObject {
         }
 
         function refresh() {
+            console.info(Logger.log, "")
             var req = {
                 handler: '/user/refresh',
                 method: 'POST',
@@ -57,6 +62,8 @@ QtObject {
     }
 
     function login(username, password, cb) {
+        console.info(Logger.log, "username='" + username + "'")
+
         var req = {
             handler: '/user/login',
             method: 'POST',
@@ -73,6 +80,7 @@ QtObject {
     }
 
     function sas(destination, cb) {
+        console.info(Logger.log, "destination='" + destination + "'")
         var req = {
             handler: '/sas',
             method: 'GET',
@@ -83,6 +91,7 @@ QtObject {
     }
 
     function filterItems(filter, cb) {
+        console.info(Logger.log, "filter='" + JSON.stringify(filter) + "'")
         var req = {
             handler: '/items',
             method: 'GET',
@@ -93,6 +102,7 @@ QtObject {
     }
 
     function filterPagedItems(filter, page, cb) {
+        console.info(Logger.log, "filter='" + JSON.stringify(filter) + "', page='" + page + "'")
         filter.continuation_token = page
         console.log('about to send filter: ', JSON.stringify(filter))
         var req = {
@@ -106,6 +116,7 @@ QtObject {
     }
 
     function updateItems(updateList, cb) {
+        console.info(Logger.log, "updateList='" + JSON.stringify(updateList) + "'")
         var req = {
             handler: '/items',
             method: 'POST',
@@ -116,6 +127,7 @@ QtObject {
     }
 
     function uploadList(cb) {
+        console.info(Logger.log, "")
         var req = {
             handler: '/upload/list',
             method: 'GET',
@@ -125,6 +137,7 @@ QtObject {
     }
 
     function exportItems(exportCriteria, cb) {
+        console.info(Logger.log, "exportCriteria='" + JSON.stringify(exportCriteria) + "'")
         var req = {
             handler: '/export',
             method: 'GET',
@@ -135,6 +148,7 @@ QtObject {
     }
 
     function userList(cb) {
+        console.info(Logger.log, "")
         var req = {
             handler: '/user/list',
             method: 'GET',
@@ -144,6 +158,7 @@ QtObject {
     }
 
     function addUser(username, cb) {
+        console.info(Logger.log, "username='" + username + "'")
         var req = {
             handler: '/user/new',
             method: 'POST',

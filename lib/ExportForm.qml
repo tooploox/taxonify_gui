@@ -22,15 +22,18 @@ Item {
     }
 
     function buildCriteriaText() {
+        console.debug(Logger.log, "")
         filterTextArea.text = JSON.stringify(criteria(), null, 2)
     }
 
     function acceptLimitInput() {
+        console.debug(Logger.log, "")
         limitTextWarning.visible = false
         buildCriteriaText()
     }
 
     function denyLimitInput() {
+        console.debug(Logger.log, "")
         limitTextWarning.visible = true
 
     }
@@ -50,7 +53,10 @@ Item {
                 title: "Export filter"
                 titleSize: 20
 
-                onUserListRequested: root.userListRequested()
+                onUserListRequested: {
+                    console.debug(Logger.log, "filteringPane")
+                    root.userListRequested()
+                }
             }
         }
 
@@ -79,7 +85,10 @@ Item {
                     checked: true
                     enabled: true
                     text: "Limit results to first"
-                    onCheckedChanged: buildCriteriaText()
+                    onCheckedChanged: {
+                        console.debug(Logger.log, "limitCheckBox")
+                        buildCriteriaText()
+                    }
                 }
 
                 TextField {
@@ -91,9 +100,12 @@ Item {
                     validator: IntValidator { bottom: 1 }
 
                     onTextChanged: {
+                        console.debug(Logger.log, "limitTextField")
                         if (!acceptableInput) {
+                            console.debug(Logger.log, "not acceptable Input")
                             denyLimitInput()
                         } else if (enabled && acceptableInput) {
+                            console.debug(Logger.log, "enabled and acceptable Input")
                             acceptLimitInput()
                         }
                     }

@@ -55,6 +55,7 @@ Rectangle {
                         ButtonGroup.group: radioGroup
 
                         onClicked: {
+                            console.debug(Logger.log, text + " button clicked")
                             checkedAttrIdx = index
                         }
 
@@ -141,7 +142,10 @@ Rectangle {
             enabled: radioGroup.checkState !== Qt.Unchecked
             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
 
-            onClicked: applyClicked()
+            onClicked: {
+                console.debug(Logger.log, "Apply button clicked")
+                applyClicked()
+            }
         }
     }
 }

@@ -99,6 +99,7 @@ Rectangle {
                     Layout.preferredWidth: calendar.width / 2
                     text: "Clear"
                     onClicked: {
+                        console.debug(Logger.log, "Clear")
                         dateCleared = true
                         dateTimePicked()
                     }
@@ -108,6 +109,7 @@ Rectangle {
                     Layout.fillWidth: true
                     text: "OK"
                     onClicked: {
+                        console.debug(Logger.log, "OK")
                         dateCleared = false
                         dateTimePicked()
                     }

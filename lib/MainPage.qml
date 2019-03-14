@@ -15,17 +15,24 @@ Item {
     signal logoutClicked()
 
     function storeScrollLastPos() {
+        console.debug(Logger.log, "")
         lastContentYPos = imageViewAndControls.imageView.getContentY()
     }
 
-    function restoreScrollLastPos(){
+    function restoreScrollLastPos() {
+        console.debug(Logger.log, "")
         imageViewAndControls.imageView.setContentY(lastContentYPos)
     }
 
     function getCurrentFilter() {
+        console.debug(Logger.log, "")
         if (currentFilter) {
+             console.debug(Logger.log, "filter not empty")
             return JSON.parse(JSON.stringify(currentFilter))
+        } else {
+            console.debug(Logger.log, "filter empty")
         }
+
         return {}
     }
 
@@ -39,14 +46,17 @@ Item {
     UploadDialog {
         id: uploadDialog
         onSuccess: {
+            console.debug(Logger.log, "UploadDialog")
             uploadButton.background.color = 'lightgreen'
             uploadInProgress = false
         }
         onError: {
+            console.debug(Logger.log, "UploadDialog")
             uploadButton.background.color = 'lightcoral'
             uploadInProgress = false
         }
         onUploadStarted: {
+            console.debug(Logger.log, "UploadDialog")
             uploadButton.background.color = 'lightgray'
             uploadInProgress = true
         }
@@ -57,7 +67,10 @@ Item {
     ExportDialog {
         id: exportDialog
         onAccepted: exportItems.call(exportDialog.exportCriteria)
-        onUserListRequested: listUsers.call()
+        onUserListRequested: {
+            console.debug(Logger.log, "ExportDialog")
+            listUsers.call()
+        }
     }
 
     PageLoader {
@@ -105,7 +118,10 @@ Item {
                 ToolButton {
                     text: qsTr("Export")
                     Layout.rightMargin: 5
-                    onClicked: exportDialog.open()
+                    onClicked: {
+                        console.debug(Logger.log, "Export")
+                        exportDialog.open()
+                    }
                 }
 
                 DelayButton {
@@ -117,6 +133,7 @@ Item {
                     progress: uploadDialog.uploadProgress
 
                     onClicked: {
+                        console.debug(Logger.log, "uploadButton")
                         if(!uploadInProgress) uploadButton.background.color = 'lightgray'
                         uploadDialog.open()
                     }
@@ -125,7 +142,11 @@ Item {
                 ToolButton {
                     text: qsTr("⋮")
                     Layout.rightMargin: 5
-                    onClicked: settingsDialog.open()
+
+                    onClicked: {
+                        console.debug(Logger.log, "ToolButton")
+                        settingsDialog.open()
+                    }
                 }
 
                 ToolButton {
@@ -170,6 +191,7 @@ Item {
                         withTitle: false
 
                         onApplyClicked: {
+                            console.debug(Logger.log, "FilteringPane")
                             currentFilter = filter
                             imageViewAndControls.imageView.clearData()
                             storeScrollLastPos()
@@ -177,7 +199,10 @@ Item {
                             pageLoader.loadNextPage(getCurrentFilter())
                         }
 
-                        onUserListRequested: listUsers.call()
+                        onUserListRequested: {
+                            console.debug(Logger.log, "FilteringPane")
+                            listUsers.call()
+                        }
                     }
 
                     ImageDetailsPane {
@@ -206,7 +231,13 @@ Item {
                          })(annotationPane.criteria)
 
                 onAtPageBottom: {
-                    if(pageLoader.internal.pageLoadingInProgress || pageLoader.internal.lastPageLoaded) return
+                    console.debug(Logger.log, "imageViewAndControls")
+                    if(pageLoader.internal.pageLoadingInProgress || pageLoader.internal.lastPageLoaded) {
+                        console.debug(Logger.log, "imageViewAndControls - pageLoadingInProgress or lastPageLoaded")
+                        return
+                    }
+                    console.debug(Logger.log, "imageViewAndControls - next page to be loaded")
+
                     storeScrollLastPos()
                     pageLoader.loadNextPage(getCurrentFilter())
                 }
@@ -242,6 +273,7 @@ Item {
                         Layout.fillHeight: true
 
                         onApplyClicked: {
+                            console.debug(Logger.log, "AnnotationPane")
                             storeScrollLastPos()
 
                             const model = imageViewAndControls.imageView.model
@@ -297,14 +329,19 @@ Item {
         handler: dataAccess.sas
 
         onSuccess: {
+            console.debug(Logger.log, "sas")
             currentSas = res.token
             if (!viewPopulated) {
+                console.debug(Logger.log, "sas - not viewPopulated")
                 pageLoader.resetPagesStatus()
                 pageLoader.loadNextPage({})
+            } else {
+                console.debug(Logger.log, "sas - viewPopulated")
             }
         }
 
         onError: {
+            console.debug(Logger.log, "sas")
             console.log('sas failed. Details: ' + details)
         }
     }
@@ -316,6 +353,7 @@ Item {
         triggeredOnStart: true
 
         onTriggered: {
+            console.debug(Logger.log, "Timer")
             sas.call('processed')
         }
     }
@@ -326,6 +364,7 @@ Item {
         handler: dataAccess.filterItems
 
         onSuccess: {
+            console.debug(Logger.log, "filterItems")
             const params = currentSas.length > 0 ? '?' + currentSas : ''
 
             function makeItem(item) {
@@ -343,6 +382,7 @@ Item {
         }
 
         onError: {
+            console.debug(Logger.log, "filterItems")
             console.log('error in retrieving data items. Error: '+ details.text)
         }
     }
@@ -353,12 +393,14 @@ Item {
         handler: dataAccess.updateItems
 
         onSuccess: {
+            console.debug(Logger.log, "updateItems")
             console.log("Update items")
             imageViewAndControls.imageView.clearData()
             pageLoader.loadPages(getCurrentFilter(), pageLoader.getNumberOfLoadedPages())
         }
 
         onError: {
+            console.debug(Logger.log, "updateItems")
             // TODO
             console.log("Updating annotations failed!")
             console.log(JSON.stringify(details, null, "  "))
@@ -369,8 +411,15 @@ Item {
         id: exportItems
         handler: dataAccess.exportItems
 
-        onSuccess: exportDialog.processExportResponse(true, res)
-        onError: exportDialog.processExportResponse(false, details)
+        onSuccess: {
+            console.debug(Logger.log, "exportItems")
+            exportDialog.processExportResponse(true, res)
+        }
+
+        onError: {
+            console.debug(Logger.log, "exportItems")
+            exportDialog.processExportResponse(false, details)
+        }
     }
 
     Request {
@@ -378,6 +427,7 @@ Item {
         handler: dataAccess.userList
 
         onSuccess: {
+            console.debug(Logger.log, "listUsers")
             let receivers = [filteringPane, exportDialog, settingsDialog]
             let userList = res.map(item => item.username)
             for (const item of receivers) {
