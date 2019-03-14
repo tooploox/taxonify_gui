@@ -1,7 +1,6 @@
 #include "Logging.h"
 
 #include <fstream>
-#include <sstream>
 
 #include <QDateTime>
 #include <QString>
@@ -43,11 +42,9 @@ QString getFilterRules() {
     std::string filterRules(defaultFilterRules);
 
     std::ifstream confFileStr(confFilename);
-    if (confFileStr) {
-        std::stringstream loggingConf;
-        loggingConf << confFileStr.rdbuf();
-        filterRules = loggingConf.str();
-    }
+    if (confFileStr)
+        filterRules = std::string(std::istreambuf_iterator<char>(confFileStr),
+                                  std::istreambuf_iterator<char>());
 
     return QString::fromStdString(filterRules);
 }
