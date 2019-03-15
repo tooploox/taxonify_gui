@@ -10,8 +10,36 @@ ColumnLayout {
     property alias title: titleLabel.text
     readonly property int listViewBorder: 1
 
-    Label {
-        id: titleLabel
+    FontLoader { id: fontLoader; source: 'qrc:/graphics/Font Awesome 5 Free-Solid-900.otf'}
+
+    RowLayout {
+        Layout.fillWidth: true
+
+        Label {
+            id: titleLabel
+        }
+
+        Item {
+            Layout.fillWidth: true
+        }
+
+        ToolButton {
+            ToolTip.delay: 1000
+            ToolTip.timeout: 5000
+            ToolTip.visible: hovered
+            ToolTip.text: qsTr('Copy to clipboard')
+            contentItem: Text {
+                text: '\uf0c5'
+                font.family: fontLoader.name
+                color: 'lightgray'
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+            }
+            onClicked: {
+                console.log('surprise')
+            }
+        }
     }
 
     Rectangle {
