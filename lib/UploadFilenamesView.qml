@@ -12,6 +12,11 @@ ColumnLayout {
 
     FontLoader { id: fontLoader; source: 'qrc:/graphics/Font Awesome 5 Free-Solid-900.otf'}
 
+    TextEdit {
+        id: clipboard
+        visible: false
+    }
+
     RowLayout {
         Layout.fillWidth: true
 
@@ -24,6 +29,7 @@ ColumnLayout {
         }
 
         ToolButton {
+            id: control
             ToolTip.delay: 1000
             ToolTip.timeout: 5000
             ToolTip.visible: hovered
@@ -31,13 +37,18 @@ ColumnLayout {
             contentItem: Text {
                 text: '\uf0c5'
                 font.family: fontLoader.name
-                color: 'lightgray'
+                color: control.down ? 'gray' : 'lightgray'
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
             }
             onClicked: {
-                console.log('surprise')
+                clipboard.text = ''
+                for (const filename of root.model) {
+                    clipboard.text += filename + '\n'
+                }
+                clipboard.selectAll()
+                clipboard.copy()
             }
         }
     }
