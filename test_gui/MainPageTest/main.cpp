@@ -3,6 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include <Logging.h>
 #include <Uploader.h>
 
 int main(int argc, char *argv[])
@@ -26,6 +27,7 @@ int main(int argc, char *argv[])
         settingsPath = QVariant(QVariant::String);
     }
 
+    initLogging();
     qmlRegisterType<Uploader>("com.microscopeit", 1, 0, "Uploader");
 
     engine.rootContext()->setContextProperty("settingsPath", settingsPath);
