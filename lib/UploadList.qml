@@ -33,52 +33,45 @@ Item {
         ScrollBar.vertical: ScrollBar { id: scroll }
 
         delegate: ColumnLayout {
-            id: content
             width: filesList.width - scroll.width
             anchors.margins: 5
 
             RowLayout {
                 Layout.fillWidth: true
-                Text {
-                    id: mainLine
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-                    text: filename
-                    font.bold: true
-                }
+                Layout.fillHeight: true
 
-                Item {
-                    Layout.fillWidth: true
-                }
-
-                Text {
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.rightMargin: 5
-                    text: up_state
-                }
-            }
-
-            ColumnLayout {
-                Layout.fillWidth: true
-                Layout.leftMargin: 20
-
-                Text {
-                    font.pointSize: mainLine.font.pointSize - 2
-                    text: "Date:   " + gen_date
-                }
-
-                RowLayout {
-                    Layout.fillWidth: true
+                ColumnLayout {
+                    Text {
+                        id: mainLine
+                        text: filename
+                        font.bold: true
+                    }
 
                     Text {
-                        font.pointSize: mainLine.font.pointSize - 2
+                        Layout.leftMargin: 20
+                        text: "Date:   " + gen_date
+                    }
+
+                    Text {
+                        Layout.leftMargin: 20
                         text: "Duplicate images:   " + duplicate_image_count + '/' + image_count
                     }
+
                     Item {
                         Layout.fillWidth: true
+                        Layout.fillHeight: true
                     }
+                }
+
+                ColumnLayout {
+                    Layout.alignment: Qt.AlignRight
+
+                    Text {
+                        text: up_state
+                    }
+
                     ToolButton {
                         id: moreButton
-                        Layout.rightMargin: 5
                         text: '...'
                         onClicked: {
                             console.debug(Logger.log, "ToolButton")
@@ -92,6 +85,6 @@ Item {
             MenuSeparator {
                 Layout.fillWidth: true
             }
-       }
+        }
     }
 }
