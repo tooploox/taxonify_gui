@@ -19,7 +19,8 @@ Item {
                               up_state: d.state,
                               gen_date: genDate[0] + " " +genDate[1].split('+')[0],
                               image_count: d.image_count === undefined ? '-' : d.image_count.toString(),
-                              duplicate_image_count: d.duplicate_image_count === undefined ? '-' : d.duplicate_image_count.toString()
+                              duplicate_image_count: d.duplicate_image_count === undefined ? '-' : d.duplicate_image_count.toString(),
+                              broken_record_count: d.broken_record_count === undefined ? '-' : d.broken_record_count.toString()
                              })
        }
     }
@@ -55,6 +56,11 @@ Item {
                     Text {
                         Layout.leftMargin: 20
                         text: "Duplicate images:   " + duplicate_image_count + '/' + image_count
+                    }
+
+                    Text {
+                        Layout.leftMargin: 20
+                        text: "Broken records:   " + broken_record_count + '/' + image_count
                     }
 
                     Item {

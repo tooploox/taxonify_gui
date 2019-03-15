@@ -36,6 +36,7 @@
         <file>PopupImageLabel.qml</file>
         <file>UploadDetailsDialog.qml</file>
         <file>TagsField.qml</file>
+        <file>UploadFilenamesView.qml</file>
     </qresource>
     <qresource prefix="/sample">
         <file>sample_images/5.jpeg</file>
