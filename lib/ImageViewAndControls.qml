@@ -24,6 +24,7 @@ ColumnLayout {
     property alias hoveredItem: imageView.hoveredItem
     property alias rightClickedItem: imageView.rightClickedItem
     property alias filter: imageView.filter
+    property bool pageLoadingInProgress: false
     readonly property ImageView imageView: imageView
     signal atPageBottom()
     signal itemHovered()
@@ -79,6 +80,12 @@ ColumnLayout {
 
             Item {
                 Layout.fillWidth: true
+            }
+
+            BusyIndicator {
+                running: pageLoadingInProgress
+                Layout.preferredHeight: 50
+                Layout.rightMargin: 20
             }
 
             Label {

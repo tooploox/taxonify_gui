@@ -219,6 +219,8 @@ Item {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
+                pageLoadingInProgress: pageLoader.internal.pageLoadingInProgress
+
                 filter: ((criteria) => {
                              return (item) => {
                                  for (let c in criteria) {
