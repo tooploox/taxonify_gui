@@ -31,9 +31,11 @@ ColumnLayout {
         if (updateCounter == Number.MAX_SAFE_INTEGER)
             updateCounter = 0
         updateCounter += 1
-        for (let d = 0 ; d< taxonomyDepth; d++){
-            let appliedIndex = container.itemAt(d).combobox.calculateAppliedIndex()
-            container.itemAt(d).combobox.font.bold = d === appliedIndex
+
+        for (let d = 0; d < taxonomyDepth; d++) {
+            let combobox = container.itemAt(d).combobox
+            let appliedIndex = combobox.calculateAppliedIndex()
+            combobox.font.bold = (combobox.currentIndex === appliedIndex)
         }
     }
 
