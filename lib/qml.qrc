@@ -62,7 +62,7 @@
         <file>requests.js</file>
     </qresource>
     <qresource prefix="/images">
-        <file>logo.png</file>
+        <file>app_logo.svg</file>
     </qresource>
     <qresource prefix="/graphics">
         <file>awesome.ttf</file>

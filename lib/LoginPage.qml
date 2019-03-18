@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import QtGraphicalEffects 1.12
 
 import 'qrc:/network'
 
@@ -73,12 +74,22 @@ Item {
                 anchors.right: parent.right
                 anchors.top: parent.top
 
-
-                Image {
+                Rectangle {
+                    Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.bottomMargin: 15
-                    source: "images/logo.png"
                     height: 100
+
+                    Image {
+                        anchors.fill: parent
+                        source: "images/app_logo.svg"
+
+                        ColorOverlay {
+                            anchors.fill: parent
+                            source: parent
+                            color: "red"
+                        }
+                    }
                 }
 
                 TextField {
