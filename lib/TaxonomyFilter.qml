@@ -51,14 +51,9 @@ ColumnLayout {
             property alias currentIndex: combobox.currentIndex
             property alias combobox: combobox
             property alias checkbox: checkbox
-            property bool updatesDisabled: false
 
             function getValue() {
                 return combobox.getValue()
-            }
-
-            function update() {
-                combobox.update()
             }
 
             function apply() {
@@ -188,7 +183,6 @@ ColumnLayout {
                     nodes[index + 1] = nextNodes
                 }
 
-
                 function setCheckbox(checkbox, checked, enabled) {
                     checkbox.checked = checked
                     checkbox.enabled = enabled
@@ -241,10 +235,6 @@ ColumnLayout {
                 }
 
                 onCurrentIndexChanged: {
-                    if (updatesDisabled) {
-                        return
-                    }
-
                     update()
                 }
             }
