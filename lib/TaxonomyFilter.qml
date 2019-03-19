@@ -42,6 +42,7 @@ ColumnLayout {
 
         model: 0
         property int specifiedTill: 0 // index of first item with "Not specified"
+
         RowLayout {
             property alias value: combobox.value
             property alias checked: checkbox.checked
@@ -128,10 +129,6 @@ ColumnLayout {
                     return [notSpecifiedStr, ...Object.keys(nodes[idx]).sort()]
                 }
 
-                function has(object, key) {
-                      return object ? hasOwnProperty.call(object, key) : false;
-                }
-
                 function searchDownTheTree(value, currentDepth, maxDepth, branch) {
                     let currentItem = rptr.itemAt(currentDepth)
                     let currentValue = currentItem.getValue()
@@ -189,14 +186,6 @@ ColumnLayout {
                     nodes[index + 1] = nextNodes
                 }
 
-                function resetLowerChoiceWithoutUpdate() {
-                    let lowerItem = rptr.itemAt(index + 1)
-                    if (lowerItem) {
-                        lowerItem.updatesDisabled = true
-                        lowerItem.currentIndex = 0
-                        lowerItem.updatesDisabled = false
-                    }
-                }
 
                 function setCheckbox(checkbox, checked, enabled) {
                     checkbox.checked = checked
