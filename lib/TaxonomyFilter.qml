@@ -27,11 +27,14 @@ ColumnLayout {
         return crtr
     }
 
-    function update() {
+    function updateBoldness() {
         if (updateCounter == Number.MAX_SAFE_INTEGER)
             updateCounter = 0
         updateCounter += 1
-        container.itemAt(0).update()
+        for (let d = 0 ; d< taxonomyDepth; d++){
+            let appliedIndex = container.itemAt(d).combobox.calculateAppliedIndex()
+            container.itemAt(d).combobox.font.bold = d === appliedIndex
+        }
     }
 
     Repeater {

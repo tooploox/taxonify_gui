@@ -61,7 +61,7 @@ Rectangle {
             }
         }
         taxonomyCkbx.font.bold = taxonomyCkbx.checked
-        taxonomyFilter.update()
+        taxonomyFilter.updateBoldness()
 
         for (let i = 0; i < attributeFilters.count; i++) {
             const attrFilter = attributeFilters.itemAt(i)
