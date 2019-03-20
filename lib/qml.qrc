@@ -66,6 +66,6 @@
         <file>app_logo.svg</file>
     </qresource>
     <qresource prefix="/graphics">
-        <file>awesome.ttf</file>
+        <file>Font Awesome 5 Free-Solid-900.otf</file>
     </qresource>
 </RCC>

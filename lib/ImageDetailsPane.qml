@@ -332,6 +332,6 @@ Rectangle {
         }
     }
 
-    FontLoader { id: fontLoader; source: 'qrc:/graphics/awesome.ttf'}
+    FontLoader { id: fontLoader; source: 'qrc:/graphics/Font Awesome 5 Free-Solid-900.otf'}
 
 }

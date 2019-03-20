@@ -9,8 +9,47 @@ ColumnLayout {
     property alias title: titleLabel.text
     readonly property int borderWidth: 1
 
-    Label {
-        id: titleLabel
+    FontLoader { id: fontLoader; source: 'qrc:/graphics/Font Awesome 5 Free-Solid-900.otf'}
+
+    TextEdit {
+        id: clipboard
+        visible: false
+    }
+
+    RowLayout {
+        Layout.fillWidth: true
+
+        Label {
+            id: titleLabel
+        }
+
+        Item {
+            Layout.fillWidth: true
+        }
+
+        ToolButton {
+            id: control
+            ToolTip.delay: 1000
+            ToolTip.timeout: 5000
+            ToolTip.visible: hovered
+            ToolTip.text: qsTr('Copy to clipboard')
+            contentItem: Text {
+                text: '\uf0c5'
+                font.family: fontLoader.name
+                color: control.down ? 'gray' : 'lightgray'
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+            }
+            onClicked: {
+                clipboard.text = ''
+                for (const filename of root.model) {
+                    clipboard.text += filename + '\n'
+                }
+                clipboard.selectAll()
+                clipboard.copy()
+            }
+        }
     }
 
     Rectangle {
