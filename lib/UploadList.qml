@@ -19,7 +19,8 @@ Item {
                               up_state: d.state,
                               gen_date: genDate[0] + " " +genDate[1].split('+')[0],
                               image_count: d.image_count === undefined ? '-' : d.image_count.toString(),
-                              duplicate_image_count: d.duplicate_image_count === undefined ? '-' : d.duplicate_image_count.toString()
+                              duplicate_image_count: d.duplicate_image_count === undefined ? '-' : d.duplicate_image_count.toString(),
+                              broken_record_count: d.broken_record_count === undefined ? '-' : d.broken_record_count.toString()
                              })
        }
     }
@@ -33,52 +34,50 @@ Item {
         ScrollBar.vertical: ScrollBar { id: scroll }
 
         delegate: ColumnLayout {
-            id: content
             width: filesList.width - scroll.width
             anchors.margins: 5
 
             RowLayout {
                 Layout.fillWidth: true
-                Text {
-                    id: mainLine
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-                    text: filename
-                    font.bold: true
-                }
+                Layout.fillHeight: true
 
-                Item {
-                    Layout.fillWidth: true
-                }
-
-                Text {
-                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-                    Layout.rightMargin: 5
-                    text: up_state
-                }
-            }
-
-            ColumnLayout {
-                Layout.fillWidth: true
-                Layout.leftMargin: 20
-
-                Text {
-                    font.pointSize: mainLine.font.pointSize - 2
-                    text: "Date:   " + gen_date
-                }
-
-                RowLayout {
-                    Layout.fillWidth: true
+                ColumnLayout {
+                    Text {
+                        id: mainLine
+                        text: filename
+                        font.bold: true
+                    }
 
                     Text {
-                        font.pointSize: mainLine.font.pointSize - 2
+                        Layout.leftMargin: 20
+                        text: "Date:   " + gen_date
+                    }
+
+                    Text {
+                        Layout.leftMargin: 20
                         text: "Duplicate images:   " + duplicate_image_count + '/' + image_count
                     }
+
+                    Text {
+                        Layout.leftMargin: 20
+                        text: "Broken records:   " + broken_record_count + '/' + image_count
+                    }
+
                     Item {
                         Layout.fillWidth: true
+                        Layout.fillHeight: true
                     }
+                }
+
+                ColumnLayout {
+                    Layout.alignment: Qt.AlignRight
+
+                    Text {
+                        text: up_state
+                    }
+
                     ToolButton {
                         id: moreButton
-                        Layout.rightMargin: 5
                         text: '...'
                         onClicked: {
                             console.debug(Logger.log, "ToolButton")
@@ -92,6 +91,6 @@ Item {
             MenuSeparator {
                 Layout.fillWidth: true
             }
-       }
+        }
     }
 }

@@ -94,7 +94,7 @@ Item {
         id: fileDialog
         title: "Please choose a file"
         folder: shortcuts.home
-        nameFilters: ["Data packages tar.bz2 (*.tar.bz2)", "All files (*)"]
+        nameFilters: ["Data packages *.tar.bz2, *.tar.gz, *.tar (*.tar.bz2 *.tar.gz *.tar)", "All files (*)"]
 
         onAccepted: {
             console.info(Logger.log, "fileDialog")

@@ -9,13 +9,14 @@ Dialog {
 
     modal: true
     parent: ApplicationWindow.overlay
-    readonly property int listViewBorder: 1
     property var details: null
     property var lastTags: []
     readonly property bool displayDuplicates: details && details.duplicate_filenames !== undefined
                                               && details.duplicate_image_count !== 0
+    readonly property bool displayBrokens: details && details.broken_records !== undefined
+                                              && details.broken_record_count !== 0
 
-    height: displayDuplicates ? 600 : 400
+    height: (displayDuplicates || displayBrokens) ? 700 : 400
     title: details ? 'Upload: ' + details.filename : ''
 
     signal tagsUpdateRequested(string upload_id, var tags)
@@ -88,49 +89,30 @@ Dialog {
             readOnly: !editTagsSwitch.checked
         }
 
-        Label {
-            id: dupLabel
-            text: 'Duplicate filenames:'
-            visible: displayDuplicates
-        }
-
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            visible: !displayDuplicates
+            visible: !displayDuplicates && !displayBrokens
         }
 
-        Rectangle {
+        UploadFilenamesView {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            border.width: listViewBorder
-            border.color: 'lightgray'
-            color: 'whitesmoke'
+            Layout.topMargin: 5
+
+            title: 'Duplicate filenames:'
             visible: displayDuplicates
+            model: displayDuplicates ? details.duplicate_filenames : []
+        }
 
-            ListView {
-                id: listView
-                anchors.fill: parent
-                anchors.margins: 2 * listViewBorder
+        UploadFilenamesView {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.topMargin: 5
 
-                clip: true
-                ScrollBar.horizontal: ScrollBar { active: true }
-                ScrollBar.vertical: ScrollBar { active: true }
-                spacing: 5
-
-                flickableDirection: Flickable.AutoFlickIfNeeded
-                boundsBehavior: Flickable.StopAtBounds
-
-                model: details ? details.duplicate_filenames : []
-                delegate: Text {
-                    text: modelData
-                    onWidthChanged: {
-                        if (width > listView.contentWidth) {
-                            listView.contentWidth = width
-                        }
-                    }
-                }
-            }
+            title: 'Broken records:'
+            visible: displayBrokens
+            model: displayBrokens ? details.broken_records : []
         }
     }
 
