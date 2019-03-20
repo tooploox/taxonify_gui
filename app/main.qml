@@ -11,7 +11,7 @@ ApplicationWindow {
     width: 640 * 2
     height: 480 * 1.5
 
-    title: qsTr("Aquascope Data Browser")
+    title: qsTr("Taxonify")
 
     readonly property var defaultSettings: ({ host: 'http://localhost' })
     readonly property string serverAddress: Util.getSettingVariable(

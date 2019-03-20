@@ -5,7 +5,7 @@ import "qrc:/network/requests.js" as Req
 
 
 // Sample data access object, should be replaced with requests aligned with
-// aquascope backend specification
+// taxonify backend specification
 
 QtObject {
 

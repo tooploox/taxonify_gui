@@ -2,12 +2,12 @@
 
 #include <QObject>
 
-#include "AquascopeLibGlobal.h"
+#include "TaxonifyLibGlobal.h"
 
 class QNetworkAccessManager;
 class QNetworkReply;
 
-class AQUASCOPE_LIB_EXPORT Uploader : public QObject
+class TAXONIFY_LIB_EXPORT Uploader : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString address MEMBER address NOTIFY addressChanged)

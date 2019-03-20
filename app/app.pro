@@ -8,7 +8,7 @@ CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
 
 
-TARGET = AquascopeGUI
+TARGET = TaxonifyGUI
 
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
