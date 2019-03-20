@@ -7,7 +7,7 @@ ColumnLayout {
 
     property var model
     property alias title: titleLabel.text
-    readonly property int listViewBorder: 1
+    readonly property int borderWidth: 1
 
     Label {
         id: titleLabel
@@ -16,14 +16,14 @@ ColumnLayout {
     Rectangle {
         Layout.fillHeight: true
         Layout.fillWidth: true
-        border.width: listViewBorder
+        border.width: borderWidth
         border.color: 'lightgray'
         color: 'whitesmoke'
 
         ListView {
             id: listView
             anchors.fill: parent
-            anchors.margins: 2 * listViewBorder
+            anchors.margins: 2 * borderWidth
 
             clip: true
             ScrollBar.horizontal: ScrollBar { active: true }

@@ -102,7 +102,7 @@ Dialog {
 
             title: 'Duplicate filenames:'
             visible: displayDuplicates
-            model: details ? details.duplicate_filenames : []
+            model: displayDuplicates ? details.duplicate_filenames : []
         }
 
         UploadFilenamesView {
@@ -112,7 +112,7 @@ Dialog {
 
             title: 'Broken records:'
             visible: displayBrokens
-            model: details ? details.broken_records : []
+            model: displayBrokens ? details.broken_records : []
         }
     }
 
