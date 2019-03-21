@@ -83,12 +83,6 @@ Item {
                     Image {
                         anchors.fill: parent
                         source: "images/app_logo.svg"
-
-                        ColorOverlay {
-                            anchors.fill: parent
-                            source: parent
-                            color: "red"
-                        }
                     }
                 }
 
