@@ -86,6 +86,9 @@
                         "Asplanchnidae": {
                             "Asplanchna": {}
                         },
+                        "Brachionidae": {
+                            "Notholca": {}
+                        },
                         "Trichocercidae": {
                             "Trichocerca": {}
                         }
@@ -119,6 +122,11 @@
         "Chromalveolata": {
             "Ciliophora": {
                 "Ciliatea": {
+                    "Oligotrichida": {
+                        "Strombidiidae": {
+                            "Strobilidium": {}
+                        }
+                    },
                     "Rhabdophorina": {
                         "Didiniidae": {
                             "Didinium": {}
@@ -153,6 +161,9 @@
                         },
                         "Vaginicolidae": {
                             "Cothurnia": {}
+                        },
+                        "Vorticellidae": {
+                            "Vorticella": {}
                         }
                     }
                 },
@@ -212,7 +223,10 @@
                             }
                         }
                     },
-                    "Centrales": {},
+                    "Centrales": {
+                        "A": {},
+                        "B": {}
+                    },
                     "Cocconeidales": {
                         "Achnanthidiaceae": {
                             "Achnanthidium": {
@@ -259,6 +273,7 @@
                         },
                         "Naviculaceae": {
                             "Caloneis": {},
+                            "Gyrosigma": {},
                             "Navicula": {}
                         },
                         "Pinnulariaceae": {
@@ -273,7 +288,10 @@
                             "Stauroneis": {}
                         }
                     },
-                    "Pennales": {},
+                    "Pennales": {
+                        "A": {},
+                        "B": {}
+                    },
                     "Rhopalodiales": {
                         "Rhopalodiaceae": {
                             "Epithemia": {
@@ -288,6 +306,11 @@
                                 "Didyma": {},
                                 "Elegans": {}
                             }
+                        }
+                    },
+                    "Tabellariales": {
+                        "Tabellariaceae": {
+                            "Meridion": {}
                         }
                     },
                     "Thalassiophysales": {
@@ -318,13 +341,14 @@
                                 "Arcus": {}
                             },
                             "Synedra": {
+                                "Acus_var_angustissima": {},
                                 "Cyclopum": {}
                             },
                             "Tabularia": {
                                 "Fasciculata": {}
                             },
                             "Ulnaria": {
-                                "Delicatissima var angustissima": {}
+                                "Delicatissima_var_angustissima": {}
                             }
                         }
                     },
@@ -356,6 +380,11 @@
                     "Cryptomonadales": {
                         "Cryptomonadaceae": {
                             "Cryptomonas": {}
+                        },
+                        "Cyathomonadaceae": {
+                            "Cyathomonas": {
+                                "Truncata": {}
+                            }
                         }
                     },
                     "Pyrenomonadales": {
@@ -388,6 +417,8 @@
             },
             "Ochrophyta": {
                 "Chrysophyceae": {
+                    "A": {},
+                    "B": {},
                     "Chromulinales": {
                         "Chromulinaceae": {
                             "Chromulina": {},
@@ -456,12 +487,12 @@
                         "Closteriaceae": {
                             "Closterium": {
                                 "Acutum": {},
-                                "Acutum var variabile": {}
+                                "Acutum_var_variabile": {}
                             }
                         },
                         "Desmidiaceae": {
                             "Cosmarium": {
-                                "Depressum var planctonicum": {}
+                                "Depressum_var_planctonicum": {}
                             },
                             "Micrasterias": {},
                             "Staurastrum": {
@@ -509,6 +540,8 @@
                     }
                 },
                 "Chlorophyceae": {
+                    "A": {},
+                    "B": {},
                     "Chlamydomonadales": {
                         "Chlamydomonadaceae": {
                             "Carteria": {},
@@ -628,8 +661,8 @@
                             "Tetrachlorella": {}
                         }
                     },
-                    "Incertae sedis": {
-                        "Incertae sedis": {
+                    "Incertae_sedis": {
+                        "Incertae_sedis": {
                             "Crucigenia": {
                                 "Tetrapedia": {}
                             }
@@ -637,6 +670,7 @@
                     },
                     "Prasiolales": {
                         "Prasiolaceae": {
+                            "Hormidium": {},
                             "Prasiola": {
                                 "Fluviatilis": {}
                             }
@@ -689,6 +723,8 @@
             },
             "Dinophyta": {
                 "Dinophyceae": {
+                    "A": {},
+                    "B": {},
                     "Gonyaulacales": {
                         "Ceratiaceae": {
                             "Ceratium": {
@@ -726,6 +762,7 @@
                 "Euglenophyceae": {
                     "Euglenales": {
                         "Euglenaceae": {
+                            "Colacium": {},
                             "Euglena": {},
                             "Trachelomonas": {}
                         }
@@ -748,6 +785,8 @@
         "Bacteria": {
             "Cyanobacteria": {
                 "Cyanophyceae": {
+                    "A": {},
+                    "B": {},
                     "Chroococcales": {
                         "Aphanothecaceae": {
                             "Aphanothece": {},
