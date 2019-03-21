@@ -2,8 +2,10 @@
 
 #include <QLoggingCategory>
 
+#include "TaxonifyLibGlobal.h"
+
 Q_DECLARE_LOGGING_CATEGORY(logger)
 
 constexpr auto loggerName = "logger";
 
-void initLogging();
+TAXONIFY_LIB_EXPORT void initLogging();
