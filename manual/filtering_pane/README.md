@@ -140,5 +140,3 @@ Component that represents single additional attribute is composed of its name an
 
 #### Filtering behaviour
 Items matching given additional attribute criterium have their additional attribute value among checked ones.
-
-## Common filtering use cases
