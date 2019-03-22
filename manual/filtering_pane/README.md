@@ -6,7 +6,12 @@ This is the filtering pane. It's used to choose certain data filtering criteria 
   <img src="static/filtering_pane_plain.png" border=1>
 </p>
 
-Clicking `Apply filters` button sends filtering request to the server and makes [Image View](../image_view/README.md) reload with matching results.
+Clicking `Apply filters` button sends filtering request to the server and makes [Image View](../image_view/README.md) reload with matching results. After the button is pressed criteria that were sent to server are bolded (to esily differentiate sent criteria from those chosen afterwards and not applied):
+
+<p align="center">
+  <img src="static/filtering_pane_bolding.gif" border=1>
+</p>
+
 
 ## Filtering criteria overview
 
@@ -121,9 +126,19 @@ For better user experience this component allows user to choose desired value fr
 
 #### Filtering behaviour
 Only levels enabled by the checkbox that accompanies them are taking part in filtering logic. Items must be matched by exact value of every checked (enabled) level.
-Value `Not specified` means that given value is not yet annotated in the system and is also valid and querable value.
+Value `Not specified` means that given field is not yet annotated in the system and is also valid and querable value.
 
 ### Additional attributes
 
+Items can be filtered by its additional attributes. Every attribute can have one of values: _True, False_ or _Not Specified_. Full list of additional attributes can be found [here](../additional_attributes/README.md).
+
+Component that represents single additional attribute is composed of its name and 3 checkboxes (one for every possible value). Multiple checkboxes can be checked at once.
+
+<p align="center">
+  <img src="static/filtering_pane_additional_attributes.png" border=1>
+</p>
+
+#### Filtering behaviour
+Items matching given additional attribute criterium have their additional attribute value among checked ones.
 
 ## Common filtering use cases
