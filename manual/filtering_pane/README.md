@@ -105,6 +105,24 @@ When `Modification Time` criterium is combined with annotable fields it matches 
 
 ### Taxonomy
 
+Taxonomy component allows to query the data by its taxonomic annotation. It's composed of 8 combo boxes that correspond (top to bottom) to taxonomic hierarchy: _empire, kingdom, phylum, class, order, family, genus, species_.
+
+<p align="center">
+  <img src="static/filtering_pane_taxonomy_plain.png" border=1>
+</p>
+
+#### Taxonomy bypass
+
+For better user experience this component allows user to choose desired value from any level in the chain without the need to specyfing every step on the way. That action is called Taxonomy bypass and can be peformed at any state of the Taxonomy component. Ranges of possibilities for given levels are adjusted dynamically.
+
+<p align="center">
+  <img src="static/filtering_pane_taxonomy_bypass.gif" border=1>
+</p>
+
+#### Filtering behaviour
+Only levels enabled by the checkbox that accompanies them are taking part in filtering logic. Items must be matched by exact value of every checked (enabled) level.
+Value `Not specified` means that given value is not yet annotated in the system and is also valid and querable value.
+
 ### Additional attributes
 
 
