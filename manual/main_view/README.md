@@ -10,7 +10,7 @@ There are 7 important components in that view:
 
 1. [Filtering pane](../filtering_pane/README.md)
 2. Image details pane
-3. Annotation pane
+3. [Annotation pane](../annotation_pane/README.md)
 4. Data export dialog
 5. Data upload dialog
 6. Settings dialog
