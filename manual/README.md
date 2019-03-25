@@ -12,5 +12,4 @@ This document is a description of Taxonify client application functionalities.
 6. [Data upload dialog](data_upload_dialog/README.md)
 7. [Settings dialog](settings_dialog/README.md)
 8. [Image details pane](image_details_pane/README.md)
-9. [Users](users/README.md)
-10. [List of additional attributes](additional_attributes/README.md)
+9. [List of additional attributes](additional_attributes/README.md)
