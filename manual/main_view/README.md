@@ -13,5 +13,5 @@ There are 7 important components in that view:
 3. [Annotation pane](../annotation_pane/README.md)
 4. [Data export dialog](../data_export_dialog/README.md)
 5. [Data upload dialog](../data_upload_dialog/README.md)
-6. Settings dialog
+6. [Settings dialog](../settings_dialog/README.md)
 7. [Image view](../image_view/README.md)
