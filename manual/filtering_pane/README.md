@@ -55,6 +55,8 @@ When user clicks on the combo list he or she can choose user from the users list
 
 When `Modified by` checkbox is not enabled, data is not filtered by that criterium. When the checkbox is enabled filtering by the last user that modified the data behaves differently when it's combined with annotable fields and differently when it's not.
 
+Additionally for the case of querying data by the specific user and specific modification time it's adviced to combine this criterium with `Modification time`.
+
 ##### Filtering without annotable fields combined
 When `Modified by` criterium is not combined with any annotable fields it matches the items where provided user is the last one to modify __any__ annotable field. Please note that such query is more expensive for the system and it might take a bit longer to be handled.
 
@@ -99,6 +101,8 @@ This component alows to query the items by their modification time. Its visual b
 #### Filtering behaviour
 
 When `Modification Time` checkbox is enabled it takes part in filtering logic and behaves differently when it's combined with annotable fields and differently when it's not.
+
+Additionally for the case of querying data by the specific user and specific modification time it's adviced to combine this criterium with `Modified by`.
 
 ##### Filtering without annotable fields combined
 
