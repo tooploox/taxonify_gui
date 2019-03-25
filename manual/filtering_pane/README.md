@@ -56,7 +56,7 @@ When user clicks on the combo list he or she can choose user from the users list
 When `Modified by` checkbox is not enabled, data is not filtered by that criterium. When the checkbox is enabled filtering by the last user that modified the data behaves differently when it's combined with annotable fields and differently when it's not.
 
 ##### Filtering without annotable fields combined
-When `Modified by` criterium is not combined with any annotable fields it matches the items where provided user is the last one to modify __any__ annotable field.
+When `Modified by` criterium is not combined with any annotable fields it matches the items where provided user is the last one to modify __any__ annotable field. Please note that such query is more expensive for the system and it might take a bit longer to be handled.
 
 ##### Filtering with annotable fields combined
 When `Modified by` criterium is combined with some annotable fields it matches the items where provided user is the last one to modify __all__ combined annotable fields.
@@ -102,7 +102,7 @@ When `Modification Time` checkbox is enabled it takes part in filtering logic an
 
 ##### Filtering without annotable fields combined
 
-When `Modification Time` criterium is not combined with annotable fields it matches the items where provided timerange matches modification time of __any__ item's annotable field.
+When `Modification Time` criterium is not combined with annotable fields it matches the items where provided timerange matches modification time of __any__ item's annotable field. Please note that such query is more expensive for the system and it might take a bit longer to be handled.
 
 ##### Filtering with annotable fields combined
 
