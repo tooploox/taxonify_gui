@@ -126,7 +126,8 @@ For better user experience this component allows user to choose desired value fr
 
 #### Filtering behaviour
 Only levels enabled by the checkbox that accompanies them are taking part in filtering logic. Items must be matched by exact value of every checked (enabled) level.
-Value `Not specified` means that given field is not yet annotated in the system and is also valid and querable value.
+
+All levels with specific values are automatically enabled. Levels with `Not specified` value are disabled by default but can be enabled manually. Enabling `Not specified` equals requesting only the items for which taxonomy on that level is not yet annotated in the system or that were explicitly set to `Not specified`.
 
 ### Additional attributes
 
