@@ -14,4 +14,4 @@ There are 7 important components in that view:
 4. Data export dialog
 5. Data upload dialog
 6. Settings dialog
-7. Image view
+7. [Image view](../image_view/README.md)
