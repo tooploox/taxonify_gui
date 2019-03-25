@@ -59,7 +59,7 @@ This is the most detailed upload view user can get. It duplicates many informati
 
 ## Upload tags
 
-User can assign tags to upload packages. Those tags are propagated to every image that came to the system from that upload package. User can filter images by those tags in [Filtering pane](../filtering_pane/README.md#Tags) or preview them in [Image details pane](../image_details_pane/README.md). There can be more that one tag for upload package.
+User can assign tags to upload packages. Those tags are propagated to every image that came to the system from that upload package. User can filter images by those tags in [Filtering pane](../filtering_pane/README.md#Tags) or preview them in [Image details pane](../image_details_pane/README.md). There can be more than one tag for upload package.
 
 ### Modifying tags
 
