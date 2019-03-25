@@ -39,7 +39,7 @@ See [Tags](../tags/README.md) to learn more about tags.
 
 ### Modified by
 
-This field alows to query the items by the last user that modified them.
+This field alows to query the items by the last user that annotated them.
 
 <p align="center">
   <img src="static/filtering_pane_modified_by.png" border=1>
@@ -56,10 +56,10 @@ When user clicks on the combo list he or she can choose user from the users list
 When `Modified by` checkbox is not enabled, data is not filtered by that criterium. When the checkbox is enabled filtering by the last user that modified the data behaves differently when it's combined with annotable fields and differently when it's not.
 
 ##### Filtering without annotable fields combined
-When `Modified by` criterium is not combined with annotable fields it matches the items where provided user is the last one to modify __any__ annotable field.
+When `Modified by` criterium is not combined with any annotable fields it matches the items where provided user is the last one to modify __any__ annotable field.
 
 ##### Filtering with annotable fields combined
-When `Modified by` criterium is combined with annotable fields it matches the items where provided user is the last one to modify __all__ combined annotable fields.
+When `Modified by` criterium is combined with some annotable fields it matches the items where provided user is the last one to modify __all__ combined annotable fields.
 
 User value set to `None` matches fields that were not yet modified (all new data added to the system aren't modified at start).
 
@@ -130,7 +130,7 @@ Value `Not specified` means that given field is not yet annotated in the system 
 
 ### Additional attributes
 
-Items can be filtered by its additional attributes. Every attribute can have one of values: _True, False_ or _Not Specified_. Full list of additional attributes can be found [here](../additional_attributes/README.md).
+Items can be filtered by its additional attributes. Every attribute can have one of three values: _True, False_ or _Not Specified_. Full list of additional attributes can be found [here](../additional_attributes/README.md).
 
 Component that represents single additional attribute is composed of its name and 3 checkboxes (one for every possible value). Multiple checkboxes can be checked at once.
 
@@ -139,4 +139,4 @@ Component that represents single additional attribute is composed of its name an
 </p>
 
 #### Filtering behaviour
-Items matching given additional attribute criterium have their additional attribute value among checked ones.
+Narrows down the search to items having one of selected values for given attribute.

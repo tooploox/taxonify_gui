@@ -1,6 +1,6 @@
 # Main view
 
-This is the main view of Taxonify application. Most of user interaction happens here when he or she can filter, browse and annotate the data.
+This is the main view of Taxonify application. Here users can filter, browse and annotate data and access all other functionalities.
 
 <p align="center">
   <img src="static/main_view.png" width=90% height=90% border=1>
