@@ -23,3 +23,5 @@ Annotation pane is a component where user chooses his or hers current annotation
 </p>
 
 Those states cannot be combined, which also effectively means that user is unable to annotate data with a combination of taxonomic values and additional attributes values. It always has to be either of those and for additional attributes it's one attribute at the time.
+
+When user clicks `Apply to selected images` button then all the images selected in the [Image View](../image_view/README.md) with current annotation preference will be annotated appropriately. That action also reloads Image View component.
