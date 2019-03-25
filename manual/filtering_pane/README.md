@@ -53,15 +53,15 @@ When user clicks on the combo list he or she can choose user from the users list
 
 #### Filtering behaviour
 
-When `Modified by` checkbox is not enabled, data is not filtered by that criterium. When the checkbox is enabled filtering by the last user that modified the data behaves differently when it's combined with annotable fields and differently when it's not.
+When `Modified by` checkbox is not enabled, data is not filtered by that criterion. When the checkbox is enabled filtering by the last user that modified the data behaves differently when it's combined with annotable fields and differently when it's not.
 
-Additionally for the case of querying data by the specific user and specific modification time it's adviced to combine this criterium with `Modification time`.
+Additionally for the case of querying data by the specific user and specific modification time it's adviced to combine this criterion with `Modification time`.
 
 ##### Filtering without annotable fields combined
-When `Modified by` criterium is not combined with any annotable fields it matches the items where provided user is the last one to modify __any__ annotable field. Please note that such query is more expensive for the system and it might take a bit longer to be handled.
+When `Modified by` criterion is not combined with any annotable fields it matches the items where provided user is the last one to modify __any__ annotable field. Please note that such query is more expensive for the system and it might take a bit longer to be handled.
 
 ##### Filtering with annotable fields combined
-When `Modified by` criterium is combined with some annotable fields it matches the items where provided user is the last one to modify __all__ combined annotable fields.
+When `Modified by` criterion is combined with some annotable fields it matches the items where provided user is the last one to modify __all__ combined annotable fields.
 
 User value set to `None` matches fields that were not yet modified (all new data added to the system aren't modified at start).
 
@@ -102,15 +102,15 @@ This component alows to query the items by their modification time. Its visual b
 
 When `Modification Time` checkbox is enabled it takes part in filtering logic and behaves differently when it's combined with annotable fields and differently when it's not.
 
-Additionally for the case of querying data by the specific user and specific modification time it's adviced to combine this criterium with `Modified by`.
+Additionally for the case of querying data by the specific user and specific modification time it's adviced to combine this criterion with `Modified by`.
 
 ##### Filtering without annotable fields combined
 
-When `Modification Time` criterium is not combined with annotable fields it matches the items where provided timerange matches modification time of __any__ item's annotable field. Please note that such query is more expensive for the system and it might take a bit longer to be handled.
+When `Modification Time` criterion is not combined with annotable fields it matches the items where provided timerange matches modification time of __any__ item's annotable field. Please note that such query is more expensive for the system and it might take a bit longer to be handled.
 
 ##### Filtering with annotable fields combined
 
-When `Modification Time` criterium is combined with annotable fields it matches the items where provided timerange matches modification times of __all__ combined annotable fields.
+When `Modification Time` criterion is combined with annotable fields it matches the items where provided timerange matches modification times of __all__ combined annotable fields.
 
 ### Taxonomy
 

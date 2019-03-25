@@ -1,10 +1,10 @@
 # Annotation pane
 
-Annotation pane is a component where user chooses his or hers current annotation preferences. It's composed of Criterium selection view (1) and Criterium details view (2).
+Annotation pane is a component where user chooses their current annotation preferences. It's composed of Criterion selection view (1) and Criterion details view (2).
 
  The Annotation pane can be in one of 3 possible states:
 
-- initial state - no active annotation preferences. There is no criterium chosen in the Criterium selection view (1) and Criterium details view (2) is folded. Choosing `Taxonomy`from (1) changes state to `taxonomic annotation` and choosing any other field changes state to `additional attributes annotation`.
+- initial state - no active annotation preferences. There is no criterion chosen in the Criterion selection view (1) and Criterion details view (2) is folded. Choosing `Taxonomy`from (1) changes state to `taxonomic annotation` and choosing any other field changes state to `additional attributes annotation`.
 
 <p align="center">
   <img src="static/annotation_pane_initial.png" border=1>
@@ -16,7 +16,7 @@ Annotation pane is a component where user chooses his or hers current annotation
   <img src="static/annotation_pane_taxonomy.png" border=1>
 </p>
 
-- additional attributes annotation - Annotation pane is in that state when any criterium is selected in (1) but `Taxonomy`. Possible annotation criterium values are `True`, `False` and `Not specified` and are mutally exclusive.
+- additional attributes annotation - Annotation pane is in that state when any criterion is selected in (1) but `Taxonomy`. Possible annotation criterion values are `True`, `False` and `Not specified` and are mutally exclusive.
 
 <p align="center">
   <img src="static/annotation_pane_additional_attribute.png" border=1>
