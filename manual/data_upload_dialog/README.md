@@ -29,7 +29,7 @@ Taxonify supports upload packages with the following extensions: `.tar.bz2`, `.t
   <img src="static/data_upload_dialog_2.png" border=1>
 </p>
 
-This view presents a list of all uploads along with brief information about each of them. Every upload entry contains:
+User can open this view by pressing `Upload list` button in the inital state of Upload dialog. Upload list view presents a list of all uploads along with brief information about each of them. Every upload entry contains:
 1. Uploaded package name.
 2. Date of upload.
 3. Number of duplicate images in given package. Duplicated images are not exactly images duplicated in the scope of this particular upload packages. Images are considered duplicates if they already exist in the system. Two images are considered the same if they have the same filename.
@@ -52,10 +52,12 @@ This is the most detailed upload view user can get. It presents much more detail
 <p align="center">
   <img src="static/data_upload_dialog_full.png" border=1>
 </p>
+Picture above shows Upload details view with all duplicate filenames and broken records details expanded.
 
 <p align="center">
   <img src="static/data_upload_dialog_tags_only.png" border=1>
 </p>
+Picture above shows Upload details view with all duplicate filenames and broken records details hidden since there are no duplicate filenames and no broken records.
 
 ## Upload tags
 
