@@ -9,7 +9,7 @@ This is the main view of Taxonify application. Here users can filter, browse and
 There are 7 important components in that view:
 
 1. [Filtering pane](../filtering_pane/README.md)
-2. Image details pane
+2. [Image details pane](../image_details_pane/README.md)
 3. [Annotation pane](../annotation_pane/README.md)
 4. [Data export dialog](../data_export_dialog/README.md)
 5. Data upload dialog
