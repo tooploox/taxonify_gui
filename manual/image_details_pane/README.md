@@ -13,9 +13,9 @@ The pane itself is composed of 3 components:
 </p>
 
 ### Right-clicked image details
-Properties of image that was right-clicked on the [Image view](../image_view/README.md#right-click) are displayed here. This view can be scrolled vertially and horizontally if the details info is to big to be displayed at once.
+Properties of image that was right-clicked on the [Image view](../image_view/README.md#right-click) are displayed here. This view can be scrolled vertically and horizontally if the details info is to big to be displayed at once.
 
-When image is right-clicked (pinned to this view) user can also preview its thumbnail by hovering the mouse cursor over the thumbnail icon in the top right corner of the view. Gif below presents this situation:
+When image is right-clicked (pinned to this view) user can also preview its thumbnail by hovering the mouse cursor over the thumbnail icon in the top right corner of the view.```
 
 <p align="center">
   <img src="static/image_details_thumbnail.gif" border=1>
@@ -25,7 +25,7 @@ When image is right-clicked (pinned to this view) user can also preview its thum
 Properties of image that was mouse hovered on the [Image view](../image_view/README.md#mouse-hover) are displayed here. This view adapts the scroll positions of [Right-clicked image details](#right-clicked-image-details).
 
 ### `Choose properties` button and properties dialog
-Clicking `Choose properties` button opens a dialog where user can define what properties should be presented.
+Clicking `Choose properties` button opens a dialog where user can define which properties should be presented.
 
 <p align="center">
   <img src="static/image_details_pane_properties_dialog.png" border=1>
