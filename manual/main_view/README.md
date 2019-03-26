@@ -28,6 +28,8 @@ There are two typical annotation flows:
 #### Annotation with leaving images in the view
 In this variant of annotation flow user sets up data filters in a way that annotation of those images won't exclude them from the filter. Annotated images will stay in the Image view as greyed-out ones.
 
+Animated example below shows how this flow can be used for annotation of `Dividing` additional property. Filtering criterion in this case is `Dividing` with all possible values selected. In other words that's searching the data for entries that have any value of `Dividing` (including no value at all). That is basically the same as no filtering at all in that case.
+
 <p align="center">
   <img src="static/main_view_annotation_greyed_out.gif" border=1>
 </p>
@@ -37,6 +39,8 @@ This variant is useful when the ratio of non-annotated images to annotated image
 
  #### Annotation with elimination of images
  In this variant of annotation flow user sets up data filters in a way that annotation of those images will exclude them from the filter. Annotated images will disappear from the Image view.
+
+Animated example below shows how this flow can be used for annotation of `Dividing` additional property. Filtering criterion in this case is `Dividing` with only `Not specified` value selected. In other words that's searching the data for only those entries where the value of `Dividing` is not set.
 
 <p align="center">
   <img src="static/main_view_annotation_eliminating.gif" border=1>
