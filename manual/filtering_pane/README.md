@@ -35,7 +35,7 @@ Once tag is added it's displayed with gold overlay. Clicking `x` on the overlay 
 When `Tags` checkbox is not enabled, tags don't take part in data querying.
 When user enables tags checkbox tags are part of filtering query. Empty tags field means searching for items that have no tags assigned to. Filled tags field (with one or more tags) means searching for items that have all provided tags on its tags list.
 
-See [Tags](../tags/README.md) to learn more about tags.
+See [Tags](../data_upload_dialog/README.md#Upload-tags) to learn more about tags.
 
 ### Modified by
 
