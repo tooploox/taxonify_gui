@@ -1,12 +1,9 @@
 # Settings dialog
 
-Settings dialog is a component responsible for general actions with regard to the application or system settings and behaviour. User can open Settings dialog by pressing `⋮` button from the [Main view](../main_view/README.md).
+Settings dialog is a component responsible for actions with regard to system users management. User can open Settings dialog by pressing `⋮` button from the [Main view](../main_view/README.md).
 
-This dialog is composed of settings tabs. Currently the only tab there is `Users` tab.
 
-## Users tab
-
-This tab is responsible for users management in the system. __Every__ user can add new users here. There's no possibility to remove existing users from the system.
+__Every__ user can add new users here. There's no possibility to remove existing users from the system.
 
 <p align="center">
   <img src="static/settings_dialog_users_tab.png" border=1>
