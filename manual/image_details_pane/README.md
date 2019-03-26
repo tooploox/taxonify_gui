@@ -31,7 +31,7 @@ Clicking `Choose properties` button opens a dialog where user can define which p
   <img src="static/image_details_pane_properties_dialog.png" border=1>
 </p>
 
-User can select/deselect properties that they want to see in details view by clicking appropriate checkboxes. 3 property groups (`Taxonomy`, `Morphometry` and `Additional attributes`) also have aggregate checkboxes for the whole group. Selecting/deselecting them performs the action for all the properties in the group. User can confirm their choice by clickin `Ok` button, that also closes the dialog.
+User can select/deselect properties that they want to see in details view by clicking appropriate checkboxes. 3 property groups (`Taxonomy`, `Morphometry` and `Additional attributes`) also have aggregate checkboxes for the whole group. Selecting/deselecting them performs the action for all the properties in the group. User can confirm their choice by clicking `Ok` button, that also closes the dialog. Chosen properties are not persistent and will be reset on application restart.
 
 ## Use case example
 
