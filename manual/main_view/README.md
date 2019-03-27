@@ -6,7 +6,7 @@ This is the main view of Taxonify application. Here users can filter, browse and
   <img src="static/main_view.png" border=1>
 </p>
 
-There are 7 important components in that view:
+There are 7 important components in this view:
 
 1. [Filtering pane](../filtering_pane/README.md)
 2. [Image details pane](../image_details_pane/README.md)
@@ -19,7 +19,7 @@ There are 7 important components in that view:
 ## Cross-component actions
 
 ### Data annotation
-Data annotation is a process that involves more than one component of the Main view. In order to annotate data user needs to apply filtering criteria (or no criteria at all), then choose annotation preferences, then select appropriate images and click `Apply to selected images` at the end to finalize annotation.
+Data annotation is a process that involves more than one component of the Main view. In order to annotate data user needs to apply filtering criteria (or no criteria at all), then choose annotation preferences, then select appropriate images and click on the `Apply to selected images` at the end to finalize annotation.
 
 There are two typical annotation flows:
  - annotation with leaving images in the view
@@ -38,7 +38,7 @@ This variant is useful when the ratio of non-annotated images to annotated image
 
 
  #### Annotation with elimination of images
- In this variant of annotation flow user sets up data filters in a way that annotation of those images will exclude them from the filter. Annotated images will disappear from the Image view.
+In this variant of annotation flow user sets up data filters in a way that annotation of those images will exclude them from the filter. Annotated images will disappear from the Image view.
 
 Animated example below shows how this flow can be used for annotation of `Dividing` additional property. Filtering criterion in this case is `Dividing` with only `Not specified` value selected. In other words that's searching the data for only those entries where the value of `Dividing` is not set.
 
