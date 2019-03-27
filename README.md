@@ -6,7 +6,7 @@ Qt 5.12 is highly recommended.
 
 Taxonify itself is distributed under the MIT license. A copy of this license is included as `LICENSE.txt`.
 
-The terms of the licenses of third-party libraries can be found in a file named `LICENSE-3RD-PARTY.txt`.
+The terms of the licenses of third-party libraries can be found in the `LICENSE-3RD-PARTY.txt` file.
 
 ### Notices for third-party party software components:
 
