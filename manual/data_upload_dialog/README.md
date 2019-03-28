@@ -29,7 +29,7 @@ Taxonify supports upload of packages with the following extensions: `.tar.bz2`, 
   <img src="static/data_upload_dialog_2.png" border=1>
 </p>
 
-User can open this view by to clicking on the `Upload list` button in the inital state of Upload dialog. Upload list view presents a list of all uploads along with a brief information about each item. Every upload entry contains:
+User can open this view by clicking on the `Upload list` button in the inital state of Upload dialog. Upload list view presents a list of all uploads along with a brief information about each item. Every upload entry contains:
 1. Uploaded package name.
 2. Date of upload.
 3. Number of duplicate images in given package. Duplicated images are not exactly images duplicated in the scope of this particular upload packages. Images are considered duplicates if they already exist in the system. Two images are considered the same if they have the same filename.
@@ -37,7 +37,7 @@ User can open this view by to clicking on the `Upload list` button in the inital
 5. Upload state. It can be one of:
  - `initialized` - initial state for uploading process. Upload package is in that state until the upload is completed (transition into `uploaded`) or fails (transition into `failed`).
  - `uploaded` - upload package is in that state when uploading is successfully completed. It will transition from that state to `processing` when there are free processing units to handle it.
- - `processing` - in this state the upload of the package is being processed - during this stage images from the package are being added to the system. If the process is successful, upload state transitions into `finished`. If the process fails at any stage, the state transitions to `failed`.
+ - `processing` - in this state the uploaded package is being processed - during this stage images from the package are being added to the system. If the process is successful, upload state transitions into `finished`. If the process fails at any stage, the state transitions to `failed`.
  - `finished` - one of two possible final states for package upload. Package in that stage was added to the system successfully.
  - `failed` - one of two possible final states for package upload. Package in that state is not compliant with supported formats or is broken.
 6. Details button. Clicking on that button transfers the user to upload details view.

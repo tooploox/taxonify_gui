@@ -23,7 +23,7 @@ Tags widget allows to specify tags that items should have assigned in order to m
   <img src="static/filtering_pane_tags.png" border=1>
 </p>
 
-To add a tag user must to input text in `Input tag` field and press enter. There can be multiple tags added to the list.
+To add a tag user has to input text in `Input tag` field and press enter. There can be multiple tags added to the list.
 
 <p align="center">
   <img src="static/filtering_pane_tags_added.png" border=1>
@@ -106,7 +106,7 @@ Additionally in case of querying data by the specific user and specific modifica
 
 ##### Filtering without annotable fields combined
 
-When `Modification Time` criterion is not combined with annotable fields it matches the items where provided timerange matches modification time of item's __any__  annotable field. Please note that such query is more expensive for the system and it might take a bit longer to be handled.
+When `Modification Time` criterion is not combined with annotable fields it matches the items where provided time range matches modification time of __any__ item's annotable field. Please note that such query is more expensive for the system and it might take a bit longer to be handled.
 
 ##### Filtering with annotable fields combined
 
@@ -122,7 +122,7 @@ Taxonomy component allows to query the data by its taxonomic annotation. It cons
 
 #### Taxonomy bypass
 
-For better user experience this component allows user to choose desired value from any level within the chain with no need to specyfing every step on the way. That action is called Taxonomy bypass and can be peformed at any state of the Taxonomy component. Range of possibilities for given levels is adjusted dynamically.
+For better user experience this component allows user to choose desired value from any level within the chain with no need to specify every step on the way. That action is called Taxonomy bypass and can be performed at any state of the Taxonomy component. Range of possibilities for given levels is adjusted dynamically.
 
 <p align="center">
   <img src="static/filtering_pane_taxonomy_bypass.gif" border=1>
