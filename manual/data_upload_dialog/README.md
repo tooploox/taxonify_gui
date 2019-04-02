@@ -19,9 +19,8 @@ This is the initial view of Data upload dialog. Here it is possible to upload ne
 
 ### Allowed upload format
 Taxonify supports upload of packages with the following extensions: `.tar.bz2`, `.tar.gz` and `.tar`. There are 2 supported formats of the package's content:
- - native SPC format - contains `features.tsv` file that has `url` field. For every record of that file, the value of `url` field must point to an existing image from within that package. The rest of the content in that package is ignored.
- - original format - contains `features.tsv` file that has `url` field.
- For every record of that file, the basename of the value of `url` field must point to an existing image from withing that package. The rest of the content in that package is ignored.
+ - native SPC format - directory that contains `features.tsv` file that has `url` field. For every record of that file, the value of `url` field must point to an existing image from within that directory (flat or nested). The rest of the content in that package is ignored.
+ - original format - directory that contains `features.tsv` file that has `url` field. For every record of that file, the basename of the value of `url` field must point to an existing image from within that directory (flat). The rest of the content in that package is ignored.
 
 ## Upload list
 
