@@ -2,6 +2,9 @@
 
 Qt 5.12 is highly recommended.
 
+## User manual
+User manual can be found [here](manual/README.md).
+
 ## License
 
 Taxonify itself is distributed under the MIT license. A copy of this license is included as `LICENSE.txt`.
